@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <router-view/>
     <footer_index></footer_index>
   </div>
 

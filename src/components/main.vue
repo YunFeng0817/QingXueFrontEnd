@@ -1,12 +1,17 @@
 <template>
   <div>
-    i am main
+    <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'main'
+    name: 'main',
+    data() {
+      return {
+        msg: '我是main'
+      }
+    }
   }
 </script>
 
