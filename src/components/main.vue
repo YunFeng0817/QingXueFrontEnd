@@ -1,18 +1,11 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
+    <h1>set</h1>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'main',
-    data() {
-      return {
-        msg: '我是main'
-      }
-    }
-  }
+  export default {}
 </script>
 
 <style scoped>

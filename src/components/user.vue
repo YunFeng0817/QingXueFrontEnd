@@ -1,18 +1,11 @@
 <template>
   <div>
-    {{msg}}
+    <h1>afas</h1>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'user',
-    data() {
-      return {
-        msg: '我是src/components里的user.vue，我通过app.vue里的router-view展示'
-      }
-    }
-  }
+  export default {}
 </script>
 
 <style scoped>
