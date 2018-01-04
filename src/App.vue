@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <footer_index></footer_index>
+    <footerIndex></footerIndex>
     <router-view></router-view>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
-  import footer_index from './components/footer_index'
+  import footerIndex from './components/footerIndex'
 
   export default {
     name: 'app',
     components: {
-      footer_index
+      footerIndex
     }
   }
 </script>
