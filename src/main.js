@@ -8,8 +8,10 @@ import user from './components/user'
 import dynamic from './components/dynamic'
 
 Vue.config.productionTip = false
+Vue.use(Router);
 
 let router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
