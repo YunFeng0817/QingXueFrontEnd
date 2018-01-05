@@ -2,35 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import Router from 'vue-router'
-import Main from './components/main'
-import user from './components/user'
-import dynamic from './components/dynamic'
+import router from './router'
 
 Vue.config.productionTip = false
-Vue.use(Router);
-
-let router = new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      component: App
-    },
-    {
-      path: '/dynamic',
-      component: dynamic
-    },
-    {
-      path: '/main',
-      component: Main
-    },
-    {
-      path: '/user',
-      component: user
-    }
-  ]
-})
 
 /* eslint-disable no-new */
 new Vue({
