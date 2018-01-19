@@ -8,9 +8,6 @@
 
 <script>
   export default {}
-
-  // let routerActive = document.getElementsByClassName('router-link-active')[0];
-  // routerActive.col;
 </script>
 
 <style scoped rel="stylesheet/css">
@@ -20,8 +17,11 @@
     height: 40px;
     line-height: 40px;
 
+    position:fixed;
+    bottom:0;
+
     background-color: #0e90d2;
-    opacity: 0.8;
+    opacity: 0.7;
   }
 
   a.router-link-active {
