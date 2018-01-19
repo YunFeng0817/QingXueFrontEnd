@@ -8,6 +8,9 @@
 
 <script>
   export default {}
+
+  // let routerActive = document.getElementsByClassName('router-link-active')[0];
+  // routerActive.col;
 </script>
 
 <style scoped rel="stylesheet/css">
@@ -19,8 +22,11 @@
 
     background-color: #0e90d2;
     opacity: 0.8;
-    font-size: 16px;
-    color: white;
+  }
+
+  a.router-link-active {
+    color: lightgray;
+    font-size: 20px;
   }
 
   .footer-index a {
@@ -34,8 +40,14 @@
     text-decoration: none;
   }
 
-  .router-link-active{
-    color: lightgray;
-    font-size:20px;
+  .footer-index a{
+    color:white;
   }
+
+  .footer-index a.router-link-active {
+    color: lightgray;
+  }
+
+
+
 </style>
