@@ -1,0 +1,19 @@
+<template>
+  <li style="text-align:center;">
+    <a class="am-icon-btn" :class="category_tag.class"></a>
+    <span style="display: block;">
+      {{category_tag.message}}
+    </span>
+  </li>
+</template>
+
+<script>
+  export default {
+    name: 'icon',
+    props: ['category_tag']
+  }
+</script>
+
+<style scoped>
+
+</style>
