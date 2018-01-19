@@ -1,8 +1,20 @@
 <template>
   <div class="footer-index">
-    <router-link to='/dynamic'>动态</router-link>
-    <router-link to='/main'>主页</router-link>
-    <router-link to='/user'>用户</router-link>
+    <router-link to='/dynamic'>
+      <span class="am-icon-star icon"></span>
+      <br/>
+      <span class="am-navbar-label">动态</span>
+    </router-link>
+    <router-link to='/main'>
+      <span class="am-icon-home icon"></span>
+      <br/>
+      <span class="am-navbar-label">主页</span>
+    </router-link>
+    <router-link to='/user'>
+      <span class="am-icon-user icon"></span>
+      <br/>
+      <span class="am-navbar-label">用户</span>
+    </router-link>
   </div>
 </template>
 
@@ -12,21 +24,16 @@
 
 <style scoped rel="stylesheet/css">
   .footer-index {
-    display: flex;
+    display: flex;  /* set flex style */
     width: 100%;
-    height: 40px;
+    height: 6%;
     line-height: 40px;
 
-    position:fixed;
-    bottom:0;
+    position: fixed;
+    bottom: 0;
 
     background-color: #0e90d2;
     opacity: 0.7;
-  }
-
-  a.router-link-active {
-    color: lightgray;
-    font-size: 20px;
   }
 
   .footer-index a {
@@ -40,14 +47,21 @@
     text-decoration: none;
   }
 
-  .footer-index a{
-    color:white;
-  }
-
-  .footer-index a.router-link-active {
+  .footer-index a {
     color: lightgray;
   }
 
+  .footer-index a.router-link-active {
+    color: white;
+  }
 
+  .footer-index a span.icon {
+    font-size: 25px;
+  }
+
+  .footer-index a span.am-navbar-label {
+    position:relative;
+    bottom: 50%;
+  }
 
 </style>
