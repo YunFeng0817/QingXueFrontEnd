@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "amazeui-vue": "3.10.10"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -59,7 +60,7 @@
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
-    "amaze-vue": "1.1.10"
+    "amazeui-vue": "3.10.10"
   },
   "engines": {
     "node": ">= 4.0.0",
