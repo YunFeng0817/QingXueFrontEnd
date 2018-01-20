@@ -7,7 +7,7 @@
       <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-3.jpg"/></am-slider-item>
       <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-4.jpg"/></am-slider-item>
     </am-slider>
-    <ul class="am-sm-4">
+    <ul>
       <icon v-for='item in items' v-bind:category_tag="item"></icon>
     </ul>
   </div>
@@ -15,7 +15,6 @@
 
 <script>
   import icon from './icon'
-  // import Vue from 'vue'
 
   export default {
     name: 'Main',
@@ -37,15 +36,18 @@
       }
     }
   }
-  // /* eslint-disable no-new */
-  // new Vue({
-  //   el: '.am-icon-btn',
-  //
-  // });
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
   #slider {
     max-height: 200px;
+  }
+  ul{
+    display: flex;
+    flex-wrap:wrap;
+    align-content: center;
+
+    padding: 0;
+    margin: 0;
   }
 </style>

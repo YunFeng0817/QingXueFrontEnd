@@ -14,6 +14,9 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped type="text/css">
+  li{
+    width: 25%;
+    list-style: none;
+  }
 </style>
