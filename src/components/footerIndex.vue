@@ -49,12 +49,12 @@
 
   .footer-index a {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
     align-content: center;
     color: lightgray;
 
-    line-height:20%;
+    line-height: 20%;
   }
 
   .footer-index a.router-link-active {
@@ -64,6 +64,7 @@
   .footer-index a span.icon {
     font-size: 25px;
   }
+
   .footer-index a span.icon::before {
     font-size: 25px;
   }

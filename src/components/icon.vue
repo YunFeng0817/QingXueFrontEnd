@@ -15,7 +15,7 @@
 </script>
 
 <style scoped type="text/css">
-  li{
+  li {
     width: 25%;
     list-style: none;
   }

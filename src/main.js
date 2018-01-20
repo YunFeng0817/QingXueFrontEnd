@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 import AmazeVue from 'amaze-vue';
 import 'amaze-vue/dist/amaze-vue.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(AmazeVue);
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 
