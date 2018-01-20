@@ -4,7 +4,7 @@
     <div class="am-list-news-hd am-cf">
       <!--带更多链接-->
       <a href="###" class="">
-        <h2>课程推荐</h2>
+        <h2 style="margin: 0;">{{typeName}}</h2>
       </a>
     </div>
 
@@ -29,6 +29,11 @@
     name: 'list-news',
     components: {
       news: news
+    },
+    props:{
+      typeName:{
+        type:String,
+      }
     },
     data() {
       return {

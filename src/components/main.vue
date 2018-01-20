@@ -10,7 +10,7 @@
     <ul>
       <icon v-for='item in items' v-bind:category_tag="item"></icon>
     </ul>
-    <list_news></list_news>
+    <list_news :typeName="typeName"></list_news>
   </div>
 </template>
 
@@ -26,6 +26,7 @@
     },
     data () {
       return {
+        typeName:'课程推荐',
         items: [
           {message: '小学', iconType: 'am-primary am-icon-child'},
           {message: '初中', iconType: 'am-warning am-icon-male'},
