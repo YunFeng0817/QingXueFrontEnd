@@ -3,8 +3,8 @@
     <div id="user-header">
       <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                 :src="avatar"/>
-      <p><span>{{userName}}</span>欢迎光临<a>退出登录</a></p>
-      <p><span>{{getGender}}</span> 年级：{{stage}} </p>
+      <p><span class="user-message">{{userName}}</span>欢迎光临<a>退出登录</a></p>
+      <p><span style="padding: 10px;">性别：</span><span class="am-btn am-icon-venus icon" style="font-size: large"></span> 年级：<span class="user-message">{{stage}}</span> </p>
     </div>
   </div>
 </template>
@@ -54,4 +54,20 @@
     width: 120px;
     height: 120px;
   }
+
+  span.user-message{
+    font-size: medium;
+    padding: 10px;
+    font-weight: bold;
+    color: black;
+  }
+  a{
+    font-size: larger;
+    padding: 20px;
+    color: #0e90d2;
+  }
+  a:active{
+    color: #49b5ed;
+  }
+
 </style>
