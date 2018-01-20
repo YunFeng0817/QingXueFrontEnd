@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <!--playDelay 是自动播放的延迟时间-->
-    <am-slider id="slider">
+    <am-slider id="slider" :playDelay="3000">
       <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg"/></am-slider-item>
       <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg"/></am-slider-item>
       <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-3.jpg"/></am-slider-item>
