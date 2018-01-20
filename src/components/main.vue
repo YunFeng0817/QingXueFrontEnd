@@ -8,7 +8,7 @@
       <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-4.jpg"/></am-slider-item>
     </am-slider>
     <ul>
-      <icon v-for='item in items' v-bind:category_tag="item"></icon>
+      <icon v-for='item in items' v-bind:category_tag="item" :key="item.id"></icon>
     </ul>
     <list_news :typeName="typeName"></list_news>
   </div>
@@ -22,11 +22,11 @@
     name: 'Main',
     components: {
       icon: icon,
-      list_news:listNews
+      list_news: listNews
     },
     data () {
       return {
-        typeName:'课程推荐',
+        typeName: '课程推荐',
         items: [
           {message: '小学', iconType: 'am-primary am-icon-child'},
           {message: '初中', iconType: 'am-warning am-icon-male'},
@@ -46,9 +46,10 @@
   #slider {
     max-height: 200px;
   }
-  ul{
+
+  ul {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     align-content: center;
 
     padding: 0;

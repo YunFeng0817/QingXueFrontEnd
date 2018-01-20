@@ -24,7 +24,7 @@
 
 <style scoped rel="stylesheet/css">
   .footer-index {
-    display: flex;  /* set flex style */
+    display: flex; /* set flex style */
     width: 100%;
     height: 6%;
     line-height: 40px;
@@ -60,7 +60,7 @@
   }
 
   .footer-index a span.am-navbar-label {
-    position:relative;
+    position: relative;
     bottom: 50%;
   }
 

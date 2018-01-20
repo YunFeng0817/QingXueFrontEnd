@@ -6,14 +6,15 @@
 
 <script>
   import listNews from './listNews'
+
   export default {
-    name:'dynamic',
-    components:{
+    name: 'dynamic',
+    components: {
       list_news: listNews
     },
     data () {
       return {
-        typeName:'分类的名字'
+        typeName: '分类的名字'
       }
     }
   }

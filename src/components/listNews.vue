@@ -13,7 +13,7 @@
         <!--缩略图在标题左边-->
         <div data-am-scrollspy="{animation: 'fade', delay: 100}">
           <div data-am-scrollspy="{animation: 'fade', delay: 200}" class="scroll">
-            <news v-for="item in recommends" v-bind:show="item"></news>
+            <news v-for="item in recommends"  v-bind:show="item" :key="item.id" ></news>
           </div>
         </div>
       </ul>
@@ -30,12 +30,12 @@
     components: {
       news: news
     },
-    props:{
-      typeName:{
-        type:String,
+    props: {
+      typeName: {
+        type: String
       }
     },
-    data() {
+    data () {
       return {
         recommends: [
           {
@@ -52,7 +52,7 @@
             name: '鸡公煲',
             introduction: '超级香！！！！！！！！！！！！'
           }
-        ],
+        ]
       }
     }
   }

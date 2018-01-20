@@ -20,12 +20,12 @@
 <script>
   export default {
     name: 'news',
-    props:['show']
+    props: ['show']
   }
 </script>
 
 <style scoped type="text/css">
-  img{
+  img {
     width: 100%;
     height: 100%;
   }
