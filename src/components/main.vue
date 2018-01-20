@@ -10,16 +10,19 @@
     <ul>
       <icon v-for='item in items' v-bind:category_tag="item"></icon>
     </ul>
+    <list_news></list_news>
   </div>
 </template>
 
 <script>
   import icon from './icon'
+  import listNews from './listNews'
 
   export default {
     name: 'Main',
     components: {
-      icon: icon
+      icon: icon,
+      list_news:listNews
     },
     data () {
       return {
