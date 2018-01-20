@@ -27,7 +27,7 @@
     display: flex; /* set flex style */
     width: 100%;
     height: 6%;
-    line-height: 40px;
+    line-height: 100%;
 
     position: fixed;
     bottom: 0;
@@ -48,7 +48,13 @@
   }
 
   .footer-index a {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    align-content: center;
     color: lightgray;
+
+    line-height:20%;
   }
 
   .footer-index a.router-link-active {
@@ -58,10 +64,12 @@
   .footer-index a span.icon {
     font-size: 25px;
   }
+  .footer-index a span.icon::before {
+    font-size: 25px;
+  }
 
   .footer-index a span.am-navbar-label {
-    position: relative;
-    bottom: 50%;
+
   }
 
 </style>

@@ -51,8 +51,8 @@
   #avatar{
     float:left;
 
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 
   span.user-message{
