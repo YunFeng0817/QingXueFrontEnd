@@ -8,14 +8,21 @@
                                                       style="font-size: large"></span> 年级：<span class="user-message">{{stage}}</span>
       </p>
     </div>
-    <el-collapse accordion>
-      <el-collapse-item v-for="item in panelList" :key="item.id">
+    <el-collapse accordion id="user-collapse-body">
+      <el-collapse-item class="user-panel-header" style="font-size: larger" v-for="item in panelList" :key="item.id">
         <template slot="title">
-          <i :class="item.icon"></i>
-          {{item.label}}
+          <i :class="item.icon" style="font-size: 18px;">{{item.label}}</i>
+
         </template>
-        <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-        <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+        <el-card v-for="o in 2" :key="o" class="box-card">
+          <div slot="header" class="clearfix">
+            <span>名称</span>
+            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          </div>
+          <div  class="text item">
+            {{'内容 ' + o }}
+          </div>
+        </el-card>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -33,32 +40,32 @@
         stage: '大学',
         panelList: [
           {
-            label: '我的预约',
-            icon: 'am-icon-clock-o'
+            label: ' 我的预约',
+            icon: ' am-icon-clock-o'
           },
           {
-            label:'通知',
-            icon:'am-icon-comments-o'
+            label: ' 通知',
+            icon: ' am-icon-comments-o'
           },
           {
-            label:'我的收藏',
-            icon:'am-icon-heart-o'
+            label: ' 我的收藏',
+            icon: ' am-icon-heart-o'
           },
           {
-            label:'客户服务',
-            icon:'el-icon-question'
+            label: ' 客户服务',
+            icon: ' el-icon-question'
           },
           {
-            label:'关于我们',
-            icon:'header-icon el-icon-info'
+            label: ' 关于我们',
+            icon: ' header-icon el-icon-info'
           },
           {
-            label:'鸣谢',
-            icon:''
+            label: ' 鸣谢',
+            icon: ' am-icon-at'
           },
           {
-            label:'分享',
-            icon:'am-icon-share-square-o'
+            label: ' 分享',
+            icon: ' am-icon-share-square-o'
           }
         ]
       }
@@ -113,6 +120,14 @@
 
   a:active {
     color: #49b5ed;
+  }
+
+  #user-collapse-body{
+    line-height: 100px;
+  }
+
+  .user-panel-header {
+    font-size: 20px!important;
   }
 
 </style>
