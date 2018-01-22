@@ -6,9 +6,11 @@
       </el-carousel-item>
     </el-carousel>
     <ul>
-      <icon v-for='item in items' v-bind:category_tag="item" :key="item.id"></icon>
+      <icon v-for='item in items' v-bind:category_tag="item" :key="item.id">
+      </icon>
     </ul>
-    <list_news :typeName="typeName"></list_news>
+    <list_news :typeName="typeName">
+    </list_news>
   </div>
 </template>
 

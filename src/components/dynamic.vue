@@ -1,6 +1,7 @@
 <template>
   <div>
-    <list_news :typeName="typeName"></list_news>
+    <list_news :typeName="typeName">
+    </list_news>
   </div>
 </template>
 

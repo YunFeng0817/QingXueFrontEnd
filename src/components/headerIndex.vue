@@ -12,10 +12,12 @@
           placeholder="输入想要搜索的课程或咨询"
           @select="handleSelect"
           clearable="true"
-        ></el-autocomplete>
+        >
+        </el-autocomplete>
       </el-col>
     </el-row>
-    <el-button @click="searchLink" type="primary" icon="el-icon-search"></el-button>
+    <el-button @click="searchLink" type="primary" icon="el-icon-search">
+    </el-button>
   </div>
 </template>
 
@@ -51,7 +53,15 @@
       },
       // 编程式导航 点击按钮使得url变化
       searchLink () {
-        if (this.searchContent) {
+        /*
+        * 此处排除搜索内容是空和空白字符串的情况
+        * */
+        let result = this.searchContent;
+        for (let i = 0; i < this.searchContent.length; i++) {
+          result = result.replace(' ', '');
+        }
+
+        if (result) {
           this.$router.push({path: 'search', query: {key: this.searchContent}});
         }
       }

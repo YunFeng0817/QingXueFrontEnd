@@ -3,17 +3,17 @@
     <!--列表标题-->
     <div class="am-list-news-hd am-cf">
       <!--带更多链接-->
-      <a href="###" class="">
+      <a href="" class="">
         <h2 style="margin: 0;">{{typeName}}</h2>
       </a>
     </div>
-
     <div class="am-list-news-bd">
       <ul class="am-list">
         <!--缩略图在标题左边-->
         <div data-am-scrollspy="{animation: 'fade', delay: 100}">
           <div data-am-scrollspy="{animation: 'fade', delay: 200}" class="scroll">
-            <news v-for="item in recommends"  v-bind:show="item" :key="item.id" ></news>
+            <news v-for="item in recommends"  v-bind:show="item" :key="item.id" >
+            </news>
           </div>
         </div>
       </ul>

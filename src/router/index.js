@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '../components/main'
 import user from '../components/user'
 import dynamic from '../components/dynamic'
+import searchResult from '../components/searchResult'
 
 Vue.use(Router);
 
@@ -25,6 +26,11 @@ export default new Router({
     {
       path: '/user',
       component: user
+    },
+    {
+      path: '/search',
+      query: {key: ' '},
+      component: searchResult
     }
   ]
 })

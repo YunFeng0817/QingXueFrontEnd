@@ -12,7 +12,6 @@
       <el-collapse-item class="user-panel-header" style="font-size: larger" v-for="item in panelList" :key="item.id">
         <template slot="title">
           <i :class="item.icon" style="font-size: 18px;">{{item.label}}</i>
-
         </template>
         <el-card v-for="o in 2" :key="o" class="box-card">
           <div slot="header" class="clearfix">

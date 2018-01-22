@@ -1,8 +1,14 @@
 <template>
   <div id="app">
-    <header-index></header-index>
-    <router-view></router-view>
-    <footerIndex></footerIndex>
+    <header-index>
+
+    </header-index>
+    <router-view>
+
+    </router-view>
+    <footerIndex>
+
+    </footerIndex>
   </div>
 
 </template>
@@ -14,8 +20,8 @@
   export default {
     name: 'app',
     components: {
-      headerIndex,
-      footerIndex
+      'headerIndex': headerIndex,
+      'footerIndex': footerIndex
     }
   }
 </script>
