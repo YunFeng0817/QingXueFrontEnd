@@ -1,5 +1,5 @@
 <template>
-  <list-news>
+  <list-news :type-name="typeName">
   </list-news>
 </template>
 
@@ -10,6 +10,11 @@
     name: 'search-result',
     components: {
       'list-news': listNews
+    },
+    data () {
+      return {
+        typeName: '搜索结果'
+      }
     }
   }
 </script>

@@ -5,7 +5,7 @@
         <img :src="item.src"/>
       </el-carousel-item>
     </el-carousel>
-    <ul>
+    <ul v-if="is_main">
       <icon v-for='item in items' v-bind:category_tag="item" :key="item.id">
       </icon>
     </ul>
@@ -35,6 +35,7 @@
     data () {
       return {
         typeName: '课程推荐',
+        is_main: true,
         items: [
           {message: '小学', iconType: 'am-primary am-icon-child'},
           {message: '初中', iconType: 'am-warning am-icon-male'},
@@ -74,6 +75,11 @@
           }
         ]
       }
+    },
+    watch: {
+      '$route' (to, from) {
+        this.is_main = this.$router.currentRoute.path === '/main'
+      }
     }
   }
 </script>
@@ -93,22 +99,22 @@
     margin: 0;
   }
 
-  .head-line{
+  .head-line {
     display: table;
     /*background-color: #66b1ff;*/
     /*opacity: 0.8;*/
   }
 
-  .head-line div{
+  .head-line div {
     display: table-cell;
-    vertical-align:middle;
-    text-align:center;
-    border: 1px solid rgba(195,195,195,0.7) ;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid rgba(195, 195, 195, 0.7);
   }
 
-  a{
+  a {
     display: block;
-    font-size:medium;
-    color:black;
+    font-size: medium;
+    color: black;
   }
 </style>

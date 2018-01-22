@@ -31,6 +31,10 @@ export default new Router({
       path: '/search',
       query: {key: ' '},
       component: searchResult
+    },
+    {
+      path: '/get',
+      component: Main
     }
   ]
 })

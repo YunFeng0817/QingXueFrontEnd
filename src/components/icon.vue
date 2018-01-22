@@ -1,6 +1,6 @@
 <template>
   <li style="text-align:center;">
-    <a class="am-icon-btn" :class="category_tag.iconType"></a>
+    <a @click="categoryLink" class="am-icon-btn" :class="category_tag.iconType"></a>
     <span style="display: block;">
       {{category_tag.message}}
     </span>
@@ -10,7 +10,12 @@
 <script>
   export default {
     name: 'icon',
-    props: ['category_tag']
+    props: ['category_tag'],
+    methods: {
+      categoryLink () {
+        this.$router.push({path: 'get', query: {category: this.category_tag.message}});
+      }
+    }
   }
 </script>
 
