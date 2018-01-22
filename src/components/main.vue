@@ -1,8 +1,8 @@
 <template>
   <div id="main">
-    <el-carousel :interval="5000" arrow="always" height="200px">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <img v-for="item in showImages" v-bind:key="item.id" :src="item.src"/>
+    <el-carousel :interval="3000" arrow="always" height="200px">
+      <el-carousel-item v-for="item in showImages" v-bind:key="item.id">
+        <img :src="item.src"/>
       </el-carousel-item>
     </el-carousel>
     <ul>
@@ -41,7 +41,7 @@
             link: ''
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+            src: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
             link: ''
           },
           {

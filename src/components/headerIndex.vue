@@ -1,7 +1,7 @@
 <template>
   <div>
     <a>
-      <i class="am-header-icon am-icon-map-marker"></i>
+      <i class="el-icon-location-outline"></i>
     </a>
     <el-row class="demo-autocomplete">
       <el-col :span="12">
@@ -15,9 +15,7 @@
         ></el-autocomplete>
       </el-col>
     </el-row>
-    <span class="am-input-group-btn">
-        <button class="am-btn am-btn-primary" type="button"><span class="am-icon-search"></span></button>
-      </span>
+    <el-button type="primary" icon="el-icon-search"></el-button>
   </div>
 </template>
 
@@ -68,7 +66,7 @@
     justify-content: center;
     align-content: center;
 
-    background-color: #0e90d2;
+    background-color: #66b1ff;
   }
 
   div a {
@@ -79,15 +77,8 @@
     font-size: 25px;
   }
 
-  div am-topbar-form {
-    flex: 80%;
-  }
-
   div span {
     flex: 1 10%;
   }
 
-  div button {
-    border: none;
-  }
 </style>
