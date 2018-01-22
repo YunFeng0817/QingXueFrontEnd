@@ -7,7 +7,9 @@ import AmazeVue from 'amaze-vue';
 import 'amaze-vue/dist/amaze-vue.css';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import axios from 'axios'
 
+Vue.prototype.$http = axios;
 Vue.use(AmazeVue);
 Vue.use(ElementUI);
 

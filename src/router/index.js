@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from '../App'
 import Main from '../components/main'
 import user from '../components/user'
 import dynamic from '../components/dynamic'
@@ -13,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: App
+      component: Main
     },
     {
       path: '/dynamic',
