@@ -15,7 +15,7 @@
         ></el-autocomplete>
       </el-col>
     </el-row>
-    <el-button type="primary" icon="el-icon-search"></el-button>
+    <el-button @click="searchLink" type="primary" icon="el-icon-search"></el-button>
   </div>
 </template>
 
@@ -29,8 +29,8 @@
     },
     methods: {
       querySearch (queryString, cb) {
-        var restaurants = this.restaurants;
-        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        let restaurants = this.restaurants;
+        let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         // 调用 callback 返回建议列表的数据
         cb(results);
       },
@@ -48,11 +48,18 @@
       },
       handleSelect (item) {
         console.log(item);
+      },
+      // 编程式导航 点击按钮使得url变化
+      searchLink () {
+        if (this.searchContent) {
+          this.$router.push({path: 'search', query: {key: this.searchContent}});
+        }
       }
     },
     mounted () {
       this.restaurants = this.loadAll();
     }
+
   }
 </script>
 
