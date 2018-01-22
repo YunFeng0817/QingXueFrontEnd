@@ -1,12 +1,10 @@
 <template>
   <div id="main">
-    <!--playDelay 是自动播放的延迟时间-->
-    <am-slider id="slider" :playDelay="3000">
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg"/></am-slider-item>
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg"/></am-slider-item>
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-3.jpg"/></am-slider-item>
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-4.jpg"/></am-slider-item>
-    </am-slider>
+    <el-carousel :interval="5000" arrow="always" height="200px">
+      <el-carousel-item v-for="item in 4" :key="item">
+        <img v-for="item in showImages" v-bind:key="item.id" :src="item.src"/>
+      </el-carousel-item>
+    </el-carousel>
     <ul>
       <icon v-for='item in items' v-bind:category_tag="item" :key="item.id"></icon>
     </ul>
@@ -36,6 +34,24 @@
           {message: '四级', iconType: 'am-danger am-icon-signal'},
           {message: '六级', iconType: 'am-primary am-icon-rocket'},
           {message: '艺术', iconType: 'am-warning am-icon-paint-brush'}
+        ],
+        showImages: [
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+            link: ''
+          },
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+            link: ''
+          },
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
+            link: ''
+          },
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
+            link: ''
+          }
         ]
       }
     }
@@ -43,8 +59,9 @@
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
-  #slider {
-    max-height: 200px;
+  img {
+    height: 200px;
+    width: 100%;
   }
 
   ul {
