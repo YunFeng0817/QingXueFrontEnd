@@ -9,8 +9,16 @@
       <icon v-for='item in items' v-bind:category_tag="item" :key="item.id">
       </icon>
     </ul>
+    <el-carousel :interval="5000" arrow="never" height="35px" indicator-position="none">
+      <el-carousel-item class="head-line" v-for="item in showMessages" v-bind:key="item.id">
+        <div class="head-line">
+          <router-link :to="item.link">{{item.message}}</router-link>
+        </div>
+      </el-carousel-item>
+    </el-carousel>
     <list_news :typeName="typeName">
     </list_news>
+    <br/><br/><br/>
   </div>
 </template>
 
@@ -54,6 +62,16 @@
             src: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
             link: ''
           }
+        ],
+        showMessages: [
+          {
+            message: '王**老板黄鹤带着小姨子跑路啦!!!',
+            link: '/dynamic'
+          },
+          {
+            message: '原价200元的皮包现在通通20块',
+            link: '/dynamic'
+          }
         ]
       }
     }
@@ -73,5 +91,24 @@
 
     padding: 0;
     margin: 0;
+  }
+
+  .head-line{
+    display: table;
+    /*background-color: #66b1ff;*/
+    /*opacity: 0.8;*/
+  }
+
+  .head-line div{
+    display: table-cell;
+    vertical-align:middle;
+    text-align:center;
+    border: 1px solid rgba(195,195,195,0.7) ;
+  }
+
+  a{
+    display: block;
+    font-size:medium;
+    color:black;
   }
 </style>
