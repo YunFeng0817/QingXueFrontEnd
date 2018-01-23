@@ -56,19 +56,21 @@
     methods: {
       floatUp (event) {
         let node = event.target;
-        while (node.className !== 'el-card') {
+        while (node && node.className !== 'el-card') {
           node = node.parentNode;
         }
-        console.log(node);
-        node.style = 'position:relative;bottom:15px;'
+        if (node) {
+          node.style = 'position:relative;bottom:15px;'
+        }
       },
       floatDown (event) {
         let node = event.target;
-        while (node.className !== 'el-card') {
+        while (node && node.className !== 'el-card') {
           node = node.parentNode;
         }
-        console.log(node);
-        node.style = 'position:default;'
+        if (node) {
+          node.style = 'position:default;'
+        }
       }
     }
   }
