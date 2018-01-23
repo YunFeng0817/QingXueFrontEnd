@@ -1,24 +1,20 @@
 <template>
-  <div data-am-widget="list_news" class="am-list-news am-list-news-default">
-    <!--列表标题-->
-    <div class="am-list-news-hd am-cf">
-      <!--带更多链接-->
-      <a href="" class="">
-        <h2 style="margin: 0;">{{typeName}}</h2>
-      </a>
-    </div>
-    <div class="am-list-news-bd">
-      <ul class="am-list">
-        <!--缩略图在标题左边-->
-        <div data-am-scrollspy="{animation: 'fade', delay: 100}">
-          <div data-am-scrollspy="{animation: 'fade', delay: 200}" class="scroll">
-            <news v-for="item in recommends"  v-bind:show="item" :key="item.id" >
-            </news>
+  <div>
+    <el-row>
+      <el-col class="card" :span="22" v-for="item in recommends" :key="item.id" :offset="index > 0 ? 2 : 0">
+        <el-card :body-style="{ padding: '10px' }">
+          <img :src="item.photoLink" class="image">
+          <div style="padding: 14px;">
+            <span>{{item.name}}</span>
+            <div class="bottom clearfix">
+              <p>{{item.introduction}}</p>
+              <time class="time">{{ currentDate }}</time>
+              <el-button type="text" class="button">更多详情</el-button>
+            </div>
           </div>
-        </div>
-      </ul>
-    </div>
-    <a><span class="am-list-news-more am-fr">更多 &raquo;</span></a>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -37,6 +33,7 @@
     },
     data () {
       return {
+        currentDate: new Date(),
         recommends: [
           {
             id: 1,
@@ -58,6 +55,41 @@
   }
 </script>
 
-<style scoped>
+<style scoped type="text/css" rel="stylesheet">
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both;
+  }
+
+  .card {
+    max-width: 400px;
+
+    margin: 4%;
+  }
 
 </style>
