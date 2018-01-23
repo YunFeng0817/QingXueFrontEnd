@@ -60,7 +60,7 @@
           node = node.parentNode;
         }
         if (node) {
-          node.style = 'position:relative;bottom:15px;'
+          node.style = 'position:relative;bottom:5px;box-shadow:2px 2px 15px 5px #d0d0d0'
         }
       },
       floatDown (event) {
