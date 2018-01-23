@@ -4,6 +4,7 @@ import Main from '../components/main'
 import user from '../components/user'
 import dynamic from '../components/dynamic'
 import searchResult from '../components/searchResult'
+import course from '../components/course'
 
 Vue.use(Router);
 
@@ -35,6 +36,10 @@ export default new Router({
     {
       path: '/get',
       component: Main
+    },
+    {
+      path: '/course',
+      component: course
     }
   ]
 })
