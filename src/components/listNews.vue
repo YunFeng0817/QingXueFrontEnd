@@ -94,6 +94,7 @@
 
   .image {
     width: 100%;
+    max-width: 390px;
     display: block;
   }
 
