@@ -78,13 +78,19 @@
       </el-col>
     </el-row>
     <div class="footer">
-      <a class="message"><am-icon type="university"></am-icon>进入机构</a>
-      <a class="message"><am-icon type="commenting-o"></am-icon>咨询</a>
-      <a class="message"><am-icon type="heart-o"></am-icon>收藏课程</a>
-      <a class="book">立即预约</a>
+      <a class="message">
+        <am-icon type="university"></am-icon>
+        进入机构</a>
+      <a class="message">
+        <am-icon type="commenting-o"></am-icon>
+        咨询</a>
+      <a class="message">
+        <am-icon type="heart-o"></am-icon>
+        收藏课程</a>
+      <a id="book">立即预约</a>
     </div>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 50px;"></div>
+    <div style="height: 80px;"></div>
   </div>
 </template>
 
@@ -195,10 +201,11 @@
   }
 
   .footer {
-    width:100%;
-    position:fixed;
-    bottom:5%;
+    width: 100%;
+    position: fixed;
+    bottom: 6%;
     display: flex;
+    align-items:center;
 
     background-color: #f5f7fa;
   }
@@ -206,9 +213,16 @@
   .footer a {
     /*width:100%;*/
     /*height:30px;*/
+    text-align: center;
     font-size: larger;
-    color: black;
+    color: #333333;
     padding: 2% 2%;
     border: 1px solid #bcbcbc;
+  }
+
+  .footer a#book {
+    /*使得最后一个按钮占据剩余的全部空间*/
+    flex-grow: 1;
+    color: #CC3333;
   }
 </style>
