@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" class="card" :span="22"
+      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" @click.native="clickAction" class="card" :span="22"
               v-for="item in recommends" :key="item.id">
         <el-card :body-style="{ padding: '10px' }">
           <img :src="item.photoLink" class="image">
@@ -71,6 +71,9 @@
         if (node) {
           node.style = 'position:default;'
         }
+      },
+      clickAction () {
+        this.$router.push({path: 'course'});
       }
     }
   }
