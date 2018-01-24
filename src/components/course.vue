@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-row>
+      <button class="back"><i class="el-icon-back"></i></button>
       <el-col class="card" :span="24">
         <el-card :body-style="{ padding: '0px',height:'720px' }">
           <img :src="course.photoLink" class="image">
@@ -153,5 +154,20 @@
   p {
     font-size: large;
     line-height: 25px;
+  }
+
+  .back{
+    width:40px;
+    height: 40px;
+    position:fixed;
+    background-color:rgba(255,255,255,0.6);
+    border:0;
+    border-radius: 50% ;
+  }
+  .back:hover{
+    background-color:rgba(255,255,255,0.8);
+  }
+  .back i{
+    color:black;
   }
 </style>
