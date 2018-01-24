@@ -3,12 +3,12 @@
     <el-row>
       <button @click="back" class="back"><i class="el-icon-back"></i></button>
       <el-col class="card" :span="24">
-        <el-card :body-style="{ padding: '0px',height:'720px' }">
+        <div :body-style="{ padding: '0px'}">
           <img :src="course.photoLink" class="image">
-          <div style="padding: 0;height:900px;">
+          <div>
             <span class="title">{{course.title}}</span>
             <div class="bottom clearfix">
-              <el-tabs type="card">
+              <el-tabs type="border-card">
                 <el-tab-pane label="简介">
                   <span class="time">开课时间</span>
                   <time class="time">{{course.startTime}}</time>
@@ -68,9 +68,10 @@
               <el-button type="text" class="button">课程预定</el-button>
             </div>
           </div>
-        </el-card>
+        </div>
       </el-col>
     </el-row>
+
   </div>
 </template>
 
@@ -164,7 +165,8 @@
   .back {
     width: 40px;
     height: 40px;
-    position: fixed;
+    position: absolute;
+    top:5px;
     background-color: rgba(255, 255, 255, 0.6);
     border: 0;
     border-radius: 50%;
