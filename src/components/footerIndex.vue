@@ -25,8 +25,10 @@
 <style scoped rel="stylesheet/css">
   .footer-index {
     display: flex; /* set flex style */
+    align-items: center;
     width: 100%;
-    height: 6%;
+    height: 8%;
+    max-height: 50px;
     line-height: 100%;
 
     position: fixed;
@@ -42,11 +44,7 @@
      *if it's block ,when click the box,link work  ,
      *but if it's in-line ,don't work when click blank in box
      */
-    display: block;
     text-decoration: none;
-  }
-
-  .footer-index a {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,6 +52,10 @@
     color: lightgray;
 
     line-height: 20%;
+  }
+
+  .footer-index a {
+
   }
 
   .footer-index a.router-link-active {
