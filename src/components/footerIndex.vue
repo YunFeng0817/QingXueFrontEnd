@@ -54,10 +54,6 @@
     line-height: 20%;
   }
 
-  .footer-index a {
-
-  }
-
   .footer-index a.router-link-active {
     color: white;
   }
@@ -67,11 +63,12 @@
   }
 
   .footer-index a span.icon::before {
+    padding: 0 0 3% 0;
     font-size: 25px;
   }
 
   .footer-index a span.am-navbar-label {
-
+    padding: 3% 0 0 0;
   }
 
 </style>

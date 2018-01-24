@@ -201,9 +201,10 @@
   }
 
   .footer {
+    max-height: 40px;
     width: 100%;
     position: fixed;
-    bottom: 6%;
+    bottom: 7%;
     display: flex;
     align-items:center;
 
@@ -211,6 +212,7 @@
   }
 
   .footer a {
+    max-height: 40px;
     /*width:100%;*/
     /*height:30px;*/
     text-align: center;
