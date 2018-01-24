@@ -32,8 +32,7 @@
     position: fixed;
     bottom: 0;
 
-    background-color: #0e90d2;
-    opacity: 0.7;
+    background-color: #66b1ff;
   }
 
   .footer-index a {

@@ -27,6 +27,14 @@
                     </el-rate>
                   </p>
                   <p>
+                    <span class="time"><am-icon type="rmb"></am-icon>订金</span>
+                    <span class="time">{{course.price}}</span>
+                  </p>
+                  <p>
+                    <span class="time"><am-icon type="circle-o"></am-icon>全额</span>
+                    <span class="time">{{course.price}}</span>
+                  </p>
+                  <p>
                     {{course.introduction}}
                   </p>
                 </el-tab-pane>
@@ -64,14 +72,19 @@
                   </am-comment-list>
                 </el-tab-pane>
               </el-tabs>
-              <br/><br/>
-              <el-button type="text" class="button">课程预定</el-button>
             </div>
           </div>
         </div>
       </el-col>
     </el-row>
-
+    <div class="footer">
+      <a class="message"><am-icon type="university"></am-icon>进入机构</a>
+      <a class="message"><am-icon type="commenting-o"></am-icon>咨询</a>
+      <a class="message"><am-icon type="heart-o"></am-icon>收藏课程</a>
+      <a class="book">立即预约</a>
+    </div>
+    <!--下面的这个区块是为了占位-->
+    <div style="height: 50px;"></div>
   </div>
 </template>
 
@@ -86,6 +99,7 @@
           startTime: '2017.08.17',
           perSession: 120,
           rate: 4,
+          price: 50,
           introduction: '太极英语“大道至简”全项班，听说读写一课搞定，让你“高分又高能”！还包邮赠送课程配套大礼包！',
           detail: '那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。我们就在骑楼下躲雨，看绿色的邮筒孤独地站在街的对面。我白色风衣的大口袋里有一封要寄给南部的母亲的信。樱子说她可以撑伞过去帮我寄信。我默默点头。',
           comments: [
@@ -166,7 +180,7 @@
     width: 40px;
     height: 40px;
     position: absolute;
-    top:5px;
+    top: 5px;
     background-color: rgba(255, 255, 255, 0.6);
     border: 0;
     border-radius: 50%;
@@ -178,5 +192,23 @@
 
   .back i {
     color: black;
+  }
+
+  .footer {
+    width:100%;
+    position:fixed;
+    bottom:5%;
+    display: flex;
+
+    background-color: #f5f7fa;
+  }
+
+  .footer a {
+    /*width:100%;*/
+    /*height:30px;*/
+    font-size: larger;
+    color: black;
+    padding: 2% 2%;
+    border: 1px solid #bcbcbc;
   }
 </style>
