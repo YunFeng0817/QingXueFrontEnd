@@ -1,16 +1,16 @@
 <template>
   <div>
-    <back-button>
-    </back-button>
-    <am-article>
-      <am-article-header title="永远的蝴蝶" meta="陈启佑（台湾）"></am-article-header>
-      <am-article-body>
-        <am-article-lead v-html="introduction">
-        </am-article-lead>
-        <div v-html="content">
-        </div>
-      </am-article-body>
-    </am-article>
+      <back-button>
+      </back-button>
+      <am-article>
+        <am-article-header title="永远的蝴蝶" meta="陈启佑（台湾）" style="text-align: center"></am-article-header>
+        <am-article-body>
+          <am-article-lead v-html="introduction">
+          </am-article-lead>
+          <div v-html="content">
+          </div>
+        </am-article-body>
+      </am-article>
     <!--下面的这个区块是为了占位-->
     <div style="height: 80px;"></div>
   </div>
@@ -23,7 +23,7 @@
     components: {
       BackButton
     },
-    name: 'article',
+    name: 'essay',
     data () {
       return {
         title: '三体',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <back-button></back-button>
+      <back-button> </back-button>
       <el-col class="card" :span="24">
         <div :body-style="{ padding: '0px'}">
           <img :src="course.photoLink" class="image">

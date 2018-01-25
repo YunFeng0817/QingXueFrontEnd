@@ -1,5 +1,7 @@
 <template>
-  <button @click="back" class="back"><i class="el-icon-back"></i></button>
+  <el-row>
+    <button @click="back" class="back"><i class="el-icon-back"></i></button>
+  </el-row>
 </template>
 
 <script>
@@ -19,7 +21,7 @@
     height: 40px;
     position: absolute;
     top: 5px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(153, 153, 153, 0.6);
     border: 0;
     border-radius: 50%;
   }
