@@ -5,6 +5,7 @@ import user from '../components/user'
 import dynamic from '../components/dynamic'
 import searchResult from '../components/searchResult'
 import course from '../components/course'
+import essay from '../components/essay'
 
 Vue.use(Router);
 
@@ -40,6 +41,10 @@ export default new Router({
     {
       path: '/course',
       component: course
+    },
+    {
+      path: '/article',
+      component: essay
     }
   ]
 })

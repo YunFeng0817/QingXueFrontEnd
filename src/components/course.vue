@@ -129,11 +129,6 @@
           ]
         }
       }
-    },
-    methods: {
-      back () {
-        this.$router.back();
-      }
     }
   }
 </script>
