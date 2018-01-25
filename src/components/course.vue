@@ -206,7 +206,7 @@
     position: fixed;
     bottom: 8%;
     display: flex;
-    align-items:center;
+    align-items: center;
 
     background-color: #f5f7fa;
   }
@@ -215,15 +215,20 @@
     /*max-height: 40px;*/
     /*width:100%;*/
     /*height:30px;*/
+    display:block;
     text-align: center;
     font-size: medium;
-    color: #333333;
+    color: #909399;
     padding: 2% 2%;
-    border: 1px solid #bcbcbc;
+    /*box-shadow : 1px 1px #bcbcbc;*/
+    border-top: 1px solid #dcdfe6;
+    border-top: 1px solid #dcdfe6;
+    border-left: 0;
+    border-right: 0;
   }
 
-  .footer a.message{
-    flex-grow:3;
+  .footer a.message {
+    flex-grow: 3;
   }
 
   .footer a#book {
