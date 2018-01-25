@@ -1,16 +1,21 @@
 <template>
   <div>
     <el-row>
-      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" @click.native="clickAction" class="card" :span="22"
+      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" @click.native="clickAction" class="card"
+              :span="22"
               v-for="item in recommends" :key="item.id">
         <el-card :body-style="{ padding: '10px' }">
-          <img :src="item.photoLink" class="image">
-          <div style="padding: 14px;">
-            <span>{{item.name}}</span>
-            <div class="bottom clearfix">
-              <p>{{item.introduction}}</p>
-              <time class="time">{{ currentDate }}</time>
-              <el-button type="text" class="button">更多详情</el-button>
+          <el-tag size="mini">{{item.grade}}</el-tag>
+          <el-tag size="mini">{{item.subject}}</el-tag>
+          <el-tag size="mini">{{item.difficulty}}</el-tag>
+          <div class="courses">
+            <img :src="item.photoLink" class="image">
+            <div style="padding: 14px;">
+              <span>{{item.name}}</span>
+              <div class="bottom clearfix">
+                <p>{{item.introduction}}</p>
+                <time class="time">{{ currentDate }}</time>
+              </div>
             </div>
           </div>
         </el-card>
@@ -38,6 +43,9 @@
         recommends: [
           {
             id: 1,
+            grade: '初中',
+            subject: '计算机',
+            difficulty: '变态难',
             photoLink: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
             link: '',
             name: '老干妈',
@@ -45,6 +53,9 @@
           },
           {
             id: 2,
+            grade: '高中',
+            subject: '数学',
+            difficulty: '有点难',
             photoLink: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
             link: '',
             name: '鸡公煲',
@@ -80,6 +91,10 @@
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
+  .courses {
+    display: flex;
+  }
+
   .time {
     font-size: 13px;
     color: #999;
@@ -90,13 +105,9 @@
     line-height: 12px;
   }
 
-  .button {
-    padding: 0;
-    float: right;
-  }
-
   .image {
-    width: 100%;
+    width: 40%;
+    height: 30%;
     max-width: 390px;
     display: block;
   }
