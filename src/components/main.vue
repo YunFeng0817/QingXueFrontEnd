@@ -16,6 +16,8 @@
         </div>
       </el-carousel-item>
     </el-carousel>
+    <el-filter v-if="!is_main">
+    </el-filter>
     <list_news :typeName="typeName">
     </list_news>
     <br/><br/><br/>
@@ -25,10 +27,12 @@
 <script>
   import icon from './icon'
   import listNews from './listNews'
+  import filter from './filter';
 
   export default {
     name: 'Main',
     components: {
+      'el-filter': filter,
       icon: icon,
       list_news: listNews
     },
