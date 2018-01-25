@@ -201,10 +201,10 @@
   }
 
   .footer {
-    max-height: 40px;
+    /*max-height: 40px;*/
     width: 100%;
     position: fixed;
-    bottom: 7%;
+    bottom: 8%;
     display: flex;
     align-items:center;
 
@@ -212,14 +212,18 @@
   }
 
   .footer a {
-    max-height: 40px;
+    /*max-height: 40px;*/
     /*width:100%;*/
     /*height:30px;*/
     text-align: center;
-    font-size: larger;
+    font-size: medium;
     color: #333333;
     padding: 2% 2%;
     border: 1px solid #bcbcbc;
+  }
+
+  .footer a.message{
+    flex-grow:3;
   }
 
   .footer a#book {

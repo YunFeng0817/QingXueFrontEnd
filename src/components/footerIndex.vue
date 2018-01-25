@@ -28,7 +28,7 @@
     align-items: center;
     width: 100%;
     height: 8%;
-    max-height: 50px;
+    /*max-height: 65px;*/
     line-height: 100%;
 
     position: fixed;
