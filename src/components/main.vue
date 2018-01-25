@@ -80,6 +80,7 @@
         ],
         recommends: [
           {
+            is_course: true,
             grade: '初中',
             subject: '计算机',
             difficulty: '变态难',
