@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <button @click="back" class="back"><i class="el-icon-back"></i></button>
+      <back-button></back-button>
       <el-col class="card" :span="24">
         <div :body-style="{ padding: '0px'}">
           <img :src="course.photoLink" class="image">
@@ -95,8 +95,13 @@
 </template>
 
 <script>
+  import backButtom from './backButton'
+
   export default {
     name: 'course',
+    components: {
+      'back-button': backButtom
+    },
     data () {
       return {
         course: {
@@ -144,11 +149,6 @@
     line-height: 12px;
   }
 
-  .button {
-    padding: 0;
-    float: right;
-  }
-
   .image {
     width: 100%;
     max-width: 390px;
@@ -182,24 +182,6 @@
     line-height: 25px;
   }
 
-  .back {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 5px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border: 0;
-    border-radius: 50%;
-  }
-
-  .back:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-
-  .back i {
-    color: black;
-  }
-
   .footer {
     /*max-height: 40px;*/
     width: 100%;
@@ -215,12 +197,11 @@
     /*max-height: 40px;*/
     /*width:100%;*/
     /*height:30px;*/
-    display:block;
+    display: block;
     text-align: center;
     font-size: medium;
     color: #909399;
     padding: 2% 2%;
-    /*box-shadow : 1px 1px #bcbcbc;*/
     border-top: 1px solid #dcdfe6;
     border-top: 1px solid #dcdfe6;
     border-left: 0;
