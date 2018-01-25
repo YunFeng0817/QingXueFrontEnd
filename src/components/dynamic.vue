@@ -4,7 +4,7 @@
       <el-filter id="filter">
       </el-filter>
     </div>
-    <list_news @click.native="essay_link" :typeName="typeName">
+    <list_news :typeName="typeName" :recommends="essays">
     </list_news>
   </div>
 </template>
@@ -21,12 +21,16 @@
     },
     data () {
       return {
-        typeName: '分类的名字'
-      }
-    },
-    method: {
-      essay_link () {
-        this.$router.push({path: 'article'});
+        typeName: '分类的名字',
+        essays: [
+          {
+            is_course: false,
+            photoLink: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
+            link: 'article',
+            name: '为何母猪半夜惨叫，为何小区电动车频频失窃，原因竟然是...',
+            introduction: '为何母猪半夜惨叫，为何小区电动车频频失窃，原因竟然是...'
+          }
+        ]
       }
     }
   }

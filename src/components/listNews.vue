@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-row>
-      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" @click.native="clickAction" class="card"
+      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" class="card"
               :span="22"
-              v-for="item in recommends" :key="item.id">
-        <el-card :body-style="{ padding: '10px' }">
-          <el-tag size="mini">{{item.grade}}</el-tag>
-          <el-tag size="mini">{{item.subject}}</el-tag>
-          <el-tag size="mini">{{item.difficulty}}</el-tag>
+              v-for="(item,key) in recommends" :key="key">
+        <el-card :body-style="{ padding: '10px' }" @click.native="clickAction(key)">
+          <el-tag v-if="item.is_course" size="mini">{{item.grade}}</el-tag>
+          <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
+          <el-tag v-if="item.is_course" size="mini">{{item.difficulty}}</el-tag>
           <div class="courses">
             <img :src="item.photoLink" class="image">
             <div style="padding: 14px;">
@@ -35,33 +35,28 @@
     props: {
       typeName: {
         type: String
+      },
+      recommends: {
+        type: Array,
+        default () {
+          return [
+            {
+              is_course: true,
+              grade: '初中',
+              subject: '计算机',
+              difficulty: '变态难',
+              photoLink: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+              link: 'course',
+              name: '老干妈',
+              introduction: '真好吃！！！！！！！！！！！'
+            }
+          ]
+        }
       }
     },
     data () {
       return {
-        currentDate: new Date(),
-        recommends: [
-          {
-            id: 1,
-            grade: '初中',
-            subject: '计算机',
-            difficulty: '变态难',
-            photoLink: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
-            link: '',
-            name: '老干妈',
-            introduction: '真好吃！！！！！！！！！！！'
-          },
-          {
-            id: 2,
-            grade: '高中',
-            subject: '数学',
-            difficulty: '有点难',
-            photoLink: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
-            link: '',
-            name: '鸡公煲',
-            introduction: '超级香！！！！！！！！！！！！'
-          }
-        ]
+        currentDate: new Date()
       }
     },
     methods: {
@@ -83,8 +78,8 @@
           node.style = 'position:default;'
         }
       },
-      clickAction () {
-        this.$router.push({path: 'course'});
+      clickAction (id) {
+        this.$router.push({path: this.recommends[id].link});
       }
     }
   }

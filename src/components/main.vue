@@ -18,7 +18,7 @@
     </el-carousel>
     <el-filter v-if="!is_main">
     </el-filter>
-    <list_news :typeName="typeName">
+    <list_news :typeName="typeName" :recommends="recommends">
     </list_news>
     <br/><br/><br/>
   </div>
@@ -76,6 +76,27 @@
           {
             message: '原价200元的皮包现在通通20块',
             link: '/dynamic'
+          }
+        ],
+        recommends: [
+          {
+            grade: '初中',
+            subject: '计算机',
+            difficulty: '变态难',
+            photoLink: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+            link: 'course',
+            name: '老干妈',
+            introduction: '真好吃！！！！！！！！！！！'
+          },
+          {
+            is_course: true,
+            grade: '高中',
+            subject: '数学',
+            difficulty: '有点难',
+            photoLink: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
+            link: 'course',
+            name: '鸡公煲',
+            introduction: '真好吃！！！！！！！！！！！'
           }
         ]
       }
