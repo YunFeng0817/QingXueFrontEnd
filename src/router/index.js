@@ -22,10 +22,6 @@ export default new Router({
       component: dynamic
     },
     {
-      path: '/main',
-      component: Main
-    },
-    {
       path: '/user',
       component: user
     },
