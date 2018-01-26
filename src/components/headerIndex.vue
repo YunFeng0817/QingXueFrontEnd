@@ -82,20 +82,25 @@
     display: flex;
     justify-content: center;
     align-content: center;
+    align-items: center;
 
     background-color: #66b1ff;
   }
 
   div a {
-    flex: 10%;
+    flex: 20%;
 
     text-align: center;
     color: white;
     font-size: 25px;
   }
 
-  div span {
-    flex: 1 10%;
+  div.demo-autocomplete {
+    flex: 1 90%;
+  }
+
+  div button {
+    flex: 0 1 5%;
   }
 
 </style>
