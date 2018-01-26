@@ -81,6 +81,8 @@
         recommends: [
           {
             is_course: true,
+            rate: 4.0,
+            price: 10000,
             grade: '初中',
             subject: '计算机',
             difficulty: '变态难',
@@ -91,6 +93,8 @@
           },
           {
             is_course: true,
+            rate: 3.5,
+            price: 5000,
             grade: '高中',
             subject: '数学',
             difficulty: '有点难',

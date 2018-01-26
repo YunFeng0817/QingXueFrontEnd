@@ -4,7 +4,7 @@
       <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" class="card"
               :span="22"
               v-for="(item,key) in recommends" :key="key">
-        <el-card :body-style="{ padding: '10px' }" @click.native="clickAction(key)">
+        <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(key)">
           <el-tag v-if="item.is_course" size="mini">{{item.grade}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.difficulty}}</el-tag>
@@ -13,8 +13,20 @@
             <div style="padding: 14px;">
               <span>{{item.name}}</span>
               <div class="bottom clearfix">
-                <p>{{item.introduction}}</p>
-                <time class="time">{{ currentDate }}</time>
+                <p v-if="!item.is_course">{{item.introduction}}</p>
+                <span v-if="item.is_course">
+                  好评率：
+                  <el-rate
+                    v-model="item.rate"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}">
+                  </el-rate>
+                </span>
+                <span v-if="item.is_course">
+                  全额费用：{{item.price}} 元
+                </span>
               </div>
             </div>
           </div>
@@ -42,6 +54,8 @@
           return [
             {
               is_course: true,
+              rate: 4.0,
+              price: 10000,
               grade: '初中',
               subject: '计算机',
               difficulty: '变态难',
@@ -88,12 +102,7 @@
 <style scoped type="text/css" rel="stylesheet">
   .courses {
     display: flex;
-    align-items:center;
-  }
-
-  .time {
-    font-size: 13px;
-    color: #999;
+    align-items: center;
   }
 
   .bottom {
@@ -121,7 +130,6 @@
   .card {
     max-width: 400px;
 
-    margin: 4%;
+    margin: 2% 4% 1% 4%;
   }
-
 </style>
