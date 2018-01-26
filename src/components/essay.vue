@@ -1,18 +1,30 @@
 <template>
   <div>
-      <back-button>
-      </back-button>
-      <am-article>
-        <am-article-header title="永远的蝴蝶" meta="陈启佑（台湾）" style="text-align: center"></am-article-header>
-        <am-article-body>
-          <am-article-lead v-html="introduction">
-          </am-article-lead>
-          <div v-html="content">
-          </div>
-        </am-article-body>
-      </am-article>
+    <back-button>
+    </back-button>
+    <am-article>
+      <am-article-header title="永远的蝴蝶" meta="陈启佑（台湾）" style="text-align: center"></am-article-header>
+      <am-article-body>
+        <am-article-lead v-html="introduction">
+        </am-article-lead>
+        <div v-html="content">
+        </div>
+      </am-article-body>
+    </am-article>
+    <div class="like">
+      <el-badge :value="200" :max="99" class="item">
+        <a class="icon">
+          <am-icon type="thumbs-up"></am-icon>
+        </a>
+      </el-badge>
+      <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+      <a>
+        <am-icon type="thumbs-down"></am-icon>
+      </a>
+      <span>&nbsp&nbsp&nbsp&nbsp</span>
+    </div>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 80px;"></div>
+    <div style="height: 90px;"></div>
   </div>
 </template>
 
@@ -46,6 +58,9 @@
   }
 </script>
 
-<style scoped>
+<style scoped type="text/css" rel="stylesheet">
+  .like{
+    float:right;
 
+  }
 </style>
