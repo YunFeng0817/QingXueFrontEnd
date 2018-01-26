@@ -8,6 +8,11 @@
       </el-tab-pane>
       <el-tab-pane>
         <span slot="label">
+          <a>小学</a>
+        </span>
+      </el-tab-pane>
+      <el-tab-pane>
+        <span slot="label">
           <a>初中</a>
         </span>
       </el-tab-pane>
@@ -42,10 +47,6 @@
         </span>
       </el-tab-pane>
     </el-tabs>
-    <div>
-      <el-filter id="filter">
-      </el-filter>
-    </div>
     <list_news :typeName="typeName" :recommends="essays">
     </list_news>
   </div>
