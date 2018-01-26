@@ -39,7 +39,7 @@
     data () {
       return {
         typeName: '课程推荐',
-        is_main: true,
+        is_main: this.$router.currentRoute.path === '/main',
         items: [
           {message: '小学', iconType: 'am-primary am-icon-child'},
           {message: '初中', iconType: 'am-warning am-icon-male'},

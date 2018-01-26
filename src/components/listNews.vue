@@ -88,6 +88,7 @@
 <style scoped type="text/css" rel="stylesheet">
   .courses {
     display: flex;
+    align-items:center;
   }
 
   .time {
