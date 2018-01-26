@@ -3,7 +3,7 @@
     <el-tabs @tab-click="handleClick">
       <el-tab-pane>
         <span slot="label">
-          <a>小学</a>
+          <a>我的动态</a>
         </span>
       </el-tab-pane>
       <el-tab-pane>
