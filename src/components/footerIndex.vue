@@ -5,7 +5,7 @@
       <br/>
       <span class="am-navbar-label">动态</span>
     </router-link>
-    <router-link to='/'>
+    <router-link to='/main'>
       <span class="am-icon-home icon"></span>
       <br/>
       <span class="am-navbar-label">主页</span>

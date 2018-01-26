@@ -18,6 +18,10 @@ export default new Router({
       component: Main
     },
     {
+      path: '/main',
+      component: Main
+    },
+    {
       path: '/dynamic',
       component: dynamic
     },

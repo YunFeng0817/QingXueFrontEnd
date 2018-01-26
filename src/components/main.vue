@@ -39,7 +39,7 @@
     data () {
       return {
         typeName: '课程推荐',
-        is_main: this.$router.currentRoute.path === '/',
+        is_main: this.$router.currentRoute.path === '/'||this.$router.currentRoute.path === '/main',
         items: [
           {message: '小学', iconType: 'am-primary am-icon-child'},
           {message: '初中', iconType: 'am-warning am-icon-male'},
@@ -108,7 +108,7 @@
     },
     watch: {
       '$route' (to, from) {
-        this.is_main = this.$router.currentRoute.path === '/'
+        this.is_main = this.$router.currentRoute.path === '/'||this.$router.currentRoute.path === '/main';
       }
     }
   }
