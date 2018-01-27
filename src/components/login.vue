@@ -42,14 +42,17 @@
             </div>
           </div>
           <div v-if="!tab_active" style="padding: 14px; text-align: center">
+            <br/>
+            <el-steps :active="active" finish-status="success">
+              <el-step title="验证手机号"></el-step>
+              <el-step title="确认密码"></el-step>
+              <el-step title="登录"></el-step>
+            </el-steps>
             <div class="login-row">
-              <label for="login-name" class="login-label">账号</label>
-              <el-input
-                placeholder="请输入你的账号"
-                v-model="username"
-                clearable
-                class="login-input"
-                id="login-name">
+              <label for="phone-number" class="login-label">手机号</label>
+              <el-input placeholder="请输入内容" class="login-input" id="phone-number">
+                <el-button slot="append" icon="el-icon-search">
+                </el-button>
               </el-input>
             </div>
             <div class="login-row">
@@ -90,7 +93,8 @@
         password: '',
         checked: false,
         tab_active: true,
-        active_class: ''
+        active_class: '',
+        active: 2
       }
     },
     computed: {
