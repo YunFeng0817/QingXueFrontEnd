@@ -42,40 +42,37 @@
             </div>
           </div>
           <div v-if="!tab_active" style="padding: 14px; text-align: center">
-            <br/>
-            <el-steps :active="active" finish-status="success">
-              <el-step title="验证手机号"></el-step>
-              <el-step title="确认密码"></el-step>
-              <el-step title="登录"></el-step>
+            <el-steps :active="process" finish-status="success">
+              <el-step title="验证手机号">
+              </el-step>
+              <el-step title="确认密码">
+              </el-step>
+              <el-step title="登录">
+              </el-step>
             </el-steps>
-            <div class="login-row">
-              <label for="phone-number" class="login-label">手机号</label>
-              <el-input placeholder="请输入内容" class="login-input" id="phone-number">
-                <el-button slot="append" icon="el-icon-search">
-                </el-button>
-              </el-input>
-            </div>
-            <div class="login-row">
-              <label for="login-password" class="login-label">密码</label>
-              <el-input
-                placeholder="密码"
-                v-model="password"
-                clearable
-                class="login-input"
-                id="login-password"
-                type="password">
-              </el-input>
-            </div>
-            <div class="login-row">
-              <el-checkbox v-model="checked">记住密码</el-checkbox>
-              <a class="el-icon-question">忘记密码</a>
-            </div>
-            <el-button class="button" type="primary">登录</el-button>
-            <p>其他登录方式</p>
-            <div>
-              <a class="am-icon-btn am-success am-icon-weixin"></a>
-              <a class="am-icon-btn am-primary am-icon-qq"></a>
-              <a class="am-icon-btn am-warning am-icon-weibo"></a>
+            <div v-if="process===0">
+              <div class="login-row">
+                <label for="phone-number" class="login-label">手机号</label>
+                <el-input
+                  placeholder="请输入手机号"
+                  v-model="phone_number"
+                  clearable
+                  class="login-input"
+                  id="phone-number">
+                </el-input>
+                <el-button plain class="login-button">发送短信</el-button>
+              </div>
+              <div class="login-row">
+                <label for="check-number" class="login-label">验证码</label>
+                <el-input
+                  placeholder="短信验证码"
+                  v-model="check_num"
+                  clearable
+                  class="login-input"
+                  id="check-number">
+                </el-input>
+              </div>
+              <el-button class="button" type="primary">验证手机号</el-button>
             </div>
           </div>
         </el-card>
@@ -94,7 +91,9 @@
         checked: false,
         tab_active: true,
         active_class: '',
-        active: 2
+        process: 0,
+        phone_number: '',
+        check_num: ''
       }
     },
     computed: {
@@ -145,12 +144,16 @@
   }
 
   .login-label {
-    flex: 1 1 10%;
+    flex: 1 0 15%;
     margin: 1%;
   }
 
   .login-input {
-    flex: 2 1 90%;
+    flex: 2 3 80%;
+  }
+
+  .login-button {
+    flex: 2 3 5%;
   }
 
   .button {
