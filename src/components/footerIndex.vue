@@ -10,11 +10,11 @@
       <br/>
       <span class="am-navbar-label">主页</span>
     </router-link>
-    <a @click="userPage">
+    <router-link :to="has_login?'/user':'/login'">
       <span class="am-icon-user icon"></span>
       <br/>
       <span class="am-navbar-label">用户</span>
-    </a>
+    </router-link>
   </div>
 </template>
 
@@ -24,15 +24,6 @@
     data () {
       return {
         has_login: false
-      }
-    },
-    method: {
-      userPage () {
-        if (this.has_login) {
-          this.$router.push({path: 'user'});
-        } else {
-          this.$router.push({path: 'login'});
-        }
       }
     }
   }
