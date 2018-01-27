@@ -9,7 +9,7 @@
           class="inline-input"
           v-model="searchContent"
           :fetch-suggestions="querySearch"
-          placeholder="输入想要搜索的课程或咨询"
+          placeholder="输入想要搜索的课程或资讯"
           @select="handleSelect"
           clearable="true"
         >
