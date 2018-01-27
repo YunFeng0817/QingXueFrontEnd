@@ -72,7 +72,56 @@
                   id="check-number">
                 </el-input>
               </div>
-              <el-button class="button" type="primary">验证手机号</el-button>
+              <el-button @click="setProcess" class="button" type="primary">验证手机号</el-button>
+            </div>
+            <div v-if="process===1">
+              <div class="login-row">
+                <label for="sign_up-password" class="login-label">新密码</label>
+                <el-input
+                  placeholder="新密码"
+                  v-model="new_password"
+                  clearable
+                  class="login-input"
+                  id="sign_up-password"
+                  type="password">
+                </el-input>
+              </div>
+              <div class="login-row">
+                <label for="sign_up-password" class="login-label">请重复新密码</label>
+                <el-input
+                  placeholder="请重复新密码"
+                  v-model="new_password"
+                  clearable
+                  class="login-input"
+                  id="sign_up-password"
+                  type="password">
+                </el-input>
+              </div>
+              <el-button @click="setProcess" class="button" type="primary">确认</el-button>
+            </div>
+            <div v-if="process===2">
+              <div class="login-row">
+                <label for="login-name" class="login-label">账号</label>
+                <el-input
+                  placeholder="请输入你的账号"
+                  v-model="phone_number"
+                  clearable
+                  class="login-input"
+                  id="login-name">
+                </el-input>
+              </div>
+              <div class="login-row">
+                <label for="login-password" class="login-label">密码</label>
+                <el-input
+                  placeholder="密码"
+                  v-model="password"
+                  clearable
+                  class="login-input"
+                  id="login-password"
+                  type="password">
+                </el-input>
+              </div>
+              <el-button @click="setProcess" class="button" type="primary">登录</el-button>
             </div>
           </div>
         </el-card>
@@ -93,7 +142,9 @@
         active_class: '',
         process: 0,
         phone_number: '',
-        check_num: ''
+        check_num: '',
+        new_password: '',
+        repeat_password: ''
       }
     },
     computed: {
@@ -110,6 +161,11 @@
         } else {
           return '';
         }
+      }
+    },
+    methods: {
+      setProcess () {
+        if (++this.process > 2) this.process = 0;
       }
     }
   }
