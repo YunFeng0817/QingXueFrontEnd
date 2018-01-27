@@ -26,6 +26,10 @@
                 type="password">
               </el-input>
             </div>
+            <div class="login-row">
+              <el-checkbox v-model="checked">记住密码</el-checkbox>
+              <a class="el-icon-question">忘记密码</a>
+            </div>
             <el-button class="button" type="primary">登录</el-button>
             <p>其他登录方式</p>
             <div>
@@ -46,7 +50,8 @@
     data () {
       return {
         username: '',
-        password: ''
+        password: '',
+        checked: false
       }
     }
   }
@@ -87,7 +92,18 @@
     flex: 2 1 90%;
   }
 
-  .button{
+  .button {
     width: 80%;
+  }
+
+  .el-icon-question{
+    position:relative;
+    left:50%;
+    bottom:2px;
+    color:#66b1ff;
+  }
+
+  .el-icon-question:active{
+    color:#409eff;
   }
 </style>
