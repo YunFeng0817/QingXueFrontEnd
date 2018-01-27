@@ -87,13 +87,13 @@
                 </el-input>
               </div>
               <div class="login-row">
-                <label for="sign_up-password" class="login-label">请重复新密码</label>
+                <label for="repeat-password" class="login-label">请重复新密码</label>
                 <el-input
                   placeholder="请重复新密码"
                   v-model="new_password"
                   clearable
                   class="login-input"
-                  id="sign_up-password"
+                  id="repeat-password"
                   type="password">
                 </el-input>
               </div>
@@ -165,7 +165,7 @@
     },
     methods: {
       setProcess () {
-        if (++this.process > 2) this.process = 0;
+        if (this.process++ > 2) this.process = 0;
       }
     }
   }

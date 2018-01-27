@@ -10,16 +10,32 @@
       <br/>
       <span class="am-navbar-label">主页</span>
     </router-link>
-    <router-link to='/user'>
+    <a @click="userPage">
       <span class="am-icon-user icon"></span>
       <br/>
       <span class="am-navbar-label">用户</span>
-    </router-link>
+    </a>
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    name: 'footerIndex',
+    data () {
+      return {
+        has_login: false
+      }
+    },
+    method: {
+      userPage () {
+        if (this.has_login) {
+          this.$router.push({path: 'user'});
+        } else {
+          this.$router.push({path: 'login'});
+        }
+      }
+    }
+  }
 </script>
 
 <style scoped rel="stylesheet/css">
