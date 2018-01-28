@@ -33,7 +33,7 @@
               <el-checkbox v-model="checked">记住密码</el-checkbox>
               <a class="el-icon-question">忘记密码</a>
             </div>
-            <el-button class="button" type="primary">登录</el-button>
+            <el-button class="button" type="primary" @click="loginSubmit">登录</el-button>
             <p>其他登录方式</p>
             <div>
               <a class="am-icon-btn am-success am-icon-weixin"></a>
@@ -164,6 +164,23 @@
       }
     },
     methods: {
+      loginSubmit () {
+        this.$axios({
+          method: 'post',
+          url: '/student/login/',
+          data: {
+            username: this.username,
+            password: this.password,
+            checked: this.checked
+          }
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (response, error) {
+            console.log(response, error);
+          });
+      },
       setProcess () {
         if (this.process++ > 2) this.process = 0;
       }

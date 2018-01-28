@@ -9,7 +9,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 
-Vue.prototype.$http = axios;
+Vue.prototype.$axios = axios;
+// Vue.prototype.$axios = axios.create({
+//   baseURL: 'http://localhost:8080'
+// });
 Vue.use(AmazeVue);
 Vue.use(ElementUI);
 
