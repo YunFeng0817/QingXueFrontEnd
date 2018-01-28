@@ -18,7 +18,7 @@
             <span>名称</span>
             <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
           </div>
-          <div  class="text item">
+          <div class="text item">
             {{'内容 ' + o }}
           </div>
         </el-card>
@@ -28,15 +28,17 @@
 </template>
 
 <script>
+  import userMessage from '../store/index'
+
   export default {
     name: 'user',
     components: {},
     data () {
       return {
-        avatar: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
-        userName: '青学',
-        gender: 'male',
-        stage: '大学',
+        avatar: userMessage.state.head_photo,
+        userName: userMessage.state.name,
+        gender: userMessage.state.gender,
+        stage: userMessage.state.stage,
         panelList: [
           {
             label: ' 我的预约',
@@ -78,6 +80,9 @@
           return 'am-icon-venus'
         }
       }
+    },
+    mounted () {
+      console.log(userMessage.state);
     }
   }
 </script>
@@ -121,12 +126,12 @@
     color: #49b5ed;
   }
 
-  #user-collapse-body{
+  #user-collapse-body {
     line-height: 100px;
   }
 
   .user-panel-header {
-    font-size: 20px!important;
+    font-size: 20px !important;
   }
 
 </style>

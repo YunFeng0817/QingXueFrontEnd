@@ -131,6 +131,8 @@
 </template>
 
 <script>
+  import userMessage from '../store/index';
+
   export default {
     name: 'login',
     data () {
@@ -175,10 +177,12 @@
           }
         })
           .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (response, error) {
-            console.log(response, error);
+            userMessage.commit('user_message', response);
+            this.$router.replace({path: 'user'});
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+            alert('用户名或密码错误');
           });
       },
       setProcess () {

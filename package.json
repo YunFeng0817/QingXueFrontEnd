@@ -15,7 +15,8 @@
     "vue-router": "^3.0.1",
     "amaze-vue": "1.1.10",
     "element-ui":"2.0.11",
-    "axios":"0.17.1"
+    "axios":"0.17.1",
+    "vuex":"3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -64,7 +65,8 @@
     "webpack-merge": "^4.1.0",
     "amaze-vue": "1.1.10",
     "element-ui":"2.0.11",
-    "axios":"0.17.1"
+    "axios":"0.17.1",
+    "vuex":"3.0.1"
   },
   "engines": {
     "node": ">= 4.0.0",

@@ -1,13 +1,10 @@
 <template>
   <div id="app">
     <header-index>
-
     </header-index>
     <router-view>
-
     </router-view>
     <footerIndex>
-
     </footerIndex>
   </div>
 
