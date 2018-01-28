@@ -19,11 +19,18 @@
 </template>
 
 <script>
+  import userMessage from '../store/index';
+
   export default {
     name: 'footerIndex',
     data () {
       return {
-        has_login: false
+        has_login: userMessage.state.has_login
+      }
+    },
+    watch: {
+      'userMessage.state.has_login': function () {
+        alert(this.has_login);
       }
     }
   }

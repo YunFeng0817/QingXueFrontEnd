@@ -3,7 +3,7 @@
     <div id="user-header">
       <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                 :src="avatar"/>
-      <p><span class="user-message">{{userName}}</span>欢迎光临<a>退出登录</a></p>
+      <p><span class="user-message">{{userName}}</span>欢迎光临<a @click="logout">退出登录</a></p>
       <p><span style="padding: 10px;">性别：</span><span class="am-btn icon" :class="getGender"
                                                       style="font-size: large"></span> 年级：<span class="user-message">{{stage}}</span>
       </p>
@@ -83,6 +83,18 @@
     },
     mounted () {
       console.log(userMessage.state);
+    },
+    methods: {
+      logout () {
+        this.$axios({
+          method: 'get',
+          url: '/student/logout/'
+        }).then(function (response) {
+          userMessage.commit('delete_message');
+        }).catch(function (error) {
+          console.log(error);
+        })
+      }
     }
   }
 </script>
