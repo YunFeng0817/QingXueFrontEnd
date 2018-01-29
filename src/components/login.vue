@@ -179,13 +179,13 @@
         })
           .then(function (response) {
             userMessage.commit('user_message', response);
-            loadingObject.close();
             this.$router.replace({path: 'user'});
+            loadingObject.close();
           }.bind(this))
           .catch(function (error) {
             console.log(error);
-            loadingObject.close();
             alert('用户名或密码错误');
+            loadingObject.close();
           });
       },
       setProcess () {

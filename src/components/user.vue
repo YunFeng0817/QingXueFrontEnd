@@ -81,19 +81,20 @@
         }
       }
     },
-    mounted () {
-      console.log(userMessage.state);
-    },
     methods: {
       logout () {
+        let loadingObject = this.$loading({fullscreen: true});
         this.$axios({
           method: 'get',
           url: '/student/logout/'
         }).then(function () {
           userMessage.commit('delete_message');
-        }).catch(function (error) {
+          this.$router.replace({path: '/main'});
+          loadingObject.close();
+        }.bind(this)).catch(function (error) {
           console.log(error);
-        })
+          loadingObject.close();
+        });
       }
     }
   }
