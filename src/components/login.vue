@@ -180,7 +180,8 @@
           }
         })
           .then(function (response) {
-            if (response.status === 200) {
+            // 如果response 的返回值是空，则表明返回的状态码出错，如果非空，则返回码是200
+            if (response) {
               userMessage.commit('user_message', response);
               this.$router.replace({path: 'user'});
             }
@@ -201,7 +202,7 @@
           }
         })
           .then(function (response) {
-            if (response.status === 200) {
+            if (response) {
               let time = 60;
               this.disabled = true;
               for (let i = 0; i < 60; i++) {

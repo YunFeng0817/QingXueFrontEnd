@@ -26,22 +26,22 @@ export default new Vuex.Store({
   mutations: {
     user_message (state, message) {
       state.has_login = true;
-      state.id = message.data.id;
-      state.mobile_num = message.data.mobile_num;
-      state.name = message.data.name;
-      state.stage = message.data.stage;
-      state.grade = message.data.grade;
-      state.user = message.data.user;
-      state.head_photo = message.data.head_photo;
-      state.birthday = message.data.birthday;
-      state.add_time = message.data.add_time;
-      state.following = message.data.following;
-      state.favourites = message.data.favourites;
-      state.courses = message.data.courses;
-      state.course_orders = message.data.course_orders;
-      state.comment_to_educators = message.data.comment_to_educators;
-      state.comment_to_courses = message.data.comment_to_courses;
-      state.address = message.data.address;
+      state.id = message.id;
+      state.mobile_num = message.mobile_num;
+      state.name = message.name;
+      state.stage = message.stage;
+      state.grade = message.grade;
+      state.user = message.user;
+      state.head_photo = message.head_photo;
+      state.birthday = message.birthday;
+      state.add_time = message.add_time;
+      state.following = message.following;
+      state.favourites = message.favourites;
+      state.courses = message.courses;
+      state.course_orders = message.course_orders;
+      state.comment_to_educators = message.comment_to_educators;
+      state.comment_to_courses = message.comment_to_courses;
+      state.address = message.address;
     },
     delete_message (state) {
       state.has_login = false;

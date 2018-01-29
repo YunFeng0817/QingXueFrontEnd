@@ -29,6 +29,7 @@
 
 <script>
   import userMessage from '../store/index'
+  import axios from '../axios/index'
 
   export default {
     name: 'user',
@@ -83,17 +84,14 @@
     },
     methods: {
       logout () {
-        let loadingObject = this.$loading({fullscreen: true});
-        this.$axios({
+        axios({
           method: 'get',
           url: '/student/logout/'
         }).then(function () {
           userMessage.commit('delete_message');
           this.$router.replace({path: '/main'});
-          loadingObject.close();
         }.bind(this)).catch(function (error) {
           console.log(error);
-          loadingObject.close();
         });
       }
     }
