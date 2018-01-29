@@ -31,7 +31,7 @@
         }
         axios({
           method: 'post',
-          url: '/student/msg_confirm/'
+          url: '/student/login/'
         })
           .then(function (response) {
             if (response) {

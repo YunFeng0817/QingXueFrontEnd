@@ -97,7 +97,7 @@
                   type="password">
                 </el-input>
               </div>
-              <el-button @click="setProcess" class="button" type="primary">确认</el-button>
+              <el-button @click="sign_up" class="button" type="primary">确认</el-button>
             </div>
             <div v-if="process===2">
               <div class="login-row">
@@ -234,7 +234,25 @@
             if (response) {
               this.setProcess();
             }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
           })
+      },
+      sign_up () {
+        axios({
+          method: 'post',
+          url: '/student/sign_up/',
+          data: {
+            username: this.phone_number,
+            msg_confirmed: this.repeat_password
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.setProcess();
+            }
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           })
