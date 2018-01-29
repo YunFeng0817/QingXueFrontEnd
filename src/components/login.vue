@@ -73,7 +73,7 @@
                   id="check-number">
                 </el-input>
               </div>
-              <el-button @click="msg_confirm" :disabled="msg_confirm_disabled" class="button" type="primary">验证手机号
+              <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
               </el-button>
             </div>
             <div v-if="process===1">
@@ -92,14 +92,14 @@
                 <label for="repeat-password" class="login-label">请重复新密码</label>
                 <el-input
                   placeholder="请重复新密码"
-                  v-model="new_password"
+                  v-model="repeat_password"
                   clearable
                   class="login-input"
                   id="repeat-password"
                   type="password">
                 </el-input>
               </div>
-              <el-button @click="sign_up" :disabled="sign_up_disabled" class="button" type="primary">确认</el-button>
+              <el-button @click="sign_up" class="button" type="primary">确认</el-button>
             </div>
             <div v-if="process===2">
               <div class="login-row">
@@ -142,8 +142,6 @@
       return {
         time: '发送短信',
         send_msg_disabled: false,
-        msg_confirm_disabled: false,
-        sign_up_disabled: false,
         username: '',
         password: '',
         checked: false,
@@ -178,7 +176,12 @@
         // 用于判断是否11个字符串都是数字
         let regx = /^\d{11,}$/;
         // 以下表达式表示  !(！A&&!B&&C)
-        return !(!this.send_msg_disabled && !(this.phone_number.length !== 11) && regx.test(this.phone_number))
+        return !(!this.send_msg_disabled && this.phone_number.length === 11 && regx.test(this.phone_number))
+      },
+      check_msg_confirm: function () {
+        let regx1 = /^\d{6,}$/;
+        let regx2 = /^\d{11,}$/;
+        return !(this.check_num.length === 6 && regx1.test(this.check_num) && this.phone_number.length === 11 && regx2.test(this.phone_number));
       }
     },
     methods: {
