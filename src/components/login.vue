@@ -175,8 +175,10 @@
         return this.username.length !== 11 || this.password === '';
       },
       check_phone: function () {
-        // 一下表达式表示异或
-        return ((this.send_msg_disabled) && !(this.phone_number.length !== 11)) || (!(this.send_msg_disabled) && (this.phone_number.length !== 11))
+        // 用于判断是否11个字符串都是数字
+        let regx = /^\d{11,}$/;
+        // 以下表达式表示  !(！A&&!B&&C)
+        return !(!this.send_msg_disabled && !(this.phone_number.length !== 11) && regx.test(this.phone_number))
       }
     },
     methods: {
@@ -215,13 +217,13 @@
           .then(function (response) {
             if (response) {
               let time = 60;
-              this.disabled = true;
+              this.send_msg_disabled = true;
               for (let i = 0; i < 60; i++) {
                 window.setTimeout(function () {
                   time--;
                   this.time = '发送短信' + '(' + time.toString() + ')';
                   if (!time) {
-                    this.disabled = false;
+                    this.send_msg_disabled = false;
                     this.time = '发送短信';
                   }
                 }.bind(this), 1000 * i);

@@ -20,13 +20,21 @@ axios.interceptors.response.use((response) => {
       console.log(data.status);
       return;
     case 401:
-      alert('您的账号或密码错误');
-      return;
-    case 402:
       console.log(data.status);
       return;
+    case 402:
+      switch (data.detail) {
+        case 4021:
+          alert('您的账号或密码错误');
+          break;
+        case 4022:
+          alert('您输入的验证码错误');
+          break;
+        default:
+      }
+      return;
     case 403:
-      alert('您的账号或密码错误');
+      console.log(data.status);
       return;
     case 404:
       console.log(data.status);
@@ -35,14 +43,21 @@ axios.interceptors.response.use((response) => {
       console.log(data.status);
       return;
     case 406:
-      alert('您输入的验证码错误，请重试');
+      console.log(data.status);
       return;
     case 408:
+      console.log(data.status);
+      return;
+    case 409:
+      console.log(data.status);
+      return;
+    case 410:
       console.log(data.status);
       return;
     case 500:
       console.log(data.status);
       return;
+    case 204:
     case 200:
       return data;
     default:
