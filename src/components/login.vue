@@ -167,6 +167,7 @@
     },
     methods: {
       loginSubmit () {
+        let loadingObject = this.$loading({fullscreen: true});
         this.$axios({
           method: 'post',
           url: '/student/login/',
@@ -178,10 +179,12 @@
         })
           .then(function (response) {
             userMessage.commit('user_message', response);
+            loadingObject.close();
             this.$router.replace({path: 'user'});
           }.bind(this))
           .catch(function (error) {
             console.log(error);
+            loadingObject.close();
             alert('用户名或密码错误');
           });
       },

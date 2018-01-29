@@ -89,7 +89,7 @@
         this.$axios({
           method: 'get',
           url: '/student/logout/'
-        }).then(function (response) {
+        }).then(function () {
           userMessage.commit('delete_message');
         }).catch(function (error) {
           console.log(error);

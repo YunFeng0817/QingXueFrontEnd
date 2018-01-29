@@ -11,7 +11,7 @@
       <span class="am-navbar-label">主页</span>
     </router-link>
     <router-link :to="has_login?'/user':'/login'">
-      <span class="am-icon-user icon"></span>
+      <span @click="test" class="am-icon-user icon"></span>
       <br/>
       <span class="am-navbar-label">用户</span>
     </router-link>
@@ -30,6 +30,11 @@
     },
     watch: {
       'userMessage.state.has_login': function () {
+        alert(this.has_login);
+      }
+    },
+    methods: {
+      test () {
         alert(this.has_login);
       }
     }
