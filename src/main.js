@@ -7,9 +7,8 @@ import AmazeVue from 'amaze-vue';
 import 'amaze-vue/dist/amaze-vue.css';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
+import axios from './axios/index'
 
-Vue.prototype.$axios = axios;
 Vue.use(AmazeVue);
 Vue.use(ElementUI);
 
@@ -19,6 +18,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  axios,
   template: '<App/>',
   components: {App}
 });

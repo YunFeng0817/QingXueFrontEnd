@@ -132,6 +132,7 @@
 
 <script>
   import userMessage from '../store/index';
+  import axios from '../axios/index'
 
   export default {
     name: 'login',
@@ -169,8 +170,7 @@
     },
     methods: {
       loginSubmit () {
-        let loadingObject = this.$loading({fullscreen: true});
-        this.$axios({
+        axios({
           method: 'post',
           url: '/student/login/',
           data: {
@@ -180,21 +180,20 @@
           }
         })
           .then(function (response) {
-            userMessage.commit('user_message', response);
-            this.$router.replace({path: 'user'});
-            loadingObject.close();
+            if (response.status === 200) {
+              userMessage.commit('user_message', response);
+              this.$router.replace({path: 'user'});
+            }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
-            alert('用户名或密码错误');
-            loadingObject.close();
           });
       },
       setProcess () {
         if (this.process++ > 2) this.process = 0;
       },
       send_msg () {
-        this.$axios({
+        axios({
           method: 'post',
           url: '/student/send_msg/',
           data: {
@@ -202,17 +201,19 @@
           }
         })
           .then(function (response) {
-            let time = 60;
-            this.disabled = true;
-            for (let i = 0; i < 60; i++) {
-              window.setTimeout(function () {
-                time--;
-                this.time = '发送短信' + '(' + time.toString() + ')';
-                if (!time) {
-                  this.disabled = false;
-                  this.time = '发送短信';
-                }
-              }.bind(this), 1000 * i);
+            if (response.status === 200) {
+              let time = 60;
+              this.disabled = true;
+              for (let i = 0; i < 60; i++) {
+                window.setTimeout(function () {
+                  time--;
+                  this.time = '发送短信' + '(' + time.toString() + ')';
+                  if (!time) {
+                    this.disabled = false;
+                    this.time = '发送短信';
+                  }
+                }.bind(this), 1000 * i);
+              }
             }
           }.bind(this))
           .catch(function (error) {
