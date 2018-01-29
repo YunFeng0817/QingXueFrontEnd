@@ -30,7 +30,7 @@
           return '/user';
         }
         axios({
-          method: 'post',
+          method: 'get',
           url: '/student/login/'
         })
           .then(function (response) {

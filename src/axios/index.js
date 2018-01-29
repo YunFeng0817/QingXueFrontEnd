@@ -17,7 +17,6 @@ axios.interceptors.response.use((response) => {
 // 根据返回的code值来做不同的处理（和后端约定）
   switch (data.status) {
     case 400:
-      alert('您未登录');
       return;
     case 401:
       alert('您的账号或密码错误');
@@ -25,12 +24,15 @@ axios.interceptors.response.use((response) => {
     case 406:
       alert('您输入的验证码错误，请重试');
       return;
+    case 403:
+      return;
     case 200:
       return data;
     default:
+      alert(data.status);
   }
   // 若不是正确的返回code，且已经登录，就抛出错误
-  const err = new Error(data.description);
+  const err = new Error(data.detail);
 
   err.data = data;
   err.response = response;
