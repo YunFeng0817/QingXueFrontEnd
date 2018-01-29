@@ -20,6 +20,7 @@
 
 <script>
   import userMessage from '../store/index';
+  import axios from '../axios/index'
 
   export default {
     name: 'footerIndex',
@@ -28,6 +29,20 @@
         if (userMessage.state.has_login) {
           return '/user';
         }
+        axios({
+          method: 'post',
+          url: '/student/msg_confirm/'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('user_message', response);
+              return '/user';
+            }
+            return '/login';
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         return '/login';
       }
     }

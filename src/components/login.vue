@@ -72,7 +72,7 @@
                   id="check-number">
                 </el-input>
               </div>
-              <el-button @click="setProcess" class="button" type="primary">验证手机号</el-button>
+              <el-button @click="msg_confirm" class="button" type="primary">验证手机号</el-button>
             </div>
             <div v-if="process===1">
               <div class="login-row">
@@ -217,6 +217,24 @@
               }
             }
           }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
+      },
+      msg_confirm () {
+        axios({
+          method: 'post',
+          url: '/student/msg_confirm/',
+          data: {
+            phone_number: this.phone_number,
+            msg_code: this.check_num
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.setProcess();
+            }
+          })
           .catch(function (error) {
             console.log(error);
           })

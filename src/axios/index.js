@@ -22,6 +22,9 @@ axios.interceptors.response.use((response) => {
     case 401:
       alert('您的账号或密码错误');
       return;
+    case 406:
+      alert('您输入的验证码错误，请重试');
+      return;
     case 200:
       return data;
     default:
