@@ -11,7 +11,7 @@
             <div class="login-row">
               <label for="login-name" class="login-label">账号</label>
               <el-input
-                placeholder="请输入你的账号"
+                placeholder="请输入您的手机号"
                 v-model="username"
                 clearable
                 class="login-input"
@@ -33,7 +33,7 @@
               <el-checkbox v-model="checked">记住密码</el-checkbox>
               <a class="el-icon-question">忘记密码</a>
             </div>
-            <el-button class="button" type="primary" @click="loginSubmit">登录</el-button>
+            <el-button class="button" type="primary" :disabled="check_login" @click="loginSubmit">登录</el-button>
             <p>其他登录方式</p>
             <div>
               <a class="am-icon-btn am-success am-icon-weixin"></a>
@@ -60,7 +60,8 @@
                   class="login-input"
                   id="phone-number">
                 </el-input>
-                <el-button @click="send_msg" :disabled="disabled" plain class="login-button">{{time}}</el-button>
+                <el-button @click="send_msg" :disabled="check_phone" plain class="login-button">{{time}}
+                </el-button>
               </div>
               <div class="login-row">
                 <label for="check-number" class="login-label">验证码</label>
@@ -72,7 +73,8 @@
                   id="check-number">
                 </el-input>
               </div>
-              <el-button @click="msg_confirm" class="button" type="primary">验证手机号</el-button>
+              <el-button @click="msg_confirm" :disabled="msg_confirm_disabled" class="button" type="primary">验证手机号
+              </el-button>
             </div>
             <div v-if="process===1">
               <div class="login-row">
@@ -97,7 +99,7 @@
                   type="password">
                 </el-input>
               </div>
-              <el-button @click="sign_up" class="button" type="primary">确认</el-button>
+              <el-button @click="sign_up" :disabled="sign_up_disabled" class="button" type="primary">确认</el-button>
             </div>
             <div v-if="process===2">
               <div class="login-row">
@@ -121,7 +123,7 @@
                   type="password">
                 </el-input>
               </div>
-              <el-button @click="setProcess" class="button" type="primary">登录</el-button>
+              <el-button @click="loginSubmit" :disabled="check_login" class="button" type="primary">登录</el-button>
             </div>
           </div>
         </el-card>
@@ -139,7 +141,9 @@
     data () {
       return {
         time: '发送短信',
-        disabled: false,
+        send_msg_disabled: false,
+        msg_confirm_disabled: false,
+        sign_up_disabled: false,
         username: '',
         password: '',
         checked: false,
@@ -166,6 +170,13 @@
         } else {
           return '';
         }
+      },
+      check_login: function () {
+        return this.username.length !== 11 || this.password === '';
+      },
+      check_phone: function () {
+        // 一下表达式表示异或
+        return ((this.send_msg_disabled) && !(this.phone_number.length !== 11)) || (!(this.send_msg_disabled) && (this.phone_number.length !== 11))
       }
     },
     methods: {

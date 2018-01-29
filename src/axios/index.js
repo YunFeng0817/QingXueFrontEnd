@@ -17,14 +17,31 @@ axios.interceptors.response.use((response) => {
 // 根据返回的code值来做不同的处理（和后端约定）
   switch (data.status) {
     case 400:
+      console.log(data.status);
       return;
     case 401:
       alert('您的账号或密码错误');
       return;
+    case 402:
+      console.log(data.status);
+      return;
+    case 403:
+      alert('您的账号或密码错误');
+      return;
+    case 404:
+      console.log(data.status);
+      return;
+    case 405:
+      console.log(data.status);
+      return;
     case 406:
       alert('您输入的验证码错误，请重试');
       return;
-    case 403:
+    case 408:
+      console.log(data.status);
+      return;
+    case 500:
+      console.log(data.status);
       return;
     case 200:
       return data;
