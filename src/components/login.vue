@@ -60,7 +60,7 @@
                   class="login-input"
                   id="phone-number">
                 </el-input>
-                <el-button plain class="login-button">发送短信</el-button>
+                <el-button @click="send_msg" :disabled="disabled" plain class="login-button">{{time}}</el-button>
               </div>
               <div class="login-row">
                 <label for="check-number" class="login-label">验证码</label>
@@ -137,6 +137,8 @@
     name: 'login',
     data () {
       return {
+        time: '发送短信',
+        disabled: false,
         username: '',
         password: '',
         checked: false,
@@ -190,6 +192,41 @@
       },
       setProcess () {
         if (this.process++ > 2) this.process = 0;
+      },
+      send_msg () {
+        // this.$axios({
+        //   method: 'post',
+        //   url: '/student/send_msg/',
+        //   data: {
+        //     phone_number: this.phone_number
+        //   }
+        // })
+        //   .then(function (response) {
+        //     this.disabled = true;
+        //     for (let i = 0; i < 60; i++) {
+        //       window.setTimeout(this.time--, 1000);
+        //       console.log(this.time);
+        //       this.timeShow = '(' + this.time.toString() + ')';
+        //     }
+        //     this.time = 60;
+        //     this.timeShow = '';
+        //     this.disabled = false;
+        //   }.bind(this))
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   }.bind(this))
+        let time = 60;
+        this.disabled = true;
+        for (let i = 0; i < 60; i++) {
+          window.setTimeout(function () {
+            time--;
+            this.time = '发送短信' + '(' + time.toString() + ')';
+            if (!time) {
+              this.disabled = false;
+              this.time = '发送短信';
+            }
+          }.bind(this), 1000 * i);
+        }
       }
     }
   }
