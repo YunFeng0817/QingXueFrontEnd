@@ -33,17 +33,21 @@
                         style="width: 100%;">
         </el-date-picker>
       </el-form-item>
+      <el-form-item label="选择头像">
+        <el-upload
+          ref="avatar"
+          class="avatar-uploader"
+          action=""
+          v-model="form.file"
+          :show-file-list="false"
+          :on-change="onChoose"
+          :auto-upload="false">
+          <img v-show="imageUrl" :src="imageUrl" ref="image" class="avatar">
+          <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
+      <el-button type="primary" @click="submit">提交</el-button>
     </el-form>
-    <el-upload
-      class="avatar-uploader"
-      action=""
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-      :auto-upload="false">
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
   </div>
 </template>
 
@@ -63,26 +67,58 @@
           birthday: '',
           gender: '',
           stage: '',
-          grade: ''
+          grade: '',
+          file: ''
         },
         imageUrl: ''
       }
     },
     methods: {
-      handleAvatarSuccess (res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-      },
-      beforeAvatarUpload (file) {
+      onChoose (file) {
+        file = file.raw;
         const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!');
+        } else {
+          this.imageUrl = ' ';
+          let maxlength = 500 * 1024;
+          let Img = this.$refs.image;   // 通过refs获得DOM元素img
+          let canvas = document.createElement('canvas');
+          let context = canvas.getContext('2d');
+          let fileReader = new FileReader(); // 读取客户端上的文件
+          fileReader.readAsDataURL(file);
+          fileReader.onload = function () {   // 读文件成功的回调
+            Img.src = fileReader.result;  // 读取到的文件内容.这个属性只在读取操作完成之后才有效,并且数据的格式取决于读取操作是由哪个方法发起的.所以必须使用reader.onload，
+            if (file.size > maxlength) {
+              Img.onload = function () {
+                let w = Img.naturalWidth;
+                let h = Img.naturalHeight;
+                canvas.width = w < h ? w : h;
+                canvas.height = w < h ? w : h;
+                context.drawImage(Img, 0, 0, w, h);
+                let temp = maxlength / file.size + 0.2;
+                let data = canvas.toDataURL('image/jpeg', temp); // data url的形式
+                data = data.split(',')[1];
+                data = window.atob(data);
+                let ia = new Uint8Array(data.length);
+                for (let i = 0; i < data.length; i++) {
+                  ia[i] = data.charCodeAt(i);
+                }
+                // 将ia[]数据转换为File对象
+                this.file = new File([ia], file.name, {
+                  type: 'image/jpeg',
+                  name: file.name
+                })
+              }.bind(this);
+            } else {
+              this.file = file;
+            }
+          }.bind(this);
         }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
+        return isJPG;
+      },
+      submit () {
+        console.log(this.file);
       }
     }
   }
