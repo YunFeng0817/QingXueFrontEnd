@@ -286,7 +286,7 @@
           if (valid) {
             axios({
               method: 'post',
-              url: '/student/sign_up/',
+              url: '/student/detail/',
               data: {
                 password: this.ruleForm2.checkPass
               }

@@ -18,13 +18,13 @@
       </el-form-item>
       <el-form-item label="学习阶段">
         <el-select placeholder="请选择您的学习阶段" v-model="form.stage">
-          <el-option v-for="item in stages" :key="item.id" :label="item.label" :value="item.value">
+          <el-option v-for="item in stages" :key="item.id" :label="item" :value="item">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="年级">
-        <el-select placeholder="请选择您的年级" v-model="form.stage">
-          <el-option v-for="item in stages" :key="item.id" :label="item.label" :value="item.value">
+        <el-select placeholder="请选择您的年级" v-model="form.grade">
+          <el-option v-for="item in grades" :key="item.id" :label="item" :value="item">
           </el-option>
         </el-select>
       </el-form-item>
@@ -58,12 +58,8 @@
     name: 'input-message',
     data () {
       return {
-        stages: [
-          {
-            label: '小学',
-            value: 1
-          }
-        ],
+        stages: [],
+        grades: [],
         form: {
           name: '',
           birthday: '',
@@ -74,6 +70,32 @@
         },
         imageUrl: ''
       }
+    },
+    created () {
+      axios({
+        method: 'get',
+        url: '/common/stages/'
+      })
+        .then(function (response) {
+          if (response) {
+            this.stages = response.stages;
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        });
+      axios({
+        method: 'get',
+        url: '/common/grades/'
+      })
+        .then(function (response) {
+          if (response) {
+            this.grades = response.grades;
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     methods: {
       onChoose (file) {
@@ -146,7 +168,7 @@
 </script>
 
 <style>
-  .avatar-uploader .el-upload {
+  div.el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
@@ -154,15 +176,15 @@
     overflow: hidden;
   }
 
-  .avatar-uploader .el-upload input {
+  div.el-upload input {
     display: none;
   }
 
-  .avatar-uploader .el-upload:hover {
+  div.el-upload:hover {
     border-color: #409EFF;
   }
 
-  .avatar-uploader-icon {
+  i.avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
     width: 178px;
