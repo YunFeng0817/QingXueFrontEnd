@@ -305,7 +305,7 @@
               method: 'post',
               url: '/student/sign_up/',
               data: {
-                msg_confirmed: this.ruleForm2.checkPass
+                password: this.ruleForm2.checkPass
               }
             })
               .then(function (response) {
