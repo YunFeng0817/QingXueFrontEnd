@@ -52,6 +52,9 @@
 </template>
 
 <script>
+  import userMessage from '../store/index';
+  import axios from '../axios/index';
+
   export default {
     name: 'input-message',
     data () {
@@ -118,7 +121,26 @@
         return isJPG;
       },
       submit () {
-        console.log(this.file);
+        axios({
+          method: 'put',
+          url: '/student/detail/',
+          data: {
+            name: this.form.name,
+            stage: this.form.stage,
+            grade: this.form.grade,
+            gender: this.form.gender,
+            head_photo: this.file
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('user_message', response);
+              this.$router.replace({path: 'user'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     }
   }
