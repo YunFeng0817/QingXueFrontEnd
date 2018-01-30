@@ -47,7 +47,7 @@
               </el-step>
               <el-step title="确认密码">
               </el-step>
-              <el-step title="登录">
+              <el-step v-if="!forget_pass" title="完善信息">
               </el-step>
             </el-steps>
             <div v-if="process===0">
@@ -95,31 +95,8 @@
               </el-form>
             </div>
             <div v-if="process===2">
-              <div class="login-row">
-                <label for="login-name" class="login-label">账号</label>
-                <el-input
-                  placeholder="请输入你的账号"
-                  v-model="phone_number"
-                  clearable
-                  class="login-input"
-                  id="login-name">
-                </el-input>
-              </div>
-              <div class="login-row">
-                <label for="login-password" class="login-label">密码</label>
-                <el-input
-                  placeholder="密码"
-                  v-model="password"
-                  clearable
-                  class="login-input"
-                  id="login-password"
-                  type="password">
-                </el-input>
-              </div>
-              <div class="login-row">
-                <el-checkbox v-model="checked">记住密码</el-checkbox>
-              </div>
-              <el-button @click="loginSubmit" :disabled="check_login" class="button" type="primary">登录</el-button>
+              <input-message>
+              </input-message>
             </div>
           </div>
         </el-card>
@@ -130,10 +107,16 @@
 
 <script>
   import userMessage from '../store/index';
-  import axios from '../axios/index'
+  import inputMessage from '../components/inputMessage'
+  import axios from '../axios/index';
+  import InputMessage from './inputMessage';
 
   export default {
     name: 'login',
+    components: {
+      InputMessage,
+      'input-message': inputMessage
+    },
     data () {
       let validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -174,7 +157,7 @@
         tab_active: true,
         forget_pass: false,
         active_class: '',
-        process: 0,
+        process: 2,
         phone_number: '',
         check_num: '',
         new_password: '',
@@ -310,7 +293,12 @@
             })
               .then(function (response) {
                 if (response) {
-                  this.setProcess();
+                  if (!this.forget_pass) {
+                    this.setProcess();
+                  } else {
+                    this.$router.replace({path: 'user'});
+                  }
+                  userMessage.commit('user_message', response);
                 }
               }.bind(this))
               .catch(function (error) {
