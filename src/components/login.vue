@@ -73,33 +73,26 @@
                   id="check-number">
                 </el-input>
               </div>
-              <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
+              <el-button @click="setProcess" class="button" type="primary">验证手机号
               </el-button>
             </div>
             <div v-if="process===1">
-              <div class="login-row">
-                <label for="sign_up-password" class="login-label">新密码</label>
-                <el-input
-                  placeholder="新密码"
-                  v-model="new_password"
-                  clearable
-                  class="login-input"
-                  id="sign_up-password"
-                  type="password">
-                </el-input>
-              </div>
-              <div class="login-row">
-                <label for="repeat-password" class="login-label">请重复新密码</label>
-                <el-input
-                  placeholder="请重复新密码"
-                  v-model="repeat_password"
-                  clearable
-                  class="login-input"
-                  id="repeat-password"
-                  type="password">
-                </el-input>
-              </div>
-              <el-button @click="sign_up" class="button" type="primary">确认</el-button>
+              <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-position="left"
+                       label-width="22%"
+                       class="demo-ruleForm">
+                <el-form-item label="密码" prop="pass">
+                  <el-input type="password" v-model="ruleForm2.pass" auto-complete="off">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" prop="checkPass">
+                  <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off">
+                  </el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
+                  <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                </el-form-item>
+              </el-form>
             </div>
             <div v-if="process===2">
               <div class="login-row">
@@ -139,6 +132,36 @@
   export default {
     name: 'login',
     data () {
+      let validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm2.pass.length < 8) {
+            callback(new Error('密码长度不能小于8'));
+          }
+          let regx = /\D/g;
+          if (!regx.test('^' + this.ruleForm2.pass + '$')) {
+            callback(Error('密码不能为纯数字'));
+          }
+          regx = RegExp(this.phone_number);
+          if (!regx.test(this.ruleForm2.pass)) {
+            callback(Error('密码中不能包含手机号'));
+          }
+          if (this.ruleForm2.checkPass !== '') {
+            this.$refs.ruleForm2.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      let validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm2.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
       return {
         time: '发送短信',
         send_msg_disabled: false,
@@ -151,7 +174,19 @@
         phone_number: '',
         check_num: '',
         new_password: '',
-        repeat_password: ''
+        repeat_password: '',
+        ruleForm2: {
+          pass: '',
+          checkPass: ''
+        },
+        rules2: {
+          pass: [
+            {validator: validatePass, trigger: 'blur'}
+          ],
+          checkPass: [
+            {validator: validatePass2, trigger: 'blur'}
+          ]
+        }
       }
     },
     computed: {
@@ -255,23 +290,32 @@
             console.log(error);
           })
       },
-      sign_up () {
-        axios({
-          method: 'post',
-          url: '/student/sign_up/',
-          data: {
-            username: this.phone_number,
-            msg_confirmed: this.repeat_password
+      submitForm (formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            axios({
+              method: 'post',
+              url: '/student/sign_up/',
+              data: {
+                username: this.phone_number,
+                msg_confirmed: this.ruleForm2.checkPass
+              }
+            })
+              .then(function (response) {
+                if (response) {
+                  this.setProcess();
+                }
+              }.bind(this))
+              .catch(function (error) {
+                console.log(error);
+              })
+          } else {
+            return false;
           }
-        })
-          .then(function (response) {
-            if (response) {
-              this.setProcess();
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          })
+        });
+      },
+      resetForm (formName) {
+        this.$refs[formName].resetFields();
       }
     }
   }
