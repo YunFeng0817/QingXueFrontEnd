@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="22" class="card">
         <el-card :body-style="{ padding: '0px' }">
-          <div class="login-index">
+          <div v-if="!forget_pass" class="login-index">
             <div @click="tab_active=true" id="sign-in" :class="getClassA"><span>登录</span></div>
             <div @click="tab_active=false" id="sign-up" :class="getClassB"><span>注册</span></div>
           </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="login-row">
               <el-checkbox v-model="checked">记住密码</el-checkbox>
-              <a class="el-icon-question">忘记密码</a>
+              <a @click="forgetPass" class="el-icon-question">忘记密码</a>
             </div>
             <el-button class="button" type="primary" :disabled="check_login" @click="loginSubmit">登录</el-button>
             <p>其他登录方式</p>
@@ -73,7 +73,7 @@
                   id="check-number">
                 </el-input>
               </div>
-              <el-button @click="setProcess" class="button" type="primary">验证手机号
+              <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
               </el-button>
             </div>
             <div v-if="process===1">
@@ -116,6 +116,9 @@
                   type="password">
                 </el-input>
               </div>
+              <div class="login-row">
+                <el-checkbox v-model="checked">记住密码</el-checkbox>
+              </div>
               <el-button @click="loginSubmit" :disabled="check_login" class="button" type="primary">登录</el-button>
             </div>
           </div>
@@ -140,11 +143,11 @@
             callback(new Error('密码长度不能小于8'));
           }
           let regx = /\D/g;
-          if (!regx.test('^' + this.ruleForm2.pass + '$')) {
+          if (!regx.test(this.ruleForm2.pass)) {
             callback(Error('密码不能为纯数字'));
           }
           regx = RegExp(this.phone_number);
-          if (!regx.test(this.ruleForm2.pass)) {
+          if (regx.test(this.ruleForm2.pass)) {
             callback(Error('密码中不能包含手机号'));
           }
           if (this.ruleForm2.checkPass !== '') {
@@ -169,6 +172,7 @@
         password: '',
         checked: false,
         tab_active: true,
+        forget_pass: false,
         active_class: '',
         process: 0,
         phone_number: '',
@@ -220,6 +224,10 @@
       }
     },
     methods: {
+      forgetPass () {
+        this.forget_pass = true;
+        this.tab_active = false;
+      },
       loginSubmit () {
         axios({
           method: 'post',
@@ -297,7 +305,6 @@
               method: 'post',
               url: '/student/sign_up/',
               data: {
-                username: this.phone_number,
                 msg_confirmed: this.ruleForm2.checkPass
               }
             })
