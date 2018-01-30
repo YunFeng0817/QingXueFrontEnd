@@ -35,7 +35,6 @@
       </el-form-item>
       <el-form-item label="选择头像">
         <el-upload
-          ref="avatar"
           class="avatar-uploader"
           action=""
           v-model="form.file"

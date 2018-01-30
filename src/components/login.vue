@@ -157,7 +157,7 @@
         tab_active: true,
         forget_pass: false,
         active_class: '',
-        process: 2,
+        process: 0,
         phone_number: '',
         check_num: '',
         new_password: '',
