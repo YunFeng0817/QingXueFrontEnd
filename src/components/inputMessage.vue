@@ -148,12 +148,13 @@
       },
       submit () {
         let dataForm = new FormData();
-        dataForm.append('file', this.form.file);
+        dataForm.append('head_photo', this.form.file);
         dataForm.append('stage', this.form.stage);
         dataForm.append('grade', this.form.grade);
         dataForm.append('gender', this.form.gender);
-        dataForm.append('birthday', this.form.birthday);
+        dataForm.append('birthday', this.form.file);
         dataForm.append('name', this.form.name);
+        console.log(dataForm);
         axios({
           method: 'put',
           url: '/student/detail/',

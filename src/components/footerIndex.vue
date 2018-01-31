@@ -61,7 +61,7 @@
     position: fixed;
     bottom: 0;
 
-    background-color: #66b1ff;
+    background-color: #8DE9E8;
   }
 
   .footer-index a {
@@ -76,7 +76,7 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    color: lightgray;
+    color: #dcebef;
 
     line-height: 20%;
   }
