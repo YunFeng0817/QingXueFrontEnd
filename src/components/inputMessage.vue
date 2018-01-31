@@ -2,7 +2,7 @@
   <div>
     <el-form label-position="left" label-width="80px" :v-model="form">
       <el-form-item label="昵称">
-        <el-input placeholder="请填写您的昵称" :v-model="form.name">
+        <el-input placeholder="请填写您的昵称" v-model="form.name">
         </el-input>
       </el-form-item>
 
@@ -45,7 +45,7 @@
           <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
-      <el-button type="primary" @click="submit">提交</el-button>
+      <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
     </el-form>
   </div>
 </template>
@@ -97,6 +97,11 @@
           console.log(error);
         });
     },
+    computed: {
+      checkForm: function () {
+        return this.form.name === '' || this.form.birthday === '' || this.form.gender === '' || this.form.stage === '' || this.form.grade === '' || this.form.file === '';
+      }
+    },
     methods: {
       onChoose (file) {
         file = file.raw;
@@ -129,7 +134,7 @@
                   ia[i] = data.charCodeAt(i);
                 }
                 // 将ia[]数据转换为File对象
-                this.file = new File([ia], file.name, {
+                this.form.file = new File([ia], file.name, {
                   type: 'image/jpeg',
                   name: file.name
                 })
@@ -150,7 +155,8 @@
             stage: this.form.stage,
             grade: this.form.grade,
             gender: this.form.gender,
-            head_photo: this.file
+            birthday: this.form.birthday
+            // head_photo: this.form.file
           }
         })
           .then(function (response) {
