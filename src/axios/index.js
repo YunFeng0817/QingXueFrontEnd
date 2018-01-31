@@ -6,7 +6,6 @@ let loadingObject;
 axios.interceptors.request.use((config) => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
   axios.defaults.headers.common['X-CSRFToken'] = document.cookie.split(';')[0].split('=')[1];
-  console.log(document.cookie.split(';')[0].split('=')[1]);
   loadingObject = Loading.service({fullscreen: true});
   return config
 });
@@ -19,6 +18,7 @@ axios.interceptors.response.use((response) => {
 // 根据返回的code值来做不同的处理（和后端约定）
   switch (data.status) {
     case 400:
+      alert('表单提交异常');
       console.log(data.status);
       return;
     case 401:

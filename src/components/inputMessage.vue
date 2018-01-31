@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-position="left" label-width="80px" :v-model="form">
+    <el-form label-position="left" label-width="80px" v-model="form">
       <el-form-item label="昵称">
         <el-input placeholder="请填写您的昵称" v-model="form.name">
         </el-input>
@@ -30,7 +30,7 @@
       </el-form-item>
       <el-form-item label="您的生日">
         <el-date-picker type="date" default-value="2000-1-1" placeholder="选择日期" v-model="form.birthday"
-                        style="width: 100%;">
+                        style="width: 100%;" value-format="yyyy-MM-dd">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="选择头像">
@@ -140,24 +140,27 @@
                 })
               }.bind(this);
             } else {
-              this.file = file;
+              this.form.file = file;
             }
           }.bind(this);
         }
         return isJPG;
       },
       submit () {
+        let dataForm = new FormData();
+        dataForm.append('file', this.form.file);
+        dataForm.append('stage', this.form.stage);
+        dataForm.append('grade', this.form.grade);
+        dataForm.append('gender', this.form.gender);
+        dataForm.append('birthday', this.form.birthday);
+        dataForm.append('name', this.form.name);
         axios({
           method: 'put',
           url: '/student/detail/',
-          data: {
-            name: this.form.name,
-            stage: this.form.stage,
-            grade: this.form.grade,
-            gender: this.form.gender,
-            birthday: this.form.birthday
-            // head_photo: this.form.file
-          }
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          data: dataForm
         })
           .then(function (response) {
             if (response) {
