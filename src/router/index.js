@@ -7,6 +7,7 @@ import searchResult from '../components/searchResult'
 import course from '../components/course'
 import essay from '../components/essay'
 import login from '../components/login'
+import message from '../components/message'
 
 Vue.use(Router);
 
@@ -50,6 +51,10 @@ export default new Router({
     {
       path: '/article',
       component: essay
+    },
+    {
+      path: '/message',
+      component: message
     }
   ]
 })
