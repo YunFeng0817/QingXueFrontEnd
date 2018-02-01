@@ -57,7 +57,7 @@ axios.interceptors.response.use((response) => {
       console.log(data.status);
       return;
     case 410:
-      console.log(data.status);
+      Message.error('请先点击 "发送短信" 按钮获取验证码');
       return;
     case 500:
       console.log(data.status);

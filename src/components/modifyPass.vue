@@ -9,7 +9,7 @@
                        label-width="22%"
                        class="demo-ruleForm">
                 <el-form-item label="旧密码" prop="password">
-                  <el-input type="password" v-model="password" auto-complete="off" placeholder="请输入您的旧密码">
+                  <el-input type="password" v-model="password" auto-complete="off" placeholder="请输入您的旧密码" clearable>
                   </el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="pass">

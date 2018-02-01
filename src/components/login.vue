@@ -238,6 +238,7 @@
           method: 'post',
           url: '/student/send_msg/',
           data: {
+            is_signing_up: !this.forget_pass,
             phone_number: this.phone_number
           }
         })
