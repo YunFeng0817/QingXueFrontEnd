@@ -93,7 +93,8 @@
               method: 'patch',
               url: '/student/detail/',
               data: {
-                password: this.ruleForm2.checkPass
+                old_password: this.password,
+                new_password: this.ruleForm2.checkPass
               }
             })
               .then(function (response) {
