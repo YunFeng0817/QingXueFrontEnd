@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Loading} from 'element-ui';
+import {Loading, Message} from 'element-ui';
 
 let loadingObject;
 // 拦截request,设置全局请求为ajax请求
@@ -18,7 +18,7 @@ axios.interceptors.response.use((response) => {
 // 根据返回的code值来做不同的处理（和后端约定）
   switch (data.status) {
     case 400:
-      alert('表单提交异常');
+      Message.error('表单提交异常');
       console.log(data.status);
       return;
     case 401:
@@ -27,10 +27,10 @@ axios.interceptors.response.use((response) => {
     case 402:
       switch (data.detail) {
         case 4021:
-          alert('您的账号或密码错误');
+          Message.error('您的账号或密码错误');
           break;
         case 4022:
-          alert('您输入的验证码错误');
+          Message.error('您输入的验证码错误');
           break;
         default:
       }

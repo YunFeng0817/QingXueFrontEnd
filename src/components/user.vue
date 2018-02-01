@@ -4,7 +4,8 @@
       <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                 :src="avatar===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':avatar"/>
       <p><span class="user-message">{{userName}}</span>欢迎光临</p>
-      <p><a @click="logout">退出登录</a><a style="padding: 0" @click="modify">修改信息</a></p>
+      <p><a @click="logout">退出登录</a><a style="padding: 0" @click="modifyMessage">修改信息</a><a @click="modifyPass">修改密码</a>
+      </p>
       <p><span style="padding: 10px;">性别：</span><span class="am-btn icon" :class="getGender"
                                                       style="font-size: large"></span> 年级：<span class="user-message">{{stage+grade}}</span>
       </p>
@@ -96,9 +97,14 @@
           console.log(error);
         });
       },
-      modify () {
+      modifyMessage () {
         if (userMessage.state.has_login) {
           this.$router.push({path: 'message'});
+        }
+      },
+      modifyPass () {
+        if (userMessage.state.has_login) {
+          this.$router.push({path: 'modify/pass'});
         }
       }
     }

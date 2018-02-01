@@ -160,8 +160,6 @@
         process: 0,
         phone_number: '',
         check_num: '',
-        new_password: '',
-        repeat_password: '',
         ruleForm2: {
           pass: '',
           checkPass: ''
@@ -282,10 +280,11 @@
           })
       },
       submitForm (formName) {
+        let method = this.forget_pass ? 'patch' : 'post';
         this.$refs[formName].validate((valid) => {
           if (valid) {
             axios({
-              method: 'post',
+              method: method,
               url: '/student/detail/',
               data: {
                 password: this.ruleForm2.checkPass

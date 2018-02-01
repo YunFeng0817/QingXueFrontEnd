@@ -8,6 +8,7 @@ import course from '../components/course'
 import essay from '../components/essay'
 import login from '../components/login'
 import message from '../components/message'
+import modifyPass from '../components/modifyPass'
 
 Vue.use(Router);
 
@@ -55,6 +56,10 @@ export default new Router({
     {
       path: '/message',
       component: message
+    },
+    {
+      path: '/modify/pass',
+      component: modifyPass
     }
   ]
 })
