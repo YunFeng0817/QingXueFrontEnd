@@ -32,6 +32,9 @@ axios.interceptors.response.use((response) => {
         case 4022:
           Message.error('您输入的验证码错误');
           break;
+        case 4023:
+          Message.error('您输入的旧密码不正确');
+          break;
         default:
       }
       return;
@@ -45,7 +48,7 @@ axios.interceptors.response.use((response) => {
       console.log(data.status);
       return;
     case 406:
-      console.log(data.status);
+      Message.error('密码强度不够');
       return;
     case 408:
       console.log(data.status);

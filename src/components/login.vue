@@ -287,6 +287,7 @@
               method: method,
               url: '/student/detail/',
               data: {
+                check_method: 'msg_code_check',
                 password: this.ruleForm2.checkPass
               }
             })

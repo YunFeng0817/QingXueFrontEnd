@@ -50,10 +50,6 @@
           if (!regx.test(this.ruleForm2.pass)) {
             callback(Error('密码不能为纯数字'));
           }
-          regx = RegExp(this.phone_number);
-          if (regx.test(this.ruleForm2.pass)) {
-            callback(Error('密码中不能包含手机号'));
-          }
           if (this.ruleForm2.checkPass !== '') {
             this.$refs.ruleForm2.validateField('checkPass');
           }
@@ -93,6 +89,7 @@
               method: 'patch',
               url: '/student/detail/',
               data: {
+                check_method: 'password_check',
                 old_password: this.password,
                 new_password: this.ruleForm2.checkPass
               }
@@ -116,6 +113,9 @@
             return false;
           }
         });
+      },
+      resetForm (formName) {
+        this.$refs[formName].resetFields();
       }
     }
   }

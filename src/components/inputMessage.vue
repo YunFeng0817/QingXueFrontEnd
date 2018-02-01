@@ -106,7 +106,7 @@
             this.form.stage = response.stage;
             this.form.grade = response.grade;
             this.form.gender = response.gender;
-            this.birthday = response.birthday;
+            this.form.birthday = response.birthday;
             this.imageUrl = response.head_photo;
           }
         }.bind(this))
