@@ -96,10 +96,27 @@
         .catch(function (error) {
           console.log(error);
         });
+      axios({
+        method: 'get',
+        url: '/student/detail/'
+      })
+        .then(function (response) {
+          if (response) {
+            this.form.name = response.name;
+            this.form.stage = response.stage;
+            this.form.grade = response.grade;
+            this.form.gender = response.gender;
+            this.birthday = response.birthday;
+            this.imageUrl = response.head_photo;
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     computed: {
       checkForm: function () {
-        return this.form.name === '' || this.form.birthday === '' || this.form.gender === '' || this.form.stage === '' || this.form.grade === '' || this.form.file === '';
+        return this.form.name === '' || this.form.birthday === '' || this.form.gender === '' || this.form.stage === '' || this.form.grade === '';
       }
     },
     methods: {
