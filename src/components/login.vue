@@ -281,12 +281,16 @@
           })
       },
       submitForm (formName) {
+        let test = document.cookie.split(';')[0].split('=')[1];
         let method = this.forget_pass ? 'patch' : 'post';
         this.$refs[formName].validate((valid) => {
           if (valid) {
             axios({
               method: method,
               url: '/student/detail/',
+              headers: {
+                'X-CSRFToken': test
+              },
               data: {
                 check_method: 'msg_code_check',
                 password: this.ruleForm2.checkPass

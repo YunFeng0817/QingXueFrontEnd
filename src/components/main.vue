@@ -110,6 +110,11 @@
       '$route' (to, from) {
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
       }
+    },
+    methods: {
+      test (event) {
+        console.log(event);
+      }
     }
   }
 </script>

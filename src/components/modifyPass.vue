@@ -83,9 +83,13 @@
     },
     methods: {
       submitForm (formName) {
+        let test = document.cookie.split(';')[0].split('=')[1];
         this.$refs[formName].validate((valid) => {
           if (valid) {
             axios({
+              headers: {
+                'X-CSRFToken': test
+              },
               method: 'patch',
               url: '/student/detail/',
               data: {
