@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <back-button> </back-button>
+      <back-button></back-button>
       <el-col class="card" :span="24">
         <div :body-style="{ padding: '0px'}">
           <img :src="course.photoLink" class="image">
@@ -42,6 +42,23 @@
                   <p>
                     {{course.detail}}
                   </p>
+                </el-tab-pane>
+                <el-tab-pane label="教师">
+                  <div>
+                    <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
+                              :src="course.avatar===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':course.avatar"/>
+                    <p>
+                      <el-tag class="teacher">我的名字</el-tag>
+                    </p>
+                    <p><span class="teacher">性别：</span> 男</p>
+                    <p><span class="teacher">学历：</span><span>研究生</span></p>
+                  </div>
+                  <div class="teacher">
+                    特斯特特斯特特色特斯特特色特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
+                    特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
+                    特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
+                    特斯拉特斯拉特斯拉特斯拉特斯拉
+                  </div>
                 </el-tab-pane>
                 <el-tab-pane label="评价">
                   <am-comment-list>
@@ -90,7 +107,7 @@
       <a id="book">立即预约</a>
     </div>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 80px;"></div>
+    <div style="height: 150px;"></div>
   </div>
 </template>
 
@@ -113,6 +130,7 @@
           price: 50,
           introduction: '太极英语“大道至简”全项班，听说读写一课搞定，让你“高分又高能”！还包邮赠送课程配套大礼包！',
           detail: '那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。我们就在骑楼下躲雨，看绿色的邮筒孤独地站在街的对面。我白色风衣的大口袋里有一封要寄给南部的母亲的信。樱子说她可以撑伞过去帮我寄信。我默默点头。',
+          avatar: '',
           comments: [
             {
               userName: '金坷垃',
@@ -211,5 +229,29 @@
     /*使得最后一个按钮占据剩余的全部空间*/
     flex-grow: 1;
     color: #CC3333;
+  }
+
+  span.teacher {
+    margin: 0 0 0 5%;
+    font-size: medium;
+  }
+
+  #avatar {
+    float: left;
+
+    width: 120px;
+    height: 120px;
+    max-width: 50%;
+    max-height: 50%;
+  }
+
+  div.teacher{
+    padding:5%;
+    line-height: 2em;
+    text-indent:20px;
+    letter-spacing: 2px;
+    font-size:larger;
+    border-radius: 10px;
+    background-color: #eee;
   }
 </style>
