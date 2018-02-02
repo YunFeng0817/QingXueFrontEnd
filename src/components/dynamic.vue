@@ -1,5 +1,7 @@
 <template>
   <div>
+    <header-index>
+    </header-index>
     <el-tabs @tab-click="handleClick">
       <el-tab-pane>
         <span slot="label">
@@ -53,14 +55,16 @@
 </template>
 
 <script>
-  import listNews from './listNews'
-  import filter from './filter'
+  import listNews from './listNews';
+  import filter from './filter';
+  import headerIndex from './headerIndex';
 
   export default {
     name: 'dynamic',
     components: {
       list_news: listNews,
-      'el-filter': filter
+      'el-filter': filter,
+      'header-index': headerIndex
     },
     data () {
       return {

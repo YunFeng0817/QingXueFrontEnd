@@ -1,5 +1,7 @@
 <template>
   <div id="main">
+    <header-index>
+    </header-index>
     <el-carousel :interval="5000" arrow="always" height="200px" @touchstart.native.stopdefault="start"
                  @touchmove.native.stopdefault="move" @touchend.native.stopdefault="drop" ref="carousel"
                  @change="onchange">
@@ -30,13 +32,15 @@
   import icon from './icon'
   import listNews from './listNews'
   import filter from './filter';
+  import headerIndex from './headerIndex';
 
   export default {
     name: 'Main',
     components: {
       'el-filter': filter,
       icon: icon,
-      list_news: listNews
+      list_news: listNews,
+      'header-index': headerIndex
     },
     data () {
       return {
@@ -140,7 +144,7 @@
         }
       },
       onchange () {
-        this.target.style = 'position:default;';
+        this.target.style = 'position:default;display:default';
       }
     }
   }
