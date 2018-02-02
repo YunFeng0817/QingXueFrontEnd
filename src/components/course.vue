@@ -60,6 +60,10 @@
                     特斯拉特斯拉特斯拉特斯拉特斯拉
                   </div>
                 </el-tab-pane>
+                <el-tab-pane label="地址">
+                  <baidu-map class="map" center="北京">
+                  </baidu-map>
+                </el-tab-pane>
                 <el-tab-pane label="评价">
                   <am-comment-list>
                     <am-comment v-for="item in course.comments" :key="item.id">
@@ -245,13 +249,18 @@
     max-height: 50%;
   }
 
-  div.teacher{
-    padding:5%;
+  div.teacher {
+    padding: 5%;
     line-height: 2em;
-    text-indent:20px;
+    text-indent: 20px;
     letter-spacing: 2px;
-    font-size:larger;
+    font-size: larger;
     border-radius: 10px;
     background-color: #eee;
+  }
+
+  .map {
+    width: 100%;
+    height: 350px;
   }
 </style>
