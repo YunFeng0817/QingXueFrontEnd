@@ -1,6 +1,8 @@
 <template>
   <div id="main">
-    <el-carousel :interval="3000" arrow="always" height="200px">
+    <el-carousel :interval="5000" arrow="always" height="200px" @touchstart.native.stopdefault="start"
+                 @touchmove.native.stopdefault="move" @touchend.native.stopdefault="drop" ref="carousel"
+                 @change="onchange">
       <el-carousel-item v-for="item in showImages" v-bind:key="item.id">
         <img :src="item.src"/>
       </el-carousel-item>
@@ -103,7 +105,9 @@
             name: '鸡公煲',
             introduction: '真好吃！！！！！！！！！！！'
           }
-        ]
+        ],
+        startX: 0,
+        target: document.createElement('IMG')
       }
     },
     watch: {
@@ -112,8 +116,31 @@
       }
     },
     methods: {
-      test (event) {
-        console.log(event);
+      start (event) {
+        // console.log(event);
+        if (event.target.tagName === 'IMG') {
+          this.startX = event.changedTouches[0].clientX - event.target.offsetLeft;
+          this.target = event.target;
+        }
+        // let node = event.target;
+        // node.style = '';
+        // console.log(node);
+      },
+      move (event) {
+        if (event.target.tagName === 'IMG') {
+          let X = event.changedTouches[0].clientX;
+          let node = event.target;
+          node.style = 'position:absolute;left:' + (X - this.startX).toString() + 'px'
+        }
+      },
+      drop (event) {
+        if (event.target.tagName === 'IMG') {
+          this.$refs.carousel.next();
+        }
+      },
+      onchange () {
+        let node = this.target;
+        node.style = 'position:default;';
       }
     }
   }
