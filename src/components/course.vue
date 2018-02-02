@@ -61,7 +61,14 @@
                   </div>
                 </el-tab-pane>
                 <el-tab-pane label="地址">
-                  <baidu-map class="map" center="北京">
+                  <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" :center="{lng: 116.404, lat: 39.915}"
+                             :zoom="15">
+                    <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT">
+                    </bm-navigation>
+                    <bm-marker :position="{lng: 116.404, lat: 39.915}" :dragging="false">
+                      <bm-label content="这里是上课地点" :labelStyle="{color: 'red', fontSize : 'medium'}"
+                                :offset="{width: -35, height: 30}"/>
+                    </bm-marker>
                   </baidu-map>
                 </el-tab-pane>
                 <el-tab-pane label="评价">
@@ -117,11 +124,19 @@
 
 <script>
   import backButtom from './backButton'
+  import BaiduMap from 'vue-baidu-map/components/Map/Map'
+  import bmMarker from 'vue-baidu-map/components/overlays/Marker'
+  import bmLabel from 'vue-baidu-map/components/overlays/Label'
+  import Navigation from 'vue-baidu-map/components/controls/Navigation'
 
   export default {
     name: 'course',
     components: {
-      'back-button': backButtom
+      'back-button': backButtom,
+      'baidu-map': BaiduMap,
+      'bm-marker': bmMarker,
+      'bm-label': bmLabel,
+      'bm-navigation': Navigation
     },
     data () {
       return {
@@ -149,7 +164,17 @@
               text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
             }
           ]
-        }
+        },
+        show: false,
+        markPoint: (116.404, 39.915)
+      }
+    },
+    methods: {
+      infoWindowClose () {
+        this.show = false
+      },
+      infoWindowOpen () {
+        this.show = true
       }
     }
   }

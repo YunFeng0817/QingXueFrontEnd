@@ -8,13 +8,9 @@ import 'amaze-vue/dist/amaze-vue.css';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from './axios/index'
-import BaiduMap from 'vue-baidu-map'
 
 Vue.use(AmazeVue);
 Vue.use(ElementUI);
-Vue.use(BaiduMap, {
-  ak: 'Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m'
-});
 
 Vue.config.productionTip = false;
 
