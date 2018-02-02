@@ -107,6 +107,7 @@
           }
         ],
         startX: 0,
+        offset: 0,
         target: document.createElement('IMG')
       }
     },
@@ -117,30 +118,29 @@
     },
     methods: {
       start (event) {
-        // console.log(event);
         if (event.target.tagName === 'IMG') {
           this.startX = event.changedTouches[0].clientX - event.target.offsetLeft;
           this.target = event.target;
+          this.offset = event.changedTouches[0].clientX;
         }
-        // let node = event.target;
-        // node.style = '';
-        // console.log(node);
       },
       move (event) {
         if (event.target.tagName === 'IMG') {
           let X = event.changedTouches[0].clientX;
-          let node = event.target;
-          node.style = 'position:absolute;left:' + (X - this.startX).toString() + 'px'
+          this.target.style = 'position:absolute;left:' + (X - this.startX).toString() + 'px';
         }
       },
       drop (event) {
         if (event.target.tagName === 'IMG') {
-          this.$refs.carousel.next();
+          if (event.changedTouches[0].clientX < this.offset) {
+            this.$refs.carousel.next();
+          } else if (event.changedTouches[0].clientX > this.offset) {
+            this.$refs.carousel.prev();
+          }
         }
       },
       onchange () {
-        let node = this.target;
-        node.style = 'position:default;';
+        this.target.style = 'position:default;';
       }
     }
   }
