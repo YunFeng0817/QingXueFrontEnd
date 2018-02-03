@@ -1,6 +1,8 @@
 <template>
   <div id="login-block">
     <el-row>
+      <back-button>
+      </back-button>
       <el-col :span="22" class="card">
         <el-card :body-style="{ padding: '0px' }">
           <div v-if="!forget_pass" class="login-index">
@@ -110,10 +112,12 @@
   import inputMessage from '../components/inputMessage'
   import axios from '../axios/index';
   import InputMessage from './inputMessage';
+  import BackButton from './backButton';
 
   export default {
     name: 'login',
     components: {
+      BackButton,
       InputMessage,
       'input-message': inputMessage
     },

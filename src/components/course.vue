@@ -115,7 +115,7 @@
       <a class="message">
         <am-icon type="heart-o"></am-icon>
         收藏课程</a>
-      <a id="book">立即预约</a>
+      <a id="book" @click="order">立即预约</a>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 150px;"></div>
@@ -123,6 +123,7 @@
 </template>
 
 <script>
+  import userMessage from '../store/index'
   import backButtom from './backButton'
   import BaiduMap from 'vue-baidu-map/components/Map/Map'
   import bmMarker from 'vue-baidu-map/components/overlays/Marker'
@@ -165,16 +166,12 @@
             }
           ]
         },
-        show: false,
-        markPoint: (116.404, 39.915)
+        show: false
       }
     },
     methods: {
-      infoWindowClose () {
-        this.show = false
-      },
-      infoWindowOpen () {
-        this.show = true
+      order () {
+        this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
       }
     }
   }
@@ -258,6 +255,10 @@
     /*使得最后一个按钮占据剩余的全部空间*/
     flex-grow: 1;
     color: #CC3333;
+  }
+
+  .footer a#book:active {
+    background-color: #dce2eb;
   }
 
   span.teacher {
