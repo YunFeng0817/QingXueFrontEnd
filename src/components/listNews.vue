@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col @mouseover.native="floatUp" @mouseout.native="floatDown" class="card"
+      <el-col class="card"
               :span="22"
               v-for="(item,key) in recommends" :key="key">
         <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(key)">
@@ -74,26 +74,28 @@
       }
     },
     methods: {
-      floatUp (event) {
-        let node = event.target;
-        while (node && node.className !== 'el-card') {
-          node = node.parentNode;
-        }
-        if (node) {
-          node.style = 'position:relative;bottom:5px;box-shadow:2px 2px 15px 5px #d0d0d0'
-        }
-      },
-      floatDown (event) {
-        let node = event.target;
-        while (node && node.className !== 'el-card') {
-          node = node.parentNode;
-        }
-        if (node) {
-          node.style = 'position:default;'
-        }
-      },
+      // 由于使用了css3动画，去掉了此处的js动画
+      // floatUp (event) {
+      //   let node = event.target;
+      //   while (node && node.className !== 'el-card') {
+      //     node = node.parentNode;
+      //   }
+      //   if (node) {
+      //     // node.style = 'position:relative;bottom:5px;box-shadow:2px 2px 15px 5px #d0d0d0;transition:5s 5s bottom ease-in;'
+      //     node.style = 'animation:3s float;'
+      //   }
+      // },
+      // floatDown (event) {
+      //   let node = event.target;
+      //   while (node && node.className !== 'el-card') {
+      //     node = node.parentNode;
+      //   }
+      //   if (node) {
+      //     node.style = 'position:default;'
+      //   }
+      // },
       clickAction (id) {
-        this.$router.push({path: this.recommends[id].link});
+        this.$router.push({path: '/course'});
       }
     }
   }
@@ -132,4 +134,28 @@
 
     margin: 2% 4% 1% 4%;
   }
+
+  div.card:hover {
+    animation-name: float;
+    animation-delay: 10ms;
+    animation-duration: 250ms;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    /*cursor: pointer;*/
+  }
+
+  @keyframes float {
+    0% {
+      position: relative;
+    }
+    20% {
+      bottom: 1px;
+    }
+    100% {
+      position: relative;
+      bottom: 6px;
+      box-shadow: 2px 2px 15px 5px #d0d0d0;
+    }
+  }
+
 </style>

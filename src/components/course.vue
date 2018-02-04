@@ -278,6 +278,9 @@
           this.$refs.tab.$el.firstChild.style = 'position:default;z-index:100;';
         }
       }
+    },
+    destroyed () {
+      window.removeEventListener('scroll', this.handler);
     }
   }
 </script>

@@ -20,7 +20,7 @@
     <list_news :typeName="typeName" :recommends="recommends">
     </list_news>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 150px;"></div>
+    <div style="height: 120px;"></div>
   </div>
 </template>
 
@@ -30,7 +30,8 @@
   import filter from './filter';
   import headerIndex from './headerIndex';
   import slider from './slider';
-  import axios from '../axios/index'
+  import axios from '../axios/index';
+  import userMessage from '../store/index'
 
   export default {
     name: 'Main',
@@ -42,21 +43,26 @@
       slider: slider
     },
     created () {
-      axios({
-        method: 'get',
-        url: '/course/brief_list/'
-      })
-        .then(function (response) {
-          if (response) {
-            for (let item of response.courses) {
-              item.is_course = true;
+      if (userMessage.state.listCourses.length === 0) {
+        axios({
+          method: 'get',
+          url: '/course/brief_list/'
+        })
+          .then(function (response) {
+            if (response) {
+              for (let item of response.courses) {
+                item.is_course = true;
+              }
+              this.recommends = response.courses;
+              userMessage.commit('commitList', response.courses);
             }
-            this.recommends = response.courses;
-          }
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        this.recommends = userMessage.state.listCourses;
+      }
     },
     data () {
       return {
