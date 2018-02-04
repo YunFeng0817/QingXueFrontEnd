@@ -7,9 +7,9 @@
         <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(key)">
           <el-tag v-if="item.is_course" size="mini">{{item.grade}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
-          <el-tag v-if="item.is_course" size="mini">{{item.difficulty}}</el-tag>
+          <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
           <div class="courses">
-            <img :src="item.photoLink" class="image">
+            <img :src="item.main_image" class="image">
             <div style="padding: 14px;">
               <span>{{item.name}}</span>
               <div class="bottom clearfix">
@@ -17,7 +17,7 @@
                 <span v-if="item.is_course">
                   好评率：
                   <el-rate
-                    v-model="item.rate"
+                    v-model="item.stars"
                     disabled
                     show-score
                     text-color="#ff9900"
@@ -25,7 +25,7 @@
                   </el-rate>
                 </span>
                 <span v-if="item.is_course">
-                  全额费用：{{item.price}} 元
+                  全额费用：{{item.total_price}} 元
                 </span>
               </div>
             </div>

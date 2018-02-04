@@ -19,16 +19,18 @@
     </el-filter>
     <list_news :typeName="typeName" :recommends="recommends">
     </list_news>
-    <br/><br/><br/>
+    <!--下面的这个区块是为了占位-->
+    <div style="height: 150px;"></div>
   </div>
 </template>
 
 <script>
-  import icon from './icon'
-  import listNews from './listNews'
+  import icon from './icon';
+  import listNews from './listNews';
   import filter from './filter';
   import headerIndex from './headerIndex';
-  import slider from './slider'
+  import slider from './slider';
+  import axios from '../axios/index'
 
   export default {
     name: 'Main',
@@ -38,6 +40,23 @@
       list_news: listNews,
       'header-index': headerIndex,
       slider: slider
+    },
+    created () {
+      axios({
+        method: 'get',
+        url: '/course/brief_list/'
+      })
+        .then(function (response) {
+          if (response) {
+            for (let item of response.courses) {
+              item.is_course = true;
+            }
+            this.recommends = response.courses;
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     data () {
       return {
@@ -81,32 +100,7 @@
             link: '/dynamic'
           }
         ],
-        recommends: [
-          {
-            is_course: true,
-            rate: 4.0,
-            price: 10000,
-            grade: '初中',
-            subject: '计算机',
-            difficulty: '变态难',
-            photoLink: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
-            link: 'course',
-            name: '老干妈',
-            introduction: '真好吃！！！！！！！！！！！'
-          },
-          {
-            is_course: true,
-            rate: 3.5,
-            price: 5000,
-            grade: '高中',
-            subject: '数学',
-            difficulty: '有点难',
-            photoLink: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
-            link: 'course',
-            name: '鸡公煲',
-            introduction: '真好吃！！！！！！！！！！！'
-          }
-        ]
+        recommends: []
       }
     },
     watch: {
