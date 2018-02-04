@@ -14,12 +14,12 @@
     <div class="like">
       <el-badge :value="200" :max="99" class="item">
         <a class="icon">
-          <am-icon type="thumbs-up"></am-icon>
+          <i class="am-icon-thumbs-up"></i>
         </a>
       </el-badge>
       <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
       <a>
-        <am-icon type="thumbs-down"></am-icon>
+        <i class="am-icon-thumbs-down"></i>
       </a>
       <span>&nbsp&nbsp&nbsp&nbsp</span>
     </div>
@@ -30,10 +30,20 @@
 
 <script>
   import BackButton from './backButton';
+  import {
+    Article,
+    ArticleHeader,
+    ArticleBody,
+    ArticleLead
+  } from 'amaze-vue/src/components/article/index';
 
   export default {
     components: {
-      BackButton
+      BackButton,
+      AmArticle: Article,
+      AmArticleHeader: ArticleHeader,
+      AmArticleBody: ArticleBody,
+      AmArticleLead: ArticleLead
     },
     name: 'essay',
     data () {
@@ -59,8 +69,8 @@
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
-  .like{
-    float:right;
+  .like {
+    float: right;
 
   }
 </style>

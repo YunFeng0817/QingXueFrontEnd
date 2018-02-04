@@ -1,7 +1,8 @@
 <template>
   <div>
     <el-row>
-      <back-button></back-button>
+      <back-button>
+      </back-button>
       <el-col class="card" :span="24">
         <div :body-style="{ padding: '0px'}">
           <img :src="course.photoLink" class="image">
@@ -27,11 +28,11 @@
                     </el-rate>
                   </p>
                   <p>
-                    <span class="time"><am-icon type="rmb"></am-icon>订金</span>
+                    <span class="time"><i class="am-icon-rmb"></i>订金</span>
                     <span class="time">{{course.price}}</span>
                   </p>
                   <p>
-                    <span class="time"><am-icon type="circle-o"></am-icon>全额</span>
+                    <span class="time"><i class="am-icon-circle-o"></i>全额</span>
                     <span class="time">{{course.price}}</span>
                   </p>
                   <p>
@@ -74,7 +75,8 @@
                 <el-tab-pane label="评价">
                   <am-comment-list>
                     <am-comment v-for="item in course.comments" :key="item.id">
-                      <am-comment-avatar :src="item.avatar"></am-comment-avatar>
+                      <am-comment-avatar :src="item.avatar">
+                      </am-comment-avatar>
                       <am-comment-content>
                         <am-comment-header>
                           <am-comment-header-meta>
@@ -83,12 +85,12 @@
                           <am-comment-header-actions>
                             <el-badge :value="200" :max="99" class="item">
                               <a class="icon">
-                                <am-icon type="thumbs-up"></am-icon>
+                                <i class="am-icon-thumbs-up"></i>
                               </a>
                             </el-badge>
                             <span>&nbsp&nbsp&nbsp&nbsp</span>
                             <a class="icon">
-                              <am-icon type="thumbs-down"></am-icon>
+                              <i class="am-icon-thumbs-down"></i>
                             </a>
                           </am-comment-header-actions>
                         </am-comment-header>
@@ -107,13 +109,13 @@
     </el-row>
     <div class="footer">
       <a class="message">
-        <am-icon type="university"></am-icon>
+        <i class="am-icon-university"></i>
         进入机构</a>
       <a class="message">
-        <am-icon type="commenting-o"></am-icon>
+        <i class="am-icon-commenting-o"></i>
         咨询</a>
       <a class="message">
-        <am-icon type="heart-o"></am-icon>
+        <i class="am-icon-heart-o"></i>
         收藏课程</a>
       <a id="book" @click="order">立即预约</a>
     </div>
@@ -129,6 +131,18 @@
   import bmMarker from 'vue-baidu-map/components/overlays/Marker'
   import bmLabel from 'vue-baidu-map/components/overlays/Label'
   import Navigation from 'vue-baidu-map/components/controls/Navigation'
+  import image from 'amaze-vue/src/components/image/src/image'
+  import {
+    Comment,
+    CommentAuthor,
+    CommentBody,
+    CommentAvatar,
+    CommentContent,
+    CommentHeader,
+    CommentList,
+    CommentHeaderActions,
+    CommentHeaderMeta
+  } from 'amaze-vue/src/components/comment/index'
 
   export default {
     name: 'course',
@@ -137,7 +151,17 @@
       'baidu-map': BaiduMap,
       'bm-marker': bmMarker,
       'bm-label': bmLabel,
-      'bm-navigation': Navigation
+      'bm-navigation': Navigation,
+      'am-image': image,
+      AmComment: Comment,
+      AmCommentAuthor: CommentAuthor,
+      AmCommentBody: CommentBody,
+      AmCommentAvatar: CommentAvatar,
+      AmCommentContent: CommentContent,
+      AmCommentHeader: CommentHeader,
+      AmCommentList: CommentList,
+      AmCommentHeaderActions: CommentHeaderActions,
+      AmCommentHeaderMeta: CommentHeaderMeta
     },
     data () {
       return {

@@ -3,10 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import AmazeVue from 'amaze-vue';
 import 'amaze-vue/dist/amaze-vue.css';
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from './axios/index'
+
 import {
   Autocomplete,
   Checkbox,
@@ -65,10 +65,7 @@ Vue.use(CarouselItem);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Cascader);
-
 Vue.prototype.$message = Message;
-
-Vue.use(AmazeVue);
 
 Vue.config.productionTip = false;
 
