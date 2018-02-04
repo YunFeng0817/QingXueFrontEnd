@@ -51,6 +51,10 @@ export default new Router({
       component: course
     },
     {
+      path: '/institution',
+      component: course
+    },
+    {
       path: '/article',
       component: essay
     },

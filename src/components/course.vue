@@ -3,41 +3,69 @@
     <el-row>
       <back-button>
       </back-button>
+      <div class="order-header">
+        <span class="order-header">课程详情</span>
+        <i v-if="path==='/institution'" class="am-icon-heart-o"
+           style="position: relative;left:30%;"></i>
+      </div>
       <el-col class="card" :span="24">
         <div :body-style="{ padding: '0px'}">
-          <img :src="course.photoLink" class="image">
+          <slider :show-images="showImages">
+          </slider>
           <div>
             <span class="title">{{course.title}}</span>
             <div class="bottom clearfix">
               <el-tabs type="border-card">
                 <el-tab-pane label="简介">
-                  <span class="time">开课时间</span>
-                  <time class="time">{{course.startTime}}</time>
-                  <p>
-                    <span class="time">每课时 : {{course.perSession}} 分钟</span>
-                    <time class="time"></time>
-                  </p>
-                  <p>
-                    <span class="time">学生评分</span>
-                    <el-rate
-                      v-model="course.rate"
-                      disabled
-                      show-score
-                      text-color="#ff9900"
-                      score-template="{value}">
-                    </el-rate>
-                  </p>
-                  <p>
-                    <span class="time"><i class="am-icon-rmb"></i>订金</span>
-                    <span class="time">{{course.price}}</span>
-                  </p>
-                  <p>
-                    <span class="time"><i class="am-icon-circle-o"></i>全额</span>
-                    <span class="time">{{course.price}}</span>
-                  </p>
-                  <p>
-                    {{course.introduction}}
-                  </p>
+                  <div v-if="path==='/course'">
+                    <span class="time">开课时间</span>
+                    <time class="time">{{course.startTime}}</time>
+                    <p>
+                      <span class="time">每课时 : {{course.perSession}} 分钟</span>
+                      <time class="time"></time>
+                    </p>
+                    <p>
+                      <span class="time">学生评分</span>
+                      <el-rate
+                        v-model="course.rate"
+                        disabled
+                        show-score
+                        text-color="#ff9900"
+                        score-template="{value}">
+                      </el-rate>
+                    </p>
+                    <p>
+                      <span class="time"><i class="am-icon-rmb"></i>订金</span>
+                      <span class="time">{{course.price}}</span>
+                    </p>
+                    <p>
+                      <span class="time"><i class="am-icon-circle-o"></i>全额</span>
+                      <span class="time">{{course.price}}</span>
+                    </p>
+                    <p>
+                      {{course.introduction}}
+                    </p>
+                  </div>
+                  <div v-else>
+                    <span class="time">成立时间</span>
+                    <time class="time">{{course.startTime}}</time>
+                    <p>
+                      <span class="time">学生评分</span>
+                      <el-rate
+                        v-model="course.rate"
+                        disabled
+                        show-score
+                        text-color="#ff9900"
+                        score-template="{value}">
+                      </el-rate>
+                    </p>
+                    <p>
+                      机构简介：
+                    </p>
+                    <p>
+                      {{course.introduction}}
+                    </p>
+                  </div>
                 </el-tab-pane>
                 <el-tab-pane label="详情">
                   <p>
@@ -107,8 +135,8 @@
         </div>
       </el-col>
     </el-row>
-    <div class="footer">
-      <a class="message">
+    <div class="footer" v-if="path==='/course'">
+      <a class="message" @click="intoInstitution">
         <i class="am-icon-university"></i>
         进入机构</a>
       <a class="message">
@@ -132,6 +160,7 @@
   import bmLabel from 'vue-baidu-map/components/overlays/Label'
   import Navigation from 'vue-baidu-map/components/controls/Navigation'
   import image from 'amaze-vue/src/components/image/src/image'
+  import slider from './slider'
   import {
     Comment,
     CommentAuthor,
@@ -147,6 +176,7 @@
   export default {
     name: 'course',
     components: {
+      'slider': slider,
       'back-button': backButtom,
       'baidu-map': BaiduMap,
       'bm-marker': bmMarker,
@@ -190,12 +220,38 @@
             }
           ]
         },
-        show: false
+        showImages: [
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+            link: ''
+          },
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
+            link: ''
+          },
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
+            link: ''
+          },
+          {
+            src: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
+            link: ''
+          }
+        ],
+        path: this.$router.currentRoute.path
+      }
+    },
+    watch: {
+      '$route' (to, from) {
+        this.path = this.$router.currentRoute.path;
       }
     },
     methods: {
       order () {
         this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
+      },
+      intoInstitution () {
+        this.$router.push({path: '/institution'});
       }
     }
   }
@@ -210,12 +266,6 @@
   .bottom {
     margin-top: 13px;
     line-height: 12px;
-  }
-
-  .image {
-    width: 100%;
-    max-width: 390px;
-    display: block;
   }
 
   .clearfix:before,
@@ -312,5 +362,19 @@
   .map {
     width: 100%;
     height: 350px;
+  }
+
+  div.order-header {
+    width: 100%;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+
+    background: linear-gradient(to right, #68eace, #4ca2ef);
+  }
+
+  .order-header {
+    font-size: larger;
+    color: #eee;
   }
 </style>
