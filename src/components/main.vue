@@ -2,13 +2,8 @@
   <div id="main">
     <header-index>
     </header-index>
-    <el-carousel :interval="5000" arrow="always" height="200px" @touchstart.native.stopdefault="start"
-                 @touchmove.native.stopdefault="move" @touchend.native.stopdefault="drop" ref="carousel"
-                 @change="onchange">
-      <el-carousel-item v-for="item in showImages" v-bind:key="item.id">
-        <img :src="item.src"/>
-      </el-carousel-item>
-    </el-carousel>
+    <slider :showImages="showImages">
+    </slider>
     <ul v-if="is_main">
       <icon v-for='item in items' v-bind:category_tag="item" :key="item.id">
       </icon>
@@ -33,6 +28,7 @@
   import listNews from './listNews'
   import filter from './filter';
   import headerIndex from './headerIndex';
+  import slider from './slider'
 
   export default {
     name: 'Main',
@@ -40,7 +36,8 @@
       'el-filter': filter,
       icon: icon,
       list_news: listNews,
-      'header-index': headerIndex
+      'header-index': headerIndex,
+      slider: slider
     },
     data () {
       return {
@@ -109,53 +106,18 @@
             name: '鸡公煲',
             introduction: '真好吃！！！！！！！！！！！'
           }
-        ],
-        startX: 0,
-        offset: 0,
-        target: document.createElement('IMG')
+        ]
       }
     },
     watch: {
       '$route' (to, from) {
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
       }
-    },
-    methods: {
-      start (event) {
-        if (event.target.tagName === 'IMG') {
-          this.startX = event.changedTouches[0].clientX - event.target.offsetLeft;
-          this.target = event.target;
-          this.offset = event.changedTouches[0].clientX;
-        }
-      },
-      move (event) {
-        if (event.target.tagName === 'IMG') {
-          let X = event.changedTouches[0].clientX;
-          this.target.style = 'position:absolute;left:' + (X - this.startX).toString() + 'px';
-        }
-      },
-      drop (event) {
-        if (event.target.tagName === 'IMG') {
-          if (event.changedTouches[0].clientX < this.offset) {
-            this.$refs.carousel.next();
-          } else if (event.changedTouches[0].clientX > this.offset) {
-            this.$refs.carousel.prev();
-          }
-        }
-      },
-      onchange () {
-        this.target.style = 'position:default;display:default';
-      }
     }
   }
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
-  img {
-    height: 200px;
-    width: 100%;
-  }
-
   ul {
     display: flex;
     flex-wrap: wrap;
