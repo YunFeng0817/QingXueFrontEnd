@@ -16,7 +16,7 @@
           <div>
             <span class="title">{{course.title}}</span>
             <div class="bottom clearfix">
-              <el-tabs type="border-card">
+              <el-tabs type="border-card" ref="tab">
                 <el-tab-pane label="简介">
                   <div v-if="path==='/course'">
                     <span class="time">开课时间</span>
@@ -218,6 +218,18 @@
               avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
               stars: 2,
               text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
+            },
+            {
+              userName: '金坷垃',
+              avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
+              stars: 2,
+              text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
+            },
+            {
+              userName: '金坷垃',
+              avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
+              stars: 2,
+              text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
             }
           ]
         },
@@ -239,7 +251,8 @@
             link: ''
           }
         ],
-        path: this.$router.currentRoute.path
+        path: this.$router.currentRoute.path,
+        offsetTop: 0
       }
     },
     watch: {
@@ -247,12 +260,23 @@
         this.path = this.$router.currentRoute.path;
       }
     },
+    mounted () {
+      window.addEventListener('scroll', this.handler);
+      this.offsetTop = this.$refs.tab.$el.firstChild.offsetTop;
+    },
     methods: {
       order () {
         this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
       },
       intoInstitution () {
         this.$router.push({path: '/institution'});
+      },
+      handler () {
+        if (this.offsetTop < window.scrollY) {
+          this.$refs.tab.$el.firstChild.style = 'position:fixed;top:0;z-index:100;';
+        } else {
+          this.$refs.tab.$el.firstChild.style = 'position:default;z-index:100;';
+        }
       }
     }
   }
