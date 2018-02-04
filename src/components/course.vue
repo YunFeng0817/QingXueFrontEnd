@@ -4,7 +4,8 @@
       <back-button>
       </back-button>
       <div class="order-header">
-        <span class="order-header">课程详情</span>
+        <span class="order-header" v-if="path==='/course'">课程详情</span>
+        <span class="order-header" v-else>机构详情</span>
         <i v-if="path==='/institution'" class="am-icon-heart-o"
            style="position: relative;left:30%;"></i>
       </div>

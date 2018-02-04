@@ -26,7 +26,7 @@
     border-radius: 50%;
   }
 
-  .back:hover {
+  .back:active {
     background-color: rgba(255, 255, 255, 0.8);
   }
 
