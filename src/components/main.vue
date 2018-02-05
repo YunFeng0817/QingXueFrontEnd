@@ -43,7 +43,6 @@
       slider: slider
     },
     mounted () {
-      console.log(this.$router.currentRoute.path);
       if (userMessage.state.listCourses.length === 0 && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
         axios({
           method: 'get',

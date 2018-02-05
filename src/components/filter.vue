@@ -20,7 +20,7 @@
     data () {
       return {
         options: [{
-          value: '',
+          value: '小学',
           label: '小学',
           children: [{
             value: '一年级',
@@ -82,6 +82,44 @@
       }
     },
     created () {
+      function setFilter (options) {
+        // 这里的四重循环是对筛选项的键值的渐变赋值
+        for (let stage of options) {
+          console.log('stage');
+          console.log(stage);
+          if (stage.value !== '大学') {
+            for (let grades of stage.children) {
+              grades.children = [];
+              // entries() 是对键值对的遍历 id是索引  subject是值
+              for (let [id, subject] of userMessage.state.subjects.entries()) {
+                grades.children.push({});
+                grades.children[id].value = subject;
+                grades.children[id].label = subject;
+                grades.children[id].children = [];
+                for (let [index, degree] of userMessage.state.degrees.entries()) {
+                  grades.children[id].children.push({});
+                  grades.children[id].children[index].value = degree;
+                  grades.children[id].children[index].label = degree;
+                }
+              }
+            }
+          } else {
+            stage.children = [];
+            for (let [id, subject] of userMessage.state.subjects.entries()) {
+              stage.children.push({});
+              stage.children[id].value = subject;
+              stage.children[id].label = subject;
+              stage.children[id].children = [];
+              for (let [index, degree] of userMessage.state.degrees.entries()) {
+                stage.children[id].children.push({});
+                stage.children[id].children[index].value = degree;
+                stage.children[id].children[index].label = degree;
+              }
+            }
+          }
+        }
+      }
+
       if (userMessage.state.subjects.length === 0) {
         axios({
           method: 'get',
@@ -104,52 +142,27 @@
           .then(function (response) {
             if (response) {
               userMessage.commit('getDegrees', response.degrees);
+              setFilter(this.options);
             }
-          })
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
-      }
-      console.log(userMessage.state.subjects, userMessage.state.degrees);
-      // 这里的四重循环是对筛选项的键值的渐变赋值
-      for (let stage of this.options) {
-        console.log('stage');
-        console.log(stage);
-        if (stage.value !== '大学') {
-          for (let grades of stage.children) {
-            grades.children = [];
-            for (let [id, subject] of userMessage.state.subjects) {
-              grades.children[id].value = subject;
-              grades.children[id].label = subject;
-              for (let [index, degree] of userMessage.state.degrees) {
-                grades.children[id].children[index].vaule = degree;
-                grades.children[id].children[index].label = degree;
-              }
-            }
-          }
-        } else {
-          stage.children = [];
-          for (let [id, subject] of userMessage.state.subjects) {
-            stage.children[id].value = subject;
-            stage.children[id].label = subject;
-            for (let [index, degree] of userMessage.state.degrees) {
-              stage.children[id].children[index].vaule = degree;
-              stage.children[id].children[index].label = degree;
-            }
-          }
-        }
+      } else {
+        setFilter(this.options);
       }
     },
     methods: {
       handleChange (value) {
+        console.log(value);
         axios({
           method: 'post',
           url: '/course/filtered_list/',
           data: {
-            stage: value[0],
-            grade: value[1],
-            subject: value[2],
-            degree: value[3]
+            stages: [value[0]],
+            grades: [value[1]],
+            subjects: [value[2]],
+            degrees: [value[3]]
           }
         })
           .then(function (response) {
