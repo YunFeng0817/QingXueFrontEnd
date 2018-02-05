@@ -99,14 +99,15 @@
         }
       },
       dragMove (event) {
-        const ScreenWidth = window.innerWidth + 20;
+        const ScreenWidth = window.innerWidth - 50;   // 这个是当前屏幕的宽度
+        const AnimationOffset = 50;   // 这个偏移是为了产生拖到尽头，依然可以继续拖动，但是放开后会恢复原位的效果
         let X = event.changedTouches[0].clientX + this.offsetLeft - this.startX;
-        if (X <= 0 && X > ScreenWidth - this.target.clientWidth) {
+        if (X <= AnimationOffset && X > ScreenWidth - this.target.clientWidth - AnimationOffset) {
           this.target.style = 'position:relative;left:' + X.toString() + 'px;';
         }
       },
       dragStop (event) {
-        const ScreenWidth = window.innerWidth + 20;
+        const ScreenWidth = window.innerWidth - 50;
         let X = event.changedTouches[0].clientX + this.offsetLeft - this.startX;
         if (X > 0) {
           this.offsetLeft = 0;
