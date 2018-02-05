@@ -1,141 +1,139 @@
 <template>
   <div>
-    <el-row>
-      <back-button>
-      </back-button>
-      <div class="order-header">
-        <span class="order-header" v-if="path==='/course'">课程详情</span>
-        <span class="order-header" v-else>机构详情</span>
-        <i v-if="path==='/institution'" class="am-icon-heart-o"
-           style="position: relative;left:30%;"></i>
-      </div>
-      <el-col class="card" :span="24">
-        <div :body-style="{ padding: '0px'}">
-          <slider :show-images="showImages">
-          </slider>
-          <div>
-            <span class="title">{{course.title}}</span>
-            <div class="bottom clearfix">
-              <el-tabs type="border-card" ref="tab">
-                <el-tab-pane label="简介">
-                  <div v-if="path==='/course'">
-                    <span class="time">开课时间</span>
-                    <time class="time">{{course.startTime}}</time>
-                    <p>
-                      <span class="time">每课时 : {{course.perSession}} 分钟</span>
-                      <time class="time"></time>
-                    </p>
-                    <p>
-                      <span class="time">学生评分</span>
-                      <el-rate
-                        v-model="course.rate"
-                        disabled
-                        show-score
-                        text-color="#ff9900"
-                        score-template="{value}">
-                      </el-rate>
-                    </p>
-                    <p>
-                      <span class="time"><i class="am-icon-rmb"></i>订金</span>
-                      <span class="time">{{course.price}}</span>
-                    </p>
-                    <p>
-                      <span class="time"><i class="am-icon-circle-o"></i>全额</span>
-                      <span class="time">{{course.price}}</span>
-                    </p>
-                    <p>
-                      {{course.introduction}}
-                    </p>
-                  </div>
-                  <div v-else>
-                    <span class="time">成立时间</span>
-                    <time class="time">{{course.startTime}}</time>
-                    <p>
-                      <span class="time">学生评分</span>
-                      <el-rate
-                        v-model="course.rate"
-                        disabled
-                        show-score
-                        text-color="#ff9900"
-                        score-template="{value}">
-                      </el-rate>
-                    </p>
-                    <p>
-                      机构简介：
-                    </p>
-                    <p>
-                      {{course.introduction}}
-                    </p>
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="详情">
-                  <p>
-                    {{course.detail}}
-                  </p>
-                </el-tab-pane>
-                <el-tab-pane label="教师">
-                  <div>
-                    <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
-                              :src="course.avatar===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':course.avatar"/>
-                    <p>
-                      <el-tag class="teacher">我的名字</el-tag>
-                    </p>
-                    <p><span class="teacher">性别：</span> 男</p>
-                    <p><span class="teacher">学历：</span><span>研究生</span></p>
-                  </div>
-                  <div class="teacher">
-                    特斯特特斯特特色特斯特特色特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
-                    特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
-                    特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
-                    特斯拉特斯拉特斯拉特斯拉特斯拉
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="地址">
-                  <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" :center="{lng: 116.404, lat: 39.915}"
-                             :zoom="15">
-                    <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT">
-                    </bm-navigation>
-                    <bm-marker :position="{lng: 116.404, lat: 39.915}" :dragging="false">
-                      <bm-label content="这里是上课地点" :labelStyle="{color: 'red', fontSize : 'medium'}"
-                                :offset="{width: -35, height: 30}"/>
-                    </bm-marker>
-                  </baidu-map>
-                </el-tab-pane>
-                <el-tab-pane label="评价">
-                  <am-comment-list>
-                    <am-comment v-for="item in course.comments" :key="item.id">
-                      <am-comment-avatar :src="item.avatar">
-                      </am-comment-avatar>
-                      <am-comment-content>
-                        <am-comment-header>
-                          <am-comment-header-meta>
-                            <am-comment-author>{{item.userName}}</am-comment-author>
-                          </am-comment-header-meta>
-                          <am-comment-header-actions>
-                            <el-badge :value="200" :max="99" class="item">
-                              <a class="icon">
-                                <i class="am-icon-thumbs-up"></i>
-                              </a>
-                            </el-badge>
-                            <span>&nbsp&nbsp&nbsp&nbsp</span>
-                            <a class="icon">
-                              <i class="am-icon-thumbs-down"></i>
-                            </a>
-                          </am-comment-header-actions>
-                        </am-comment-header>
-                        <am-comment-body>
-                          <p>{{item.text}}</p>
-                        </am-comment-body>
-                      </am-comment-content>
-                    </am-comment>
-                  </am-comment-list>
-                </el-tab-pane>
-              </el-tabs>
-            </div>
-          </div>
+    <back-button>
+    </back-button>
+    <div class="order-header">
+      <span class="order-header" v-if="path==='/course'">课程详情</span>
+      <span class="order-header" v-else>机构详情</span>
+      <i v-if="path==='/institution'" class="am-icon-heart-o"
+         style="position: relative;left:30%;"></i>
+    </div>
+
+    <div :body-style="{ padding: '0px'}">
+      <slider :show-images="showImages">
+      </slider>
+      <div>
+        <span class="title">{{course.title}}</span>
+        <div class="bottom clearfix">
+          <el-tabs type="border-card" ref="tab">
+            <el-tab-pane label="简介">
+              <div v-if="path==='/course'">
+                <span class="time">开课时间</span>
+                <time class="time">{{course.startTime}}</time>
+                <p>
+                  <span class="time">每课时 : {{course.perSession}} 分钟</span>
+                  <time class="time"></time>
+                </p>
+                <p>
+                  <span class="time">学生评分</span>
+                  <el-rate
+                    v-model="course.rate"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}">
+                  </el-rate>
+                </p>
+                <p>
+                  <span class="time"><i class="am-icon-rmb"></i>订金</span>
+                  <span class="time">{{course.price}}</span>
+                </p>
+                <p>
+                  <span class="time"><i class="am-icon-circle-o"></i>全额</span>
+                  <span class="time">{{course.price}}</span>
+                </p>
+                <p>
+                  {{course.introduction}}
+                </p>
+              </div>
+              <div v-else>
+                <span class="time">成立时间</span>
+                <time class="time">{{course.startTime}}</time>
+                <p>
+                  <span class="time">学生评分</span>
+                  <el-rate
+                    v-model="course.rate"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}">
+                  </el-rate>
+                </p>
+                <p>
+                  机构简介：
+                </p>
+                <p>
+                  {{course.introduction}}
+                </p>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="详情">
+              <p>
+                {{course.detail}}
+              </p>
+            </el-tab-pane>
+            <el-tab-pane label="教师">
+              <div>
+                <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
+                          :src="course.avatar===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':course.avatar"/>
+                <p>
+                  <el-tag class="teacher">我的名字</el-tag>
+                </p>
+                <p><span class="teacher">性别：</span> 男</p>
+                <p><span class="teacher">学历：</span><span>研究生</span></p>
+              </div>
+              <div class="teacher">
+                特斯特特斯特特色特斯特特色特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
+                特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
+                特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
+                特斯拉特斯拉特斯拉特斯拉特斯拉
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="地址">
+              <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" :center="{lng: 116.404, lat: 39.915}"
+                         :zoom="15">
+                <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT">
+                </bm-navigation>
+                <bm-marker :position="{lng: 116.404, lat: 39.915}" :dragging="false">
+                  <bm-label content="这里是上课地点"
+                            :offset="{width: -35, height: 30}"/>
+                </bm-marker>
+              </baidu-map>
+            </el-tab-pane>
+            <el-tab-pane label="评价">
+              <am-comment-list>
+                <am-comment v-for="item in course.comments" :key="item.id">
+                  <am-comment-avatar :src="item.avatar">
+                  </am-comment-avatar>
+                  <am-comment-content>
+                    <am-comment-header>
+                      <am-comment-header-meta>
+                        <am-comment-author>{{item.userName}}</am-comment-author>
+                      </am-comment-header-meta>
+                      <am-comment-header-actions>
+                        <el-badge :value="200" :max="99" class="item">
+                          <a class="icon">
+                            <i class="am-icon-thumbs-up"></i>
+                          </a>
+                        </el-badge>
+                        <span>&nbsp&nbsp&nbsp&nbsp</span>
+                        <a class="icon">
+                          <i class="am-icon-thumbs-down"></i>
+                        </a>
+                      </am-comment-header-actions>
+                    </am-comment-header>
+                    <am-comment-body>
+                      <p>{{item.text}}</p>
+                    </am-comment-body>
+                  </am-comment-content>
+                </am-comment>
+              </am-comment-list>
+            </el-tab-pane>
+          </el-tabs>
         </div>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
+
     <div class="footer" v-if="path==='/course'">
       <a class="message" @click="intoInstitution">
         <i class="am-icon-university"></i>

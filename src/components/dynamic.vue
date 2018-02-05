@@ -95,8 +95,5 @@
   }
 </script>
 
-<style type="text/css" rel="stylesheet">
-  div.el-tabs {
-    height: 40px;
-  }
+<style scoped type="text/css" rel="stylesheet">
 </style>

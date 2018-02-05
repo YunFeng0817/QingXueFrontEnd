@@ -55,6 +55,12 @@ let webpackConfig = merge(baseWebpackConfig, {
         NODE_ENV: '\'production\''
       }
     }),
+    // 这个配置防止优化z-index影响样式
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: {
+        safe: true
+      }
+    }),
     // 压缩 js
     new webpack.optimize.UglifyJsPlugin({
       compress: {
