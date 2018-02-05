@@ -99,23 +99,23 @@
         }
       },
       dragMove (event) {
+        const ScreenWidth = window.innerWidth + 20;
         let X = event.changedTouches[0].clientX + this.offsetLeft - this.startX;
-        if (X <= 0 && X > -this.target.clientWidth) {
+        if (X <= 0 && X > ScreenWidth - this.target.clientWidth) {
           this.target.style = 'position:relative;left:' + X.toString() + 'px;';
         }
-        // this.target.style = 'position:relative;left:10px;z-index:1000;';
-        // this.target.style.position = 'absolute';
-        // this.target.style.left = (X - this.startX).toString() + 'px;';
-        // this.target.style.left = (X - this.startX).toString() + 'px;';
-        // console.log(this.target);
       },
       dragStop (event) {
+        const ScreenWidth = window.innerWidth + 20;
         let X = event.changedTouches[0].clientX + this.offsetLeft - this.startX;
-        console.log(X);
-        if (X <= 0 && X > -this.target.clientWidth) {
-          this.offsetLeft += event.changedTouches[0].clientX - this.startX;
+        if (X > 0) {
+          this.offsetLeft = 0;
+        } else if (X < ScreenWidth - this.target.clientWidth) {
+          this.offsetLeft = ScreenWidth - this.target.clientWidth;
+        } else {
+          this.offsetLeft = X;
         }
-        console.log(this.offsetLeft);
+        this.target.style = 'position:relative;left:' + this.offsetLeft.toString() + 'px;';
       }
     }
   }
