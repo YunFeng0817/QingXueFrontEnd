@@ -17,8 +17,9 @@
     </el-carousel>
     <el-filter v-if="!is_main" @filterOn="getFilter">
     </el-filter>
-    <list_news :typeName="typeName" :recommends="recommends">
+    <list_news v-if="recommends.length!==0" :typeName="typeName" :recommends="recommends">
     </list_news>
+    <p v-else style="text-align: center;font-size:large;">没有符合条件的课程</p>
     <!--下面的这个区块是为了占位-->
     <div style="height: 120px;"></div>
   </div>
@@ -114,11 +115,16 @@
     watch: {
       '$route' (to, from) {
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
+        if (this.is_main) {
+          this.recommends = userMessage.state.listCourses;
+        }
       }
     },
     methods: {
       getFilter (event) {
-        console.log(event);
+        for (let item of event) {
+          item.is_course = true;
+        }
         this.recommends = event;
       }
     }

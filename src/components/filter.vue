@@ -85,8 +85,6 @@
       function setFilter (options) {
         // 这里的四重循环是对筛选项的键值的渐变赋值
         for (let stage of options) {
-          console.log('stage');
-          console.log(stage);
           if (stage.value !== '大学') {
             for (let grades of stage.children) {
               grades.children = [];
@@ -154,7 +152,6 @@
     },
     methods: {
       handleChange (value) {
-        console.log(value);
         axios({
           method: 'post',
           url: '/course/filtered_list/',
@@ -167,9 +164,9 @@
         })
           .then(function (response) {
             if (response) {
-              this.$emit('filterOn', response);
+              this.$emit('filterOn', response.courses);
             }
-          })
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           })

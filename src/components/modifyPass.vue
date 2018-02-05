@@ -1,6 +1,8 @@
 <template>
   <div id="login-block">
     <el-row>
+      <back-button>
+      </back-button>
       <el-col :span="22" class="card">
         <el-card :body-style="{ padding: '0px' }">
           <div style="padding: 14px; text-align: center">
@@ -35,9 +37,13 @@
 
 <script>
   import axios from '../axios/index';
+  import BackButton from './backButton';
 
   export default {
     name: 'modify-pass',
+    components: {
+      BackButton
+    },
     data () {
       let validatePass = (rule, value, callback) => {
         if (value === '') {
