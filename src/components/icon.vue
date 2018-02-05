@@ -21,7 +21,7 @@
 
 <style scoped type="text/css">
   li {
-    width: 25%;
+    width: 20%;
     list-style: none;
   }
 </style>

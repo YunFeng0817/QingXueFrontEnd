@@ -10,7 +10,7 @@
           <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
           <div class="courses">
             <img :src="item.main_image" class="image">
-            <div style="padding: 14px;">
+            <div style="padding: 2%;">
               <span>{{item.name}}</span>
               <div class="bottom clearfix">
                 <p v-if="!item.is_course">{{item.introduction}}</p>

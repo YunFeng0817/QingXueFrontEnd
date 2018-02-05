@@ -72,6 +72,9 @@
 <style scoped type="text/css" rel="stylesheet">
   .like {
     float: right;
+  }
 
+  i {
+    font-size: x-large;
   }
 </style>

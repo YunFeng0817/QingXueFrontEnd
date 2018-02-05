@@ -69,14 +69,16 @@
         typeName: '课程推荐',
         is_main: this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main',
         items: [
-          {message: '小学', iconType: 'am-primary am-icon-child'},
+          {message: '幼儿', iconType: 'am-success am-icon-child'},
+          {message: '小学', iconType: 'am-primary am-icon-female'},
           {message: '初中', iconType: 'am-warning am-icon-male'},
           {message: '高中', iconType: 'am-success am-icon-fort-awesome'},
           {message: '大学', iconType: 'am-danger am-icon-graduation-cap'},
-          {message: '考研', iconType: 'am-warning am-icon-institution'},
-          {message: '四级', iconType: 'am-danger am-icon-signal'},
-          {message: '六级', iconType: 'am-primary am-icon-rocket'},
-          {message: '艺术', iconType: 'am-warning am-icon-paint-brush'}
+          {message: '留学', iconType: 'am-warning am-icon-institution'},
+          {message: '职业技能', iconType: 'am-danger am-icon-signal'},
+          {message: '讲座活动', iconType: 'am-primary am-icon-rocket'},
+          {message: '文艺', iconType: 'am-warning am-icon-paint-brush'},
+          {message: '体育', iconType: 'am-primary am-icon-bicycle'}
         ],
         showImages: [
           {
@@ -124,7 +126,7 @@
     align-content: center;
 
     padding: 0;
-    margin: 0;
+    margin: 3% 0;
   }
 
   .head-line {
