@@ -149,7 +149,7 @@
       <a id="book" @click="order">立即预约</a>
     </div>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 150px;"></div>
+    <div style="height: 180px;"></div>
   </div>
 </template>
 

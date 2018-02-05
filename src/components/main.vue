@@ -15,7 +15,7 @@
         </div>
       </el-carousel-item>
     </el-carousel>
-    <el-filter v-if="!is_main">
+    <el-filter v-if="!is_main" @filterOn="getFilter">
     </el-filter>
     <list_news :typeName="typeName" :recommends="recommends">
     </list_news>
@@ -31,7 +31,7 @@
   import headerIndex from './headerIndex';
   import slider from './slider';
   import axios from '../axios/index';
-  import userMessage from '../store/index'
+  import userMessage from '../store/index';
 
   export default {
     name: 'Main',
@@ -42,8 +42,9 @@
       'header-index': headerIndex,
       slider: slider
     },
-    created () {
-      if (userMessage.state.listCourses.length === 0) {
+    mounted () {
+      console.log(this.$router.currentRoute.path);
+      if (userMessage.state.listCourses.length === 0 && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
         axios({
           method: 'get',
           url: '/course/brief_list/'
@@ -114,6 +115,12 @@
     watch: {
       '$route' (to, from) {
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
+      }
+    },
+    methods: {
+      getFilter (event) {
+        console.log(event);
+        this.recommends = event;
       }
     }
   }

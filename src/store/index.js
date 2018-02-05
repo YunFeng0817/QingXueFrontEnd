@@ -22,7 +22,9 @@ export default new Vuex.Store({
     comment_to_educators: [],
     comment_to_courses: [],
     address: [],
-    listCourses: []
+    listCourses: [],
+    subjects: [],
+    degrees: []
   },
   mutations: {
     user_message (state, message) {
@@ -65,6 +67,12 @@ export default new Vuex.Store({
     },
     commitList (state, list) {
       state.listCourses = list;
+    },
+    getSubjects (state, list) {
+      state.subjects = list;
+    },
+    getDegrees (state, list) {
+      state.degrees = list;
     }
   }
 })
