@@ -232,5 +232,10 @@
 
   .filter label {
     margin: 3%;
+    flex: 1 1 40%;
+  }
+
+  .filter div {
+    flex: 1 1 70%;
   }
 </style>

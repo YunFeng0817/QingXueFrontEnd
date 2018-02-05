@@ -345,6 +345,7 @@
   }
 
   .login-row {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -363,7 +364,8 @@
   }
 
   .login-button {
-    flex: 2 3 5%;
+    padding: 4% 2%;
+    flex: 2 3 3%;
   }
 
   .button {
