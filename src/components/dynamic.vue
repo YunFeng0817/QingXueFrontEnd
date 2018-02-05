@@ -1,52 +1,12 @@
 <template>
   <div>
-    <!--<header-index>-->
-    <!--</header-index>-->
+    <header-index>
+    </header-index>
     <el-tabs @tab-click="handleClick" @touchstart.native.stopdefault="dragStart"
              @touchmove.native.stopdefault="dragMove" @touchend.native.default="dragStop">
-      <el-tab-pane>
+      <el-tab-pane v-for="item in tabHeaders" :key="item.id">
         <span slot="label">
-          <a>我的动态</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>小学</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>初中</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a to="">高中</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>大学</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>考研</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>四级</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>六级</a>
-        </span>
-      </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">
-          <a>艺术</a>
+          <a>{{item}}</a>
         </span>
       </el-tab-pane>
     </el-tabs>
@@ -78,6 +38,19 @@
             name: '为何母猪半夜惨叫，为何小区电动车频频失窃，原因竟然是...',
             introduction: '为何母猪半夜惨叫，为何小区电动车频频失窃，原因竟然是...'
           }
+        ],
+        tabHeaders: [
+          '我的关注',
+          '幼儿',
+          '小学',
+          '初中',
+          '高中',
+          '大学',
+          '留学',
+          '职业技能',
+          '讲座活动',
+          '文艺',
+          '体育'
         ],
         startX: 0,
         offsetLeft: 0,
