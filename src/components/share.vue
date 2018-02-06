@@ -1,7 +1,8 @@
 <template>
-  <div @click="shareOn">
-    <transition>
-      <div>
+  <div>
+    <button @click="shareOn">test</button>
+    <transition name="share" v-on:after-leave="deleteNode">
+      <div v-if="show" class="share">
         <div class="share-row">
           <div class="share-header">
             <h3>分享到</h3>
@@ -10,7 +11,7 @@
           <icon :category_tag="items" :row="3">
           </icon>
         </div>
-        <button class="share-cancel">取消</button>
+        <button class="share-cancel" @click="shareOff">取消</button>
       </div>
     </transition>
   </div>
@@ -33,11 +34,14 @@
           {message: '腾讯微博', iconType: 'am-secondary am-icon-tencent-weibo'},
           {message: '微信', iconType: 'am-success am-icon-weixin'},
           {message: '人人网', iconType: 'am-primary am-icon-renren'}
-        ]
+        ],
+        show: false,
+        addNode: document.createElement('div')
       }
     },
     methods: {
       shareOn (event) {
+        this.show = !this.show;
         let node = event.target;
         while (node.tagName !== 'BODY') {
           node = node.parentNode;
@@ -45,15 +49,45 @@
         let cover = document.createElement('div');
         cover.style = 'width:100%;height:100%;background-color:rgba(0,0,0,0.6);position:fixed;left:0;top:0;';
         node.appendChild(cover);
+        this.addNode = cover;
+      },
+      shareOff () {
+        this.show = !this.show;
+      },
+      deleteNode () {
+        this.addNode.parentNode.removeChild(this.addNode);
       }
     }
   }
 </script>
 
 <style scoped>
+  .share-enter-active {
+    animation: share-in 600ms;
+  }
+
+  .share-leave-active {
+    animation: share-in 400ms reverse;
+  }
+
+  @keyframes share-in {
+    from {
+      position: fixed;
+      bottom: -200px;
+    }
+    to {
+      bottom: 20px;
+    }
+  }
+
+  .share {
+    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    z-index: 1000;
+  }
+
   .share-row {
-    position: relative;
-    z-index: 1100;
     margin: 0 5%;
     background-color: white;
     border-radius: 10px;
@@ -71,8 +105,6 @@
   }
 
   .share-cancel {
-    position: relative;
-    z-index: 1100;
     width: 90%;
     height: 40px;
     margin: 0 5%;
