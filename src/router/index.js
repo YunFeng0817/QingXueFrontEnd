@@ -10,6 +10,7 @@ import login from '../components/login'
 import message from '../components/message'
 import modifyPass from '../components/modifyPass'
 import order from '../components/order'
+import share from '../components/share'
 
 Vue.use(Router);
 
@@ -69,6 +70,10 @@ export default new Router({
     {
       path: '/order',
       component: order
+    },
+    {
+      path: '/share',
+      component: share
     }
   ]
 })

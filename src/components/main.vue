@@ -4,10 +4,8 @@
     </header-index>
     <slider :showImages="showImages">
     </slider>
-    <ul v-if="is_main">
-      <icon v-for='item in items' v-bind:category_tag="item" :key="item.id">
-      </icon>
-    </ul>
+    <icon v-if="is_main" v-bind:category_tag="items" :row="5">
+    </icon>
     <el-carousel :interval="5000" arrow="never" height="35px" indicator-position="none">
       <el-carousel-item class="head-line" v-for="item in showMessages" v-bind:key="item.id">
         <div class="head-line">
@@ -132,15 +130,6 @@
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-
-    padding: 0;
-    margin: 3% 0;
-  }
-
   .head-line {
     display: table;
     /*background-color: #66b1ff;*/
