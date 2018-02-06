@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     has_login: false,
+    is_course: true,
     id: 1,
     mobile_num: '',
     name: '',
@@ -76,7 +77,8 @@ export default new Vuex.Store({
       state.degrees = list;
     },
     commitSearch (state, list) {
-      state.searchResult = list;
+      state.searchResult = list.courses;
+      state.is_course = list.is_course;
     }
   }
 })

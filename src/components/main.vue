@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <header-index>
+    <header-index :is_course="true">
     </header-index>
     <slider :showImages="showImages">
     </slider>

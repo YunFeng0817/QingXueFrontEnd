@@ -29,7 +29,8 @@
     name: 'header-index',
     props: {
       is_course: {
-        type: Boolean
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -77,16 +78,17 @@
           })
             .then(function (response) {
               if (response) {
-                for (let item of response.course) {
+                for (let item of response.courses) {
                   item.is_course = this.is_course;
                 }
-                userMessage.commit('commitSearch', response.course);
+                response.is_course = this.is_course;
+                userMessage.commit('commitSearch', response);
+                this.$router.push({path: 'search', query: {key: this.searchContent}});
               }
             }.bind(this))
             .catch(function (error) {
               console.log(error);
             });
-          this.$router.push({path: 'search', query: {key: this.searchContent}});
         }
       }
     },

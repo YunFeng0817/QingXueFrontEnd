@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header-index>
+    <header-index :is_course="false">
     </header-index>
     <el-tabs @tab-click="handleClick" @touchstart.native.stopdefault="dragStart"
              @touchmove.native.stopdefault="dragMove" @touchend.native.default="dragStop">
