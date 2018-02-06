@@ -22,8 +22,16 @@
 </template>
 
 <script>
+  import axios from '../axios/index';
+  import userMessage from '../store/index';
+
   export default {
     name: 'header-index',
+    props: {
+      is_course: {
+        type: Boolean
+      }
+    },
     data () {
       return {
         searchContent: ''
@@ -49,7 +57,7 @@
         ];
       },
       handleSelect (item) {
-        console.log(item);
+        // console.log(item);
       },
       // 编程式导航 点击按钮使得url变化
       searchLink () {
@@ -62,6 +70,22 @@
         }
 
         if (result) {
+          let type = this.is_course ? '/course' : '/dynamic';
+          axios({
+            method: 'get',
+            url: type + '/search_list/keyword=' + this.searchContent
+          })
+            .then(function (response) {
+              if (response) {
+                for (let item of response.course) {
+                  item.is_course = this.is_course;
+                }
+                userMessage.commit('commitSearch', response.course);
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
           this.$router.push({path: 'search', query: {key: this.searchContent}});
         }
       }

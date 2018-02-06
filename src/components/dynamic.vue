@@ -29,7 +29,7 @@
     },
     data () {
       return {
-        typeName: '分类的名字',
+        typeName: '最新动态',
         essays: [
           {
             is_course: false,

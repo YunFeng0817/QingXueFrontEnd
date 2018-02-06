@@ -24,7 +24,8 @@ export default new Vuex.Store({
     address: [],
     listCourses: [],
     subjects: [],
-    degrees: []
+    degrees: [],
+    searchResult: []
   },
   mutations: {
     user_message (state, message) {
@@ -73,6 +74,9 @@ export default new Vuex.Store({
     },
     getDegrees (state, list) {
       state.degrees = list;
+    },
+    commitSearch (state, list) {
+      state.searchResult = list;
     }
   }
 })

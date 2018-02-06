@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a style="font-size: larger">{{typeName}}</a>
     <el-row>
       <el-col class="card"
               :span="22"
@@ -141,21 +142,7 @@
     animation-duration: 250ms;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
-    /*cursor: pointer;*/
-  }
-
-  @keyframes float {
-    0% {
-      position: relative;
-    }
-    20% {
-      bottom: 1px;
-    }
-    100% {
-      position: relative;
-      bottom: 6px;
-      box-shadow: 2px 2px 15px 5px #d0d0d0;
-    }
+    cursor: pointer;
   }
 
 </style>

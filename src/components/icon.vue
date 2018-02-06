@@ -24,4 +24,13 @@
     width: 20%;
     list-style: none;
   }
+
+  a:hover{
+    animation-name: float;
+    animation-delay: 10ms;
+    animation-duration: 250ms;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    cursor: pointer;
+  }
 </style>

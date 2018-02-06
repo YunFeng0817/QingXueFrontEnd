@@ -6,6 +6,7 @@ import router from './router'
 import 'amaze-vue/dist/amaze-vue.css';
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from './axios/index'
+import './assets/common.css'
 
 import {
   Autocomplete,
