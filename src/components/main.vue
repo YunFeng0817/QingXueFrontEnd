@@ -1,15 +1,17 @@
 <template>
   <div id="main">
+    <back-button v-if="!is_main">
+    </back-button>
     <header-index :is_course="true">
     </header-index>
     <slider :showImages="showImages">
     </slider>
     <icon v-if="is_main" v-bind:category_tag="items" :row="5">
     </icon>
-    <el-carousel :interval="5000" arrow="never" height="35px" indicator-position="none">
+    <el-carousel :interval="4000" arrow="never" height="35px" indicator-position="none">
       <el-carousel-item class="head-line" v-for="item in showMessages" v-bind:key="item.id">
         <div class="head-line">
-          <router-link :to="item.link">{{item.message}}</router-link>
+          <a>{{item.title}}</a>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -31,10 +33,12 @@
   import slider from './slider';
   import axios from '../axios/index';
   import userMessage from '../store/index';
+  import BackButton from './backButton';
 
   export default {
     name: 'Main',
     components: {
+      BackButton,
       'el-filter': filter,
       icon: icon,
       list_news: listNews,
@@ -42,10 +46,10 @@
       slider: slider
     },
     mounted () {
-      if (userMessage.state.listCourses.length === 0 && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
+      if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
         axios({
           method: 'get',
-          url: '/course/brief_list/'
+          url: '/common/page_contents/'
         })
           .then(function (response) {
             if (response) {
@@ -53,14 +57,22 @@
                 item.is_course = true;
               }
               this.recommends = response.courses;
-              userMessage.commit('commitList', response.courses);
+              this.showMessages = response.essays;
+              this.showImages = response.banners;
+              userMessage.commit('commitList', response);
             }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
+      } else if (this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
+        this.recommends = userMessage.state.firstClass.courses;
+        this.showMessages = userMessage.state.firstClass.essays;
+        this.showImages = userMessage.state.firstClass.banners;
       } else {
-        this.recommends = userMessage.state.listCourses;
+        this.showMessages = userMessage.state.main.essays;
+        this.showImages = userMessage.state.main.banners;
+        this.recommends = userMessage.state.main.courses;
       }
     },
     data () {
@@ -71,7 +83,7 @@
           {
             message: '幼儿',
             iconType: 'am-success am-icon-child',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '幼儿'
@@ -81,7 +93,7 @@
           {
             message: '小学',
             iconType: 'am-primary am-icon-female',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '小学'
@@ -91,7 +103,7 @@
           {
             message: '初中',
             iconType: 'am-warning am-icon-male',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '初中'
@@ -101,7 +113,7 @@
           {
             message: '高中',
             iconType: 'am-success am-icon-fort-awesome',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '高中'
@@ -111,7 +123,7 @@
           {
             message: '大学',
             iconType: 'am-danger am-icon-graduation-cap',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '大学'
@@ -121,7 +133,7 @@
           {
             message: '留学',
             iconType: 'am-warning am-icon-institution',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '留学'
@@ -131,7 +143,7 @@
           {
             message: '职业技能',
             iconType: 'am-danger am-icon-signal',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '职业技能'
@@ -141,7 +153,7 @@
           {
             message: '讲座活动',
             iconType: 'am-primary am-icon-rocket',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               stages: [
                 '讲座活动'
@@ -151,7 +163,7 @@
           {
             message: '文艺',
             iconType: 'am-warning am-icon-paint-brush',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               subjects: [
                 '文艺'
@@ -161,7 +173,7 @@
           {
             message: '体育',
             iconType: 'am-primary am-icon-bicycle',
-            url: ' /course/filtered_list/',
+            url: ' /common/page_contents/',
             data: {
               subjects: [
                 '体育'
@@ -171,29 +183,29 @@
         ],
         showImages: [
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
+            image: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
             link: ''
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
+            image: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
             link: ''
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
+            image: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
             link: ''
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
+            image: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
             link: ''
           }
         ],
         showMessages: [
           {
-            message: '王**老板黄鹤带着小姨子跑路啦!!!',
+            title: '王**老板黄鹤带着小姨子跑路啦!!!',
             link: '/dynamic'
           },
           {
-            message: '原价200元的皮包现在通通20块',
+            title: '原价200元的皮包现在通通20块',
             link: '/dynamic'
           }
         ],
@@ -204,7 +216,13 @@
       '$route' (to, from) {
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
         if (this.is_main) {
-          this.recommends = userMessage.state.listCourses;
+          this.showMessages = userMessage.state.main.essays;
+          this.showImages = userMessage.state.main.banners;
+          this.recommends = userMessage.state.main.courses;
+        } else {
+          this.showImages = userMessage.state.firstClass.banners;
+          this.showMessages = userMessage.state.firstClass.essays;
+          this.recommends = userMessage.state.firstClass.courses;
         }
       }
     },

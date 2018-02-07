@@ -23,7 +23,7 @@ export default new Vuex.Store({
     comment_to_educators: [],
     comment_to_courses: [],
     address: [],
-    listCourses: [],
+    main: {},
     subjects: [],
     degrees: [],
     searchResult: [],
@@ -69,7 +69,9 @@ export default new Vuex.Store({
       state.address = [];
     },
     commitList (state, list) {
-      state.listCourses = list;
+      state.main.courses = list.courses;
+      state.main.banners = list.banners;
+      state.main.essays = list.essays;
     },
     getSubjects (state, list) {
       state.subjects = list;

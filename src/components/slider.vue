@@ -3,7 +3,7 @@
                @touchmove.native.stopdefault="move" @touchend.native.stopdefault="drop" ref="carousel"
                @change="onchange">
     <el-carousel-item v-for="item in showImages" v-bind:key="item.id">
-      <img :src="item.src"/>
+      <img :src="item.image"/>
     </el-carousel-item>
   </el-carousel>
 </template>

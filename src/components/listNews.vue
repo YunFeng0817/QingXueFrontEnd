@@ -6,7 +6,7 @@
               :span="22"
               v-for="(item,key) in recommends" :key="key">
         <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(key)">
-          <el-tag v-if="item.is_course" size="mini">{{item.grade}}</el-tag>
+          <el-tag v-if="item.is_course" size="mini">{{item.stage+item.grade}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
           <div class="courses">

@@ -153,7 +153,7 @@
 
 <script>
   import userMessage from '../store/index'
-  import backButtom from './backButton'
+  import BackButton from './backButton'
   import BaiduMap from 'vue-baidu-map/components/Map/Map'
   import bmMarker from 'vue-baidu-map/components/overlays/Marker'
   import bmLabel from 'vue-baidu-map/components/overlays/Label'
@@ -176,7 +176,7 @@
     name: 'course',
     components: {
       'slider': slider,
-      'back-button': backButtom,
+      'back-button': BackButton,
       'baidu-map': BaiduMap,
       'bm-marker': bmMarker,
       'bm-label': bmLabel,

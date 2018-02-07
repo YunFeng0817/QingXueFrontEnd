@@ -38,9 +38,15 @@
           })
             .then(function (response) {
               if (response) {
+                for (let course of response.courses) {
+                  course.is_course = true;
+                }
                 userMessage.commit('commitFirst', response);
-                this.$router.push({path: 'get', query: {category: this.category_tag.message}});
+                this.$router.push({path: 'get', query: {category: event.message}});
               }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
             })
         }
       }
