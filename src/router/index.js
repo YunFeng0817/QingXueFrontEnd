@@ -10,7 +10,7 @@ import login from '../components/login'
 import message from '../components/message'
 import modifyPass from '../components/modifyPass'
 import order from '../components/order'
-import share from '../components/share'
+import share from '../components/share/share'
 
 Vue.use(Router);
 

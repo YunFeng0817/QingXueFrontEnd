@@ -7,6 +7,7 @@ import 'amaze-vue/dist/amaze-vue.css';
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from './axios/index'
 import './assets/common.css'
+import share from './components/share/index'
 
 import {
   Autocomplete,
@@ -67,6 +68,7 @@ Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Cascader);
 Vue.prototype.$message = Message;
+Vue.prototype.$share = share;
 
 Vue.config.productionTip = false;
 

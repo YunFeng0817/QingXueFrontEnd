@@ -91,6 +91,7 @@
     },
     methods: {
       logout () {
+        this.$share();
         axios({
           method: 'get',
           url: '/student/logout/'

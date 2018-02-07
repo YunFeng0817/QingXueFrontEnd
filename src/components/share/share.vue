@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="shareOn">test</button>
     <transition name="share" v-on:after-leave="deleteNode">
       <div v-if="show" class="share">
         <div class="share-row">
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-  import Icon from './icon';
+  import Icon from '../icon';
 
   export default {
     name: 'share',
@@ -39,20 +38,20 @@
         addNode: document.createElement('div')
       }
     },
+    mounted () {
+      this.shareOn();
+    },
     methods: {
-      shareOn (event) {
-        this.show = !this.show;
-        let node = event.target;
-        while (node.tagName !== 'BODY') {
-          node = node.parentNode;
-        }
+      shareOn () {
+        this.show = true;
         let cover = document.createElement('div');
         cover.style = 'width:100%;height:100%;background-color:rgba(0,0,0,0.6);position:fixed;left:0;top:0;';
-        node.appendChild(cover);
+        document.body.appendChild(cover);
         this.addNode = cover;
+        cover.addEventListener('click', this.shareOff);
       },
       shareOff () {
-        this.show = !this.show;
+        this.show = false;
       },
       deleteNode () {
         this.addNode.parentNode.removeChild(this.addNode);
