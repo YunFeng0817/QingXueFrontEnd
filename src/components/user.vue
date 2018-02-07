@@ -26,6 +26,9 @@
           </div>
         </el-card>
       </el-collapse-item>
+      <div class="user-list" @click="openShare">
+        <span class="am-icon-share-square-o">分享</span>
+      </div>
     </el-collapse>
   </div>
 </template>
@@ -71,10 +74,6 @@
           {
             label: ' 鸣谢',
             icon: ' am-icon-at'
-          },
-          {
-            label: ' 分享',
-            icon: ' am-icon-share-square-o'
           }
         ]
       }
@@ -91,7 +90,6 @@
     },
     methods: {
       logout () {
-        this.$share();
         axios({
           method: 'get',
           url: '/student/logout/'
@@ -111,6 +109,9 @@
         if (userMessage.state.has_login) {
           this.$router.push({path: '/modify/pass'});
         }
+      },
+      openShare () {
+        this.$share();
       }
     }
   }
@@ -165,4 +166,12 @@
     font-size: 20px !important;
   }
 
+  .user-list {
+    line-height: 48px;
+    background: white;
+  }
+
+  .user-list span {
+    font-size: large;
+  }
 </style>
