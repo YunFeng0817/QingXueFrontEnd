@@ -26,7 +26,8 @@ export default new Vuex.Store({
     listCourses: [],
     subjects: [],
     degrees: [],
-    searchResult: []
+    searchResult: [],
+    firstClass: {}
   },
   mutations: {
     user_message (state, message) {
@@ -79,6 +80,11 @@ export default new Vuex.Store({
     commitSearch (state, list) {
       state.searchResult = list.courses;
       state.is_course = list.is_course;
+    },
+    commitFirst (state, list) {
+      state.firstClass.courses = list.courses;
+      state.firstClass.banners = list.banners;
+      state.firstClass.essays = list.essays;
     }
   }
 })

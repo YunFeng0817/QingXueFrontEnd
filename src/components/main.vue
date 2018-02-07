@@ -68,16 +68,106 @@
         typeName: '课程推荐',
         is_main: this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main',
         items: [
-          {message: '幼儿', iconType: 'am-success am-icon-child'},
-          {message: '小学', iconType: 'am-primary am-icon-female'},
-          {message: '初中', iconType: 'am-warning am-icon-male'},
-          {message: '高中', iconType: 'am-success am-icon-fort-awesome'},
-          {message: '大学', iconType: 'am-danger am-icon-graduation-cap'},
-          {message: '留学', iconType: 'am-warning am-icon-institution'},
-          {message: '职业技能', iconType: 'am-danger am-icon-signal'},
-          {message: '讲座活动', iconType: 'am-primary am-icon-rocket'},
-          {message: '文艺', iconType: 'am-warning am-icon-paint-brush'},
-          {message: '体育', iconType: 'am-primary am-icon-bicycle'}
+          {
+            message: '幼儿',
+            iconType: 'am-success am-icon-child',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '幼儿'
+              ]
+            }
+          },
+          {
+            message: '小学',
+            iconType: 'am-primary am-icon-female',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '小学'
+              ]
+            }
+          },
+          {
+            message: '初中',
+            iconType: 'am-warning am-icon-male',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '初中'
+              ]
+            }
+          },
+          {
+            message: '高中',
+            iconType: 'am-success am-icon-fort-awesome',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '高中'
+              ]
+            }
+          },
+          {
+            message: '大学',
+            iconType: 'am-danger am-icon-graduation-cap',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '大学'
+              ]
+            }
+          },
+          {
+            message: '留学',
+            iconType: 'am-warning am-icon-institution',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '留学'
+              ]
+            }
+          },
+          {
+            message: '职业技能',
+            iconType: 'am-danger am-icon-signal',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '职业技能'
+              ]
+            }
+          },
+          {
+            message: '讲座活动',
+            iconType: 'am-primary am-icon-rocket',
+            url: ' /course/filtered_list/',
+            data: {
+              stages: [
+                '讲座活动'
+              ]
+            }
+          },
+          {
+            message: '文艺',
+            iconType: 'am-warning am-icon-paint-brush',
+            url: ' /course/filtered_list/',
+            data: {
+              subjects: [
+                '文艺'
+              ]
+            }
+          },
+          {
+            message: '体育',
+            iconType: 'am-primary am-icon-bicycle',
+            url: ' /course/filtered_list/',
+            data: {
+              subjects: [
+                '体育'
+              ]
+            }
+          }
         ],
         showImages: [
           {

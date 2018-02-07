@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li style="text-align:center;" :style="width" v-for="item in category_tag" :key="item.id">
-      <a @click="categoryLink" class="am-icon-btn" :class="item.iconType"></a>
+      <a @click="categoryLink(item)" class="am-icon-btn" :class="item.iconType"></a>
       <span style="display: block;">
       {{item.message}}
     </span>
@@ -10,6 +10,9 @@
 </template>
 
 <script>
+  import axios from '../axios/index';
+  import userMessage from '../store/index';
+
   export default {
     name: 'icon',
     props: {
@@ -25,12 +28,21 @@
         width: 'width:' + (100 / this.row).toString() + '%;'
       }
     },
-    created () {
-
-    },
     methods: {
-      categoryLink () {
-        this.$router.push({path: 'get', query: {category: this.category_tag.message}});
+      categoryLink (event) {
+        if (event.data) {
+          axios({
+            method: 'post',
+            url: event.url,
+            data: event.data
+          })
+            .then(function (response) {
+              if (response) {
+                userMessage.commit('commitFirst', response);
+                this.$router.push({path: 'get', query: {category: this.category_tag.message}});
+              }
+            })
+        }
       }
     }
   }
