@@ -233,7 +233,8 @@
         teachers: userMessage.state.courseDetail.teachers,
         showImages: userMessage.state.courseDetail.banners,
         path: this.$router.currentRoute.path,
-        offsetTop: 0
+        offsetTop: 0,
+        cloneNode: document.createElement('img')
       }
     },
     watch: {
@@ -267,9 +268,16 @@
       },
       handler () {
         if (this.offsetTop < window.scrollY) {
-          this.$refs.tab.$el.firstChild.style = 'position:fixed;top:0;z-index:100;';
+          if (this.cloneNode.tagName === 'IMG') {
+            this.cloneNode = this.$refs.tab.$el.firstChild.cloneNode(true);
+            this.cloneNode.style = 'position:fixed;top:0;z-index:100;';
+            this.$refs.tab.$el.appendChild(this.cloneNode);
+          }
         } else {
-          this.$refs.tab.$el.firstChild.style = 'position:default;z-index:100;';
+          if (this.cloneNode.tagName !== 'IMG') {
+            this.$refs.tab.$el.removeChild(this.cloneNode);
+            this.cloneNode = document.createElement('img');
+          }
         }
       }
     },
