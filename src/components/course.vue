@@ -270,12 +270,13 @@
         if (this.offsetTop < window.scrollY) {
           if (this.cloneNode.tagName === 'IMG') {
             this.cloneNode = this.$refs.tab.$el.firstChild.cloneNode(true);
-            this.cloneNode.style = 'position:fixed;top:0;z-index:100;';
-            this.$refs.tab.$el.appendChild(this.cloneNode);
+            this.$refs.tab.$el.firstChild.style = 'position:fixed;top:0;z-index:100;';
+            this.$refs.tab.$el.insertBefore(this.cloneNode, this.$refs.tab.$el.firstChild);
           }
         } else {
           if (this.cloneNode.tagName !== 'IMG') {
             this.$refs.tab.$el.removeChild(this.cloneNode);
+            this.$refs.tab.$el.firstChild.style = 'position:static;';
             this.cloneNode = document.createElement('img');
           }
         }
