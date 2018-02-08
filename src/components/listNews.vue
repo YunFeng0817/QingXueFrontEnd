@@ -5,7 +5,7 @@
       <el-col class="card"
               :span="22"
               v-for="(item,key) in recommends" :key="key">
-        <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(item.course_sn)">
+        <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(item.id)">
           <el-tag v-if="item.is_course" size="mini">{{item.stage+item.grade}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
@@ -52,23 +52,7 @@
         type: String
       },
       recommends: {
-        type: Array,
-        default () {
-          return [
-            {
-              is_course: true,
-              rate: 4.0,
-              price: 10000,
-              grade: '初中',
-              subject: '计算机',
-              difficulty: '变态难',
-              photoLink: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
-              link: 'course',
-              name: '老干妈',
-              introduction: '真好吃！！！！！！！！！！！'
-            }
-          ]
-        }
+        type: Array
       }
     },
     data () {
@@ -96,15 +80,29 @@
       //   }
       // },
       clickAction (id) {
-        if (is_course) {
+        if (this.recommends[0].is_course) {
           axios({
-            url: '/course/' + id,
+            url: '/essay/' + id,
             method: 'get'
           })
             .then(function (response) {
               if (response) {
                 userMessage.commit('commitCourse', response);
                 this.$router.push({path: '/course'});
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          axios({
+            url: '/essay/' + id,
+            method: 'get'
+          })
+            .then(function (response) {
+              if (response) {
+                userMessage.commit('commitEssay', response);
+                this.$router.push({path: '/article'});
               }
             })
             .catch(function (error) {

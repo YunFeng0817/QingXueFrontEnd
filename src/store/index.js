@@ -28,7 +28,9 @@ export default new Vuex.Store({
     degrees: [],
     searchResult: [],
     firstClass: {},
-    courseDetail: {}
+    courseDetail: {},
+    essay: {},
+    essays: []
   },
   mutations: {
     // 登录后保存用户信息
@@ -87,6 +89,14 @@ export default new Vuex.Store({
     // 保存具体的课程信息
     commitCourse (state, list) {
       state.courseDetail = list;
+    },
+    // 保存动态页的动态列表
+    commitEssays (state, list) {
+      state.essays = list;
+    },
+    // 保存具体的文章
+    commitEssay (state, list) {
+      state.essay = list;
     }
   }
 })
