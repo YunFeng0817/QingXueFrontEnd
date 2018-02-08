@@ -1,16 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '../components/main'
-import user from '../components/user'
-import dynamic from '../components/dynamic'
-import searchResult from '../components/searchResult'
-import course from '../components/course'
-import essay from '../components/essay'
-import login from '../components/login'
-import message from '../components/message'
-import modifyPass from '../components/modifyPass'
-import order from '../components/order'
-import share from '../components/share/share'
 
 Vue.use(Router);
 
@@ -20,60 +9,56 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Main
+      component: resolve => require(['../components/main'], resolve)
     },
     {
       path: '/main',
-      component: Main
+      component: resolve => require(['../components/main'], resolve)
     },
     {
       path: '/login',
-      component: login
+      component: resolve => require(['../components/login'], resolve) // 懒加载
     },
     {
       path: '/dynamic',
-      component: dynamic
+      component: resolve => require(['../components/dynamic'], resolve) // 懒加载
     },
     {
       path: '/user',
-      component: user
+      component: resolve => require(['../components/user'], resolve) // 懒加载
     },
     {
       path: '/search',
       query: {key: ' '},
-      component: searchResult
+      component: resolve => require(['../components/searchResult'], resolve) // 懒加载
     },
     {
       path: '/get',
-      component: Main
+      component: resolve => require(['../components/main'], resolve)
     },
     {
       path: '/course',
-      component: course
+      component: resolve => require(['../components/course'], resolve) // 懒加载
     },
     {
       path: '/institution',
-      component: course
+      component: resolve => require(['../components/course'], resolve) // 懒加载
     },
     {
       path: '/article',
-      component: essay
+      component: resolve => require(['../components/essay'], resolve) // 懒加载
     },
     {
       path: '/message',
-      component: message
+      component: resolve => require(['../components/message'], resolve) // 懒加载
     },
     {
       path: '/modify/pass',
-      component: modifyPass
+      component: resolve => require(['../components/modifyPass'], resolve) // 懒加载
     },
     {
       path: '/order',
-      component: order
-    },
-    {
-      path: '/share',
-      component: share
+      component: resolve => require(['../components/order'], resolve) // 懒加载
     }
   ]
 })
