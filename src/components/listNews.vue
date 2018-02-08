@@ -10,11 +10,11 @@
           <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
           <div class="courses">
-            <img :src="item.main_image" class="image">
+            <img :src="item.cover" class="image">
             <div style="padding: 2%;">
-              <span>{{item.name}}</span>
+              <span>{{item.title}}</span>
               <div class="bottom clearfix">
-                <p v-if="!item.is_course">{{item.introduction}}</p>
+                <p v-if="!item.is_course">{{item.brief_description}}</p>
                 <span v-if="item.is_course">
                   好评率：
                   <el-rate
@@ -82,7 +82,7 @@
       clickAction (id) {
         if (this.recommends[0].is_course) {
           axios({
-            url: '/essay/' + id,
+            url: '/course/' + id + '/',
             method: 'get'
           })
             .then(function (response) {
@@ -96,7 +96,7 @@
             });
         } else {
           axios({
-            url: '/essay/' + id,
+            url: '/essay/' + id + '/',
             method: 'get'
           })
             .then(function (response) {
@@ -104,7 +104,7 @@
                 userMessage.commit('commitEssay', response);
                 this.$router.push({path: '/article'});
               }
-            })
+            }.bind(this))
             .catch(function (error) {
               console.log(error);
             })

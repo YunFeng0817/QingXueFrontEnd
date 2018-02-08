@@ -197,7 +197,10 @@
               }
               this.essays = response.essays;
             }
-          })
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     }
   }

@@ -3,7 +3,7 @@
     <back-button>
     </back-button>
     <am-article>
-      <am-article-header title="永远的蝴蝶" meta="陈启佑（台湾）" style="text-align: center">
+      <am-article-header :title="title" :meta="author" style="text-align: center">
       </am-article-header>
       <am-article-body>
         <am-article-lead v-html="introduction">

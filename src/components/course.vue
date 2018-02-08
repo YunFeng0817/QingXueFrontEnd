@@ -76,16 +76,18 @@
             </el-tab-pane>
             <el-tab-pane label="教师">
               <div v-for="item in teachers">
-                <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
-                          :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
-                <p>
-                  <el-tag class="teacher">{{item.name}}</el-tag>
-                </p>
-                <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
-                <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
-              </div>
-              <div class="teacher">
-                {{item.description}}
+                <div>
+                  <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
+                            :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
+                  <p>
+                    <el-tag class="teacher">{{item.name}}</el-tag>
+                  </p>
+                  <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
+                  <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
+                </div>
+                <div class="teacher">
+                  {{item.description}}
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="地址">
@@ -101,7 +103,7 @@
             </el-tab-pane>
             <el-tab-pane label="评价">
               <am-comment-list>
-                <am-comment v-for="item in course.comments" :key="item.id">
+                <am-comment v-for="item in comments" :key="item.id">
                   <am-comment-avatar :src="item.avatar">
                   </am-comment-avatar>
                   <am-comment-content>
