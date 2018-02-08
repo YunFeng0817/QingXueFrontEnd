@@ -139,7 +139,7 @@
         })
           .then(function (response) {
             if (response) {
-              for (let item in response.essays) {
+              for (let item of response.essays) {
                 item.is_course = false;
               }
               userMessage.commit('commitEssays', response.essays);
@@ -192,7 +192,7 @@
         })
           .then(function (response) {
             if (response) {
-              for (let essay in response.essays) {
+              for (let essay of response.essays) {
                 essay.is_course = false;
               }
               this.essays = response.essays;
