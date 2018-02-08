@@ -96,7 +96,6 @@
       //   }
       // },
       clickAction (id) {
-        this.$router.push({path: '/course'});
         if (is_course) {
           axios({
             url: '/course/' + id,
@@ -105,7 +104,11 @@
             .then(function (response) {
               if (response) {
                 userMessage.commit('commitCourse', response);
+                this.$router.push({path: '/course'});
               }
+            })
+            .catch(function (error) {
+              console.log(error);
             })
         }
       }

@@ -13,21 +13,23 @@
       <slider :show-images="showImages">
       </slider>
       <div>
-        <span class="title">{{course.title}}</span>
+        <span class="title">{{title}}</span>
         <div class="bottom clearfix">
           <el-tabs type="border-card" ref="tab">
             <el-tab-pane label="简介">
               <div v-if="path==='/course'">
                 <span class="time">开课时间</span>
-                <time class="time">{{course.startTime}}</time>
+                <time class="time">{{start_time}}</time>
+                <span class="time">结课时间</span>
+                <time class="time">{{end_time}}</time>
                 <p>
-                  <span class="time">每课时 : {{course.perSession}} 分钟</span>
+                  <span class="time">每课时 : {{perSession}} 分钟</span>
                   <time class="time"></time>
                 </p>
                 <p>
                   <span class="time">学生评分</span>
                   <el-rate
-                    v-model="course.rate"
+                    v-model="stars"
                     disabled
                     show-score
                     text-color="#ff9900"
@@ -36,23 +38,23 @@
                 </p>
                 <p>
                   <span class="time"><i class="am-icon-rmb"></i>订金</span>
-                  <span class="time">{{course.price}}</span>
+                  <span class="time">{{price*discount}}</span>
                 </p>
                 <p>
                   <span class="time"><i class="am-icon-circle-o"></i>全额</span>
-                  <span class="time">{{course.price}}</span>
+                  <span class="time">{{price}}</span>
                 </p>
                 <p>
-                  {{course.introduction}}
+                  {{introduction}}
                 </p>
               </div>
               <div v-else>
                 <span class="time">成立时间</span>
-                <time class="time">{{course.startTime}}</time>
+                <time class="time">{{startTime}}</time>
                 <p>
                   <span class="time">学生评分</span>
                   <el-rate
-                    v-model="course.rate"
+                    v-model="stars"
                     disabled
                     show-score
                     text-color="#ff9900"
@@ -63,30 +65,27 @@
                   机构简介：
                 </p>
                 <p>
-                  {{course.introduction}}
+                  {{introduction}}
                 </p>
               </div>
             </el-tab-pane>
             <el-tab-pane label="详情">
               <p>
-                {{course.detail}}
+                {{detail}}
               </p>
             </el-tab-pane>
             <el-tab-pane label="教师">
-              <div>
+              <div v-for="item in teachers">
                 <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
-                          :src="course.avatar===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':course.avatar"/>
+                          :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
                 <p>
-                  <el-tag class="teacher">我的名字</el-tag>
+                  <el-tag class="teacher">{{item.name}}</el-tag>
                 </p>
-                <p><span class="teacher">性别：</span> 男</p>
-                <p><span class="teacher">学历：</span><span>研究生</span></p>
+                <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
+                <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
               </div>
               <div class="teacher">
-                特斯特特斯特特色特斯特特色特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
-                特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
-                特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉特斯拉
-                特斯拉特斯拉特斯拉特斯拉特斯拉
+                {{item.description}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="地址">
@@ -194,61 +193,43 @@
     },
     data () {
       return {
-        course: {
-          photoLink: 'http://s.amazeui.org/media/i/demos/bing-4.jpg ',
-          title: '前端从入门到放弃，只需1天!!!',
-          startTime: '2017.08.17',
-          perSession: 120,
-          rate: 4,
-          price: 50,
-          introduction: '太极英语“大道至简”全项班，听说读写一课搞定，让你“高分又高能”！还包邮赠送课程配套大礼包！',
-          detail: '那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。我们就在骑楼下躲雨，看绿色的邮筒孤独地站在街的对面。我白色风衣的大口袋里有一封要寄给南部的母亲的信。樱子说她可以撑伞过去帮我寄信。我默默点头。',
-          avatar: '',
-          comments: [
-            {
-              userName: '金坷垃',
-              avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-              stars: 2,
-              text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-            },
-            {
-              userName: '金坷垃',
-              avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-              stars: 2,
-              text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-            },
-            {
-              userName: '金坷垃',
-              avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-              stars: 2,
-              text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-            },
-            {
-              userName: '金坷垃',
-              avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-              stars: 2,
-              text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-            }
-          ]
-        },
-        showImages: [
+        title: userMessage.state.courseDetail.name,
+        start_time: userMessage.state.courseDetail.time_spans[0].start_time,
+        end_time: userMessage.state.courseDetail.time_spans[0].end_time,
+        perSession: userMessage.state.courseDetail.session_hours,
+        rate: userMessage.state.courseDetail.stars,
+        price: userMessage.state.courseDetail.total_price,
+        discount: userMessage.state.courseDetail.discount,
+        introduction: userMessage.state.courseDetail.brief_description,
+        detail: userMessage.state.courseDetail.detail,
+        comments: [
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
-            link: ''
+            userName: '金坷垃',
+            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
+            stars: 2,
+            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
-            link: ''
+            userName: '金坷垃',
+            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
+            stars: 2,
+            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
-            link: ''
+            userName: '金坷垃',
+            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
+            stars: 2,
+            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
           },
           {
-            src: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
-            link: ''
+            userName: '金坷垃',
+            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
+            stars: 2,
+            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
           }
         ],
+        teachers: userMessage.state.courseDetail.teachers,
+        showImages: userMessage.state.courseDetail.banners,
         path: this.$router.currentRoute.path,
         offsetTop: 0
       }
@@ -256,6 +237,19 @@
     watch: {
       '$route' (to, from) {
         this.path = this.$router.currentRoute.path;
+        if (this.path === '/course') {
+          this.title = userMessage.state.courseDetail.name;
+          this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
+          this.this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
+          this.perSession = userMessage.state.courseDetail.session_hours;
+          this.rate = userMessage.state.courseDetail.stars;
+          this.price = userMessage.state.courseDetail.total_price;
+          this.discount = userMessage.state.courseDetail.discount;
+          this.introduction = userMessage.state.courseDetail.brief_description;
+          this.detail = userMessage.state.courseDetail.detai;
+          this.teachers = userMessage.state.courseDetail.teachers;
+          this.showImages = userMessage.state.courseDetail.banners;
+        }
       }
     },
     mounted () {
