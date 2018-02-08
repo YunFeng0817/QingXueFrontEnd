@@ -16,14 +16,12 @@ import {
   Select,
   Option,
   Button,
-  ButtonGroup,
   DatePicker,
   Form,
   FormItem,
   Tabs,
   TabPane,
   Tag,
-  Icon,
   Row,
   Col,
   Upload,
@@ -46,14 +44,12 @@ Vue.use(Option);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Button);
-Vue.use(ButtonGroup);
 Vue.use(DatePicker);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Tag);
-Vue.use(Icon);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
