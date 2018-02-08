@@ -55,11 +55,12 @@
     align-items: center;
     width: 100%;
     height: 8%;
+    max-width: 450px;
     /*max-height: 65px;*/
     line-height: 100%;
 
     position: fixed;
-    bottom: 0;
+    top: 92%;
 
     background-color: #8DE9E8;
   }

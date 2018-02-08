@@ -5,7 +5,7 @@
       <el-col class="card"
               :span="22"
               v-for="(item,key) in recommends" :key="key">
-        <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(key)">
+        <el-card :body-style="{ padding: '0 10px' }" @click.native="clickAction(item.course_sn)">
           <el-tag v-if="item.is_course" size="mini">{{item.stage+item.grade}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.subject}}</el-tag>
           <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
@@ -38,7 +38,9 @@
 </template>
 
 <script>
-  import news from './news'
+  import news from './news';
+  import axios from '../axios/index';
+  import userMessage from '../store/index';
 
   export default {
     name: 'list-news',
@@ -70,9 +72,7 @@
       }
     },
     data () {
-      return {
-        currentDate: new Date()
-      }
+      return {}
     },
     methods: {
       // 由于使用了css3动画，去掉了此处的js动画
@@ -97,6 +97,17 @@
       // },
       clickAction (id) {
         this.$router.push({path: '/course'});
+        if (is_course) {
+          axios({
+            url: '/course/' + id,
+            method: 'get'
+          })
+            .then(function (response) {
+              if (response) {
+                userMessage.commit('commitCourse', response);
+              }
+            })
+        }
       }
     }
   }

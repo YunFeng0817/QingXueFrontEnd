@@ -15,6 +15,9 @@
     name: 'app',
     components: {
       'footerIndex': footerIndex
+    },
+    created () {
+      document.documentElement.style = 'max-width:450px;max-height:800px;min-height:0;height:100%;overflow-y: scroll;overflow-x: hidden;';
     }
   }
 </script>

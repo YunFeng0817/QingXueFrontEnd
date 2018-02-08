@@ -324,6 +324,7 @@
   .footer {
     /*max-height: 40px;*/
     width: 100%;
+    max-width: 450px;
     position: fixed;
     bottom: 8%;
     display: flex;

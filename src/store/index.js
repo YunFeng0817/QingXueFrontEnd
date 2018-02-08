@@ -27,9 +27,11 @@ export default new Vuex.Store({
     subjects: [],
     degrees: [],
     searchResult: [],
-    firstClass: {}
+    firstClass: {},
+    courseDetail: {}
   },
   mutations: {
+    // 登录后保存用户信息
     user_message (state, message) {
       state.has_login = true;
       state.id = message.id;
@@ -41,14 +43,9 @@ export default new Vuex.Store({
       state.head_photo = message.head_photo;
       state.birthday = message.birthday;
       state.add_time = message.add_time;
-      state.following = message.following;
-      state.favourites = message.favourites;
-      state.courses = message.courses;
-      state.course_orders = message.course_orders;
-      state.comment_to_educators = message.comment_to_educators;
-      state.comment_to_courses = message.comment_to_courses;
       state.address = message.address;
     },
+    // 退出登录后删除用户信息
     delete_message (state) {
       state.has_login = false;
       state.id = 0;
@@ -60,33 +57,36 @@ export default new Vuex.Store({
       state.head_photo = '';
       state.birthday = '';
       state.add_time = '';
-      state.following = [];
-      state.favourites = [];
-      state.courses = [];
-      state.course_orders = [];
-      state.comment_to_educators = [];
-      state.comment_to_courses = [];
       state.address = [];
     },
+    // 保存主页的课程列表，轮播图，头条
     commitList (state, list) {
       state.main.courses = list.courses;
       state.main.banners = list.banners;
       state.main.essays = list.essays;
     },
+    // 保存课程筛选项
     getSubjects (state, list) {
       state.subjects = list;
     },
+    // 保存难度筛选项
     getDegrees (state, list) {
       state.degrees = list;
     },
+    // 保存搜索结果
     commitSearch (state, list) {
       state.searchResult = list.courses;
       state.is_course = list.is_course;
     },
+    // 保存一级分类的返回结果
     commitFirst (state, list) {
       state.firstClass.courses = list.courses;
       state.firstClass.banners = list.banners;
       state.firstClass.essays = list.essays;
+    },
+    // 保存具体的课程信息
+    commitCourse (state, list) {
+      state.courseDetail = list;
     }
   }
 })
