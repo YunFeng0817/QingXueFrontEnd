@@ -14,7 +14,7 @@
     <el-collapse accordion class="user-collapse-body" @change="handleChange">
       <el-collapse-item class="user-panel-header" style="font-size: larger" name=1>
         <template slot="title">
-          <i class="am-icon-clock-o" style="font-size: 18px;">我的预约</i>
+          <i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="item in favourites" :key="item.id" class="box-card">
           <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
@@ -45,7 +45,7 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="2">
         <template slot="title">
-          <i class="am-icon-comments-o" style="font-size: 18px;">我的收藏</i>
+          <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的收藏</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
                  @click.native="favouritesClick(item.course.id)">
@@ -82,7 +82,7 @@
         </el-card>
       </el-collapse-item>
       <div class="user-list" @click="openShare">
-        <span class="am-icon-share-square-o">分享</span>
+        <span class="am-icon-share-square-o operation-item">&nbsp&nbsp分享</span>
       </div>
     </el-collapse>
   </div>
@@ -262,14 +262,14 @@
 
   span.user-message {
     font-size: medium;
-    padding: 10px;
+    padding: 1%;
     font-weight: bold;
     color: white;
   }
 
   a {
     font-size: larger;
-    padding: 20px;
+    padding: 18px;
     color: #0e90d2;
   }
 
@@ -319,5 +319,10 @@
   .bottom {
     margin-top: 13px;
     line-height: 12px;
+  }
+
+  .operation-item {
+    font-size: 18px;
+    padding: 0 4%;
   }
 </style>
