@@ -47,7 +47,8 @@
         <template slot="title">
           <i class="am-icon-comments-o" style="font-size: 18px;">我的收藏</i>
         </template>
-        <el-card :body-style="{ padding: '0 10px' }" v-for="item in favourites" :key="item.id" class="box-card">
+        <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
+                 @click.native="favouritesClick(item.course.id)">
           <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
           <el-tag size="mini">{{item.course.subject}}</el-tag>
           <el-tag size="mini">{{item.course.degree}}</el-tag>
@@ -72,7 +73,9 @@
               </div>
             </div>
             <el-button type="danger" size="mini"
-                       style="padding: 2% 3%;">
+                       style="padding: 2% 3%;"
+                       @click.stop="deleteFavourites(item.id,id)">
+              <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
               删除收藏
             </el-button>
           </div>
@@ -128,31 +131,7 @@
             icon: ' am-icon-at'
           }
         ],
-        favourites: [
-          {
-            id: 12,
-            course: {
-              cover:
-                '/media/courses/10987654321/151773649422754321/main_image.JPG',
-              degree:
-                '基础',
-              grade:
-                '一年级',
-              id:
-                '151773649422754321',
-              stage:
-                '小学',
-              stars:
-                4,
-              subject:
-                '数学',
-              title:
-                '小学一年级数学',
-              total_price:
-                500
-            }
-          }
-        ]
+        favourites: []
       }
     },
     computed: {
@@ -190,6 +169,7 @@
       openShare () {
         this.$share();
       },
+      // 处理点击折叠菜单事件
       handleChange (val) {
         switch (val) {
           case 1:
@@ -212,6 +192,45 @@
             break;
           default:
         }
+      },
+      // 处理点击喜欢课程的列表项
+      favouritesClick (id) {
+        axios({
+          url: '/course/' + id + '/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('commitCourse', response);
+              this.$router.push({path: '/course'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      // 处理删除喜欢课程
+      deleteFavourites (favouriteId, index) {
+        axios({
+          url: '/student_operation/favourites/',
+          method: 'delete',
+          data: {
+            favourite_id: favouriteId
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.favourites.splice(index, 1);// 删除index处的喜欢课程
+              this.$message({
+                message: '删除成功',
+                type: 'success',
+                duration: 1000
+              });
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     }
   }
