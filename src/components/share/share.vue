@@ -45,7 +45,7 @@
       shareOn () {
         this.show = true;
         let cover = document.createElement('div');
-        cover.style = 'width:100%;height:100%;background-color:rgba(0,0,0,0.6);position:fixed;left:0;top:0;';
+        cover.style = 'width:100%;height:100%;background-color:rgba(0,0,0,0.6);position:fixed;left:0;top:0;z-index:1150;';
         document.body.appendChild(cover);
         this.addNode = cover;
         cover.addEventListener('click', this.shareOff);
@@ -83,7 +83,7 @@
     width: 100%;
     position: fixed;
     bottom: 20px;
-    z-index: 1000;
+    z-index: 1200;
   }
 
   .share-row {

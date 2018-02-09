@@ -227,7 +227,7 @@
             // 如果response 的返回值是空，则表明返回的状态码出错，如果非空，则返回码是200
             if (response) {
               userMessage.commit('user_message', response);
-              this.$router.replace({path: 'user'});
+              this.$router.back();
             }
           }.bind(this))
           .catch(function (error) {
@@ -305,7 +305,7 @@
                   if (!this.forget_pass) {
                     this.setProcess();
                   } else {
-                    this.$router.replace({path: 'user'});
+                    this.$router.back();
                   }
                   userMessage.commit('user_message', response);
                 }

@@ -182,7 +182,7 @@
           .then(function (response) {
             if (response) {
               userMessage.commit('user_message', response);
-              this.$router.replace({path: 'user'});
+              this.$router.back();
             }
           }.bind(this))
           .catch(function (error) {

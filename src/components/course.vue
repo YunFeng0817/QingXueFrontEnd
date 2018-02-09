@@ -5,8 +5,10 @@
     <div class="order-header">
       <span class="order-header" v-if="path==='/course'">课程详情</span>
       <span class="order-header" v-else>机构详情</span>
-      <i v-if="path==='/institution'" class="am-icon-heart-o"
-         style="position: relative;left:30%;"></i>
+      <i :class="favourited?'am-icon-heart':'am-icon-heart-o'"
+         style="position: relative;left:25%; color: red;" @click="favourite">
+        <span style="color : white;">收藏</span>
+      </i>
     </div>
 
     <div :body-style="{ padding: '0px'}">
@@ -142,9 +144,9 @@
       <a class="message">
         <i class="am-icon-commenting-o"></i>
         咨询</a>
-      <a class="message">
-        <i class="am-icon-heart-o"></i>
-        收藏课程</a>
+      <a class="message" @click="share">
+        <i class="am-icon-share-square-o"></i>
+        分享课程</a>
       <a id="book" @click="order">立即预约</a>
     </div>
     <!--下面的这个区块是为了占位-->
@@ -153,6 +155,7 @@
 </template>
 
 <script>
+  import axios from '../axios/index'
   import userMessage from '../store/index'
   import BackButton from './backButton'
   import BaiduMap from 'vue-baidu-map/components/Map/Map'
@@ -195,6 +198,7 @@
     },
     data () {
       return {
+        favourited: userMessage.state.courseDetail.favourited,
         title: userMessage.state.courseDetail.name,
         start_time: userMessage.state.courseDetail.time_spans[0].start_time,
         end_time: userMessage.state.courseDetail.time_spans[0].end_time,
@@ -241,6 +245,7 @@
       '$route' (to, from) {
         this.path = this.$router.currentRoute.path;
         if (this.path === '/course') {
+          this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
           this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
           this.this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
@@ -260,12 +265,15 @@
       this.offsetTop = this.$refs.tab.$el.firstChild.offsetTop;
     },
     methods: {
+      // 处理进入预定页面
       order () {
         this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
       },
+      // 处理进入机构主页
       intoInstitution () {
         this.$router.push({path: '/institution'});
       },
+      // 这是对屏幕滚动事件的监听处理函数
       handler () {
         if (this.offsetTop < window.scrollY) {
           if (this.cloneNode.tagName === 'IMG') {
@@ -280,8 +288,48 @@
             this.cloneNode = document.createElement('img');
           }
         }
+      },
+      // 负责处理分享课程
+      share () {
+        this.$share();
+      },
+      // 处理收藏课程的动作
+      favourite () {
+        if (userMessage.state.has_login) {
+          if (!this.favourited) {
+            axios({
+              method: 'post',
+              url: '/student_operation/favourites/',
+              data: {
+                course_id: userMessage.state.courseDetail.id
+              }
+            })
+              .then(function (response) {
+                if (response) {
+                  this.favourited = true;
+                  this.$message({
+                    message: '收藏成功',
+                    type: 'success',
+                    duration: 1000
+                  });
+                }
+              }.bind(this))
+              .catch(function (error) {
+                console.log(error);
+              })
+          } else {
+            this.$message({
+              message: '您已收藏过该课程',
+              type: 'info',
+              duration: 1000
+            });
+          }
+        } else {
+          this.$router.push({path: '/login'});
+        }
       }
     },
+    // 当该组件销毁，应当取消对屏幕滚动事件的监听
     destroyed () {
       window.removeEventListener('scroll', this.handler);
     }
@@ -408,5 +456,10 @@
   .order-header {
     font-size: larger;
     color: #eee;
+  }
+
+  span.order-header {
+    position: relative;
+    left: 8%;
   }
 </style>
