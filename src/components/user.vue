@@ -85,6 +85,8 @@
         <span class="am-icon-share-square-o operation-item">&nbsp&nbsp分享</span>
       </div>
     </el-collapse>
+    <!--下面的这个区块是为了占位-->
+    <div style="height: 150px;"></div>
   </div>
 </template>
 
