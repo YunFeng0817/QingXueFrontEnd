@@ -11,18 +11,70 @@
         <span class="user-message">年级：</span><span class="user-message">{{stage+grade}}</span>
       </p>
     </div>
-    <el-collapse accordion id="user-collapse-body">
-      <el-collapse-item class="user-panel-header" style="font-size: larger" v-for="item in panelList" :key="item.id">
+    <el-collapse accordion class="user-collapse-body" @change="handleChange">
+      <el-collapse-item class="user-panel-header" style="font-size: larger" name=1>
         <template slot="title">
-          <i :class="item.icon" style="font-size: 18px;">{{item.label}}</i>
+          <i class="am-icon-clock-o" style="font-size: 18px;">我的预约</i>
         </template>
-        <el-card v-for="o in 2" :key="o" class="box-card">
-          <div slot="header" class="clearfix">
-            <span>名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+        <el-card :body-style="{ padding: '0 10px' }" v-for="item in favourites" :key="item.id" class="box-card">
+          <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
+          <el-tag size="mini">{{item.course.subject}}</el-tag>
+          <el-tag size="mini">{{item.course.degree}}</el-tag>
+          <div class="courses">
+            <img :src="item.course.cover" class="image">
+            <div style="padding: 2%;">
+              <span>{{item.course.title}}</span>
+              <div class="bottom clearfix">
+                <span>
+                  好评率：
+                  <el-rate
+                    v-model="item.course.stars"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}">
+                  </el-rate>
+                </span>
+                <span>
+                  全额费用：{{item.course.total_price}} 元
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="text item">
-            {{'内容 ' + o }}
+        </el-card>
+      </el-collapse-item>
+      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="2">
+        <template slot="title">
+          <i class="am-icon-comments-o" style="font-size: 18px;">我的收藏</i>
+        </template>
+        <el-card :body-style="{ padding: '0 10px' }" v-for="item in favourites" :key="item.id" class="box-card">
+          <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
+          <el-tag size="mini">{{item.course.subject}}</el-tag>
+          <el-tag size="mini">{{item.course.degree}}</el-tag>
+          <div class="courses">
+            <img :src="item.course.cover" class="image">
+            <div style="padding: 2%;">
+              <span>{{item.course.title}}</span>
+              <div class="bottom clearfix">
+                <span>
+                  好评率：
+                  <el-rate
+                    v-model="item.course.stars"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}">
+                  </el-rate>
+                </span>
+                <span>
+                  全额费用：{{item.course.total_price}} 元
+                </span>
+              </div>
+            </div>
+            <el-button type="danger" size="mini"
+                       style="padding: 2% 3%;">
+              删除收藏
+            </el-button>
           </div>
         </el-card>
       </el-collapse-item>
@@ -75,6 +127,31 @@
             label: ' 鸣谢',
             icon: ' am-icon-at'
           }
+        ],
+        favourites: [
+          {
+            id: 12,
+            course: {
+              cover:
+                '/media/courses/10987654321/151773649422754321/main_image.JPG',
+              degree:
+                '基础',
+              grade:
+                '一年级',
+              id:
+                '151773649422754321',
+              stage:
+                '小学',
+              stars:
+                4,
+              subject:
+                '数学',
+              title:
+                '小学一年级数学',
+              total_price:
+                500
+            }
+          }
         ]
       }
     },
@@ -112,6 +189,29 @@
       },
       openShare () {
         this.$share();
+      },
+      handleChange (val) {
+        switch (val) {
+          case 1:
+            break;
+          case 2:
+            if (this.favourites.length === 0) {
+              axios({
+                method: 'get',
+                url: '/student_operation/favourites/'
+              })
+                .then(function (response) {
+                  if (response) {
+                    this.favourites = response.favourites;
+                  }
+                }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                });
+            }
+            break;
+          default:
+        }
       }
     }
   }
@@ -158,7 +258,7 @@
     color: #49b5ed;
   }
 
-  #user-collapse-body {
+  .user-collapse-body {
     line-height: 100px;
   }
 
@@ -173,5 +273,32 @@
 
   .user-list span {
     font-size: large;
+  }
+
+  .image {
+    width: 40%;
+    height: 30%;
+    max-width: 390px;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both;
+  }
+
+  .courses {
+    display: flex;
+    align-items: center;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
   }
 </style>

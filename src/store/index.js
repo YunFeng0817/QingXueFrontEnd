@@ -17,7 +17,6 @@ export default new Vuex.Store({
     birthday: '',
     add_time: '',
     following: [],
-    favourites: [],
     courses: [],
     course_orders: [],
     comment_to_educators: [],
