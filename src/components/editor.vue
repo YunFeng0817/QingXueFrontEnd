@@ -1,8 +1,8 @@
 <template>
   <div class="edit-line">
-    <div contenteditable="true" class="edit-content" ref="edit" placeholder="来一发评论吧..." @focus="transparent"
-         @blur="distransparent"></div>
-    <el-button type="primary" plain round size="medium" @click="send">发送</el-button>
+    <div contenteditable="true" class="edit-content" placeholder="吐槽一下..." @focus="distransparent"
+         @blur="transparent"></div>
+    <el-button type="primary" plain round size="medium" @click="send" ref="edit">发送</el-button>
   </div>
 </template>
 
@@ -15,10 +15,10 @@
         console.log(content);
       },
       transparent () {
-        this.$refs.edit.style = 'background-color:white;';
+        this.$refs.edit.$el.style = 'opacity:0.5;';
       },
       distransparent () {
-        this.$refs.edit.style = 'background-color:rgba(255, 255, 255, 0.6);';
+        this.$refs.edit.$el.style = 'opacity:1;';
       }
     }
   }
@@ -34,6 +34,7 @@
   }
 
   .edit-content {
+    transition: width 400ms ease-in;
     width: 80%;
     max-height: 45px;
     height: 100%;
@@ -49,7 +50,17 @@
     -webkit-user-modify: read-write-plaintext-only
   }
 
+  .edit-content:empty {
+    width: 30%;
+    color: lightgray;
+  }
+
   .edit-content:empty::before {
     content: attr(placeholder);
+  }
+
+  .edit-content:focus {
+    background-color: white;
+    width: 80%;
   }
 </style>
