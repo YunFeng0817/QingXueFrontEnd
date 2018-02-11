@@ -1,11 +1,14 @@
 <template>
   <div>
-    <el-rate v-model="value1" style="margin:5% 0">
-    </el-rate>
+    <div class="edit-line">
+      <label style="margin:0 5%;font-size: larger">评分</label>
+      <el-rate v-model="value1" style="margin:5% 0" show-text>
+      </el-rate>
+    </div>
     <div class="edit-line">
       <div contenteditable="true" class="edit-content" placeholder="吐槽一下..." @focus="distransparent"
            @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab"></div>
-      <el-button type="primary" plain round size="medium" @click="send" ref="send" style="opacity: 0.5">发送</el-button>
+      <el-button type="primary" plain round size="medium" @click="send" ref="send" style="opacity: 0.5">提交</el-button>
     </div>
     <p v-html="content"></p>
   </div>
