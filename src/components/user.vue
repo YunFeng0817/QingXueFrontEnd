@@ -112,7 +112,7 @@
               </div>
             </div>
             <el-button type="danger" size="mini"
-                       style="padding: 2% 3%;"
+                       style="padding: 1% 1%;"
                        @click.stop="deleteFavourites(item.id,id)">
               <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
               删除收藏
@@ -172,7 +172,30 @@
             icon: ' am-icon-at'
           }
         ],
-        favourites: [],
+        favourites: [
+          {
+            course: {
+              cover:
+                '/media/courses/10987654321/151773649422754321/main_image.JPG',
+              degree:
+                '基础',
+              grade:
+                '一年级',
+              id:
+                '151773649422754321',
+              stage:
+                '小学',
+              stars:
+                4,
+              subject:
+                '数学',
+              title:
+                '小学一年级数学',
+              total_price:
+                500
+            }
+          }
+        ],
         comments: []
       }
     },
