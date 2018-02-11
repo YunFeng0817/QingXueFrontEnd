@@ -103,7 +103,7 @@
                 </bm-marker>
               </baidu-map>
             </el-tab-pane>
-            <el-tab-pane label="评价">
+            <el-tab-pane label="评价" @click.native="getComments">
               <am-comment-list>
                 <am-comment v-for="item in comments" :key="item.id">
                   <am-comment-avatar :src="item.avatar">
@@ -331,6 +331,10 @@
           this.$router.push({path: '/login'});
         }
       }
+      // //
+      // getComments(){
+      //
+      // }
     },
     // 当该组件销毁，应当取消对屏幕滚动事件的监听
     destroyed () {
