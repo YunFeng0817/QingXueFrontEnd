@@ -10,7 +10,6 @@
            @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab"></div>
       <el-button type="primary" plain round size="medium" @click="send" ref="send" style="opacity: 0.5">提交</el-button>
     </div>
-    <p v-html="content"></p>
   </div>
 </template>
 
@@ -19,19 +18,16 @@
     name: 'editor',
     data () {
       return {
-        value1: 5,
-        content: ''
+        value1: 5
       }
     },
     methods: {
       send () {
-        let content = this.$refs.edit.innerHTML;
-        let result = '';
-        for (let part of content.split('\t')) {
-          result += part + '&nbsp&nbsp&nbsp&nbsp';
-        }
-        console.log(result);
-        this.content = result;
+        // let content = this.$refs.edit.innerHTML;
+        // let result = '';
+        // for (let part of content.split('\t')) {
+        //   result += part + '&nbsp&nbsp&nbsp&nbsp';
+        // }
       },
       transparent () {
         this.$refs.send.$el.style = 'opacity:0.5;';

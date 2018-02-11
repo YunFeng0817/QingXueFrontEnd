@@ -43,12 +43,51 @@
           </div>
         </el-card>
       </el-collapse-item>
-      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="2">
+      <el-collapse-item class="user-panel-header" style="font-size: larger" name=2>
+        <template slot="title">
+          <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的评论</i>
+        </template>
+        <el-card :body-style="{ padding: '0 10px' }" class="box-card"
+                 @click.native="coursesClick(item.course)" v-for="(item,id) in comments" :key="item.id">
+          <div style="padding: 2%;">
+            <div class="bottom clearfix">
+              <label>
+                评分：
+              </label>
+              <el-rate
+                v-model="item.stars"
+                disabled
+                show-score
+                text-color="#ff9900"
+                score-template="{value}">
+              </el-rate>
+              <label>评论内容</label>
+              <p v-html="item.text">
+              </p>
+              <label>
+                评论时间
+              </label>
+              <time>
+                {{item.add_time.split('T')[0]}}
+              </time>
+              <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
+                <p style="margin: 0 5%;">tips:点击查看课程详情</p>
+                <el-button type="danger" size="mini"
+                           @click.stop="deleteComments(item.id,id)">
+                  <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
+                  删除评论
+                </el-button>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-collapse-item>
+      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="3">
         <template slot="title">
           <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的收藏</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
-                 @click.native="favouritesClick(item.course.id)">
+                 @click.native="coursesClick(item.course.id)">
           <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
           <el-tag size="mini">{{item.course.subject}}</el-tag>
           <el-tag size="mini">{{item.course.degree}}</el-tag>
@@ -133,7 +172,8 @@
             icon: ' am-icon-at'
           }
         ],
-        favourites: []
+        favourites: [],
+        comments: []
       }
     },
     computed: {
@@ -177,6 +217,22 @@
           case 1:
             break;
           case 2:
+            if (this.comments.length === 0) {
+              axios({
+                method: 'get',
+                url: '/student_operation/comment_to_courses/'
+              })
+                .then(function (response) {
+                  if (response) {
+                    this.comments = response.comments;
+                  }
+                }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                });
+            }
+            break;
+          case 3:
             if (this.favourites.length === 0) {
               axios({
                 method: 'get',
@@ -195,8 +251,8 @@
           default:
         }
       },
-      // 处理点击喜欢课程的列表项
-      favouritesClick (id) {
+      // 处理点击进入课程详情的操作
+      coursesClick (id) {
         axios({
           url: '/course/' + id + '/',
           method: 'get'
@@ -223,6 +279,29 @@
           .then(function (response) {
             if (response) {
               this.favourites.splice(index, 1);// 删除index处的喜欢课程
+              this.$message({
+                message: '删除成功',
+                type: 'success',
+                duration: 1000
+              });
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      // 删除对课程的评论
+      deleteComments (commentId, index) {
+        axios({
+          url: '/student_operation/comment_to_courses/',
+          method: 'delete',
+          data: {
+            comment_to_course_id: commentId
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.comments.splice(index, 1);// 删除index处的喜欢课程
               this.$message({
                 message: '删除成功',
                 type: 'success',
