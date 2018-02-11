@@ -17,7 +17,7 @@
       <div>
         <span class="title">{{title}}</span>
         <div class="bottom clearfix">
-          <el-tabs type="border-card" ref="tab">
+          <el-tabs type="border-card" ref="tab" @tab-click="handleClick">
             <el-tab-pane label="简介">
               <div v-if="path==='/course'">
                 <span class="time">开课时间</span>
@@ -103,30 +103,33 @@
                 </bm-marker>
               </baidu-map>
             </el-tab-pane>
-            <el-tab-pane label="评价" @click.native="getComments">
+            <el-tab-pane label="评价">
               <am-comment-list>
                 <am-comment v-for="item in comments" :key="item.id">
-                  <am-comment-avatar :src="item.avatar">
+                  <am-comment-avatar :src="item.student.head_photo">
                   </am-comment-avatar>
                   <am-comment-content>
                     <am-comment-header>
                       <am-comment-header-meta>
-                        <am-comment-author>{{item.userName}}</am-comment-author>
+                        <am-comment-author>{{item.student.name}}</am-comment-author>
                       </am-comment-header-meta>
                       <am-comment-header-actions>
-                        <el-badge :value="200" :max="99" class="item">
-                          <a class="icon">
-                            <i class="am-icon-thumbs-up"></i>
-                          </a>
-                        </el-badge>
-                        <span>&nbsp&nbsp&nbsp&nbsp</span>
-                        <a class="icon">
-                          <i class="am-icon-thumbs-down"></i>
-                        </a>
+                        <el-rate
+                          v-model="item.stars"
+                          disabled
+                          show-score
+                          text-color="#ff9900"
+                          score-template="{value}"
+                          style="position: relative;top:25%;">
+                        </el-rate>
                       </am-comment-header-actions>
                     </am-comment-header>
                     <am-comment-body>
-                      <p>{{item.text}}</p>
+                      <p v-html="item.text">
+                      </p>
+                      <time style="position: absolute;right:5%;">
+                        {{'评论时间：'+item.add_time.split('T')[0]}}
+                      </time>
                     </am-comment-body>
                   </am-comment-content>
                 </am-comment>
@@ -208,32 +211,7 @@
         discount: userMessage.state.courseDetail.discount,
         introduction: userMessage.state.courseDetail.brief_description,
         detail: userMessage.state.courseDetail.detail,
-        comments: [
-          {
-            userName: '金坷垃',
-            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-            stars: 2,
-            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-          },
-          {
-            userName: '金坷垃',
-            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-            stars: 2,
-            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-          },
-          {
-            userName: '金坷垃',
-            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-            stars: 2,
-            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-          },
-          {
-            userName: '金坷垃',
-            avatar: 'http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96',
-            stars: 2,
-            text: '那，那是一封写给南部母亲的信。我茫然站在骑楼下，我又看到永远的樱子走到街心。其实雨下得并不大，却是一生一世中最大的一场雨。而那封信是这样写的，年轻的樱子知不知道呢？'
-          }
-        ],
+        comments: [],
         teachers: userMessage.state.courseDetail.teachers,
         showImages: userMessage.state.courseDetail.banners,
         path: this.$router.currentRoute.path,
@@ -330,11 +308,29 @@
         } else {
           this.$router.push({path: '/login'});
         }
+      },
+      // 请求课程评论的信息
+      handleClick (tab, event) {
+        switch (event.target.innerHTML) {
+          case '评价':
+            if (this.comments.length === 0) {
+              axios({
+                method: 'get',
+                url: '/course/' + userMessage.state.courseDetail.id + '/get_comments/'
+              })
+                .then(function (response) {
+                  if (response) {
+                    this.comments = response.comment_to_courses;
+                  }
+                }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                })
+            }
+            break;
+          default:
+        }
       }
-      // //
-      // getComments(){
-      //
-      // }
     },
     // 当该组件销毁，应当取消对屏幕滚动事件的监听
     destroyed () {

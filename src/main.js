@@ -25,7 +25,6 @@ import {
   Row,
   Col,
   Upload,
-  Badge,
   Card,
   Rate,
   Steps,
@@ -53,7 +52,6 @@ Vue.use(Tag);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
-Vue.use(Badge);
 Vue.use(Card);
 Vue.use(Rate);
 Vue.use(Steps);

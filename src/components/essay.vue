@@ -13,11 +13,9 @@
       </am-article-body>
     </am-article>
     <div class="like">
-      <el-badge :value="200" :max="99" class="item">
-        <a class="icon">
-          <i class="am-icon-thumbs-up"></i>
-        </a>
-      </el-badge>
+      <a class="icon">
+        <i class="am-icon-thumbs-up"></i>
+      </a>
       <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
       <a>
         <i class="am-icon-thumbs-down"></i>

@@ -48,9 +48,13 @@
           <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的评论</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" class="box-card"
-                 @click.native="coursesClick(item.course)" v-for="(item,id) in comments" :key="item.id">
+                 @click.native="coursesClick(item.course.id)" v-for="(item,id) in comments" :key="item.id">
           <div style="padding: 2%;">
             <div class="bottom clearfix">
+              <label>
+                课程名称：
+              </label>
+              <h2 style="margin: 3% 0">{{item.course.title}}</h2>
               <label>
                 评分：
               </label>
