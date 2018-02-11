@@ -12,7 +12,7 @@
       </p>
     </div>
     <el-collapse accordion class="user-collapse-body" @change="handleChange">
-      <el-collapse-item class="user-panel-header" style="font-size: larger" name=1>
+      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="1">
         <template slot="title">
           <i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>
         </template>
@@ -43,7 +43,7 @@
           </div>
         </el-card>
       </el-collapse-item>
-      <el-collapse-item class="user-panel-header" style="font-size: larger" name=2>
+      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="2">
         <template slot="title">
           <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的评论</i>
         </template>
@@ -224,7 +224,7 @@
               })
                 .then(function (response) {
                   if (response) {
-                    this.comments = response.comments;
+                    this.comments = response.comment_to_courses;
                   }
                 }.bind(this))
                 .catch(function (error) {

@@ -299,6 +299,9 @@
           if (!this.favourited) {
             axios({
               method: 'post',
+              headers: {
+                'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+              },
               url: '/student_operation/favourites/',
               data: {
                 course_id: userMessage.state.courseDetail.id
