@@ -6,7 +6,7 @@
       </el-rate>
     </div>
     <div class="edit-line">
-      <div contenteditable="true" class="edit-content" placeholder="吐槽一下..." @focus="distransparent"
+      <div contenteditable="true" class="edit-content" placeholder="吐槽一下.." @focus="distransparent"
            @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab"></div>
       <el-button type="primary" plain round size="medium" @click="send" ref="send" style="opacity: 0.5">提交</el-button>
     </div>
@@ -14,8 +14,16 @@
 </template>
 
 <script>
+  import axios from '../axios/index';
+
   export default {
     name: 'editor',
+    props: {
+      id: {
+        type: String,
+        default: '0'
+      }
+    },
     data () {
       return {
         value1: 5
@@ -23,11 +31,30 @@
     },
     methods: {
       send () {
-        // let content = this.$refs.edit.innerHTML;
-        // let result = '';
-        // for (let part of content.split('\t')) {
-        //   result += part + '&nbsp&nbsp&nbsp&nbsp';
-        // }
+        let content = this.$refs.edit.innerHTML;
+        let result = '';
+        for (let part of content.split('\t')) {
+          result += part + '&nbsp&nbsp&nbsp&nbsp';
+        }
+        // 发送评论的信息
+        axios({
+          method: 'post',
+          url: '/student_operation/comment_to_courses/',
+          data: {
+            text: result,
+            stars: this.value1,
+            order_sn: this.id
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.$message({
+                message: '评论成功',
+                type: 'success',
+                duration: 1000
+              });
+            }
+          })
       },
       transparent () {
         this.$refs.send.$el.style = 'opacity:0.5;';
