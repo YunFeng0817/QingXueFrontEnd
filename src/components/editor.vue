@@ -2,7 +2,7 @@
   <div>
     <div class="edit-line">
       <label style="margin:0 5%;font-size: larger">评分</label>
-      <el-rate v-model="value1" style="margin:5% 0" show-text>
+      <el-rate v-model="value1" style="margin:5% 0" show-text :allow-half="true">
       </el-rate>
     </div>
     <div class="edit-line">
@@ -26,7 +26,7 @@
     },
     data () {
       return {
-        value1: 5
+        value1: null
       }
     },
     methods: {
@@ -107,7 +107,7 @@
   }
 
   .edit-content:empty {
-    width: 30%;
+    width: 35%;
     color: lightgray;
   }
 

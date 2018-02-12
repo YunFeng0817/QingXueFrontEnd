@@ -3,7 +3,7 @@
     <back-button>
     </back-button>
     <div class="order-header">
-      <span class="order-header">确认预约</span>
+      <span class="order-header">订单详情</span>
     </div>
     <div class="order-body">
       <p style="margin: 5% 0;">课程名称：</p>
@@ -11,24 +11,11 @@
       <p>开课日期：</p>
       <hr/>
       <p>地点：</p>
+      <hr/>
+      <p>支付金额：</p>
     </div>
     <div class="order-body">
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left"
-               label-width="22%"
-               class="demo-ruleForm">
-        <el-form-item label="手机号" prop="pass">
-          <el-input type="number" v-model="ruleForm.pass" auto-complete="off">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="支付方式">
-          <el-select v-model="ruleForm.method" placeholder="请选择支付方式">
-            <el-option label="支付宝" value="weixin">
-            </el-option>
-            <el-option label="微信" value="zhifubao">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
+      <p>课程准备：</p>
     </div>
     <div class="order-word">
       <p>
@@ -38,10 +25,9 @@
         {{hint}}
       </p>
     </div>
-    <div class="footer">
-      <span>付款：</span>
-      <span class="money">{{money.toString()+'元'}}</span>
-      <a @click="submitForm('ruleForm')">确认提交</a>
+    <div class="order-body">
+      <edit :id="orderID">
+      </edit>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 110px;"></div>
@@ -51,11 +37,13 @@
 <script>
   import BackButton from './backButton';
   import axios from '../axios/index';
+  import edit from './editor'
 
   export default {
-    name: 'order',
+    name: 'orderResult',
     components: {
-      BackButton
+      BackButton,
+      edit: edit
     },
     data () {
       let validatePass = (rule, value, callback) => {
@@ -78,6 +66,7 @@
             {validator: validatePass, trigger: 'blur'}
           ]
         },
+        orderID: '123',
         money: 600,
         hint: '老三等萨登萨登广卅好掠撒框架四大洲兰卡威就干戈安宫个'
       }
@@ -136,38 +125,8 @@
     color: #eee;
   }
 
-  .footer {
-    /*max-height: 40px;*/
-    width: 100%;
-    position: fixed;
-    bottom: 8%;
-    align-items: center;
-    display: flex;
-    justify-content: flex-end;
-
-    background-color: white;
-  }
-
-  .footer a {
-    /*max-height: 40px;*/
-    /*width:100%;*/
-    /*height:30px;*/
-    text-align: center;
-    font-size: medium;
-    color: white;
-    background-color: #CC0000;
-    opacity: 0.9;
-    padding: 2% 2%;
-    border-left: 0;
-    border-right: 0;
-  }
-
   span {
     font-size: larger;
-  }
-
-  span.money {
-    color: #CC0000;
   }
 
   div.order-word {
