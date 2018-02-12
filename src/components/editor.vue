@@ -31,17 +31,12 @@
     },
     methods: {
       send () {
-        let content = this.$refs.edit.innerHTML;
-        let result = '';
-        for (let part of content.split('\t')) {
-          result += part + '&nbsp&nbsp&nbsp&nbsp';
-        }
         // 发送评论的信息
         axios({
           method: 'post',
           url: '/student_operation/comment_to_courses/',
           data: {
-            text: result,
+            text: this.$refs.edit.innerHTML,
             stars: this.value1,
             order_sn: this.id
           }
@@ -70,11 +65,19 @@
           window.event.returnValue = false
         }
         let range = event.view.getSelection().getRangeAt(0);
-        let line = range.startContainer.textContent.substr(0, range.startOffset);
         let offset = range.startOffset;
-        line += '\t' + range.startContainer.textContent.substr(offset);
-        range.startContainer.data = line;
-        range.setStart(range.startContainer, offset + 1);
+        let span = document.createElement('span');
+        span.innerHTML = '&nbsp&nbsp&nbsp&nbsp';
+
+        let newrange = document.createRange();
+        newrange.setStart(range.startContainer, offset);
+        newrange.setEnd(range.startContainer, offset);
+        newrange.collapse(true);
+        newrange.insertNode(span);
+        event.view.getSelection().removeAllRanges();
+        event.view.getSelection().addRange(range);
+        range.setStart(span, 1);
+        range.setEnd(span, 1);
       }
     }
   }
