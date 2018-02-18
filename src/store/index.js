@@ -29,7 +29,8 @@ export default new Vuex.Store({
     firstClass: {},
     courseDetail: {},
     essay: {},
-    essays: []
+    essays: [],
+    institution: {}
   },
   mutations: {
     // 登录后保存用户信息
@@ -96,6 +97,10 @@ export default new Vuex.Store({
     // 保存具体的文章
     commitEssay (state, list) {
       state.essay = list;
+    },
+    // 保存具体的机构信息
+    commitInstitution (state, list) {
+      state.institution = list;
     }
   }
 })

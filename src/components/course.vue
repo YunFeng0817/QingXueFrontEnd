@@ -51,24 +51,18 @@
                 </p>
               </div>
               <div v-else>
-                <span class="time">成立时间</span>
-                <time class="time">{{startTime}}</time>
-                <p>
-                  <span class="time">学生评分</span>
-                  <el-rate
-                    v-model="stars"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                    score-template="{value}">
-                  </el-rate>
-                </p>
-                <p>
-                  机构简介：
-                </p>
-                <p>
-                  {{introduction}}
-                </p>
+                <div>
+                  <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
+                            :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
+                  <p>
+                    <el-tag class="teacher">{{item.name}}</el-tag>
+                  </p>
+                  <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
+                  <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
+                </div>
+                <div class="teacher">
+                  {{item.description}}
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="详情">
@@ -79,7 +73,7 @@
             <el-tab-pane label="教师">
               <div v-for="item in teachers">
                 <div>
-                  <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
+                  <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                             :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
                   <p>
                     <el-tag class="teacher">{{item.name}}</el-tag>
@@ -141,7 +135,7 @@
     </div>
 
     <div class="footer" v-if="path==='/course'">
-      <a class="message" @click="intoInstitution">
+      <a class="message" @click="intoInstitution(institutionID)">
         <i class="am-icon-university"></i>
         进入机构</a>
       <a class="message">
@@ -201,22 +195,46 @@
     },
     data () {
       return {
-        favourited: userMessage.state.courseDetail.favourited,
-        title: userMessage.state.courseDetail.name,
-        start_time: userMessage.state.courseDetail.time_spans[0].start_time,
-        end_time: userMessage.state.courseDetail.time_spans[0].end_time,
-        perSession: userMessage.state.courseDetail.session_hours,
-        rate: userMessage.state.courseDetail.stars,
-        price: userMessage.state.courseDetail.total_price,
-        discount: userMessage.state.courseDetail.discount,
-        introduction: userMessage.state.courseDetail.brief_description,
-        detail: userMessage.state.courseDetail.detail,
+        favourited: false,
+        title: '',
+        start_time: '',
+        end_time: '',
+        perSession: '',
+        stars: 5,
+        price: 0,
+        discount: 1,
+        introduction: '',
+        detail: '',
         comments: [],
-        teachers: userMessage.state.courseDetail.teachers,
-        showImages: userMessage.state.courseDetail.banners,
+        teachers: [],
+        showImages: [],
+        institutionID: '',
+        gender: '',
+        edu_background: '',
         path: this.$router.currentRoute.path,
         offsetTop: 0,
         cloneNode: document.createElement('img')
+      }
+    },
+    created () {
+      if (this.path === '/course') {
+        this.favourited = userMessage.state.courseDetail.favourited;
+        this.title = userMessage.state.courseDetail.name;
+        this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
+        this.this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
+        this.perSession = userMessage.state.courseDetail.session_hours;
+        this.stars = userMessage.state.courseDetail.stars;
+        this.price = userMessage.state.courseDetail.total_price;
+        this.discount = userMessage.state.courseDetail.discount;
+        this.introduction = userMessage.state.courseDetail.brief_description;
+        this.detail = userMessage.state.courseDetail.detai;
+        this.teachers = userMessage.state.courseDetail.teachers;
+        this.showImages = userMessage.state.courseDetail.banners;
+      } else if (this.path === '/institution') {
+        this.favourited = userMessage.state.institution.favourited;
+        this.title = userMessage.state.institution.basic_info.name;
+        this.introduction = userMessage.state.institution.basic_info.introduction;
+        this.showImages = userMessage.state.institution.basic_info.banners;
       }
     },
     watch: {
@@ -228,13 +246,20 @@
           this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
           this.this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
           this.perSession = userMessage.state.courseDetail.session_hours;
-          this.rate = userMessage.state.courseDetail.stars;
+          this.stars = userMessage.state.courseDetail.stars;
           this.price = userMessage.state.courseDetail.total_price;
           this.discount = userMessage.state.courseDetail.discount;
           this.introduction = userMessage.state.courseDetail.brief_description;
           this.detail = userMessage.state.courseDetail.detai;
           this.teachers = userMessage.state.courseDetail.teachers;
           this.showImages = userMessage.state.courseDetail.banners;
+        } else if (this.path === '/institution') {
+          this.favourited = userMessage.state.institution.favourited;
+          this.title = userMessage.state.institution.basic_info.name;
+          this.introduction = userMessage.state.institution.basic_info.introduction;
+          this.showImages = userMessage.state.institution.basic_info.banners;
+          this.gender = userMessage.state.institution.gender;
+          this.edu_background = userMessage.state.institution.edu_background;
         }
       }
     },
@@ -248,8 +273,20 @@
         this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
       },
       // 处理进入机构主页
-      intoInstitution () {
-        this.$router.push({path: '/institution'});
+      intoInstitution (institutionID) {
+        axios({
+          url: '/educator/' + institutionID + '/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('commitInstitution', response);
+              this.$router.push({path: '/institution'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
       },
       // 这是对屏幕滚动事件的监听处理函数
       handler () {
@@ -423,7 +460,7 @@
     font-size: medium;
   }
 
-  #avatar {
+  .avatar {
     float: left;
 
     width: 120px;
