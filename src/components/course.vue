@@ -51,17 +51,16 @@
                 </p>
               </div>
               <div v-else>
-                <div>
+                <div class="educator">
                   <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
-                            :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
-                  <p>
-                    <el-tag class="teacher">{{item.name}}</el-tag>
-                  </p>
-                  <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
-                  <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
+                            :src="head_photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':head_photo.photo"/>
+                  <div>
+                    <p v-if="gender"><span class="teacher">性别：</span> {{gender==='male'?'男':'女'}}</p>
+                    <p v-if="gender"><span class="teacher">学历：</span><span>{{edu_background}}</span></p>
+                  </div>
                 </div>
                 <div class="teacher">
-                  {{item.description}}
+                  {{introduction}}
                 </div>
               </div>
             </el-tab-pane>
@@ -72,14 +71,16 @@
             </el-tab-pane>
             <el-tab-pane label="教师">
               <div v-for="item in teachers">
-                <div>
+                <div class="educator">
                   <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                             :src="item.photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':item.photo"/>
-                  <p>
-                    <el-tag class="teacher">{{item.name}}</el-tag>
-                  </p>
-                  <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
-                  <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
+                  <div>
+                    <p>
+                      <el-tag class="teacher">{{item.name}}</el-tag>
+                    </p>
+                    <p><span class="teacher">性别：</span> {{item.gender==='male'?'男':'女'}}</p>
+                    <p><span class="teacher">学历：</span><span>{{item.edu_background}}</span></p>
+                  </div>
                 </div>
                 <div class="teacher">
                   {{item.description}}
@@ -211,6 +212,7 @@
         institutionID: '',
         gender: '',
         edu_background: '',
+        head_photo: '',
         path: this.$router.currentRoute.path,
         offsetTop: 0,
         cloneNode: document.createElement('img')
@@ -221,20 +223,22 @@
         this.favourited = userMessage.state.courseDetail.favourited;
         this.title = userMessage.state.courseDetail.name;
         this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
-        this.this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
+        this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
         this.perSession = userMessage.state.courseDetail.session_hours;
         this.stars = userMessage.state.courseDetail.stars;
         this.price = userMessage.state.courseDetail.total_price;
         this.discount = userMessage.state.courseDetail.discount;
         this.introduction = userMessage.state.courseDetail.brief_description;
-        this.detail = userMessage.state.courseDetail.detai;
+        this.detail = userMessage.state.courseDetail.detail;
         this.teachers = userMessage.state.courseDetail.teachers;
         this.showImages = userMessage.state.courseDetail.banners;
+        this.institutionID = userMessage.state.courseDetail.master;
       } else if (this.path === '/institution') {
         this.favourited = userMessage.state.institution.favourited;
         this.title = userMessage.state.institution.basic_info.name;
         this.introduction = userMessage.state.institution.basic_info.introduction;
         this.showImages = userMessage.state.institution.basic_info.banners;
+        this.head_photo = userMessage.state.institution.basic_info.head_photo;
       }
     },
     watch: {
@@ -244,15 +248,16 @@
           this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
           this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
-          this.this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
+          this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
           this.perSession = userMessage.state.courseDetail.session_hours;
           this.stars = userMessage.state.courseDetail.stars;
           this.price = userMessage.state.courseDetail.total_price;
           this.discount = userMessage.state.courseDetail.discount;
           this.introduction = userMessage.state.courseDetail.brief_description;
-          this.detail = userMessage.state.courseDetail.detai;
+          this.detail = userMessage.state.courseDetail.detail;
           this.teachers = userMessage.state.courseDetail.teachers;
           this.showImages = userMessage.state.courseDetail.banners;
+          this.institutionID = userMessage.state.courseDetail.master;
         } else if (this.path === '/institution') {
           this.favourited = userMessage.state.institution.favourited;
           this.title = userMessage.state.institution.basic_info.name;
@@ -260,6 +265,7 @@
           this.showImages = userMessage.state.institution.basic_info.banners;
           this.gender = userMessage.state.institution.gender;
           this.edu_background = userMessage.state.institution.edu_background;
+          this.head_photo = userMessage.state.institution.basic_info.head_photo;
         }
       }
     },
@@ -461,8 +467,6 @@
   }
 
   .avatar {
-    float: left;
-
     width: 120px;
     height: 120px;
     max-width: 50%;
@@ -470,13 +474,14 @@
   }
 
   div.teacher {
-    padding: 5%;
     line-height: 2em;
     text-indent: 20px;
     letter-spacing: 2px;
     font-size: larger;
     border-radius: 10px;
     background-color: #eee;
+    /*position: relative;*/
+    /*top: 30%;*/
   }
 
   .map {
@@ -501,5 +506,15 @@
   span.order-header {
     position: relative;
     left: 8%;
+  }
+
+  .educator{
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+  .educator div{
+    flex: 1 2 85%;
   }
 </style>
