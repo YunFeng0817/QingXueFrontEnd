@@ -12,7 +12,7 @@
     </div>
 
     <div :body-style="{ padding: '0px'}">
-      <slider :show-images="showImages">
+      <slider :show-images="showImages" v-if="showImages.length!==0">
       </slider>
       <div>
         <span class="title">{{title}}</span>
@@ -59,17 +59,21 @@
                     <p v-if="gender"><span class="teacher">学历：</span><span>{{edu_background}}</span></p>
                   </div>
                 </div>
-                <div class="teacher">
+                <div class="teacher" v-if="introduction!==''">
                   {{introduction}}
                 </div>
+                <p>
+                  <span class="time">联系方式 : </span>
+                  <a :href="'tel:'+contact">{{contact}}</a>
+                </p>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="详情">
+            <el-tab-pane label="详情" v-if="path==='/course'">
               <p>
                 {{detail}}
               </p>
             </el-tab-pane>
-            <el-tab-pane label="教师">
+            <el-tab-pane label="教师" v-if="path==='/course'">
               <div v-for="item in teachers">
                 <div class="educator">
                   <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
@@ -98,7 +102,7 @@
                 </bm-marker>
               </baidu-map>
             </el-tab-pane>
-            <el-tab-pane label="评价">
+            <el-tab-pane label="评价" v-if="path==='/course'">
               <am-comment-list>
                 <am-comment v-for="item in comments" :key="item.id">
                   <am-comment-avatar :src="item.student.head_photo">
@@ -213,6 +217,7 @@
         gender: '',
         edu_background: '',
         head_photo: '',
+        contact: '',
         path: this.$router.currentRoute.path,
         offsetTop: 0,
         cloneNode: document.createElement('img')
@@ -237,8 +242,9 @@
         this.favourited = userMessage.state.institution.favourited;
         this.title = userMessage.state.institution.basic_info.name;
         this.introduction = userMessage.state.institution.basic_info.introduction;
-        this.showImages = userMessage.state.institution.basic_info.banners;
+        this.showImages = userMessage.state.institution.basic_info.banner;
         this.head_photo = userMessage.state.institution.basic_info.head_photo;
+        this.contact = userMessage.state.institution.basic_info.contact;
       }
     },
     watch: {
@@ -262,10 +268,11 @@
           this.favourited = userMessage.state.institution.favourited;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
-          this.showImages = userMessage.state.institution.basic_info.banners;
+          this.showImages = userMessage.state.institution.basic_info.banner;
           this.gender = userMessage.state.institution.gender;
           this.edu_background = userMessage.state.institution.edu_background;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
+          this.contact = userMessage.state.institution.basic_info.contact;
         }
       }
     },
@@ -508,13 +515,13 @@
     left: 8%;
   }
 
-  .educator{
+  .educator {
     display: flex;
     align-content: center;
     align-items: center;
   }
 
-  .educator div{
+  .educator div {
     flex: 1 2 85%;
   }
 </style>
