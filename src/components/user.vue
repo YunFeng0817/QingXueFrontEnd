@@ -124,6 +124,30 @@
           </div>
         </el-card>
       </el-collapse-item>
+      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="4">
+        <template slot="title">
+          <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的关注</i>
+        </template>
+        <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in followings" :key="item.id" class="box-card"
+                 @click.native="institutionClick(item.educator.id)">
+          <div class="courses">
+            <img :src="item.educator.head_photo" class="image">
+            <div style="padding: 2%;">
+              <span>
+                  名称：{{item.educator.name}}
+              </span>
+              <div class="bottom clearfix">
+              </div>
+            </div>
+            <el-button type="danger" size="mini"
+                       style="padding: 1% 1%; position: absolute;right:2%;"
+                       @click.stop="deleteFollowings(item.id,id)">
+              <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
+              删除收藏
+            </el-button>
+          </div>
+        </el-card>
+      </el-collapse-item>
       <div class="user-list" @click="openShare">
         <span class="am-icon-share-square-o operation-item">&nbsp&nbsp分享</span>
       </div>
@@ -177,7 +201,8 @@
           }
         ],
         favourites: [],
-        comments: []
+        comments: [],
+        followings: []
       }
     },
     computed: {
@@ -252,6 +277,22 @@
                 });
             }
             break;
+          case 4:
+            if (this.followings.length === 0) {
+              axios({
+                method: 'get',
+                url: '/student_operation/followings/'
+              })
+                .then(function (response) {
+                  if (response) {
+                    this.followings = response.followings;
+                  }
+                }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                });
+            }
+            break;
           default:
         }
       },
@@ -265,6 +306,22 @@
             if (response) {
               userMessage.commit('commitCourse', response);
               this.$router.push({path: '/course'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      // 处理点击进机构的情况
+      institutionClick (id) {
+        axios({
+          url: '/educator/' + id + '/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('commitInstitution', response);
+              this.$router.push({path: '/institution'});
             }
           }.bind(this))
           .catch(function (error) {
@@ -301,6 +358,29 @@
           method: 'delete',
           data: {
             comment_to_course_id: commentId
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.comments.splice(index, 1);// 删除index处的喜欢课程
+              this.$message({
+                message: '删除成功',
+                type: 'success',
+                duration: 1000
+              });
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      // 删除对这个机构的关注
+      deleteFollowings (itemId, index) {
+        axios({
+          url: '/student_operation/followings/',
+          method: 'delete',
+          data: {
+            following_id: itemId
           }
         })
           .then(function (response) {

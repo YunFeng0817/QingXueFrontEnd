@@ -1,3 +1,5 @@
+# get the parent path of the script file
+$origin_path = Split-Path -Parent $MyInvocation.MyCommand.Definition
 if($args.Length -ne 2 -and $args.Length -ne 3){
     Write-Output "usage: [path] (the absolute path of the django project) | [mode](push or pull) | [message](if second parameter is push ,add the git commit message)"
 }
@@ -38,7 +40,7 @@ else{
             Copy-Item $dest_path"\copy\db.sqlite3" $dest_path;
             Write-Host -NoNewline "Replace the changed "($copy).Substring(0,10)" file with its origin backup file $copy in $path";
             Write-Output `n;
-            Remove-Item $path -recurse;
+            Remove-Item $path'copy' -recurse;
             Write-Output "Delete the backup file $copy in $path";
             Write-Output `n;
         }
@@ -62,7 +64,7 @@ else{
         if((Test-Path $dest_path"copy")){
             $path = $dest_path;
             $copy = "db.sqlite3";
-            Remove-Item $path -recurse;
+            Remove-Item $path'copy' -recurse;
             Write-Output "Delete the backup file $copy in $path";
             Write-Output `n;
     }
@@ -71,4 +73,5 @@ else{
     git pull origin develop;
     git push origin develop;
     }
+    Set-Location $origin_path;
 }
