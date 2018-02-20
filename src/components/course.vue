@@ -143,7 +143,7 @@
       <a class="message" @click="intoInstitution(institutionID)">
         <i class="am-icon-university"></i>
         进入机构</a>
-      <a class="message">
+      <a class="message" :href="'tel:'+contact">
         <i class="am-icon-commenting-o"></i>
         咨询</a>
       <a class="message" @click="share">
@@ -238,6 +238,7 @@
         this.teachers = userMessage.state.courseDetail.teachers;
         this.showImages = userMessage.state.courseDetail.banners;
         this.institutionID = userMessage.state.courseDetail.master;
+        this.contact = userMessage.state.courseDetail.contact;
       } else if (this.path === '/institution') {
         this.favourited = userMessage.state.institution.favourited;
         this.title = userMessage.state.institution.basic_info.name;
@@ -264,6 +265,7 @@
           this.teachers = userMessage.state.courseDetail.teachers;
           this.showImages = userMessage.state.courseDetail.banners;
           this.institutionID = userMessage.state.courseDetail.master;
+          this.contact = userMessage.state.courseDetail.contact;
         } else if (this.path === '/institution') {
           this.favourited = userMessage.state.institution.favourited;
           this.title = userMessage.state.institution.basic_info.name;
@@ -330,10 +332,10 @@
               headers: {
                 'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
               },
-              url: '/student_operation/' + this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/',
+              url: '/student_operation/' + (this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/'),
               data: {
                 course_id: userMessage.state.courseDetail.id,
-                educator_id: userMessage.state.institution.id
+                educator_id: userMessage.state.institution.basic_info.id
               }
             })
               .then(function (response) {

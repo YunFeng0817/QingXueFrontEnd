@@ -133,10 +133,16 @@
           <div class="courses">
             <img :src="item.educator.head_photo" class="image">
             <div style="padding: 2%;">
-              <span>
+              <label>
                   名称：{{item.educator.name}}
-              </span>
+              </label>
               <div class="bottom clearfix">
+                <label>评论内容</label>
+                <p v-text="item.introduction">
+                <p>
+                  <label class="time">联系方式 : </label>
+                  <a :href="'tel:'+item.contact">{{item.contact}}</a>
+                </p>
               </div>
             </div>
             <el-button type="danger" size="mini"
@@ -385,7 +391,7 @@
         })
           .then(function (response) {
             if (response) {
-              this.comments.splice(index, 1);// 删除index处的喜欢课程
+              this.followings.splice(index, 1);// 删除index处的喜欢课程
               this.$message({
                 message: '删除成功',
                 type: 'success',

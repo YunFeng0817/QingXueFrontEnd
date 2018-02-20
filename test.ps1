@@ -1,3 +1,5 @@
+# get the parent path of the script file
+$origin_path = Split-Path -Parent $MyInvocation.MyCommand.Definition
 if($args.Length -ne 1){
     Write-Output "usage: [path] (the absolute path of the django project which need to be tested) "
 }
@@ -45,3 +47,4 @@ else{
         Write-Error "The 'static directory' or 'index.html' doesn't exist"
     }
 }
+Set-Location $origin_path;
