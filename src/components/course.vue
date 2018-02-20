@@ -330,9 +330,10 @@
               headers: {
                 'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
               },
-              url: '/student_operation/favourites/',
+              url: '/student_operation/' + this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/',
               data: {
-                course_id: userMessage.state.courseDetail.id
+                course_id: userMessage.state.courseDetail.id,
+                educator_id: userMessage.state.institution.id
               }
             })
               .then(function (response) {
@@ -416,10 +417,6 @@
 
   span.time {
     font-size: medium;
-  }
-
-  .icon {
-    font-size: large;
   }
 
   p {
