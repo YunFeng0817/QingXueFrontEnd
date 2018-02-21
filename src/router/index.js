@@ -58,6 +58,10 @@ export default new Router({
     },
     {
       path: '/order',
+      component: resolve => require(['../components/order'], resolve) // 懒加载
+    },
+    {
+      path: '/order/result',
       component: resolve => require(['../components/orderResult'], resolve) // 懒加载
     },
     {
