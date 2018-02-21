@@ -6,7 +6,7 @@
       <span class="order-header">确认预约</span>
     </div>
     <div class="order-body">
-      <p style="margin: 5% 0;">课程名称：
+      <p>课程名称：
         <span>高三数学</span>
       </p>
       <hr/>
@@ -221,5 +221,13 @@
     padding: 5%;
     margin: 5% 0 5% 0;
     background-color: white;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  hr {
+    margin: 12px 0;
   }
 </style>
