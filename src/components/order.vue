@@ -10,16 +10,16 @@
         <span>高三数学</span>
       </p>
       <hr/>
-      <p>
-        课程数量：
-        <span>{{sessions+'节'}}</span>
-      </p>
-      <hr/>
-      <p>
-        每课时长：
-        <span>{{session_hours+'小时'}}</span>
-      </p>
-      <hr/>
+      <!--<p>-->
+        <!--课程数量：-->
+        <!--<span>{{sessions+'节'}}</span>-->
+      <!--</p>-->
+      <!--<hr/>-->
+      <!--<p>-->
+        <!--每课时长：-->
+        <!--<span>{{session_hours+'小时'}}</span>-->
+      <!--</p>-->
+      <!--<hr/>-->
       <p>
         开课日期：
         <span>{{startTime}}</span>
@@ -106,8 +106,8 @@
         startTime: userMessage.state.courseDetail.time_spans[0].start_time,
         endTime: userMessage.state.courseDetail.time_spans[0].end_time,
         note: userMessage.state.courseDetail.note,
-        session_hours: userMessage.state.courseDetail.session_hours,
-        sessions: userMessage.state.courseDetail.sessions,
+        // session_hours: userMessage.state.courseDetail.session_hours,
+        // sessions: userMessage.state.courseDetail.sessions,
         hint: '本订单仅供课程预约<br/>预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>该预约不可取消，有效期内未付尾款视为取消该课程<br/>机构(教师)不保留相关课程安排'
       }
     },
