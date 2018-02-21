@@ -137,11 +137,11 @@
                   名称：{{item.educator.name}}
               </label>
               <div class="bottom clearfix">
-                <label>评论内容</label>
-                <p v-text="item.introduction">
+                <label>简介</label>
+                <p v-text="item.educator.introduction">
                 <p>
                   <label class="time">联系方式 : </label>
-                  <a :href="'tel:'+item.contact">{{item.contact}}</a>
+                  <a :href="'tel:'+item.contact" @click.stop="">{{item.educator.contact}}</a>
                 </p>
               </div>
             </div>

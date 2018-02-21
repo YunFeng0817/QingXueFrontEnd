@@ -44,7 +44,7 @@ else{
             Write-Output "Delete the backup file $copy in $path";
             Write-Output `n;
         }
-        git pull origin develop;
+        git pull origin dev_no_pay;
     }
     elseif($args[1] -eq "push"){
         if((Test-Path $dest_path"init\staticcopy") ){
@@ -70,7 +70,7 @@ else{
     }
     git add ./init/static ./init/templates;
     git commit -m $args[2];
-    git pull origin develop;
+    git pull origin dev_no_pay;
     git push origin develop;
     }
     Set-Location $origin_path;

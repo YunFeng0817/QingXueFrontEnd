@@ -240,7 +240,7 @@
         this.institutionID = userMessage.state.courseDetail.master;
         this.contact = userMessage.state.courseDetail.contact;
       } else if (this.path === '/institution') {
-        this.favourited = userMessage.state.institution.favourited;
+        this.favourited = userMessage.state.institution.followed;
         this.title = userMessage.state.institution.basic_info.name;
         this.introduction = userMessage.state.institution.basic_info.introduction;
         this.showImages = userMessage.state.institution.basic_info.banner;
@@ -267,7 +267,7 @@
           this.institutionID = userMessage.state.courseDetail.master;
           this.contact = userMessage.state.courseDetail.contact;
         } else if (this.path === '/institution') {
-          this.favourited = userMessage.state.institution.favourited;
+          this.favourited = userMessage.state.institution.followed;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
           this.showImages = userMessage.state.institution.basic_info.banner;

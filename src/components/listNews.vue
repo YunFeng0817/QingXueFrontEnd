@@ -148,7 +148,7 @@
     margin: 2% 4% 1% 4%;
   }
 
-  div.card:hover {
+  .card div:hover {
     animation-name: float;
     animation-delay: 10ms;
     animation-duration: 250ms;
