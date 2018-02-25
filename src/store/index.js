@@ -30,7 +30,8 @@ export default new Vuex.Store({
     courseDetail: {},
     essay: {},
     essays: [],
-    institution: {}
+    institution: {},
+    orderResult: {}
   },
   mutations: {
     // 登录后保存用户信息
@@ -101,6 +102,10 @@ export default new Vuex.Store({
     // 保存具体的机构信息
     commitInstitution (state, list) {
       state.institution = list;
+    },
+    // 保存具体的订单信息
+    commitOrderResult (state, list) {
+      state.orderResult = list;
     }
   }
 })

@@ -16,28 +16,28 @@
         <template slot="title">
           <i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>
         </template>
-        <el-card :body-style="{ padding: '0 10px' }" v-for="item in favourites" :key="item.id" class="box-card">
-          <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
-          <el-tag size="mini">{{item.course.subject}}</el-tag>
-          <el-tag size="mini">{{item.course.degree}}</el-tag>
-          <div class="courses">
-            <img :src="item.course.cover" class="image">
-            <div style="padding: 2%;">
-              <span>{{item.course.title}}</span>
-              <div class="bottom clearfix">
-                <span>
-                  好评率：
-                  <el-rate
-                    v-model="item.course.stars"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                    score-template="{value}">
-                  </el-rate>
-                </span>
-                <span>
-                  全额费用：{{item.course.total_price}} 元
-                </span>
+        <el-card :body-style="{ padding: '0 10px' }" class="box-card" v-for="item in orders" :key="item.id"
+                 @click.native="orderClick(item.order_sn)">
+          <div style="padding: 2%;">
+            <div class="bottom clearfix">
+              <label>
+                课程名称：
+              </label>
+              <a style="font-size: larger" @click.stop="coursesClick(item.course.id)">{{item.course.title}}</a>
+              <label>
+                订单金额
+              </label>
+              <span style="font-size: larger">
+                {{item.total_amount}}元
+              </span>
+              <label>
+                订单状态
+              </label>
+              <span style="font-size: larger">
+                {{item.trade_status}}
+              </span>
+              <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
+                <p style="margin: 0 5%;">tips:点击查看订单详情</p>
               </div>
             </div>
           </div>
@@ -134,7 +134,7 @@
             <img :src="item.educator.head_photo" class="image">
             <div style="padding: 2%;">
               <label>
-                  名称：{{item.educator.name}}
+                名称：{{item.educator.name}}
               </label>
               <div class="bottom clearfix">
                 <label>简介</label>
@@ -208,7 +208,8 @@
         ],
         favourites: [],
         comments: [],
-        followings: []
+        followings: [],
+        orders: []
       }
     },
     computed: {
@@ -250,6 +251,20 @@
       handleChange (val) {
         switch (val) {
           case 1:
+            if (this.orders.length === 0) {
+              axios({
+                method: 'get',
+                url: '/order/get_order_list/'
+              })
+                .then(function (response) {
+                  if (response) {
+                    this.orders = response.orders;
+                  }
+                }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                });
+            }
             break;
           case 2:
             if (this.comments.length === 0) {
@@ -312,6 +327,22 @@
             if (response) {
               userMessage.commit('commitCourse', response);
               this.$router.push({path: '/course'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      // 处理点击进入订单详情的操作
+      orderClick (id) {
+        axios({
+          url: '/order/?order_sn=' + id + '/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('commitOrderResult', response);
+              this.$router.push({path: '/order/result'});
             }
           }.bind(this))
           .catch(function (error) {

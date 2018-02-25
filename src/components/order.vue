@@ -11,13 +11,13 @@
       </p>
       <hr/>
       <!--<p>-->
-        <!--课程数量：-->
-        <!--<span>{{sessions+'节'}}</span>-->
+      <!--课程数量：-->
+      <!--<span>{{sessions+'节'}}</span>-->
       <!--</p>-->
       <!--<hr/>-->
       <!--<p>-->
-        <!--每课时长：-->
-        <!--<span>{{session_hours+'小时'}}</span>-->
+      <!--每课时长：-->
+      <!--<span>{{session_hours+'小时'}}</span>-->
       <!--</p>-->
       <!--<hr/>-->
       <p>
@@ -36,20 +36,19 @@
       </p>
     </div>
     <div class="order-body">
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left"
+      <el-form status-icon label-position="left"
                label-width="22%"
                class="demo-ruleForm">
-        <el-form-item label="手机号" prop="pass">
-          <el-input type="number" v-model="ruleForm.pass" auto-complete="off">
-          </el-input>
-        </el-form-item>
         <el-form-item label="支付方式">
-          <el-select v-model="ruleForm.method" placeholder="请选择支付方式">
+          <el-select v-model="method" placeholder="请选择支付方式">
             <el-option label="支付宝" value="weixin">
             </el-option>
             <el-option label="微信" value="zhifubao">
             </el-option>
           </el-select>
+          <label>填写备注（选填）</label>
+          <text v-model="student_notes">
+          </text>
         </el-form-item>
       </el-form>
     </div>
@@ -63,7 +62,7 @@
     <div class="footer">
       <span>需支付定金</span>
       <span class="money">{{money.toString()+'元'}}</span>
-      <a @click="submitForm('ruleForm')">确认提交</a>
+      <a @click="submitForm()">确认提交</a>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 110px;"></div>
@@ -81,26 +80,8 @@
       BackButton
     },
     data () {
-      let validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入手机号'));
-        } else {
-          if (this.ruleForm.pass.length !== 11) {
-            callback(new Error('手机号的长度是11位'));
-          }
-          callback();
-        }
-      };
       return {
-        ruleForm: {
-          pass: '',
-          method: ''
-        },
-        rules: {
-          pass: [
-            {validator: validatePass, trigger: 'blur'}
-          ]
-        },
+        method: '',
         name: userMessage.state.courseDetail.name,
         money: userMessage.state.courseDetail.total_price * userMessage.state.courseDetail.discount,
         startTime: userMessage.state.courseDetail.time_spans[0].start_time,
@@ -108,43 +89,40 @@
         note: userMessage.state.courseDetail.note,
         // session_hours: userMessage.state.courseDetail.session_hours,
         // sessions: userMessage.state.courseDetail.sessions,
-        hint: '本订单仅供课程预约<br/>预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>该预约不可取消，有效期内未付尾款视为取消该课程<br/>机构(教师)不保留相关课程安排'
+        hint: '本订单仅供课程预约<br/>预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>该预约不可取消，有效期内未付尾款视为取消该课程<br/>机构(教师)不保留相关课程安排',
+        student_notes: ''
       }
     },
     methods: {
-      submitForm (formName) {
-        if (this.ruleForm.method === '') {
-          this.$message.error('请先选择支付方式');
-          return false;
-        }
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios({
-              method: 'post',
-              url: '',
-              data: {
-                password: this.ruleForm.checkPass
-              }
-            })
-              .then(function (response) {
-                if (response) {
-                  this.$message({
-                    message: '预约成功',
-                    type: 'success',
-                    duration: 1000
-                  });
-                  setTimeout(function () {
-                    this.$router.replace({path: '/main'});
-                  }.bind(this), 1500);
-                }
-              }.bind(this))
-              .catch(function (error) {
-                console.log(error);
-              })
-          } else {
-            return false;
+      submitForm () {
+        axios({
+          method: 'post',
+          url: '',
+          data: {
+            course_id: userMessage.state.courseDetail.id,
+            time_span_id: userMessage.state.courseDetail.time_span.id,
+            student_notes: this.student_notes
           }
-        });
+        })
+          .then(function (response) {
+            if (response) {
+              axios({
+                method: 'get',
+                url: response.payment_url
+              })
+                .then(function (response) {
+                  if (response) {
+                    console.log('正在支付');
+                  }
+                })
+                .catch(function (error) {
+                  console.log(error);
+                })
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     }
   }

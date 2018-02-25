@@ -6,23 +6,44 @@
       <span class="order-header">订单详情</span>
     </div>
     <div class="order-body">
-      <p style="margin: 5% 0;">课程名称：</p>
-      <hr/>
-      <p>开课日期：</p>
-      <hr/>
-      <p>地点：</p>
-      <hr/>
-      <p>支付金额：</p>
-    </div>
-    <div class="order-body">
-      <p>课程准备：</p>
-    </div>
-    <div class="order-word">
-      <p>
-        预约须知：
+      <p>课程名称：
+        <a style="font-size: larger" @click="coursesClick(course_id)">{{title}}</a>
       </p>
+      <hr/>
       <p>
-        {{hint}}
+        开课日期：
+        <span>{{startTime}}</span>
+      </p>
+      <hr/>
+      <p>
+        结课日期：
+        <span>{{endTime}}</span>
+      </p>
+      <hr/>
+      <p>
+        支付宝交易号：
+        <span>{{trade_no}}</span>
+      </p>
+      <hr/>
+      <p>
+        交易状态：
+        <span>{{trade_status}}</span>
+      </p>
+      <hr/>
+      <p>
+        支付金额：
+        <span>{{total_amount}}元</span>
+      </p>
+      <hr/>
+      <p>
+        支付时间
+        <span>{{pay_time.split('T')[0]}}</span>
+      </p>
+      <hr/>
+      <p>
+        学生备注：
+      </p>
+      <p v-html="student_notes">
       </p>
     </div>
     <div class="order-body">
@@ -37,7 +58,8 @@
 <script>
   import BackButton from './backButton';
   import axios from '../axios/index';
-  import edit from './editor'
+  import edit from './editor';
+  import userMessage from '../store/index';
 
   export default {
     name: 'orderResult',
@@ -46,65 +68,49 @@
       edit: edit
     },
     data () {
-      let validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入手机号'));
-        } else {
-          if (this.ruleForm.pass.length !== 11) {
-            callback(new Error('手机号的长度是11位'));
-          }
-          callback();
-        }
-      };
       return {
-        ruleForm: {
-          pass: '',
-          method: ''
-        },
-        rules: {
-          pass: [
-            {validator: validatePass, trigger: 'blur'}
-          ]
-        },
-        orderID: '123',
-        money: 600,
-        hint: '老三等萨登萨登广卅好掠撒框架四大洲兰卡威就干戈安宫个'
+        title: userMessage.state.orderResult.course.title,
+        startTime: userMessage.state.orderResult.time_span.start_time,
+        endTime: userMessage.state.orderResult.time_span.endTime,
+        trade_no: userMessage.state.ordeResult.trade_no,
+        total_amount: userMessage.state.orderResult.total_amount,
+        pay_time: userMessage.state.orderResult.pay_time,
+        student_notes: userMessage.state.orderResult.student_notes,
+        course_id: userMessage.state.orderResult.course.id
       }
     },
     methods: {
-      submitForm (formName) {
-        if (this.ruleForm.method === '') {
-          this.$message.error('请先选择支付方式');
-          return false;
+      // 处理点击进入课程详情的操作
+      coursesClick (id) {
+        axios({
+          url: '/course/' + id + '/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('commitCourse', response);
+              this.$router.push({path: '/course'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+    computed: {
+      trade_status: function () {
+        switch (userMessage.state.orderResult.trade_status) {
+          case 'TRADE_SUCCESS':
+            return '交易成功';
+          case 'TRADE_FINISHED' :
+            return '交易完成';
+          case 'WAIT_BUYER_PAY':
+            return '交易待支付';
+          case 'TRADE_CLOSED':
+            return '交易关闭';
+          default:
+            return '交易成功';
         }
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios({
-              method: 'post',
-              url: '',
-              data: {
-                password: this.ruleForm.checkPass
-              }
-            })
-              .then(function (response) {
-                if (response) {
-                  this.$message({
-                    message: '预约成功',
-                    type: 'success',
-                    duration: 1000
-                  });
-                  setTimeout(function () {
-                    this.$router.replace({path: '/main'});
-                  }.bind(this), 1500);
-                }
-              }.bind(this))
-              .catch(function (error) {
-                console.log(error);
-              })
-          } else {
-            return false;
-          }
-        });
       }
     }
   }
@@ -129,19 +135,17 @@
     font-size: larger;
   }
 
-  div.order-word {
-    padding: 5%;
-    margin: 5% 0;
-    line-height: 2em;
-    letter-spacing: 2px;
-    font-size: medium;
-    border-radius: 10px;
-    background-color: white;
-  }
-
   div.order-body {
     padding: 5%;
     margin: 5% 0 5% 0;
     background-color: white;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  hr {
+    margin: 12px 0;
   }
 </style>
