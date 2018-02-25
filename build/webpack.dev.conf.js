@@ -10,6 +10,22 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+const port = 8080
+/*
+* 构建json-server的模拟数据的配置
+ */
+const jsonServer = require('json-server') //引入文件
+const apiServer = jsonServer.create(); //创建服务器
+const apiRouter = jsonServer.router('db.json') //引入json 文件 ，这里的地址就是你json文件的地址
+const middlewares = jsonServer.defaults(); //返回JSON服务器使用的中间件。
+apiServer.use(middlewares)
+apiServer.use(apiRouter)
+apiServer.listen( port + 1,function(){ //json服务器端口:比如你使用8080,这里的json服务器就是8081端口
+  console.log('JSON Server is running')  //json server成功运行会在git bash里面打印出'JSON Server is running'
+})
+/*
+* 结束配置
+ */
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
