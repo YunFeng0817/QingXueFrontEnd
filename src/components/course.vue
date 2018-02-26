@@ -129,7 +129,7 @@
                       <p v-html="item.text">
                       </p>
                       <time style="position: absolute;right:5%;">
-                        {{'评论时间：'+item.add_time.split('T')[0]}}
+                        {{'评论时间：'+item.add_time}}
                       </time>
                     </am-comment-body>
                   </am-comment-content>

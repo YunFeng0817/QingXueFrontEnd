@@ -39,7 +39,7 @@
                   订单状态
                 </label>
                 <span style="font-size: larger">
-                  {{trade_status=item.trade_status}}
+                  {{trade_status(item.trade_status)}}
                 </span>
               </p>
             </div>
@@ -75,7 +75,7 @@
                 评论时间
               </label>
               <time>
-                {{item.add_time.split('T')[0]}}
+                {{item.add_time}}
               </time>
               <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
                 <p style="margin: 0 5%;">tips:点击查看课程详情</p>
@@ -224,20 +224,6 @@
         } else {
           return 'am-icon-venus'
         }
-      },
-      trade_status: function (trade_status) {
-        switch (trade_status) {
-          case 'TRADE_SUCCESS':
-            return '交易成功';
-          case 'TRADE_FINISHED' :
-            return '交易完成';
-          case 'WAIT_BUYER_PAY':
-            return '交易待支付';
-          case 'TRADE_CLOSED':
-            return '交易关闭';
-          default:
-            return '交易成功';
-        }
       }
     },
     methods: {
@@ -272,7 +258,8 @@
             if (this.orders.length === 0) {
               axios({
                 method: 'get',
-                url: '/order/get_order_list/'
+                // url: '/order/get_order_list/'
+                url: 'api/order'
               })
                 .then(function (response) {
                   if (response) {
@@ -451,6 +438,20 @@
           .catch(function (error) {
             console.log(error);
           });
+      },
+      trade_status (tradeStatus) {
+        switch (tradeStatus) {
+          case 'TRADE_SUCCESS':
+            return '交易成功';
+          case 'TRADE_FINISHED' :
+            return '交易完成';
+          case 'WAIT_BUYER_PAY':
+            return '交易待支付';
+          case 'TRADE_CLOSED':
+            return '交易关闭';
+          default:
+            return '交易成功';
+        }
       }
     }
   }

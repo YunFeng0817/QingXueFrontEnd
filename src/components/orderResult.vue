@@ -37,7 +37,7 @@
       <hr/>
       <p>
         支付时间
-        <span>{{pay_time.split('T')[0]}}</span>
+        <span>{{pay_time}}</span>
       </p>
       <hr/>
       <p>
@@ -71,8 +71,8 @@
       return {
         title: userMessage.state.orderResult.course.title,
         startTime: userMessage.state.orderResult.time_span.start_time,
-        endTime: userMessage.state.orderResult.time_span.endTime,
-        trade_no: userMessage.state.ordeResult.trade_no,
+        endTime: userMessage.state.orderResult.time_span.end_time,
+        trade_no: userMessage.state.orderResult.trade_no,
         total_amount: userMessage.state.orderResult.total_amount,
         pay_time: userMessage.state.orderResult.pay_time,
         student_notes: userMessage.state.orderResult.student_notes,
