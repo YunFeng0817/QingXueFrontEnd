@@ -16,7 +16,7 @@
         <template slot="title">
           <i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>
         </template>
-        <el-card :body-style="{ padding: '0 10px' }" class="box-card" v-for="item in orders" :key="item.id"
+        <el-card :body-style="{ padding: '0 10px' }" class="box-card" v-for="(item,id) in orders" :key="item.id"
                  @click.native="orderClick(item.order_sn)">
           <div style="padding: 2%;">
             <div class="bottom clearfix">
@@ -42,6 +42,13 @@
                   {{trade_status(item.trade_status)}}
                 </span>
               </p>
+            </div>
+            <div style="float:right;position:relative;bottom:12px;">
+              <el-button type="danger" size="mini"
+                         @click.stop="deleteOrder(item.order_sn,id)">
+                <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
+                删除订单
+              </el-button>
             </div>
           </div>
         </el-card>
@@ -258,7 +265,8 @@
             if (this.orders.length === 0) {
               axios({
                 method: 'get',
-                url: '/order/get_order_list/'
+                // url: '/order/get_order_list/'
+                url: '/api/order'
               })
                 .then(function (response) {
                   if (response) {
@@ -427,6 +435,26 @@
           .then(function (response) {
             if (response) {
               this.followings.splice(index, 1);// 删除index处的喜欢课程
+              this.$message({
+                message: '删除成功',
+                type: 'success',
+                duration: 1000
+              });
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      // 处理删除订单的操作
+      deleteOrder (orderId, index) {
+        axios({
+          url: '/order/?order_sn=' + orderId,
+          method: 'delete'
+        })
+          .then(function (response) {
+            if (response) {
+              this.orders.splice(index, 1);// 删除index处的喜欢课程
               this.$message({
                 message: '删除成功',
                 type: 'success',
