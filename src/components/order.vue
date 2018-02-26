@@ -7,7 +7,7 @@
     </div>
     <div class="order-body">
       <p>课程名称：
-        <span>{{name}}</span>
+        <span>{{title}}</span>
       </p>
       <hr/>
       <p>
@@ -55,8 +55,8 @@
           </el-select>
         </el-form-item>
         <el-form-item label="填写备注（选填）">
-          <textarea v-model="student_notes" style="width:90%;">
-        </textarea>
+          <textarea v-model="student_notes" style="width:90%;position:relative;top:15px;">
+          </textarea>
         </el-form-item>
       </el-form>
     </div>
@@ -90,7 +90,7 @@
     data () {
       return {
         method: '',
-        name: userMessage.state.courseDetail.name,
+        title: userMessage.state.courseDetail.title,
         money: userMessage.state.courseDetail.total_price * userMessage.state.courseDetail.discount,
         note: userMessage.state.courseDetail.note,
         time_spans: userMessage.state.courseDetail.time_spans,
