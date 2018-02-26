@@ -14,7 +14,7 @@
     </am-article>
     <div class="like">
       <a class="icon">
-        <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'" @click.stop="like"></i>
+        <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'" @click.stop="like">{{likes_count}}</i>
       </a>
       <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
     </div>
@@ -49,7 +49,8 @@
         author: userMessage.state.essay.author,
         introduction: userMessage.state.essay.essay.brief_description,
         content: userMessage.state.essay.essay.content,
-        liked: userMessage.state.essay.liked
+        liked: userMessage.state.essay.liked,
+        likes_count: userMessage.state.essay.likes_count
       }
     },
     methods: {
@@ -64,13 +65,6 @@
           })
             .then(function (response) {
               if (response) {
-                if (this.liked) {
-                  this.$message({
-                    message: '取消点赞',
-                    type: 'success',
-                    duration: 500
-                  });
-                }
                 this.liked = !this.liked;
               }
             }.bind(this))
