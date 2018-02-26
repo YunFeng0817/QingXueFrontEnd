@@ -69,6 +69,7 @@
     },
     data () {
       return {
+        orderID: userMessage.state.orderResult.order_sn,
         title: userMessage.state.orderResult.course.title,
         startTime: userMessage.state.orderResult.time_span.start_time,
         endTime: userMessage.state.orderResult.time_span.end_time,
