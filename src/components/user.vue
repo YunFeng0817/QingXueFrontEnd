@@ -258,8 +258,7 @@
             if (this.orders.length === 0) {
               axios({
                 method: 'get',
-                // url: '/order/get_order_list/'
-                url: 'api/order'
+                url: '/order/get_order_list/'
               })
                 .then(function (response) {
                   if (response) {
