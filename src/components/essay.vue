@@ -50,7 +50,7 @@
         introduction: userMessage.state.essay.essay.brief_description,
         content: userMessage.state.essay.essay.content,
         liked: userMessage.state.essay.liked,
-        likes_count: userMessage.state.essay.likes_count
+        likes_count: userMessage.state.essay.essay.likes_count
       }
     },
     methods: {
