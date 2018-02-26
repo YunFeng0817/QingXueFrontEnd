@@ -20,25 +20,28 @@
                  @click.native="orderClick(item.order_sn)">
           <div style="padding: 2%;">
             <div class="bottom clearfix">
-              <label>
-                课程名称：
-              </label>
-              <a style="font-size: larger" @click.stop="coursesClick(item.course.id)">{{item.course.title}}</a>
-              <label>
-                订单金额
-              </label>
-              <span style="font-size: larger">
+              <p>
+                <label>
+                  课程名称：
+                </label>
+                <a style="font-size: larger" @click.stop="coursesClick(item.course.id)">{{item.course.title}}</a>
+              </p>
+              <p>
+                <label>
+                  订单金额
+                </label>
+                <span style="font-size: larger">
                 {{item.total_amount}}元
               </span>
-              <label>
-                订单状态
-              </label>
-              <span style="font-size: larger">
-                {{item.trade_status}}
-              </span>
-              <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
-                <p style="margin: 0 5%;">tips:点击查看订单详情</p>
-              </div>
+              </p>
+              <p>
+                <label>
+                  订单状态
+                </label>
+                <span style="font-size: larger">
+                  {{trade_status(item.trade_status)}}
+                </span>
+              </p>
             </div>
           </div>
         </el-card>
@@ -141,7 +144,8 @@
                 <p v-text="item.educator.introduction">
                 <p>
                   <label class="time">联系方式 : </label>
-                  <a :href="'tel:'+item.contact" @click.stop="">{{item.educator.contact}}</a>
+                  <a style="padding:0;" :href="'tel:'+item.educator.contact"
+                     @click.stop="">{{item.educator.contact}}</a>
                 </p>
               </div>
             </div>
@@ -219,6 +223,20 @@
           return 'am-icon-mars'
         } else {
           return 'am-icon-venus'
+        }
+      },
+      trade_status: function (trade_status) {
+        switch (trade_status) {
+          case 'TRADE_SUCCESS':
+            return '交易成功';
+          case 'TRADE_FINISHED' :
+            return '交易完成';
+          case 'WAIT_BUYER_PAY':
+            return '交易待支付';
+          case 'TRADE_CLOSED':
+            return '交易关闭';
+          default:
+            return '交易成功';
         }
       }
     },
@@ -336,7 +354,7 @@
       // 处理点击进入订单详情的操作
       orderClick (id) {
         axios({
-          url: '/order/?order_sn=' + id + '/',
+          url: '/order/?order_sn=' + id,
           method: 'get'
         })
           .then(function (response) {
