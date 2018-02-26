@@ -66,6 +66,7 @@
             .then(function (response) {
               if (response) {
                 this.liked = !this.liked;
+                this.likes_count = response.likes_count;
               }
             }.bind(this))
             .catch(function (error) {
