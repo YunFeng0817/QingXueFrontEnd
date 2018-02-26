@@ -20,10 +20,12 @@
           <el-tabs type="border-card" ref="tab" @tab-click="handleClick">
             <el-tab-pane label="简介">
               <div v-if="path==='/course'">
-                <span class="time">开课时间</span>
-                <time class="time">{{start_time}}</time>
-                <span class="time">结课时间</span>
-                <time class="time">{{end_time}}</time>
+                <p v-for="item in time_spans" :key="item.id">
+                  <span class="time">开课时间</span>
+                  <time class="time">{{item.start_time}}</time>
+                  <span class="time">结课时间</span>
+                  <time class="time">{{item.end_time}}</time>
+                </p>
                 <p>
                   <span class="time">每课时 : {{perSession}} 分钟</span>
                   <time class="time"></time>
@@ -227,8 +229,7 @@
       if (this.path === '/course') {
         this.favourited = userMessage.state.courseDetail.favourited;
         this.title = userMessage.state.courseDetail.name;
-        this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
-        this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
+        this.time_spans = userMessage.state.courseDetail.time_spans;
         this.perSession = userMessage.state.courseDetail.session_hours;
         this.stars = userMessage.state.courseDetail.stars;
         this.price = userMessage.state.courseDetail.total_price;
@@ -254,8 +255,7 @@
         if (this.path === '/course') {
           this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
-          this.start_time = userMessage.state.courseDetail.time_spans[0].start_time;
-          this.end_time = userMessage.state.courseDetail.time_spans[0].end_time;
+          this.time_spans = userMessage.state.courseDetail.time_spans;
           this.perSession = userMessage.state.courseDetail.session_hours;
           this.stars = userMessage.state.courseDetail.stars;
           this.price = userMessage.state.courseDetail.total_price;
