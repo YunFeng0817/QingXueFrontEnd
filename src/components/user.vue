@@ -39,7 +39,7 @@
                   订单状态
                 </label>
                 <span style="font-size: larger">
-                  {{trade_status(item.trade_status)}}
+                  {{trade_status=item.trade_status}}
                 </span>
               </p>
             </div>
