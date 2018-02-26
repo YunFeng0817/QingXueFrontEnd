@@ -14,13 +14,9 @@
     </am-article>
     <div class="like">
       <a class="icon">
-        <i class="am-icon-thumbs-up"></i>
+        <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'"></i>
       </a>
       <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-      <a>
-        <i class="am-icon-thumbs-down"></i>
-      </a>
-      <span>&nbsp&nbsp&nbsp&nbsp</span>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 90px;"></div>
@@ -51,7 +47,8 @@
         title: userMessage.state.essay.essay.title,
         author: userMessage.state.essay.author,
         introduction: userMessage.state.essay.essay.brief_description,
-        content: userMessage.state.essay.essay.content
+        content: userMessage.state.essay.essay.content,
+        liked: userMessage.state.essay.liked
       }
     }
   }
