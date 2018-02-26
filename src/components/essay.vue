@@ -14,7 +14,7 @@
     </am-article>
     <div class="like">
       <a class="icon">
-        <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'"></i>
+        <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'" @click.stop="like"></i>
       </a>
       <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
     </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import axios from '../axios/index';
   import BackButton from './backButton';
   import userMessage from '../store/index';
   import {
@@ -49,6 +50,36 @@
         introduction: userMessage.state.essay.essay.brief_description,
         content: userMessage.state.essay.essay.content,
         liked: userMessage.state.essay.liked
+      }
+    },
+    methods: {
+      like () {
+        if (userMessage.state.has_login) {
+          axios({
+            method: 'get',
+            headers: {
+              'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+            },
+            url: '/essay/like/?essay_id=' + userMessage.state.essay.essay.id
+          })
+            .then(function (response) {
+              if (response) {
+                if (this.liked) {
+                  this.$message({
+                    message: '取消点赞',
+                    type: 'success',
+                    duration: 500
+                  });
+                }
+                this.liked = !this.liked;
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+        } else {
+          this.$router.push({path: '/login'});
+        }
       }
     }
   }
