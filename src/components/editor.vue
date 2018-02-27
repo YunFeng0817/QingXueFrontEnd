@@ -7,7 +7,7 @@
     </div>
     <div class="edit-line">
       <div contenteditable="true" class="edit-content" placeholder="吐槽一下.." @focus="distransparent"
-           @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab" v-model="content"></div>
+           @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab"></div>
       <el-button type="primary" plain round size="medium" @click="send" ref="send" style="opacity: 0.5">提交</el-button>
     </div>
   </div>
@@ -40,6 +40,9 @@
         default: null
       }
     },
+    mounted () {
+      this.$refs.edit.content = this.content;
+    },
     methods: {
       send () {
         // 发送评论的信息
@@ -64,7 +67,7 @@
                 duration: 1000
               });
             }
-          })
+          }.bind(this))
       },
       transparent () {
         this.$refs.send.$el.style = 'opacity:0.5;';
