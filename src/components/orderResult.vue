@@ -52,12 +52,13 @@
             :method="'put'"
             :content="comment.text"
             :stars="comment.stars"
-            @stopEdit="edit=false">
+            @stopEdit="stopEdit">
       </edit>
     </div>
     <div class="order-body" v-else-if="(trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED')&&!comment">
       <edit :order_sn="orderID"
-            :method="'post'">
+            :method="'post'"
+            @stopEdit="stopEdit">
       </edit>
     </div>
     <div v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'" class="order-body">
@@ -80,7 +81,7 @@
       </p>
     </div>
     <div class="footer" v-if="trade_status==='WAIT_BUYER_PAY'">
-      <a>继续支付</a>
+      <a @click="pay">继续支付</a>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 110px;"></div>
@@ -131,6 +132,24 @@
           .catch(function (error) {
             console.log(error);
           });
+      },
+      stopEdit () {
+        this.edit = false;
+        this.comment = userMessage.state.orderResult.comment;
+      },
+      pay () {
+        axios({
+          method: 'get',
+          url: userMessage.state.orderResult.payment_url
+        })
+          .then(function (response) {
+            if (response) {
+              console.log('正在支付');
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     },
     computed: {

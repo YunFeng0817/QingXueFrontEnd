@@ -62,9 +62,9 @@
               userMessage.commit('commitComment', response);
               this.$emit('stopEdit');
               this.$message({
-                message: '评论成功',
+                message: this.method === 'post' ? '评论成功' : '修改成功',
                 type: 'success',
-                duration: 1000
+                duration: 2000
               });
             }
           }.bind(this))
