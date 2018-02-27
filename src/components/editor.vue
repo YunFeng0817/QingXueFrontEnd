@@ -15,6 +15,7 @@
 
 <script>
   import axios from '../axios/index';
+  import userMessage from '../store/index';
 
   export default {
     name: 'editor',
@@ -55,6 +56,7 @@
         })
           .then(function (response) {
             if (response) {
+              userMessage.commit('commitComment', response);
               this.$message({
                 message: '评论成功',
                 type: 'success',

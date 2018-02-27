@@ -106,6 +106,10 @@ export default new Vuex.Store({
     // 保存具体的订单信息
     commitOrderResult (state, list) {
       state.orderResult = list;
+    },
+    // 局部更新用户评价
+    commitComment (state, list) {
+      state.orderResult.comment = list
     }
   }
 })
