@@ -54,7 +54,6 @@
             stars: this.stars,
             order_sn: this.order_sn,
             comment_to_course_id: this.comment_to_course_id
-
           }
         })
           .then(function (response) {

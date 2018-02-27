@@ -24,7 +24,8 @@
                 <label>
                   课程名称：
                 </label>
-                <a style="font-size: larger" @click.stop="coursesClick(item.course.id)">{{item.course.title}}</a>
+                <a style="font-size: larger;padding:0;"
+                   @click.stop="coursesClick(item.course.id)">{{item.course.title}}</a>
               </p>
               <p>
                 <label>
