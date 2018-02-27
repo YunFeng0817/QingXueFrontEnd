@@ -27,7 +27,7 @@
       <hr/>
       <p>
         交易状态：
-        <span>{{trade_status}}</span>
+        <span>{{tradeStatus}}</span>
       </p>
       <hr/>
       <p>
@@ -134,7 +134,7 @@
       }
     },
     computed: {
-      trade_status: function () {
+      tradeStatus: function () {
         switch (userMessage.state.orderResult.trade_status) {
           case 'TRADE_SUCCESS':
             return '交易成功';
