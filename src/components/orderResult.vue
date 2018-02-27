@@ -51,7 +51,8 @@
             :comment_to_course_id="comment.id"
             :method="'put'"
             :content="comment.text"
-            :stars="comment.stars">
+            :stars="comment.stars"
+            @stopEdit="edit=false">
       </edit>
     </div>
     <div class="order-body" v-else-if="(trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED')&&!comment">

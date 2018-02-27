@@ -57,6 +57,7 @@
           .then(function (response) {
             if (response) {
               userMessage.commit('commitComment', response);
+              this.$emit('stopEdit');
               this.$message({
                 message: '评论成功',
                 type: 'success',
