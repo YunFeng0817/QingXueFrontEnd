@@ -45,7 +45,7 @@
             </div>
             <div style="float:right;position:relative;bottom:12px;">
               <el-button type="danger" size="mini"
-                         @click.stop="deleteOrder(item.order_sn,id)">
+                         @click.stop="deleteOrder(item.order_sn,id,item.trade_status)">
                 <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
                 删除订单
               </el-button>
@@ -446,24 +446,33 @@
           });
       },
       // 处理删除订单的操作
-      deleteOrder (orderId, index) {
-        axios({
-          url: '/order/?order_sn=' + orderId,
-          method: 'delete'
-        })
-          .then(function (response) {
-            if (response) {
-              this.orders.splice(index, 1);// 删除index处的喜欢课程
-              this.$message({
-                message: '删除成功',
-                type: 'success',
-                duration: 1000
-              });
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
+      // 传入参数中tradeStatus用于判断当前订单是否是还未开课的订单
+      deleteOrder (orderId, index, tradeStatus) {
+        if (tradeStatus !== 'TRADE_SUCCESS') {
+          axios({
+            url: '/order/?order_sn=' + orderId,
+            method: 'delete'
+          })
+            .then(function (response) {
+              if (response) {
+                this.orders.splice(index, 1);// 删除index处的喜欢课程
+                this.$message({
+                  message: '删除成功',
+                  type: 'success',
+                  duration: 1000
+                });
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          this.$message({
+            message: '还未开课的订单不能删除',
+            type: 'error',
+            duration: 3000
           });
+        }
       },
       trade_status (tradeStatus) {
         switch (tradeStatus) {
