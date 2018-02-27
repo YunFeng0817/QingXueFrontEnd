@@ -127,7 +127,8 @@
                   console.log(error);
                 })
             }
-          })
+            this.$router.push({path: '/order/result'});
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           })
