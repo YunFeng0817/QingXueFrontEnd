@@ -46,7 +46,7 @@
       <p v-html="student_notes">
       </p>
     </div>
-    <div class="order-body" v-if="edit">
+    <div class="order-body" v-if="edit&&comment">
       <edit :order_sn="orderID"
             :comment_to_course_id="comment.id"
             :method="'put'"
