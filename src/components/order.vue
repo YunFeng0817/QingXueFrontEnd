@@ -114,6 +114,7 @@
         })
           .then(function (response) {
             if (response) {
+              userMessage.commit('commitOrderResult', response);
               axios({
                 method: 'get',
                 url: response.payment_url

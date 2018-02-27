@@ -47,24 +47,35 @@
       </p>
     </div>
     <div class="order-body" v-if="edit">
-      <edit :id="orderID" :post-url="'/student_operation/comment_to_courses/'">
+      <edit :order_sn="orderID"
+            :comment_to_course_id="comment.id"
+            :method="'put'"
+            :content="comment.text"
+            :stars="comment.stars">
       </edit>
     </div>
-    <div class="order-body" v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'">
-      <edit :id="orderID" :post-url="'/student_operation/comment_to_courses/'">
+    <div class="order-body" v-else-if="(trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED')&&!comment">
+      <edit :order_sn="orderID"
+            :method="'post'">
       </edit>
     </div>
-    <div v-else class="order-body">
+    <div v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'" class="order-body">
       <p>
         您的评价：
         <a class="am-icon-edit" style="float:right;font-size:large" @click="edit=true"></a>
       </p>
       <div class="comment-line">
         <span style="margin:0 5%;font-size: larger">评分</span>
-        <el-rate style="margin:5% 0" show-text :allow-half="true">
+        <el-rate style="margin:5% 0"
+                 v-model="comment.stars"
+                 :allow-half="true"
+                 disabled
+                 show-score
+                 text-color="#ff9900"
+                 score-template="{value}">
         </el-rate>
       </div>
-      <p class="comment" v-if="" v-html="">
+      <p class="comment" v-if="" v-html="comment.text">
       </p>
     </div>
     <div class="footer" v-if="trade_status==='WAIT_BUYER_PAY'">
@@ -99,6 +110,7 @@
         student_notes: userMessage.state.orderResult.student_notes,
         course_id: userMessage.state.orderResult.course.id,
         trade_status: userMessage.state.orderResult.trade_status,
+        comment: userMessage.state.orderResult.comment,
         edit: true
       }
     },

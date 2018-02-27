@@ -2,12 +2,12 @@
   <div>
     <div class="edit-line">
       <label style="margin:0 5%;font-size: larger">评分</label>
-      <el-rate v-model="value1" style="margin:5% 0" show-text :allow-half="true">
+      <el-rate v-model="stars" style="margin:5% 0" show-text :allow-half="true">
       </el-rate>
     </div>
     <div class="edit-line">
       <div contenteditable="true" class="edit-content" placeholder="吐槽一下.." @focus="distransparent"
-           @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab"></div>
+           @blur="transparent" ref="edit" @keydown.tab.stopdefault="tab" v-model="content"></div>
       <el-button type="primary" plain round size="medium" @click="send" ref="send" style="opacity: 0.5">提交</el-button>
     </div>
   </div>
@@ -19,36 +19,38 @@
   export default {
     name: 'editor',
     props: {
-      id: {
+      order_sn: {
         type: String,
         required: true
       },
-      postUrl: {
+      comment_to_course_id: {
+        type: String
+      },
+      method: {
         type: String,
         required: true
       },
       content: {
-        type: String
+        type: String,
+        default: null
       },
       stars: {
-        type: Number
-      }
-    },
-    data () {
-      return {
-        value1: null
+        type: Number,
+        default: null
       }
     },
     methods: {
       send () {
         // 发送评论的信息
         axios({
-          method: 'post',
-          url: this.postUrl,
+          method: this.method,
+          url: '/student_operation/comment_to_courses/',
           data: {
-            text: this.$refs.edit.innerHTML,
-            stars: this.value1,
-            order_sn: this.id
+            text: this.content,
+            stars: this.stars,
+            order_sn: this.order_sn,
+            comment_to_course_id: this.comment_to_course_id
+
           }
         })
           .then(function (response) {
