@@ -46,7 +46,7 @@
       <p v-html="student_notes">
       </p>
     </div>
-    <div class="order-body" v-if="edit&&comment">
+    <div class="order-body" v-if="edit">
       <edit :order_sn="orderID"
             :comment_to_course_id="comment.id"
             :method="'put'"
@@ -112,7 +112,7 @@
         course_id: userMessage.state.orderResult.course.id,
         trade_status: userMessage.state.orderResult.trade_status,
         comment: userMessage.state.orderResult.comment,
-        edit: true
+        edit: false
       }
     },
     methods: {
