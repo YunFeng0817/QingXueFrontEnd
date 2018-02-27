@@ -21,7 +21,17 @@
     props: {
       id: {
         type: String,
-        default: '0'
+        required: true
+      },
+      postUrl: {
+        type: String,
+        required: true
+      },
+      content: {
+        type: String
+      },
+      stars: {
+        type: Number
       }
     },
     data () {
@@ -34,7 +44,7 @@
         // 发送评论的信息
         axios({
           method: 'post',
-          url: '/student_operation/comment_to_courses/',
+          url: this.postUrl,
           data: {
             text: this.$refs.edit.innerHTML,
             stars: this.value1,

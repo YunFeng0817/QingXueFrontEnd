@@ -41,14 +41,31 @@
       </p>
       <hr/>
       <p>
-        学生备注：
+        您的备注：
       </p>
       <p v-html="student_notes">
       </p>
     </div>
-    <div class="order-body" v-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'">
-      <edit :id="orderID">
+    <div class="order-body" v-if="edit">
+      <edit :id="orderID" :post-url="'/student_operation/comment_to_courses/'">
       </edit>
+    </div>
+    <div class="order-body" v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'">
+      <edit :id="orderID" :post-url="'/student_operation/comment_to_courses/'">
+      </edit>
+    </div>
+    <div v-else class="order-body">
+      <p>
+        您的评价：
+        <a class="am-icon-edit" style="float:right;font-size:large" @click="edit=true"></a>
+      </p>
+      <div class="comment-line">
+        <span style="margin:0 5%;font-size: larger">评分</span>
+        <el-rate style="margin:5% 0" show-text :allow-half="true">
+        </el-rate>
+      </div>
+      <p class="comment" v-if="" v-html="">
+      </p>
     </div>
     <div class="footer" v-if="trade_status==='WAIT_BUYER_PAY'">
       <a>继续支付</a>
@@ -81,7 +98,8 @@
         pay_time: userMessage.state.orderResult.pay_time,
         student_notes: userMessage.state.orderResult.student_notes,
         course_id: userMessage.state.orderResult.course.id,
-        trade_status: userMessage.state.orderResult.trade_status
+        trade_status: userMessage.state.orderResult.trade_status,
+        edit: true
       }
     },
     methods: {
@@ -177,6 +195,25 @@
 
   .footer a:active {
     background-color: #F74D61;
+  }
+
+  .comment {
+    line-height: 2em;
+    text-indent: 20px;
+    letter-spacing: 2px;
+    font-size: larger;
+    border-radius: 5px;
+    background-color: #eee;
+    /*position: relative;*/
+    /*top: 30%;*/
+  }
+
+  .comment-line {
+    width: 100%;
+    height: 100%;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
   }
 
   p {
