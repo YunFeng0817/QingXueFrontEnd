@@ -103,36 +103,44 @@
     },
     methods: {
       submitForm () {
-        axios({
-          method: 'post',
-          url: 'order/',
-          data: {
-            course_id: userMessage.state.courseDetail.id,
-            time_span_id: this.time_span_id,
-            student_notes: this.student_notes
-          }
-        })
-          .then(function (response) {
-            if (response) {
-              userMessage.commit('commitOrderResult', response);
-              axios({
-                method: 'get',
-                url: response.payment_url
-              })
-                .then(function (response) {
-                  if (response) {
-                    console.log('正在支付');
-                  }
-                })
-                .catch(function (error) {
-                  console.log(error);
-                })
+        if (this.time_span_id) {
+          this.$message({
+            message: '课程时间为必填项',
+            type: 'error',
+            duration: 2000
+          });
+        } else {
+          axios({
+            method: 'post',
+            url: 'order/',
+            data: {
+              course_id: userMessage.state.courseDetail.id,
+              time_span_id: this.time_span_id,
+              student_notes: this.student_notes
             }
-            this.$router.push({path: '/order/result'});
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
           })
+            .then(function (response) {
+              if (response) {
+                userMessage.commit('commitOrderResult', response);
+                axios({
+                  method: 'get',
+                  url: response.payment_url
+                })
+                  .then(function (response) {
+                    if (response) {
+                      console.log('正在支付');
+                    }
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  })
+              }
+              this.$router.push({path: '/order/result'});
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+        }
       }
     }
   }

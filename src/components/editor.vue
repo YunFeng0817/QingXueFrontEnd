@@ -41,7 +41,7 @@
       }
     },
     mounted () {
-      this.$refs.edit.content = this.content;
+      this.$refs.edit.innerHTML = this.content;
     },
     methods: {
       send () {
@@ -50,7 +50,7 @@
           method: this.method,
           url: '/student_operation/comment_to_courses/',
           data: {
-            text: this.content,
+            text: this.$refs.edit.innerHTML,
             stars: this.stars,
             order_sn: this.order_sn,
             comment_to_course_id: this.comment_to_course_id
