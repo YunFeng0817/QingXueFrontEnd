@@ -72,13 +72,15 @@
                 <label>
                   评分：
                 </label>
-                <el-rate
-                  v-model="item.stars"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
+                <span>
+                  <el-rate
+                    v-model="item.stars"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}">
                 </el-rate>
+                </span>
               </p>
               <label>评论内容</label>
               <p v-html="item.text">
