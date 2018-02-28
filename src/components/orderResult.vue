@@ -64,7 +64,7 @@
     <div v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'" class="order-body">
       <p>
         您的评价：
-        <a class="am-icon-remove" style="float:right;font-size:large;color:#e62739;margin:10px 0 0 0;"
+        <a class="am-icon-remove" style="float:right;font-size:large;color:#e62739;margin: 0 0 0 20%;"
            @click="deleteComments(comment.id)"></a>
         <a class="am-icon-edit" style="float:right;font-size:large" @click="edit=true"></a>
       </p>
