@@ -103,7 +103,7 @@
     },
     methods: {
       submitForm () {
-        if (this.time_span_id) {
+        if (!this.time_span_id) {
           this.$message({
             message: '课程时间为必填项',
             type: 'error',

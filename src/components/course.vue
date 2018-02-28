@@ -460,7 +460,13 @@
   .footer a#book {
     /*使得最后一个按钮占据剩余的全部空间*/
     flex-grow: 1;
-    color: #CC3333;
+    color: white;
+    background-color: #e62739;
+    opacity: 0.9;
+    padding: 2% 2%;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 5px;
   }
 
   .footer a#book:active {
