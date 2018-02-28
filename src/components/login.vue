@@ -45,7 +45,9 @@
           </div>
           <div v-if="!tab_active" style="padding: 14px; text-align: center">
             <el-steps :active="process" finish-status="success">
-              <el-step title="验证手机号">
+              <el-step title="服务条款">
+              </el-step>
+              <el-step title="验证手机">
               </el-step>
               <el-step title="确认密码">
               </el-step>
@@ -53,6 +55,17 @@
               </el-step>
             </el-steps>
             <div v-if="process===0">
+              <h2>
+                请您认真查看以下条款
+              </h2>
+              <div class="clause" v-html="hint">
+                test
+              </div>
+              <br/>
+              <el-button @click="setProcess" class="button" type="primary">同意该条款
+              </el-button>
+            </div>
+            <div v-if="process===1">
               <div class="login-row">
                 <label for="phone-number" class="login-label">手机号</label>
                 <el-input
@@ -78,7 +91,7 @@
               <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
               </el-button>
             </div>
-            <div v-if="process===1">
+            <div v-if="process===2">
               <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-position="left"
                        label-width="22%"
                        class="demo-ruleForm">
@@ -96,7 +109,7 @@
                 </el-form-item>
               </el-form>
             </div>
-            <div v-if="process===2">
+            <div v-if="process===3">
               <input-message>
               </input-message>
             </div>
@@ -164,6 +177,7 @@
         process: 0,
         phone_number: '',
         check_num: '',
+        hint: '1、本订单仅供课程预约<br/>2、预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>3、预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>4、该预约不可取消，有效期内未付尾款视为取消该课程<br/>5、机构(教师)不保留相关课程安排',
         ruleForm2: {
           pass: '',
           checkPass: ''
@@ -235,7 +249,7 @@
           });
       },
       setProcess () {
-        if (this.process++ > 2) this.process = 0;
+        if (this.process++ > 3) this.process = 0;
       },
       send_msg () {
         axios({
@@ -412,5 +426,17 @@
     color: #909399;
     background-color: #ebedf1;
     border-bottom: 1px solid #ebf1fe;
+  }
+
+  .clause {
+    width: 100%;
+    text-align: left;
+    line-height: 2em;
+    /*text-indent: 20px;*/
+    letter-spacing: 2px;
+    font-size: larger;
+    border-radius: 5px;
+    background-color: #eee;
+    opacity: 0.7;
   }
 </style>

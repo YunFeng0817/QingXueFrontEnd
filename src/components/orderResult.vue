@@ -79,7 +79,7 @@
                  score-template="{value}">
         </el-rate>
       </div>
-      <p class="comment" v-if="" v-html="comment.text">
+      <p class="comment" v-html="comment.text">
       </p>
     </div>
     <div class="footer" v-if="trade_status==='WAIT_BUYER_PAY'">
