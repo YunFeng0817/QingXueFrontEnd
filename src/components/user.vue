@@ -6,7 +6,7 @@
       <p><span class="user-message">{{userName}}</span>欢迎光临</p>
       <p><a @click="modifyMessage">修改信息</a><a style="padding: 0" @click="modifyPass">修改密码</a><a @click="logout">退出登录</a>
       </p>
-      <p><span style="padding: 0 5px;font-size: larger;">性别：</span><span class="am-btn icon" :class="getGender"
+      <p><span style="padding: 0 5px;font-size: larger;">性别：</span><span :class="getGender"
                                                                          style="font-size: large;padding:0 30px 0 0;"></span>
         <span class="user-message">年级：</span><span class="user-message">{{stage+grade}}</span>
       </p>
