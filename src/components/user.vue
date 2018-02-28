@@ -78,6 +78,7 @@
                     disabled
                     show-score
                     text-color="#ff9900"
+                    style="display: inline-block"
                     score-template="{value}">
                 </el-rate>
                 </span>
