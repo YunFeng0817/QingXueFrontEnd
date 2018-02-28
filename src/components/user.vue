@@ -87,15 +87,10 @@
               </time>
               <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
                 <p style="margin: 0 5%;">tips:点击查看课程详情</p>
-                <el-button type="warn" size="mini"
+                <el-button size="mini"
                            @click.stop="editComments(item.id)">
                   <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
                   修改评论
-                </el-button>
-                <el-button type="danger" size="mini"
-                           @click.stop="deleteComments(item.id,id)">
-                  <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
-                  删除评论
                 </el-button>
               </div>
             </div>
@@ -394,29 +389,6 @@
           .then(function (response) {
             if (response) {
               this.favourites.splice(index, 1);// 删除index处的喜欢课程
-              this.$message({
-                message: '删除成功',
-                type: 'success',
-                duration: 1000
-              });
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          });
-      },
-      // 删除对课程的评论
-      deleteComments (commentId, index) {
-        axios({
-          url: '/student_operation/comment_to_courses/',
-          method: 'delete',
-          data: {
-            comment_to_course_id: commentId
-          }
-        })
-          .then(function (response) {
-            if (response) {
-              this.comments.splice(index, 1);// 删除index处的喜欢课程
               this.$message({
                 message: '删除成功',
                 type: 'success',

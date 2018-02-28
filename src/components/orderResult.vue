@@ -64,6 +64,8 @@
     <div v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'" class="order-body">
       <p>
         您的评价：
+        <a class="am-icon-remove" style="float:right;font-size:large;color:#e62739;margin:10px 0 0 0;"
+           @click="deleteComments(comment.id)"></a>
         <a class="am-icon-edit" style="float:right;font-size:large" @click="edit=true"></a>
       </p>
       <div class="comment-line">
@@ -150,6 +152,29 @@
           .catch(function (error) {
             console.log(error);
           })
+      },
+      // 删除对课程的评论
+      deleteComments (commentId) {
+        axios({
+          url: '/student_operation/comment_to_courses/',
+          method: 'delete',
+          data: {
+            comment_to_course_id: commentId
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.comment = '';
+              this.$message({
+                message: '删除成功',
+                type: 'success',
+                duration: 1000
+              });
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     },
     computed: {
