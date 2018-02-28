@@ -142,7 +142,7 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="4">
         <template slot="title">
-          <i class="am-icon-check-square-o">&nbsp&nbsp我的关注</i>
+          <i class="am-icon-check-square-o operation-item">&nbsp&nbsp我的关注</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in followings" :key="item.id" class="box-card"
                  @click.native="institutionClick(item.educator.id)">
