@@ -492,6 +492,9 @@
 
     width: 100px;
     height: 100px;
+
+    position: relative;
+    top: 5%;
   }
 
   span.user-message {
