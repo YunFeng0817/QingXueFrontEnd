@@ -14,7 +14,8 @@
     </am-article>
     <div class="like">
       <p>
-        发表时间:<time>{{add_time}}</time>
+        发表时间:
+        <time>{{add_time}}</time>
       </p>
       <br/><br/><br/>
       <a class="icon">
@@ -54,7 +55,8 @@
         introduction: userMessage.state.essay.essay.brief_description,
         content: userMessage.state.essay.essay.content,
         liked: userMessage.state.essay.liked,
-        likes_count: userMessage.state.essay.essay.likes_count
+        likes_count: userMessage.state.essay.essay.likes_count,
+        add_time: userMessage.state.essay.add_time
       }
     },
     methods: {
