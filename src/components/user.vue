@@ -62,20 +62,24 @@
                  @click.native="coursesClick(item.course.id)" v-for="(item,id) in comments" :key="item.id">
           <div style="padding: 2%;">
             <div class="bottom clearfix">
-              <label>
-                课程名称：
-              </label>
-              <h2 style="margin: 3% 0">{{item.course.title}}</h2>
-              <label>
-                评分：
-              </label>
-              <el-rate
-                v-model="item.stars"
-                disabled
-                show-score
-                text-color="#ff9900"
-                score-template="{value}">
-              </el-rate>
+              <p>
+                <label>
+                  课程名称：
+                </label>
+                <span style="margin: 3% 0;font-size: larger">{{item.course.title}}</span>
+              </p>
+              <p>
+                <label>
+                  评分：
+                </label>
+                <el-rate
+                  v-model="item.stars"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{value}">
+                </el-rate>
+              </p>
               <label>评论内容</label>
               <p v-html="item.text">
               </p>
@@ -87,8 +91,8 @@
               </time>
               <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
                 <p style="margin: 0 5%;">tips:点击查看课程详情</p>
-                <el-button size="mini"
-                           @click.stop="editComments(item.id)">
+                <el-button size="mini" style="margin: 0 2px 0 0"
+                           @click.stop="orderClick(item.order_sn)">
                   <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
                   修改评论
                 </el-button>
@@ -494,7 +498,7 @@
     height: 100px;
 
     position: relative;
-    top: 5%;
+    top: 15px;
   }
 
   span.user-message {
