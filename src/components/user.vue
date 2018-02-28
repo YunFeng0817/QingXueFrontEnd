@@ -94,7 +94,7 @@
                 <el-button size="mini" style="margin: 0 2px 0 0"
                            @click.stop="orderClick(item.order_sn)">
                   <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
-                  修改评论
+                  订单详情
                 </el-button>
               </div>
             </div>
