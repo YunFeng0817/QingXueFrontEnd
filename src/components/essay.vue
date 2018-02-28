@@ -13,6 +13,10 @@
       </am-article-body>
     </am-article>
     <div class="like">
+      <p>
+        发表时间:<time>{{add_time}}</time>
+      </p>
+      <br/><br/><br/>
       <a class="icon">
         <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'" @click.stop="like">{{likes_count}}</i>
       </a>

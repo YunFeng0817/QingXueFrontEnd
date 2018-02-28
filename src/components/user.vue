@@ -94,7 +94,7 @@
               </time>
               <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
                 <p style="margin: 0 5%;">tips:点击查看课程详情</p>
-                <el-button size="mini" style="margin: 0 2px 0 0"
+                <el-button size="mini" style="margin: 0 5% 0 0"
                            @click.stop="orderClick(item.order_sn)">
                   <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
                   订单详情
