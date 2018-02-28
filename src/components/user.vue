@@ -87,6 +87,11 @@
               </time>
               <div style="display: flex;align-items: center; font-size: larger; position:relative;left:25%;">
                 <p style="margin: 0 5%;">tips:点击查看课程详情</p>
+                <el-button type="warn" size="mini"
+                           @click.stop="editComments(item.id)">
+                  <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
+                  修改评论
+                </el-button>
                 <el-button type="danger" size="mini"
                            @click.stop="deleteComments(item.id,id)">
                   <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
@@ -99,7 +104,7 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="3">
         <template slot="title">
-          <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的收藏</i>
+          <i class="am-icon-heart-o operation-item">&nbsp&nbsp我的收藏</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
                  @click.native="coursesClick(item.course.id)">
@@ -130,14 +135,14 @@
                        style="padding: 1% 1%; position: absolute;right:2%;"
                        @click.stop="deleteFavourites(item.id,id)">
               <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
-              删除收藏
+              取消收藏
             </el-button>
           </div>
         </el-card>
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="4">
         <template slot="title">
-          <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的关注</i>
+          <i class="am-icon-check-square-o">&nbsp&nbsp我的关注</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in followings" :key="item.id" class="box-card"
                  @click.native="institutionClick(item.educator.id)">
@@ -161,7 +166,7 @@
                        style="padding: 1% 1%; position: absolute;right:2%;"
                        @click.stop="deleteFollowings(item.id,id)">
               <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
-              删除收藏
+              取消收藏
             </el-button>
           </div>
         </el-card>
