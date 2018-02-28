@@ -45,7 +45,7 @@
           </div>
           <div v-if="!tab_active" style="padding: 14px; text-align: center">
             <el-steps :active="process" finish-status="success">
-              <el-step title="服务条款">
+              <el-step v-if="!forget_pass" title="服务条款">
               </el-step>
               <el-step title="验证手机">
               </el-step>
@@ -54,7 +54,7 @@
               <el-step v-if="!forget_pass" title="完善信息">
               </el-step>
             </el-steps>
-            <div v-if="process===0">
+            <div v-if="process===0&&!forget_pass">
               <h2>
                 请您认真查看以下条款
               </h2>
@@ -65,7 +65,7 @@
               <el-button @click="setProcess" class="button" type="primary">同意该条款
               </el-button>
             </div>
-            <div v-if="process===1">
+            <div v-if="process===1||(forget_pass&&process===0)">
               <div class="login-row">
                 <label for="phone-number" class="login-label">手机号</label>
                 <el-input
@@ -91,7 +91,7 @@
               <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
               </el-button>
             </div>
-            <div v-if="process===2">
+            <div v-if="process===2||(forget_pass&&process===1)">
               <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-position="left"
                        label-width="22%"
                        class="demo-ruleForm">
@@ -224,6 +224,7 @@
     },
     methods: {
       forgetPass () {
+        this.process = 0;
         this.forget_pass = true;
         this.tab_active = false;
       },
@@ -438,5 +439,11 @@
     border-radius: 5px;
     background-color: #eee;
     opacity: 0.7;
+  }
+</style>
+<style>
+  /*此处是为了解决“验证手机”的不居中问题*/
+  .is-process {
+    text-align: center;
   }
 </style>
