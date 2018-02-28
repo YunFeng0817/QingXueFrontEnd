@@ -14,10 +14,11 @@
     </am-article>
     <div class="like">
       <p>
+        <br/>
         发表时间:
         <time>{{add_time}}</time>
       </p>
-      <br/><br/><br/>
+      <br/>
       <a class="icon">
         <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'" @click.stop="like">{{likes_count}}</i>
       </a>
@@ -56,7 +57,7 @@
         content: userMessage.state.essay.essay.content,
         liked: userMessage.state.essay.liked,
         likes_count: userMessage.state.essay.essay.likes_count,
-        add_time: userMessage.state.essay.add_time
+        add_time: userMessage.state.essay.essay.add_time
       }
     },
     methods: {

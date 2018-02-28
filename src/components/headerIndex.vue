@@ -71,10 +71,10 @@
         }
 
         if (result) {
-          let type = this.is_course ? '/course' : '/dynamic';
+          let url = this.is_course ? '/course/search_list/keyword=' : '/essay/search/?keyword=';
           axios({
             method: 'get',
-            url: type + '/search_list/keyword=' + this.searchContent
+            url: url + this.searchContent
           })
             .then(function (response) {
               if (response) {

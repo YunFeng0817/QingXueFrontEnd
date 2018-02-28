@@ -14,8 +14,8 @@
             <div style="padding: 2%;">
               <span>{{item.title}}</span>
               <div class="bottom clearfix">
+                <span v-if="!item.is_course" style="float:right;">{{item.author}}</span>
                 <p v-if="!item.is_course">{{item.brief_description}}</p>
-                <p v-if="!item.is_course" style="float:right;">{{item.author}}</p>
                 <span v-if="item.is_course">
                   好评率：
                   <el-rate
