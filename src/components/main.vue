@@ -10,7 +10,7 @@
     </icon>
     <el-carousel :interval="4000" arrow="never" height="35px" indicator-position="none">
       <el-carousel-item class="head-line" v-for="item in showMessages" v-bind:key="item.id">
-        <div class="head-line">
+        <div class="head-line" @click.stop="getEssay(item.id)">
           <a>{{item.title}}</a>
         </div>
       </el-carousel-item>
@@ -232,6 +232,21 @@
           item.is_course = true;
         }
         this.recommends = event;
+      },
+      getEssay (id) {
+        axios({
+          url: '/essay/' + id + '/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('commitEssay', response);
+              this.$router.push({path: '/article'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     }
   }
