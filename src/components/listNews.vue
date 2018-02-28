@@ -122,6 +122,7 @@
   }
 
   .bottom {
+    width: 100%;
     margin-top: 13px;
     line-height: 12px;
   }

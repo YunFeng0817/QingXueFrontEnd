@@ -12,13 +12,15 @@
         </div>
       </am-article-body>
     </am-article>
+    <br/>
     <div class="like">
       <p>
-        <br/>
         发表时间:
         <time>{{add_time}}</time>
       </p>
-      <br/>
+    </div>
+    <br/>
+    <div class="like">
       <a class="icon">
         <i :class="liked?'am-icon-thumbs-up':'am-icon-thumbs-o-up'" @click.stop="like">{{likes_count}}</i>
       </a>

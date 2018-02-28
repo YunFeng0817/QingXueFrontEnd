@@ -78,8 +78,14 @@
           })
             .then(function (response) {
               if (response) {
-                for (let item of response.courses) {
-                  item.is_course = this.is_course;
+                if (this.is_course) {
+                  for (let item of response.courses) {
+                    item.is_course = this.is_course;
+                  }
+                } else {
+                  for (let item of response.essays) {
+                    item.is_course = this.is_course;
+                  }
                 }
                 response.is_course = this.is_course;
                 userMessage.commit('commitSearch', response);
