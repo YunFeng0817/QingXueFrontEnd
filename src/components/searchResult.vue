@@ -2,7 +2,8 @@
   <div>
     <header-index :is_course="is_course">
     </header-index>
-    <list-news v-if="recommends.length!==0" :type-name="typeName" :recommends="recommends">
+    <list-news v-if="(is_course?recommends.courses:recommends.essays).length!==0" :type-name="typeName"
+               :recommends="is_course?recommends.courses:recommends.essays">
     </list-news>
     <p v-else style="text-align: center;font-size:large;">没有搜索到相关内容，换个关键词试试呗？</p>
   </div>

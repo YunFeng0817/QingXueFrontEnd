@@ -91,7 +91,8 @@
 
 <style scoped type="text/css" rel="stylesheet">
   .like {
-    float: right;
+    position: absolute;
+    right: 2%;
   }
 
   i {

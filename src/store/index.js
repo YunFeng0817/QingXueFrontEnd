@@ -78,7 +78,7 @@ export default new Vuex.Store({
     },
     // 保存搜索结果
     commitSearch (state, list) {
-      state.searchResult = list.courses;
+      state.searchResult = list;
       state.is_course = list.is_course;
     },
     // 保存一级分类的返回结果

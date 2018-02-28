@@ -11,10 +11,10 @@
           <el-tag v-if="item.is_course" size="mini">{{item.degree}}</el-tag>
           <div class="courses">
             <img :src="item.cover" class="image">
-            <div style="padding: 2%;">
+            <div style="padding: 2%;width:100%;">
               <span>{{item.title}}</span>
               <div class="bottom clearfix">
-                <span v-if="!item.is_course" style="float:right;">{{item.author}}</span>
+                <span v-if="!item.is_course" style="float:right;">作者：{{item.author}}</span>
                 <p v-if="!item.is_course">{{item.brief_description}}</p>
                 <span v-if="item.is_course">
                   好评率：
