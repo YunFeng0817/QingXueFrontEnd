@@ -12,36 +12,32 @@ export default new Router({
       component: resolve => require(['../components/main'], resolve)
     },
     {
-      path: '/main/',
+      path: '/main',
       component: resolve => require(['../components/main'], resolve)
     },
     {
-      path: '/login/',
+      path: '/login',
       component: resolve => require(['../components/login'], resolve) // 懒加载
     },
     {
-      path: '/dynamic/',
+      path: '/dynamic',
       component: resolve => require(['../components/dynamic'], resolve) // 懒加载
     },
     {
-      path: '/user/',
+      path: '/user',
       component: resolve => require(['../components/user'], resolve) // 懒加载
     },
     {
-      path: '/search/',
+      path: '/search',
       query: {key: ' '},
       component: resolve => require(['../components/searchResult'], resolve) // 懒加载
     },
     {
-      path: '/get/',
+      path: '/get',
       component: resolve => require(['../components/main'], resolve)
     },
     {
-      path: '/course',
-      component: resolve => require(['../components/course'], resolve) // 懒加载
-    },
-    {
-      path: '/institution',
+      path: '/detail/:type/:id',
       component: resolve => require(['../components/course'], resolve) // 懒加载
     },
     {

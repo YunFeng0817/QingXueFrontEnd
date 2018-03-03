@@ -89,7 +89,7 @@
             .then(function (response) {
               if (response) {
                 userMessage.commit('commitCourse', response);
-                this.$router.push({path: '/course'});
+                this.$router.push({path: '/detail/course/' + id});
               }
             }.bind(this))
             .catch(function (error) {

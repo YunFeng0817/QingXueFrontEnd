@@ -3,7 +3,7 @@
     <back-button>
     </back-button>
     <div class="order-header">
-      <span class="order-header" v-if="path==='/course'">课程详情</span>
+      <span class="order-header" v-if="path==='course'">课程详情</span>
       <span class="order-header" v-else>机构详情</span>
       <i :class="favourited?'am-icon-heart':'am-icon-heart-o'"
          style="position: relative;left:25%; color: red;" @click="favourite">
@@ -19,7 +19,7 @@
         <div class="bottom clearfix">
           <el-tabs type="border-card" ref="tab" @tab-click="handleClick">
             <el-tab-pane label="简介">
-              <div v-if="path==='/course'">
+              <div v-if="path==='course'">
                 <p v-for="item in time_spans" :key="item.id">
                   <span class="time">开课时间</span>
                   <time class="time">{{item.start_time}}</time>
@@ -70,12 +70,12 @@
                 </p>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="详情" v-if="path==='/course'">
+            <el-tab-pane label="详情" v-if="path==='course'">
               <p>
                 {{detail}}
               </p>
             </el-tab-pane>
-            <el-tab-pane label="教师" v-if="path==='/course'">
+            <el-tab-pane label="教师" v-if="path==='course'">
               <div v-for="item in teachers">
                 <div class="educator">
                   <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
@@ -104,7 +104,7 @@
                 </bm-marker>
               </baidu-map>
             </el-tab-pane>
-            <el-tab-pane label="评价" v-if="path==='/course'">
+            <el-tab-pane label="评价" v-if="path==='course'">
               <am-comment-list>
                 <am-comment v-for="item in comments" :key="item.id">
                   <am-comment-avatar :src="item.student.head_photo">
@@ -141,7 +141,7 @@
       </div>
     </div>
 
-    <div class="footer" v-if="path==='/course'">
+    <div class="footer" v-if="path==='course'">
       <a class="message" @click="intoInstitution(institutionID)">
         <i class="am-icon-university"></i>
         进入机构</a>
@@ -204,8 +204,7 @@
       return {
         favourited: false,
         title: '',
-        start_time: '',
-        end_time: '',
+        time_spans: [],
         perSession: '',
         stars: 5,
         price: 0,
@@ -220,39 +219,41 @@
         edu_background: '',
         head_photo: '',
         contact: '',
-        path: this.$router.currentRoute.path,
+        path: this.$router.currentRoute.params.type,
         offsetTop: 0,
         cloneNode: document.createElement('img')
       }
     },
     created () {
-      if (this.path === '/course') {
-        this.favourited = userMessage.state.courseDetail.favourited;
-        this.title = userMessage.state.courseDetail.name;
-        this.time_spans = userMessage.state.courseDetail.time_spans;
-        this.perSession = userMessage.state.courseDetail.session_hours;
-        this.stars = userMessage.state.courseDetail.stars;
-        this.price = userMessage.state.courseDetail.total_price;
-        this.discount = userMessage.state.courseDetail.discount;
-        this.introduction = userMessage.state.courseDetail.brief_description;
-        this.detail = userMessage.state.courseDetail.detail;
-        this.teachers = userMessage.state.courseDetail.teachers;
-        this.showImages = userMessage.state.courseDetail.banners;
-        this.institutionID = userMessage.state.courseDetail.master;
-        this.contact = userMessage.state.courseDetail.contact;
-      } else if (this.path === '/institution') {
-        this.favourited = userMessage.state.institution.followed;
-        this.title = userMessage.state.institution.basic_info.name;
-        this.introduction = userMessage.state.institution.basic_info.introduction;
-        this.showImages = userMessage.state.institution.basic_info.banner;
-        this.head_photo = userMessage.state.institution.basic_info.head_photo;
-        this.contact = userMessage.state.institution.basic_info.contact;
-      }
-    },
-    watch: {
-      '$route' (to, from) {
-        this.path = this.$router.currentRoute.path;
-        if (this.path === '/course') {
+      if (this.path === 'course') {
+        // console.log(!);
+        if (JSON.stringify(userMessage.state.courseDetail) === '{}') {
+          axios({
+            url: '/api/course/' + this.$router.currentRoute.params.id + '/',
+            method: 'get'
+          })
+            .then(function (response) {
+              if (response) {
+                userMessage.commit('commitCourse', response);
+                this.favourited = response.favourited;
+                this.title = response.name;
+                this.time_spans = response.time_spans;
+                this.perSession = response.session_hours;
+                this.stars = response.stars;
+                this.price = response.total_price;
+                this.discount = response.discount;
+                this.introduction = response.brief_description;
+                this.detail = response.detail;
+                this.teachers = response.teachers;
+                this.showImages = response.banners;
+                this.institutionID = response.master;
+                this.contact = response.contact;
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
           this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
           this.time_spans = userMessage.state.courseDetail.time_spans;
@@ -266,13 +267,87 @@
           this.showImages = userMessage.state.courseDetail.banners;
           this.institutionID = userMessage.state.courseDetail.master;
           this.contact = userMessage.state.courseDetail.contact;
-        } else if (this.path === '/institution') {
+        }
+      } else if (this.path === 'institution') {
+        if (JSON.stringify(userMessage.state.institution) === '{}') {
+          axios({
+            url: '/api/educator/' + this.$router.currentRoute.params.id + '/',
+            method: 'get'
+          })
+            .then(function (response) {
+              if (response) {
+                userMessage.commit('commitInstitution', response);
+                this.favourited = response.followed;
+                this.title = response.basic_info.name;
+                this.introduction = response.basic_info.introduction;
+                this.showImages = response.basic_info.banner;
+                this.head_photo = response.basic_info.head_photo;
+                this.contact = response.basic_info.contact;
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
           this.favourited = userMessage.state.institution.followed;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
           this.showImages = userMessage.state.institution.basic_info.banner;
-          this.gender = userMessage.state.institution.gender;
-          this.edu_background = userMessage.state.institution.edu_background;
+          this.head_photo = userMessage.state.institution.basic_info.head_photo;
+          this.contact = userMessage.state.institution.basic_info.contact;
+        }
+      }
+    },
+    watch: {
+      '$route' (to, from) {
+        this.path = this.$router.currentRoute.params.type;
+        if (this.path === 'course') {
+          // if (!userMessage.state.courseDetail) {
+          //   axios({
+          //     url: '/api/course/' + this.$router.currentRoute.params.id + '/',
+          //     method: 'get'
+          //   })
+          //     .then(function (response) {
+          //       if (response) {
+          //         userMessage.commit('commitCourse', response);
+          //       }
+          //     }.bind(this))
+          //     .catch(function (error) {
+          //       console.log(error);
+          //     });
+          // }
+          this.favourited = userMessage.state.courseDetail.favourited;
+          this.title = userMessage.state.courseDetail.name;
+          this.time_spans = userMessage.state.courseDetail.time_spans;
+          this.perSession = userMessage.state.courseDetail.session_hours;
+          this.stars = userMessage.state.courseDetail.stars;
+          this.price = userMessage.state.courseDetail.total_price;
+          this.discount = userMessage.state.courseDetail.discount;
+          this.introduction = userMessage.state.courseDetail.brief_description;
+          this.detail = userMessage.state.courseDetail.detail;
+          this.teachers = userMessage.state.courseDetail.teachers;
+          this.showImages = userMessage.state.courseDetail.banners;
+          this.institutionID = userMessage.state.courseDetail.master;
+          this.contact = userMessage.state.courseDetail.contact;
+        } else if (this.path === 'institution') {
+          // if (!userMessage.state.institution) {
+          //   axios({
+          //     url: '/api/educator/' + institutionID + '/',
+          //     method: 'get'
+          //   })
+          //     .then(function (response) {
+          //       if (response) {
+          //         userMessage.commit('commitInstitution', response);
+          //       }
+          //     }.bind(this))
+          //     .catch(function (error) {
+          //       console.log(error);
+          //     });
+          // }
+          this.favourited = userMessage.state.institution.followed;
+          this.title = userMessage.state.institution.basic_info.name;
+          this.introduction = userMessage.state.institution.basic_info.introduction;
+          this.showImages = userMessage.state.institution.basic_info.banner;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
           this.contact = userMessage.state.institution.basic_info.contact;
         }
@@ -296,7 +371,7 @@
           .then(function (response) {
             if (response) {
               userMessage.commit('commitInstitution', response);
-              this.$router.push({path: '/institution'});
+              this.$router.push({path: '/detail/institution/' + institutionID});
             }
           }.bind(this))
           .catch(function (error) {
@@ -334,7 +409,7 @@
               },
               url: '/api/student_operation/' + (this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/'),
               data: {
-                course_id: userMessage.state.courseDetail.id,
+                course_id: this.$router.currentRoute.params.id,
                 educator_id: userMessage.state.institution.basic_info.id
               }
             })
@@ -369,7 +444,7 @@
             if (this.comments.length === 0) {
               axios({
                 method: 'get',
-                url: '/api/course/' + userMessage.state.courseDetail.id + '/get_comments/'
+                url: '/api/course/' + this.$router.currentRoute.params.id + '/get_comments/'
               })
                 .then(function (response) {
                   if (response) {
