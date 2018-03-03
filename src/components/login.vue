@@ -231,7 +231,7 @@
       loginSubmit () {
         axios({
           method: 'post',
-          url: '/student/login/',
+          url: '/api/student/login/',
           data: {
             username: this.username,
             password: this.password,
@@ -255,7 +255,7 @@
       send_msg () {
         axios({
           method: 'post',
-          url: '/student/send_msg/',
+          url: '/api/student/send_msg/',
           data: {
             is_signing_up: !this.forget_pass,
             phone_number: this.phone_number
@@ -284,7 +284,7 @@
       msg_confirm () {
         axios({
           method: 'post',
-          url: '/student/msg_confirm/',
+          url: '/api/student/msg_confirm/',
           data: {
             phone_number: this.phone_number,
             msg_code: this.check_num
@@ -306,7 +306,7 @@
           if (valid) {
             axios({
               method: method,
-              url: '/student/detail/',
+              url: '/api/student/detail/',
               headers: {
                 'X-CSRFToken': test
               },

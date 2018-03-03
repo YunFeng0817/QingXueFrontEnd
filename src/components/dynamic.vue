@@ -134,7 +134,7 @@
     created () {
       if (userMessage.state.essays.length === 0) {
         axios({
-          url: '/essay/filtered_essays/',
+          url: '/api/essay/filtered_essays/',
           method: 'get'
         })
           .then(function (response) {
@@ -186,7 +186,7 @@
       },
       tabClick (data) {
         axios({
-          url: '/essay/filtered_essays/',
+          url: '/api/essay/filtered_essays/',
           method: 'post',
           data: data
         })

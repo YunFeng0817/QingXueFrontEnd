@@ -122,7 +122,7 @@
       // 处理点击进入课程详情的操作
       coursesClick (id) {
         axios({
-          url: '/course/' + id + '/',
+          url: '/api/course/' + id + '/',
           method: 'get'
         })
           .then(function (response) {
@@ -156,7 +156,7 @@
       // 删除对课程的评论
       deleteComments (commentId) {
         axios({
-          url: '/student_operation/comment_to_courses/',
+          url: '/api/student_operation/comment_to_courses/',
           method: 'delete',
           data: {
             comment_to_course_id: commentId

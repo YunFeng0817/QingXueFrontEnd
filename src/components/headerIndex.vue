@@ -71,7 +71,7 @@
         }
 
         if (result) {
-          let url = this.is_course ? '/course/search_list/keyword=' : '/essay/search/?keyword=';
+          let url = this.is_course ? '/api/course/search_list/keyword=' : '/api/essay/search/?keyword=';
           axios({
             method: 'get',
             url: url + this.searchContent

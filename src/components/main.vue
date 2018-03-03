@@ -235,7 +235,7 @@
       },
       getEssay (id) {
         axios({
-          url: '/essay/' + id + '/',
+          url: '/api/essay/' + id + '/',
           method: 'get'
         })
           .then(function (response) {

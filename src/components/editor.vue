@@ -48,7 +48,7 @@
         // 发送评论的信息
         axios({
           method: this.method,
-          url: '/student_operation/comment_to_courses/',
+          url: '/api/student_operation/comment_to_courses/',
           data: {
             text: this.$refs.edit.innerHTML,
             stars: this.stars,

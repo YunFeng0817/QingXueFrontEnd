@@ -70,7 +70,7 @@
             headers: {
               'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
             },
-            url: '/essay/like/?essay_id=' + userMessage.state.essay.essay.id
+            url: '/api/essay/like/?essay_id=' + userMessage.state.essay.essay.id
           })
             .then(function (response) {
               if (response) {

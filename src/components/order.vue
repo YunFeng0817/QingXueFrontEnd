@@ -112,7 +112,7 @@
         } else {
           axios({
             method: 'post',
-            url: 'order/',
+            url: '/api/order/',
             data: {
               course_id: userMessage.state.courseDetail.id,
               time_span_id: this.time_span_id,

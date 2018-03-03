@@ -83,7 +83,7 @@
       clickAction (id) {
         if (this.recommends[0].is_course) {
           axios({
-            url: '/course/' + id + '/',
+            url: '/api/course/' + id + '/',
             method: 'get'
           })
             .then(function (response) {
@@ -97,7 +97,7 @@
             });
         } else {
           axios({
-            url: '/essay/' + id + '/',
+            url: '/api/essay/' + id + '/',
             method: 'get'
           })
             .then(function (response) {

@@ -74,7 +74,7 @@
     created () {
       axios({
         method: 'get',
-        url: '/common/stages/'
+        url: '/api/common/stages/'
       })
         .then(function (response) {
           if (response) {
@@ -86,7 +86,7 @@
         });
       axios({
         method: 'get',
-        url: '/common/grades/'
+        url: '/api/common/grades/'
       })
         .then(function (response) {
           if (response) {
@@ -98,7 +98,7 @@
         });
       axios({
         method: 'get',
-        url: '/student/detail/'
+        url: '/api/student/detail/'
       })
         .then(function (response) {
           if (response) {
@@ -173,7 +173,7 @@
         dataForm.append('name', this.form.name);
         axios({
           method: 'put',
-          url: '/student/detail/',
+          url: '/api/student/detail/',
           headers: {
             'Content-Type': 'multipart/form-data'
           },

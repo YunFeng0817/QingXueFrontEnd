@@ -97,7 +97,7 @@
                 'X-CSRFToken': test
               },
               method: 'patch',
-              url: '/student/detail/',
+              url: '/api/student/detail/',
               data: {
                 check_method: 'password_check',
                 old_password: this.password,

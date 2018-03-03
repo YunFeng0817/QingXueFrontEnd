@@ -290,7 +290,7 @@
       // 处理进入机构主页
       intoInstitution (institutionID) {
         axios({
-          url: '/educator/' + institutionID + '/',
+          url: '/api/educator/' + institutionID + '/',
           method: 'get'
         })
           .then(function (response) {
@@ -332,7 +332,7 @@
               headers: {
                 'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
               },
-              url: '/student_operation/' + (this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/'),
+              url: '/api/student_operation/' + (this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/'),
               data: {
                 course_id: userMessage.state.courseDetail.id,
                 educator_id: userMessage.state.institution.basic_info.id
@@ -369,7 +369,7 @@
             if (this.comments.length === 0) {
               axios({
                 method: 'get',
-                url: '/course/' + userMessage.state.courseDetail.id + '/get_comments/'
+                url: '/api/course/' + userMessage.state.courseDetail.id + '/get_comments/'
               })
                 .then(function (response) {
                   if (response) {

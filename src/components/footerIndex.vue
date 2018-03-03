@@ -31,7 +31,7 @@
         }
         axios({
           method: 'get',
-          url: '/student/login/'
+          url: '/api/student/login/'
         })
           .then(function (response) {
             if (response) {

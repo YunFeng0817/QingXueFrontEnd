@@ -121,7 +121,7 @@
       if (userMessage.state.subjects.length === 0) {
         axios({
           method: 'get',
-          url: '/common/subjects/'
+          url: '/api/common/subjects/'
         })
           .then(function (response) {
             if (response) {
@@ -135,7 +135,7 @@
       if (userMessage.state.degrees.length === 0) {
         axios({
           method: 'get',
-          url: '/common/degrees/'
+          url: '/api/common/degrees/'
         })
           .then(function (response) {
             if (response) {
@@ -154,7 +154,7 @@
       handleChange (value) {
         axios({
           method: 'post',
-          url: '/course/filtered_list/',
+          url: '/api/course/filtered_list/',
           data: {
             stages: [value[0]],
             grades: [value[1]],
