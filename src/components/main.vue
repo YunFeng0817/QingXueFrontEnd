@@ -181,34 +181,8 @@
             }
           }
         ],
-        showImages: [
-          {
-            image: 'http://s.amazeui.org/media/i/demos/bing-1.jpg',
-            link: ''
-          },
-          {
-            image: 'http://s.amazeui.org/media/i/demos/bing-2.jpg',
-            link: ''
-          },
-          {
-            image: 'http://s.amazeui.org/media/i/demos/bing-3.jpg',
-            link: ''
-          },
-          {
-            image: 'http://s.amazeui.org/media/i/demos/bing-4.jpg',
-            link: ''
-          }
-        ],
-        showMessages: [
-          {
-            title: '王**老板黄鹤带着小姨子跑路啦!!!',
-            link: '/dynamic'
-          },
-          {
-            title: '原价200元的皮包现在通通20块',
-            link: '/dynamic'
-          }
-        ],
+        showImages: [],
+        showMessages: [],
         recommends: []
       }
     },
