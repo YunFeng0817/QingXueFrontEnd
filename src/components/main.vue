@@ -49,7 +49,7 @@
       if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
         axios({
           method: 'get',
-          url: '/common/page_contents/'
+          url: '/api/common/page_contents/'
         })
           .then(function (response) {
             if (response) {
