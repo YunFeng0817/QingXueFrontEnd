@@ -53,14 +53,34 @@
     name: 'essay',
     data () {
       return {
-        title: userMessage.state.essay.essay.title,
-        author: userMessage.state.essay.author,
-        introduction: userMessage.state.essay.essay.brief_description,
-        content: userMessage.state.essay.essay.content,
-        liked: userMessage.state.essay.liked,
-        likes_count: userMessage.state.essay.essay.likes_count,
-        add_time: userMessage.state.essay.essay.add_time
+        title: '',
+        author: '',
+        introduction: '',
+        content: '',
+        liked: false,
+        likes_count: null,
+        add_time: null
       }
+    },
+    created () {
+      axios({
+        url: '/api/essay/' + this.$router.currentRoute.params.id + '/',
+        method: 'get'
+      })
+        .then(function (response) {
+          if (response) {
+            this.title = response.essay.title;
+            this.author = response.author;
+            this.introduction = response.essay.brief_description;
+            this.content = response.essay.content;
+            this.liked = response.liked;
+            this.likes_count = response.essay.likes_count;
+            this.add_time = response.essay.add_time;
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        })
     },
     methods: {
       like () {
@@ -70,7 +90,7 @@
             headers: {
               'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
             },
-            url: '/api/essay/like/?essay_id=' + userMessage.state.essay.essay.id
+            url: '/api/essay/like/?essay_id=' + this.$router.currentRoute.params.id
           })
             .then(function (response) {
               if (response) {

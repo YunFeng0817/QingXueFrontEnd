@@ -96,19 +96,7 @@
               console.log(error);
             });
         } else {
-          axios({
-            url: '/api/essay/' + id + '/',
-            method: 'get'
-          })
-            .then(function (response) {
-              if (response) {
-                userMessage.commit('commitEssay', response);
-                this.$router.push({path: '/article'});
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
-            })
+          this.$router.push({path: '/article/' + id});
         }
       }
     }

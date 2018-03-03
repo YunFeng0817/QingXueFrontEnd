@@ -45,7 +45,7 @@ export default new Router({
       component: resolve => require(['../components/course'], resolve) // 懒加载
     },
     {
-      path: '/article',
+      path: '/article/:id',
       component: resolve => require(['../components/essay'], resolve) // 懒加载
     },
     {
