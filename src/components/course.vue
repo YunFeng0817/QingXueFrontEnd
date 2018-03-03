@@ -226,7 +226,7 @@
     },
     created () {
       if (this.path === 'course') {
-        // console.log(!);
+        // 下面的if分支处理非跳转，直接访问的情况
         if (JSON.stringify(userMessage.state.courseDetail) === '{}') {
           axios({
             url: '/api/course/' + this.$router.currentRoute.params.id + '/',
@@ -269,6 +269,7 @@
           this.contact = userMessage.state.courseDetail.contact;
         }
       } else if (this.path === 'institution') {
+        // 下面的if分支处理非跳转，直接访问的情况
         if (JSON.stringify(userMessage.state.institution) === '{}') {
           axios({
             url: '/api/educator/' + this.$router.currentRoute.params.id + '/',
@@ -302,20 +303,6 @@
       '$route' (to, from) {
         this.path = this.$router.currentRoute.params.type;
         if (this.path === 'course') {
-          // if (!userMessage.state.courseDetail) {
-          //   axios({
-          //     url: '/api/course/' + this.$router.currentRoute.params.id + '/',
-          //     method: 'get'
-          //   })
-          //     .then(function (response) {
-          //       if (response) {
-          //         userMessage.commit('commitCourse', response);
-          //       }
-          //     }.bind(this))
-          //     .catch(function (error) {
-          //       console.log(error);
-          //     });
-          // }
           this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
           this.time_spans = userMessage.state.courseDetail.time_spans;
@@ -330,20 +317,6 @@
           this.institutionID = userMessage.state.courseDetail.master;
           this.contact = userMessage.state.courseDetail.contact;
         } else if (this.path === 'institution') {
-          // if (!userMessage.state.institution) {
-          //   axios({
-          //     url: '/api/educator/' + institutionID + '/',
-          //     method: 'get'
-          //   })
-          //     .then(function (response) {
-          //       if (response) {
-          //         userMessage.commit('commitInstitution', response);
-          //       }
-          //     }.bind(this))
-          //     .catch(function (error) {
-          //       console.log(error);
-          //     });
-          // }
           this.favourited = userMessage.state.institution.followed;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
@@ -407,7 +380,7 @@
               headers: {
                 'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
               },
-              url: '/api/student_operation/' + (this.$router.currentRoute.path === '/course' ? 'favourites/' : 'followings/'),
+              url: '/api/student_operation/' + (this.path === 'course' ? 'favourites/' : 'followings/'),
               data: {
                 course_id: this.$router.currentRoute.params.id,
                 educator_id: userMessage.state.institution.basic_info.id
