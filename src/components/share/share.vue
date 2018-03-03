@@ -81,6 +81,7 @@
 
   .share {
     width: 100%;
+    max-width: 450px;
     position: fixed;
     bottom: 20px;
     z-index: 1200;
