@@ -83,7 +83,7 @@
           {
             message: '幼儿',
             iconType: 'am-success am-icon-child',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '幼儿'
@@ -93,7 +93,7 @@
           {
             message: '小学',
             iconType: 'am-primary am-icon-female',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '小学'
@@ -103,7 +103,7 @@
           {
             message: '初中',
             iconType: 'am-warning am-icon-male',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '初中'
@@ -113,7 +113,7 @@
           {
             message: '高中',
             iconType: 'am-success am-icon-fort-awesome',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '高中'
@@ -123,7 +123,7 @@
           {
             message: '大学',
             iconType: 'am-danger am-icon-graduation-cap',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '大学'
@@ -133,7 +133,7 @@
           {
             message: '留学',
             iconType: 'am-warning am-icon-institution',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '留学'
@@ -143,7 +143,7 @@
           {
             message: '职业技能',
             iconType: 'am-danger am-icon-signal',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '职业技能'
@@ -153,7 +153,7 @@
           {
             message: '讲座活动',
             iconType: 'am-primary am-icon-rocket',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               stages: [
                 '讲座活动'
@@ -163,7 +163,7 @@
           {
             message: '文艺',
             iconType: 'am-warning am-icon-paint-brush',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               subjects: [
                 '文艺'
@@ -173,7 +173,7 @@
           {
             message: '体育',
             iconType: 'am-primary am-icon-bicycle',
-            url: ' /common/page_contents/',
+            url: ' /api/common/page_contents/',
             data: {
               subjects: [
                 '体育'
@@ -208,19 +208,7 @@
         this.recommends = event;
       },
       getEssay (id) {
-        axios({
-          url: '/api/essay/' + id + '/',
-          method: 'get'
-        })
-          .then(function (response) {
-            if (response) {
-              userMessage.commit('commitEssay', response);
-              this.$router.push({path: '/article'});
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          })
+        this.$router.push({path: '/article/' + id});
       }
     }
   }
