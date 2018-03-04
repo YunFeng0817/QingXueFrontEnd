@@ -339,7 +339,7 @@
       // 处理点击进入课程详情的操作
       coursesClick (id) {
         axios({
-          url: '/api/course/' + id + '/',
+          url: '/course/' + id + '/',
           method: 'get'
         })
           .then(function (response) {
@@ -355,7 +355,7 @@
       // 处理点击进入订单详情的操作
       orderClick (id) {
         axios({
-          url: '/api/order/?order_sn=' + id,
+          url: '/order/?order_sn=' + id,
           method: 'get'
         })
           .then(function (response) {
@@ -371,7 +371,7 @@
       // 处理点击进机构的情况
       institutionClick (id) {
         axios({
-          url: '/api/educator/' + id + '/',
+          url: '/educator/' + id + '/',
           method: 'get'
         })
           .then(function (response) {
@@ -387,7 +387,7 @@
       // 处理删除喜欢课程
       deleteFavourites (favouriteId, index) {
         axios({
-          url: '/api/student_operation/favourites/',
+          url: '/student_operation/favourites/',
           method: 'delete',
           data: {
             favourite_id: favouriteId
@@ -410,7 +410,7 @@
       // 删除对这个机构的关注
       deleteFollowings (itemId, index) {
         axios({
-          url: '/api/student_operation/followings/',
+          url: '/student_operation/followings/',
           method: 'delete',
           data: {
             following_id: itemId
@@ -435,7 +435,7 @@
       deleteOrder (orderId, index, tradeStatus) {
         if (tradeStatus !== 'TRADE_SUCCESS') {
           axios({
-            url: '/api/order/?order_sn=' + orderId,
+            url: '/order/?order_sn=' + orderId,
             method: 'delete'
           })
             .then(function (response) {

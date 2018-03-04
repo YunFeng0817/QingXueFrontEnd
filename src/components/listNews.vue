@@ -120,6 +120,7 @@
     height: 30%;
     max-width: 390px;
     display: block;
+    margin: 2% 1%;
   }
 
   .clearfix:before,

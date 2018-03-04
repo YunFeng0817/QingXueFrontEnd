@@ -69,13 +69,13 @@
       })
         .then(function (response) {
           if (response) {
-            this.title = response.essay.title;
+            this.title = response.title;
             this.author = response.author;
-            this.introduction = response.essay.brief_description;
-            this.content = response.essay.content;
+            this.introduction = response.brief_description;
+            this.content = response.content;
             this.liked = response.liked;
-            this.likes_count = response.essay.likes_count;
-            this.add_time = response.essay.add_time;
+            this.likes_count = response.likes_count;
+            this.add_time = response.add_time;
           }
         }.bind(this))
         .catch(function (error) {
