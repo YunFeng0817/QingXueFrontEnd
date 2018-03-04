@@ -113,6 +113,9 @@
           axios({
             method: 'post',
             url: '/api/order/',
+            headers: {
+              'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+            },
             data: {
               course_id: userMessage.state.courseDetail.id,
               time_span_id: this.time_span_id,

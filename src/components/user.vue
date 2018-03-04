@@ -339,13 +339,13 @@
       // 处理点击进入课程详情的操作
       coursesClick (id) {
         axios({
-          url: '/course/' + id + '/',
+          url: '/api/course/' + id + '/',
           method: 'get'
         })
           .then(function (response) {
             if (response) {
               userMessage.commit('commitCourse', response);
-              this.$router.push({path: '/course'});
+              this.$router.push({path: '/detail/course/' + id});
             }
           }.bind(this))
           .catch(function (error) {
@@ -355,7 +355,7 @@
       // 处理点击进入订单详情的操作
       orderClick (id) {
         axios({
-          url: '/order/?order_sn=' + id,
+          url: '/api/order/?order_sn=' + id,
           method: 'get'
         })
           .then(function (response) {
@@ -371,13 +371,13 @@
       // 处理点击进机构的情况
       institutionClick (id) {
         axios({
-          url: '/educator/' + id + '/',
+          url: '/api/educator/' + id + '/',
           method: 'get'
         })
           .then(function (response) {
             if (response) {
               userMessage.commit('commitInstitution', response);
-              this.$router.push({path: '/institution'});
+              this.$router.push({path: '/detail/institution/' + id});
             }
           }.bind(this))
           .catch(function (error) {
@@ -387,7 +387,7 @@
       // 处理删除喜欢课程
       deleteFavourites (favouriteId, index) {
         axios({
-          url: '/student_operation/favourites/',
+          url: '/api/student_operation/favourites/',
           method: 'delete',
           data: {
             favourite_id: favouriteId
@@ -410,7 +410,7 @@
       // 删除对这个机构的关注
       deleteFollowings (itemId, index) {
         axios({
-          url: '/student_operation/followings/',
+          url: '/api/student_operation/followings/',
           method: 'delete',
           data: {
             following_id: itemId
@@ -435,7 +435,7 @@
       deleteOrder (orderId, index, tradeStatus) {
         if (tradeStatus !== 'TRADE_SUCCESS') {
           axios({
-            url: '/order/?order_sn=' + orderId,
+            url: '/api/order/?order_sn=' + orderId,
             method: 'delete'
           })
             .then(function (response) {
