@@ -53,6 +53,9 @@
           let myWindow = window.open(event.url, 'qq分享');
           myWindow.focus();
         }
+        if (event.message === '微信') {
+          this.$emit('weixinClick');
+        }
       }
     }
   }
