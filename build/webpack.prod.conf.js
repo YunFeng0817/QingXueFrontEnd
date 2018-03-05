@@ -123,7 +123,7 @@ let webpackConfig = merge(baseWebpackConfig, {
     // https://github.com/kevlened/copy-webpack-plugin
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: path.resolve(__dirname, 'relative/path/to/static/root'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
