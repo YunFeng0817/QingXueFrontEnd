@@ -123,14 +123,14 @@ let webpackConfig = merge(baseWebpackConfig, {
     // https://github.com/kevlened/copy-webpack-plugin
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, 'relative/path/to/static/root'),
+        from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
     ]),
     new PrerenderSpaPlugin(
       // Absolute path to compiled SPA
-      path.join(__dirname,'/test/'),
+      path.join(__dirname,'../dist'),
       // List of routes to prerender
       [ '/', '/order', '/main' ]
     )
