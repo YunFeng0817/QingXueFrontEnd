@@ -22,9 +22,6 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin')
 // https://github.com/NMFR/optimize-css-assets-webpack-plugin
 let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-// webpack.conf.js
-let PrerenderSpaPlugin = require('prerender-spa-plugin')
-
 // 如果当前环境为测试环境，则使用测试环境
 // 否则，使用生产环境
 let env = process.env.NODE_ENV === 'testing'
@@ -127,13 +124,7 @@ let webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
-    new PrerenderSpaPlugin(
-      // Absolute path to compiled SPA
-      path.join(__dirname,'../dist'),
-      // List of routes to prerender
-      [ '/', '/order', '/main' ]
-    )
+    ])
   ]
 })
 
