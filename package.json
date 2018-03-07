@@ -8,7 +8,11 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "postbuild": "react-snap"
+  },
+  "reactSnap": {
+    "source": "dist"
   },
   "dependencies": {
     "vue": "^2.5.2",
@@ -17,7 +21,8 @@
     "element-ui": "^2.0.11",
     "axios": "^0.17.1",
     "vuex": "^3.0.1",
-    "vue-baidu-map": "^0.20.7"
+    "vue-baidu-map": "^0.20.7",
+    "react-snap": "^1.6.1"
   },
   "devDependencies": {
     "amaze-vue": "^1.1.10",
@@ -71,8 +76,7 @@
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
-    "json-server": "^0.12.1",
-    "prerender-spa-plugin": "^2.0.2"
+    "json-server": "^0.12.1"
   },
   "engines": {
     "node": ">= 4.0.0",
