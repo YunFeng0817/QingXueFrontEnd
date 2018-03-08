@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from './axios/index'
 import './assets/common.css'
 import share from './components/share/index'
+import map from 'vue-baidu-map'
 
 import {
   Autocomplete,
@@ -61,6 +62,7 @@ Vue.use(CarouselItem);
 Vue.use(Collapse);
 Vue.use(CollapseItem);
 Vue.use(Cascader);
+Vue.use(map);
 Vue.prototype.$message = Message;
 Vue.prototype.$share = share;
 
