@@ -9,7 +9,7 @@
           <hr/>
           <icon :category_tag="items" :row="3" @weixinClick="weixinShare=true" v-if="!weixinShare">
           </icon>
-          <div v-if="weixinShare" style="margin: 0 0 5% 0;padding:0 0 5% 0;">
+          <div v-if="weixinShare" style="margin: 0 0 5% 0;">
             <img title="本文二维码，手机扫一扫，精彩随身带!" style="cursor:pointer;margin: 5% 0"
                  src="http://qr.liantu.com/api.php?w=68&m=0&text=http://138.68.248.224/" alt="青学教育" width="120"
                  height="120"/>
@@ -169,8 +169,8 @@
     border-radius: 10px;
   }
 
-  span {
-    color: red;
+  span{
+    color : red;
     font-size: larger;
   }
 </style>
