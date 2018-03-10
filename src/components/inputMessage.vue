@@ -3,9 +3,11 @@
     <div id="card">
       <el-form label-position="left" label-width="30%" v-model="form">
         <el-form-item label="名称">
-          <el-input placeholder="请填写您的名称" v-model="form.name" style="display: inline-block">
-          </el-input>
-          <!--<span style="display: inline-block">此名称将向学生展示，请如实填写</span>-->
+          <div class="tip-row">
+            <el-input placeholder="请填写您的名称" v-model="form.name" style="display: inline-block">
+            </el-input>
+            <span class="tips">* 此名称将向学生展示，请如实填写</span>
+          </div>
         </el-form-item>
         <el-form-item label="选择头像">
           <el-upload
@@ -37,7 +39,9 @@
             :file-list="fileList"
             :auto-upload="false">
             <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            <el-button style="margin-left: 10%; position:relative;bottom:15px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+            <el-button style="margin-left: 10%; position:relative;bottom:15px;" size="small" type="success"
+                       @click="submitUpload">上传到服务器
+            </el-button>
             <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
@@ -70,49 +74,6 @@
           }
         ]
       }
-    },
-    created () {
-      axios({
-        method: 'get',
-        url: '/api/common/stages/'
-      })
-        .then(function (response) {
-          if (response) {
-            this.stages = response.stages;
-          }
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
-      axios({
-        method: 'get',
-        url: '/api/common/grades/'
-      })
-        .then(function (response) {
-          if (response) {
-            this.grades = response.grades;
-          }
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
-      axios({
-        method: 'get',
-        url: '/api/student/detail/'
-      })
-        .then(function (response) {
-          if (response) {
-            this.form.name = response.name;
-            this.form.stage = response.stage;
-            this.form.grade = response.grade;
-            this.form.gender = response.gender;
-            this.form.birthday = response.birthday;
-            this.imageUrl = response.head_photo;
-          }
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
     },
     computed: {
       checkForm: function () {
@@ -250,5 +211,26 @@
     width: 178px;
     height: 178px;
     display: block;
+  }
+
+  .tips {
+    flex: 1 1 95%;
+    font-size: x-small;
+    color: gray;
+  }
+
+  .tip-row {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+
+    margin: 4%;
+  }
+
+  label {
+    position: relative;
+    top: 10px;
   }
 </style>
