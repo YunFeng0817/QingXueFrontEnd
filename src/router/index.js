@@ -10,6 +10,10 @@ export default new Router({
     {
       path: '/signup/signup',
       component: resolve => require(['../components/signup'], resolve)
+    },
+    {
+      path: '/signup/message',
+      component: resolve => require(['../components/inputMessage'], resolve)
     }
   ]
 })
