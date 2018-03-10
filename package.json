@@ -11,7 +11,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1",
+    "element-ui": "^2.0.11",
+    "axios": "^0.17.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -58,7 +61,10 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "vue-router": "^3.0.1",
+    "element-ui": "^2.0.11",
+    "axios": "^0.17.1"
   },
   "engines": {
     "node": ">= 6.0.0",
