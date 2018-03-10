@@ -1,110 +1,110 @@
 <template>
   <div id="block">
+    <h2>青学教育后台管理</h2>
     <div id="login-block">
-      <el-row>
-        <el-col :span="22" class="card">
-          <div v-if="!forget_pass" class="login-index">
-            <div @click="tab_active=true" id="sign-in" :class="getClassA"><span>登录</span></div>
-            <div @click="tab_active=false" id="sign-up" :class="getClassB"><span>注册</span></div>
+      <el-col :span="22" class="card">
+        <div v-if="!forget_pass" class="login-index">
+          <div @click="tab_active=true" id="sign-in" :class="getClassA"><span>登录</span></div>
+          <div @click="tab_active=false" id="sign-up" :class="getClassB"><span>注册</span></div>
+        </div>
+        <div v-if="tab_active" style="padding: 14px; text-align: center">
+          <div class="login-row">
+            <label for="login-name" class="login-label">账号</label>
+            <el-input
+              placeholder="请输入您的手机号"
+              v-model="username"
+              clearable
+              class="login-input"
+              id="login-name">
+            </el-input>
           </div>
-          <div v-if="tab_active" style="padding: 14px; text-align: center">
+          <div class="login-row">
+            <label for="login-password" class="login-label">密码</label>
+            <el-input
+              placeholder="密码"
+              v-model="password"
+              clearable
+              class="login-input"
+              id="login-password"
+              type="password">
+            </el-input>
+          </div>
+          <div class="login-row">
+            <el-checkbox v-model="checked">记住密码</el-checkbox>
+            <a @click="forgetPass" class="el-icon-question">忘记密码</a>
+          </div>
+          <el-button class="button" type="primary" :disabled="check_login" @click="loginSubmit">登录</el-button>
+        </div>
+        <div v-if="!tab_active" style="padding: 14px; text-align: center">
+          <el-steps :active="process" finish-status="success">
+            <el-step v-if="!forget_pass" title="服务条款">
+            </el-step>
+            <el-step title="验证手机">
+            </el-step>
+            <el-step title="确认密码">
+            </el-step>
+          </el-steps>
+          <div v-if="process===0&&!forget_pass">
+            <h2>
+              请您认真查看以下条款
+            </h2>
+            <div class="clause" v-html="hint">
+              test
+            </div>
+            <br/>
+            <el-button @click="setProcess" class="button" type="primary">同意该条款
+            </el-button>
+          </div>
+          <div v-if="process===1||(forget_pass&&process===0)">
             <div class="login-row">
-              <label for="login-name" class="login-label">账号</label>
+              <label for="phone-number" class="login-label">手机号</label>
               <el-input
-                placeholder="请输入您的手机号"
-                v-model="username"
+                placeholder="请输入手机号"
+                v-model="phone_number"
                 clearable
                 class="login-input"
-                id="login-name">
+                id="phone-number">
               </el-input>
+              <el-button @click="send_msg" :disabled="check_phone" plain class="login-button">{{time}}
+              </el-button>
             </div>
             <div class="login-row">
-              <label for="login-password" class="login-label">密码</label>
+              <label for="check-number" class="login-label">验证码</label>
               <el-input
-                placeholder="密码"
-                v-model="password"
+                placeholder="短信验证码"
+                v-model="check_num"
                 clearable
                 class="login-input"
-                id="login-password"
-                type="password">
+                id="check-number">
               </el-input>
             </div>
-            <div class="login-row">
-              <el-checkbox v-model="checked">记住密码</el-checkbox>
-              <a @click="forgetPass" class="el-icon-question">忘记密码</a>
-            </div>
-            <el-button class="button" type="primary" :disabled="check_login" @click="loginSubmit">登录</el-button>
+            <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
+            </el-button>
           </div>
-          <div v-if="!tab_active" style="padding: 14px; text-align: center">
-            <el-steps :active="process" finish-status="success">
-              <el-step v-if="!forget_pass" title="服务条款">
-              </el-step>
-              <el-step title="验证手机">
-              </el-step>
-              <el-step title="确认密码">
-              </el-step>
-            </el-steps>
-            <div v-if="process===0&&!forget_pass">
-              <h2>
-                请您认真查看以下条款
-              </h2>
-              <div class="clause" v-html="hint">
-                test
-              </div>
-              <br/>
-              <el-button @click="setProcess" class="button" type="primary">同意该条款
-              </el-button>
-            </div>
-            <div v-if="process===1||(forget_pass&&process===0)">
-              <div class="login-row">
-                <label for="phone-number" class="login-label">手机号</label>
-                <el-input
-                  placeholder="请输入手机号"
-                  v-model="phone_number"
-                  clearable
-                  class="login-input"
-                  id="phone-number">
+          <div v-if="process===2||(forget_pass&&process===1)">
+            <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-position="left"
+                     label-width="22%"
+                     class="demo-ruleForm">
+              <el-form-item label="密码" prop="pass">
+                <el-input type="password" v-model="ruleForm2.pass" auto-complete="off">
                 </el-input>
-                <el-button @click="send_msg" :disabled="check_phone" plain class="login-button">{{time}}
-                </el-button>
-              </div>
-              <div class="login-row">
-                <label for="check-number" class="login-label">验证码</label>
-                <el-input
-                  placeholder="短信验证码"
-                  v-model="check_num"
-                  clearable
-                  class="login-input"
-                  id="check-number">
+              </el-form-item>
+              <el-form-item label="确认密码" prop="checkPass">
+                <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off">
                 </el-input>
-              </div>
-              <el-button @click="msg_confirm" :disabled="check_msg_confirm" class="button" type="primary">验证手机号
-              </el-button>
-            </div>
-            <div v-if="process===2||(forget_pass&&process===1)">
-              <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-position="left"
-                       label-width="22%"
-                       class="demo-ruleForm">
-                <el-form-item label="密码" prop="pass">
-                  <el-input type="password" v-model="ruleForm2.pass" auto-complete="off">
-                  </el-input>
-                </el-form-item>
-                <el-form-item label="确认密码" prop="checkPass">
-                  <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off">
-                  </el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-                  <el-button @click="resetForm('ruleForm2')">重置</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-            <div v-if="process===3">
-            </div>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
+                <el-button @click="resetForm('ruleForm2')">重置</el-button>
+              </el-form-item>
+            </el-form>
           </div>
-        </el-col>
-      </el-row>
+        </div>
+      </el-col>
     </div>
+    <footer style="color: gray; postiion:relative; top:30px;">
+      © 2017-2018
+    </footer>
   </div>
 </template>
 
@@ -319,9 +319,13 @@
 
 <style scoped type="text/css" rel="stylesheet">
   #block {
-    width:100%;
-    height:800px;
-    background-color: rgba(255,255,255,0.5);
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
   }
 
   #login-block {
@@ -332,7 +336,6 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    background-color: #e8e8e8;
   }
 
   .card {
@@ -341,6 +344,7 @@
     height: 100%;
     margin: 4%;
     background-color: white;
+    border-radius: 10px;
   }
 
   .login-row {
@@ -373,7 +377,7 @@
 
   .el-icon-question {
     position: relative;
-    left: 50%;
+    left: 40%;
     bottom: 2px;
     color: #66b1ff;
   }
@@ -400,11 +404,13 @@
     border-right: 2px solid #e6e6e6;
     height: 100%;
     width: 50%;
+    border-radius: 10px 0 0 0 ;
   }
 
   div#sign-up {
     height: 100%;
     width: 50%;
+    border-radius: 0 10px 0 0;
   }
 
   div.tab_active {

@@ -9,12 +9,10 @@ import {
   Checkbox,
   Input,
   Select,
-  Option,
   Button,
   DatePicker,
   Form,
   FormItem,
-  Row,
   Col,
   Upload,
   Steps,
@@ -24,14 +22,12 @@ import {
 
 Vue.config.productionTip = false;
 Vue.use(Checkbox);
-Vue.use(Option);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Button);
 Vue.use(DatePicker);
 Vue.use(Form);
 Vue.use(FormItem);
-Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
 Vue.use(Steps);
