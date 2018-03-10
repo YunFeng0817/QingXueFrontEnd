@@ -45,6 +45,19 @@
             <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
+        <el-form-item>
+          <div class="map">
+            <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
+                       :zoom="15">
+              <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
+                              @locationSuccess="getPosition"></bm-geolocation>
+              <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
+                <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
+                          :offset="{width: -35, height: 30}"/>
+              </bm-marker>
+            </baidu-map>
+          </div>
+        </el-form-item>
         <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
       </el-form>
     </div>
@@ -53,9 +66,19 @@
 
 <script>
   import axios from '../axios/index';
+  import baiduMap from 'vue-baidu-map/components/Map/Map';
+  import bmGeolocation from 'vue-baidu-map/components/controls/Geolocation';
+  import bmMarker from 'vue-baidu-map/components/overlays/Marker'
+  import bmLabel from 'vue-baidu-map/components/overlays/Label'
 
   export default {
     name: 'input-message',
+    components: {
+      baiduMap,
+      bmGeolocation,
+      bmMarker,
+      bmLabel
+    },
     data () {
       return {
         form: {
@@ -72,7 +95,11 @@
             name: 'food2.jpeg',
             url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
           }
-        ]
+        ],
+        position: {
+          lng: 0,
+          lat: 0
+        }
       }
     },
     computed: {
@@ -157,6 +184,10 @@
       },
       handlePreview (file) {
         console.log(file);
+      },
+      getPosition (object) {
+        console.log(object);
+        this.position = object.point;
       }
     }
   }
@@ -165,7 +196,7 @@
 <style>
   #block {
     width: 100%;
-    height: 100%;
+    height: auto;
     background-color: #f5f5f5;
     text-align: center;
   }
@@ -232,5 +263,10 @@
   label {
     position: relative;
     top: 10px;
+  }
+
+  .map {
+    width: 100%;
+    height: 400px;
   }
 </style>
