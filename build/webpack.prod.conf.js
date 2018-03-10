@@ -22,6 +22,8 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin')
 // https://github.com/NMFR/optimize-css-assets-webpack-plugin
 let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 // 如果当前环境为测试环境，则使用测试环境
 // 否则，使用生产环境
 let env = process.env.NODE_ENV === 'testing'
@@ -124,7 +126,21 @@ let webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new BundleAnalyzerPlugin(
+      {
+        analyzerMode: 'server',
+        analyzerHost: '127.0.0.1',
+        analyzerPort: 8888,
+        reportFilename: 'report.html',
+        defaultSizes: 'parsed',
+        openAnalyzer: true,
+        generateStatsFile: false,
+        statsFilename: 'stats.json',
+        statsOptions: null,
+        logLevel: 'info'
+      }
+    )
   ]
 })
 

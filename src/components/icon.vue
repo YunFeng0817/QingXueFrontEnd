@@ -48,8 +48,7 @@
             .catch(function (error) {
               console.log(error);
             })
-        }
-        if (event.url) {
+        } else if (event.url) {
           let myWindow = window.open(event.url, 'qq分享');
           myWindow.focus();
         }
