@@ -1,5 +1,8 @@
 <template>
-  <div id="block">
+  <div class="block">
+    <h2>
+      初次注册，请您花费几分钟时间填写以下信息
+    </h2>
     <div id="card">
       <el-form label-position="left" label-width="30%" v-model="form">
         <el-form-item label="名称">
@@ -45,13 +48,13 @@
             <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
-        <el-form-item>
+        <el-form-item label="请在地图上标出您的位置">
           <div class="map">
             <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
                        :zoom="15">
               <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
-                              @locationSuccess="getPosition"></bm-geolocation>
-              <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
+                              @locationSuccess="getPosition" @locationError="errorHandle"></bm-geolocation>
+              <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE" @dragend="getPosition">
                 <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
                           :offset="{width: -35, height: 30}"/>
               </bm-marker>
@@ -86,16 +89,7 @@
         },
         imageUrl: '',
         textarea: '',
-        fileList: [
-          {
-            name: 'food.jpeg',
-            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-          },
-          {
-            name: 'food2.jpeg',
-            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-          }
-        ],
+        fileList: [],
         position: {
           lng: 0,
           lat: 0
@@ -178,6 +172,7 @@
       },
       submitUpload () {
         this.$refs.upload.submit();
+        console.log(this.fileList);
       },
       handleRemove (file, fileList) {
         console.log(file, fileList);
@@ -188,19 +183,27 @@
       getPosition (object) {
         console.log(object);
         this.position = object.point;
+      },
+      errorHandle () {
+        function displayPosition (pos) {
+          this.positioni.lng = pos.coords['longitude'];
+          this.position.lat = pos.coords['latitude'];
+        }
+
+        // 用于判断是否获取位置出错
+        function handerError (error) {
+          if (error.code === 1 && error.message === 'User denied Geolocation') {
+            alert(error.message);
+          }
+        }
+
+        navigator.geolocation.getCurrentPosition(displayPosition, handerError);
       }
     }
   }
 </script>
 
 <style>
-  #block {
-    width: 100%;
-    height: auto;
-    background-color: #f5f5f5;
-    text-align: center;
-  }
-
   #card {
     height: auto;
     width: 100%;
@@ -267,6 +270,6 @@
 
   .map {
     width: 100%;
-    height: 400px;
+    height: 450px;
   }
 </style>

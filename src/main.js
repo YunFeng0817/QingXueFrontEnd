@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import axios from './axios';
 import 'element-ui/lib/theme-chalk/index.css';
+import './assets/commen.css'
 import {
   Checkbox,
   Input,
