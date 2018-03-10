@@ -1,52 +1,49 @@
 <template>
   <div id="block">
-    <el-form label-position="left" label-width="80px" v-model="form">
-      <el-form-item label="昵称">
-        <el-input placeholder="请填写您的名称" v-model="form.name">
-        </el-input>
-      </el-form-item>
-
-      <el-form-item label="性别">
-        <el-col :span="16">
-          <el-select placeholder="请选择您的性别" v-model="form.gender">
-            <el-option label="男" value="male">
-            </el-option>
-            <el-option label="女" value="female">
-            </el-option>
-          </el-select>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="学习阶段">
-        <el-select placeholder="请选择您的学习阶段" v-model="form.stage">
-          <el-option v-for="item in stages" :key="item.id" :label="item" :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="年级">
-        <el-select placeholder="请选择您的年级" v-model="form.grade">
-          <el-option v-for="item in grades" :key="item.id" :label="item" :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="您的生日">
-        <el-date-picker type="date" default-value="2000-1-1" placeholder="选择日期" v-model="form.birthday"
-                        style="width: 100%;" value-format="yyyy-MM-dd">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="选择头像">
-        <el-upload
-          class="avatar-uploader"
-          action=""
-          v-model="form.file"
-          :show-file-list="false"
-          :on-change="onChoose"
-          :auto-upload="false">
-          <img v-show="imageUrl" :src="imageUrl" ref="image" class="avatar">
-          <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
-      <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
-    </el-form>
+    <div id="card">
+      <el-form label-position="left" label-width="30%" v-model="form">
+        <el-form-item label="名称">
+          <el-input placeholder="请填写您的名称" v-model="form.name" style="display: inline-block">
+          </el-input>
+          <!--<span style="display: inline-block">此名称将向学生展示，请如实填写</span>-->
+        </el-form-item>
+        <el-form-item label="选择头像">
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            v-model="form.file"
+            :show-file-list="false"
+            :on-change="onChoose"
+            :auto-upload="false">
+            <img v-show="imageUrl" :src="imageUrl" ref="image" class="avatar">
+            <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="您的简介">
+          <el-input
+            type="textarea"
+            :rows="3"
+            placeholder="请输入您的简介"
+            v-model="textarea">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="请上传您的认证材料">
+          <el-upload
+            class="upload-demo"
+            ref="upload"
+            action="/api"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :file-list="fileList"
+            :auto-upload="false">
+            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+            <el-button style="margin-left: 10%; position:relative;bottom:15px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+            <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
+          </el-upload>
+        </el-form-item>
+        <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -57,17 +54,21 @@
     name: 'input-message',
     data () {
       return {
-        stages: [],
-        grades: [],
         form: {
-          name: '',
-          birthday: '',
-          gender: '',
-          stage: '',
-          grade: '',
           file: ''
         },
-        imageUrl: ''
+        imageUrl: '',
+        textarea: '',
+        fileList: [
+          {
+            name: 'food.jpeg',
+            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+          },
+          {
+            name: 'food2.jpeg',
+            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+          }
+        ]
       }
     },
     created () {
@@ -186,20 +187,38 @@
           .catch(function (error) {
             console.log(error);
           })
+      },
+      submitUpload () {
+        this.$refs.upload.submit();
+      },
+      handleRemove (file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview (file) {
+        console.log(file);
       }
     }
   }
 </script>
 
 <style>
-  #block{
+  #block {
     width: 100%;
     height: 100%;
     background-color: #f5f5f5;
+    text-align: center;
+  }
+
+  #card {
+    height: auto;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    align-content: center;
+    color: black;
+    font-weight: bold;
   }
 
   div.el-upload {
