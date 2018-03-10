@@ -1,5 +1,5 @@
 'use strict'
-// Template version: 1.2.7
+// Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
@@ -8,17 +8,9 @@ module.exports = {
   dev: {
 
     // Paths
-    assetsSubDirectory: 'front',
+    assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      // '/api': {
-      //   target: 'http://localhost:8081/',  // 通过本地服务器将你的请求转发到这个地址
-      //   changeOrigin: true,  // 设置这个参数可以避免跨域
-      //   pathRewrite: {
-      //     '/api': '/'
-      //   }
-      // }
-    },
+    proxyTable: {},
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -41,19 +33,14 @@ module.exports = {
      */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'eval-source-map',
+    devtool: 'cheap-module-eval-source-map',
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    // CSS Sourcemaps off by default because relative paths are "buggy"
-    // with this option, according to the CSS-Loader README
-    // (https://github.com/webpack/css-loader#sourcemaps)
-    // In our experience, they generally work as expected,
-    // just be aware of this issue when enabling this option.
-    cssSourceMap: false,
+    cssSourceMap: true
   },
 
   build: {
@@ -62,7 +49,7 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'front',
+    assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
     /**

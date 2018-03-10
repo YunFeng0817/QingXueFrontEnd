@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div id="block">
     <el-form label-position="left" label-width="80px" v-model="form">
       <el-form-item label="昵称">
-        <el-input placeholder="请填写您的昵称" v-model="form.name">
+        <el-input placeholder="请填写您的名称" v-model="form.name">
         </el-input>
       </el-form-item>
 
@@ -192,6 +192,16 @@
 </script>
 
 <style>
+  #block{
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
   div.el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

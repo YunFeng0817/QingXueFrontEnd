@@ -3,14 +3,13 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import Axios from './axios';
+import axios from './axios';
 import 'element-ui/lib/theme-chalk/index.css';
 import {
   Checkbox,
   Input,
   Select,
   Button,
-  DatePicker,
   Form,
   FormItem,
   Col,
@@ -25,7 +24,6 @@ Vue.use(Checkbox);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Button);
-Vue.use(DatePicker);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Col);
@@ -38,6 +36,6 @@ Vue.prototype.$message = Message;
 new Vue({
   el: '#app',
   router,
-  Axios,
+  axios,
   render: h => h(App)
 });
