@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" ref="main">
     <back-button v-if="!is_main">
     </back-button>
     <header-index :is_course="true">
@@ -65,6 +65,7 @@
           .catch(function (error) {
             console.log(error);
           });
+        window.addEventListener('scroll', this.scrollHandle);
       } else if (this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
         this.recommends = userMessage.state.firstClass.courses;
         this.showMessages = userMessage.state.firstClass.essays;
@@ -209,6 +210,31 @@
       },
       getEssay (id) {
         this.$router.push({path: '/article/' + id});
+      },
+      scrollHandle () {
+        let node = this.$refs.main;
+        /**
+         * 屏幕滚动的总结
+         * window.scrollY是滚轮移动的距离
+         * document.documentElement.offsetHeight是屏幕可视区域的高度
+         * element.scrollHeight是元素的本身高度
+         */
+        let left = node.scrollHeight - window.scrollY - document.documentElement.offsetHeight;
+        let url = this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main' ? '' : '';
+        if (left <= 20) {
+          axios({
+            method: 'get',
+            url: url
+          })
+            .then(function (response) {
+              if (response) {
+                this.recommends.append(response);
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+        }
       }
     }
   }
