@@ -65,7 +65,6 @@
           .catch(function (error) {
             console.log(error);
           });
-        window.addEventListener('scroll', this.scrollHandle);
       } else if (this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
         this.recommends = userMessage.state.firstClass.courses;
         this.showMessages = userMessage.state.firstClass.essays;
@@ -75,6 +74,7 @@
         this.showImages = userMessage.state.main.banners;
         this.recommends = userMessage.state.main.courses;
       }
+      window.addEventListener('scroll', this.scrollHandle);
     },
     data () {
       return {
@@ -236,6 +236,10 @@
             })
         }
       }
+    },
+    // 当该组件销毁，应当取消对屏幕滚动事件的监听
+    destroyed () {
+      window.removeEventListener('scroll', this.scrollHandle);
     }
   }
 </script>

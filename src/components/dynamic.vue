@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="dynamic">
     <header-index :is_course="false">
     </header-index>
     <el-tabs @touchstart.native.stopdefault="dragStart"
@@ -153,6 +153,9 @@
         this.essays = userMessage.state.essays;
       }
     },
+    mounted () {
+      window.addEventListener('scroll', this.scrollHandle)
+    },
     methods: {
       dragStart (event) {
         let node = event.target;
@@ -201,7 +204,30 @@
           .catch(function (error) {
             console.log(error);
           });
+      },
+      // 处理滚轮滚动实现按需加载的回调函数
+      scrollHandle () {
+        let node = this.$refs.dynamic;
+        let left = node.scrollHeight - document.documentElement.offsetHeight - window.scrollY;
+        if (left <= 20) {
+          axios({
+            method: 'get',
+            url: 'test'
+          })
+            .then(function (response) {
+              if (response) {
+                this.recommends.append(response);
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+        }
       }
+    },
+    // 当该组件销毁，应当取消对屏幕滚动事件的监听
+    destroyed () {
+      window.removeEventListener('scroll', this.scrollHandle);
     }
   }
 </script>
