@@ -128,6 +128,7 @@
         ],
         startX: 0,
         offsetLeft: 0,
+        length: 0,
         target: document.createElement('IMG')
       }
     },
@@ -209,19 +210,23 @@
       scrollHandle () {
         let node = this.$refs.dynamic;
         let left = node.scrollHeight - document.documentElement.offsetHeight - window.scrollY;
-        if (left <= 20) {
-          axios({
-            method: 'get',
-            url: 'test'
-          })
-            .then(function (response) {
-              if (response) {
-                this.recommends.append(response);
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
+        if (left <= 15) {
+          // 这里的判断用来 防止算时间内的重复请求
+          if (this.length !== node.scrollHeight) {
+            this.length = node.scrollHeight;
+            axios({
+              method: 'get',
+              url: 'test'
             })
+              .then(function (response) {
+                if (response) {
+                  this.recommends.append(response);
+                }
+              }.bind(this))
+              .catch(function (error) {
+                console.log(error);
+              })
+          }
         }
       }
     },

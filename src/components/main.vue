@@ -184,7 +184,8 @@
         ],
         showImages: [],
         showMessages: [],
-        recommends: []
+        recommends: [],
+        length: 0
       }
     },
     watch: {
@@ -220,20 +221,27 @@
          * element.scrollHeight是元素的本身高度
          */
         let left = node.scrollHeight - window.scrollY - document.documentElement.offsetHeight;
-        let url = this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main' ? '' : '';
-        if (left <= 20) {
-          axios({
-            method: 'get',
-            url: url
-          })
-            .then(function (response) {
-              if (response) {
-                this.recommends.append(response);
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
+        let url = this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main' ? '/api/common/page_contents/' : '/api/common/page_contents/';
+        if (left <= 15) {
+          // 这里的判断用来 防止算时间内的重复请求
+          if (this.length !== node.scrollHeight) {
+            this.length = node.scrollHeight;
+            axios({
+              method: 'get',
+              url: url
             })
+              .then(function (response) {
+                if (response) {
+                  for (let item of response.courses) {
+                    item.is_course = true;
+                    this.recommends.push(item);
+                  }
+                }
+              }.bind(this))
+              .catch(function (error) {
+                console.log(error);
+              })
+          }
         }
       }
     },
