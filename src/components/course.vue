@@ -28,7 +28,11 @@
                 </p>
                 <p>
                   <span class="time">每课时 : {{perSession}} 分钟</span>
-                  <time class="time"></time>
+                </p>
+                <p v-for="item in contact" :key="item.id">
+                  <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
+                  <span class="time" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
+                  <span class="time" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
                 </p>
                 <p>
                   <span class="time">学生评分</span>
@@ -64,9 +68,14 @@
                 <div class="teacher" v-if="introduction!==''">
                   {{introduction}}
                 </div>
+                <p v-for="item in contact" :key="item.id">
+                  <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
+                  <span class="time" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
+                  <span class="time" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
+                  <span class="time" v-else>电话 : <a :href="'tel:'+item.contact_detail">{{contact_detail}}</a></span>
+                </p>
                 <p>
-                  <span class="time">联系方式 : </span>
-                  <a :href="'tel:'+contact">{{contact}}</a>
+
                 </p>
               </div>
             </el-tab-pane>
@@ -145,7 +154,7 @@
       <a class="message" @click="intoInstitution(institutionID)">
         <i class="am-icon-university"></i>
         进入机构</a>
-      <a class="message" :href="'tel:'+contact">
+      <a class="message" :href="'tel:'+contactPhone">
         <i class="am-icon-commenting-o"></i>
         咨询</a>
       <a class="message" @click="share">
@@ -218,7 +227,7 @@
         gender: '',
         edu_background: '',
         head_photo: '',
-        contact: '',
+        contact: [],
         path: this.$router.currentRoute.params.type,
         offsetTop: 0,
         cloneNode: document.createElement('img')
@@ -247,7 +256,7 @@
                 this.teachers = response.teachers;
                 this.showImages = response.banners;
                 this.institutionID = response.master;
-                this.contact = response.contact;
+                this.contact = response.contacts;
               }
             }.bind(this))
             .catch(function (error) {
@@ -266,7 +275,7 @@
           this.teachers = userMessage.state.courseDetail.teachers;
           this.showImages = userMessage.state.courseDetail.banners;
           this.institutionID = userMessage.state.courseDetail.master;
-          this.contact = userMessage.state.courseDetail.contact;
+          this.contact = userMessage.state.courseDetail.contacts;
         }
       } else if (this.path === 'institution') {
         // 下面的if分支处理非跳转，直接访问的情况
@@ -283,7 +292,7 @@
                 this.introduction = response.basic_info.introduction;
                 this.showImages = response.basic_info.banner;
                 this.head_photo = response.basic_info.head_photo;
-                this.contact = response.basic_info.contact;
+                this.contact = response.basic_info.contacts;
               }
             }.bind(this))
             .catch(function (error) {
@@ -295,7 +304,7 @@
           this.introduction = userMessage.state.institution.basic_info.introduction;
           this.showImages = userMessage.state.institution.basic_info.banner;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
-          this.contact = userMessage.state.institution.basic_info.contact;
+          this.contact = userMessage.state.institution.basic_info.contacts;
         }
       }
     },
@@ -315,20 +324,29 @@
           this.teachers = userMessage.state.courseDetail.teachers;
           this.showImages = userMessage.state.courseDetail.banners;
           this.institutionID = userMessage.state.courseDetail.master;
-          this.contact = userMessage.state.courseDetail.contact;
+          this.contact = userMessage.state.courseDetail.contacts;
         } else if (this.path === 'institution') {
           this.favourited = userMessage.state.institution.followed;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
           this.showImages = userMessage.state.institution.basic_info.banner;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
-          this.contact = userMessage.state.institution.basic_info.contact;
+          this.contact = userMessage.state.institution.basic_info.contacts;
         }
       }
     },
     mounted () {
       window.addEventListener('scroll', this.handler);
       this.offsetTop = this.$refs.tab.$el.firstChild.offsetTop;
+    },
+    computed: {
+      contactPhone: () => {
+        for (let item of this.contact) {
+          if (item.contact_type) {
+            return item.contact_detail;
+          }
+        }
+      }
     },
     methods: {
       // 处理进入预定页面
