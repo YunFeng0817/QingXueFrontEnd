@@ -255,7 +255,7 @@
       send_msg () {
         axios({
           method: 'post',
-          url: '/api/student/send_msg/',
+          url: '/api/send_msg/',
           data: {
             is_signing_up: !this.forget_pass,
             phone_number: this.phone_number
@@ -284,7 +284,7 @@
       msg_confirm () {
         axios({
           method: 'post',
-          url: '/api/student/msg_confirm/',
+          url: '/api/msg_confirm/',
           data: {
             phone_number: this.phone_number,
             msg_code: this.check_num
