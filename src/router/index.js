@@ -8,11 +8,11 @@ export default new Router({
   linkActiveClass: 'router-link-active',
   routes: [
     {
-      path: '/signup/signup',
+      path: '/',
       component: resolve => require(['../components/signup'], resolve)
     },
     {
-      path: '/signup/message',
+      path: '/message',
       component: resolve => require(['../components/inputMessage'], resolve)
     }
   ]

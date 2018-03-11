@@ -9,7 +9,7 @@ import './assets/commen.css'
 import {
   Checkbox,
   Input,
-  Select,
+  radio,
   Button,
   Form,
   FormItem,
@@ -23,7 +23,7 @@ import {
 Vue.config.productionTip = false;
 Vue.use(Checkbox);
 Vue.use(Input);
-Vue.use(Select);
+Vue.use(radio);
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);

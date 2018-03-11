@@ -82,6 +82,13 @@
             </el-button>
           </div>
           <div v-if="process===2||(forget_pass&&process===1)">
+            <br/>
+            <el-form>
+              <el-form-item v-if="!forget_pass" label="账号类型">
+                <el-radio v-model="type" label="tutor">个人教师</el-radio>
+                <el-radio v-model="type" label="organization">机构</el-radio>
+              </el-form-item>
+            </el-form>
             <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-position="left"
                      label-width="22%"
                      class="demo-ruleForm">
@@ -150,13 +157,14 @@
         username: '',
         password: '',
         checked: false,
-        tab_active: true,
+        tab_active: false,
         forget_pass: false,
         active_class: '',
-        process: 0,
+        process: 2,
         phone_number: '',
         check_num: '',
         hint: '1、本订单仅供课程预约<br/>2、预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>3、预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>4、该预约不可取消，有效期内未付尾款视为取消该课程<br/>5、机构(教师)不保留相关课程安排',
+        type: '',
         ruleForm2: {
           pass: '',
           checkPass: ''
@@ -233,7 +241,7 @@
       send_msg () {
         axios({
           method: 'post',
-          url: '/api/student/send_msg/',
+          url: '/api/send_msg/',
           data: {
             is_signing_up: !this.forget_pass,
             phone_number: this.phone_number
@@ -262,7 +270,7 @@
       msg_confirm () {
         axios({
           method: 'post',
-          url: '/api/student/msg_confirm/',
+          url: '/api/msg_confirm/',
           data: {
             phone_number: this.phone_number,
             msg_code: this.check_num
@@ -281,22 +289,23 @@
         let test = document.cookie.split(';')[0].split('=')[1];
         let method = this.forget_pass ? 'patch' : 'post';
         this.$refs[formName].validate((valid) => {
-          if (valid) {
+          if (valid && (this.type !== '' || this.forget_pass)) {
             axios({
               method: method,
-              url: '/api/student/detail/',
+              url: '/api/educator/sign_up/',
               headers: {
                 'X-CSRFToken': test
               },
               data: {
                 check_method: 'msg_code_check',
+                sign_up_type: this.type,
                 password: this.ruleForm2.checkPass
               }
             })
               .then(function (response) {
                 if (response) {
                   if (!this.forget_pass) {
-                    this.setProcess();
+                    this.$router.push('message');
                   } else {
                     this.$router.back();
                   }
@@ -305,6 +314,12 @@
               .catch(function (error) {
                 console.log(error);
               })
+          } else if (this.type === '') {
+            this.$message({
+              type: 'error',
+              message: '请选择用户类型',
+              time: 2000
+            })
           } else {
             return false;
           }

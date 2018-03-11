@@ -151,14 +151,11 @@
       submit () {
         let dataForm = new FormData();
         dataForm.append('head_photo', this.form.file);
-        dataForm.append('stage', this.form.stage);
-        dataForm.append('grade', this.form.grade);
-        dataForm.append('gender', this.form.gender);
-        dataForm.append('birthday', this.form.birthday);
         dataForm.append('name', this.form.name);
+        dataForm.append('introduction', this.textarea);
         axios({
           method: 'put',
-          url: '/api/student/detail/',
+          url: '/api//educator/sign_up/',
           headers: {
             'Content-Type': 'multipart/form-data'
           },
