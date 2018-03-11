@@ -1,7 +1,7 @@
 <template>
   <div class="block">
     <h2>青学教育后台管理账号</h2>
-    <div id="login-block">
+    <div class="content">
       <el-col :span="22" class="card">
         <div v-if="!forget_pass" class="login-index">
           <div @click="tab_active=true" id="sign-in" :class="getClassA"><span>登录</span></div>
@@ -318,7 +318,7 @@
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
-  #login-block {
+  .content {
     height: auto;
     width: 100%;
     max-width: 450px;
@@ -327,15 +327,6 @@
     flex-direction: column;
     align-content: center;
     z-index: 100;
-  }
-
-  .card {
-    display: table-cell;
-    vertical-align: center;
-    height: 100%;
-    margin: 4%;
-    background-color: white;
-    border-radius: 10px;
   }
 
   .login-row {
@@ -358,7 +349,7 @@
   }
 
   .login-button {
-    padding: 4% 2%;
+    /*padding: 4% 2%;*/
     flex: 2 3 3%;
   }
 

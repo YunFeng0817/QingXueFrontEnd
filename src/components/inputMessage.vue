@@ -1,68 +1,71 @@
 <template>
   <div class="block">
-    <h2>
-      初次注册，请您花费几分钟时间填写以下信息
-    </h2>
-    <div id="card">
-      <el-form label-position="left" label-width="30%" v-model="form">
-        <el-form-item label="名称">
-          <div class="tip-row">
-            <el-input placeholder="请填写您的名称" v-model="form.name" style="display: inline-block">
+    <div class="card" style="padding:3% 3%;">
+      <h2>
+        初次注册，请您花费几分钟时间填写以下信息
+      </h2>
+      <div>
+        <el-form label-position="left" label-width="30%" v-model="form">
+          <el-form-item label="名称">
+            <div class="tip-row">
+              <el-input placeholder="请填写您的名称" v-model="form.name" style="display: inline-block">
+              </el-input>
+              <span class="tips">* 此名称将向学生展示，请如实填写</span>
+            </div>
+          </el-form-item>
+          <el-form-item label="选择头像">
+            <el-upload
+              class="avatar-uploader"
+              action=""
+              v-model="form.file"
+              :show-file-list="false"
+              :on-change="onChoose"
+              :auto-upload="false">
+              <img v-show="imageUrl" :src="imageUrl" ref="image" class="avatar">
+              <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="您的简介">
+            <el-input
+              type="textarea"
+              :rows="3"
+              placeholder="请输入您的简介"
+              v-model="textarea">
             </el-input>
-            <span class="tips">* 此名称将向学生展示，请如实填写</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="选择头像">
-          <el-upload
-            class="avatar-uploader"
-            action=""
-            v-model="form.file"
-            :show-file-list="false"
-            :on-change="onChoose"
-            :auto-upload="false">
-            <img v-show="imageUrl" :src="imageUrl" ref="image" class="avatar">
-            <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="您的简介">
-          <el-input
-            type="textarea"
-            :rows="3"
-            placeholder="请输入您的简介"
-            v-model="textarea">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="请上传您的认证材料">
-          <el-upload
-            class="upload-demo"
-            ref="upload"
-            action="/api"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :file-list="fileList"
-            :auto-upload="false">
-            <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-            <el-button style="margin-left: 10%; position:relative;bottom:15px;" size="small" type="success"
-                       @click="submitUpload">上传到服务器
-            </el-button>
-            <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
-          </el-upload>
-        </el-form-item>
-        <el-form-item label="请在地图上标出您的位置">
-          <div class="map">
-            <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
-                       :zoom="15">
-              <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
-                              @locationSuccess="getPosition" @locationError="errorHandle"></bm-geolocation>
-              <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE" @dragend="getPosition">
-                <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
-                          :offset="{width: -35, height: 30}"/>
-              </bm-marker>
-            </baidu-map>
-          </div>
-        </el-form-item>
-        <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
-      </el-form>
+          </el-form-item>
+          <el-form-item label="请上传您的认证材料">
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="/api"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :file-list="fileList"
+              :auto-upload="false">
+              <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+              <el-button style="margin-left: 10%; position:relative;bottom:15px;" size="small" type="success"
+                         @click="submitUpload">上传到服务器
+              </el-button>
+              <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="请在地图上标出您的位置">
+            <div class="map">
+              <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
+                         :zoom="15">
+                <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
+                                @locationSuccess="getPosition" @locationError="errorHandle"></bm-geolocation>
+                <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE"
+                           @dragend="getPosition">
+                  <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
+                            :offset="{width: -35, height: 30}"/>
+                </bm-marker>
+              </baidu-map>
+            </div>
+          </el-form-item>
+          <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -204,18 +207,6 @@
 </script>
 
 <style>
-  #card {
-    height: auto;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    color: black;
-    font-weight: bold;
-  }
-
   div.el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

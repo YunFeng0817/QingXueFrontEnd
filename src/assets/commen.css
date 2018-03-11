@@ -23,3 +23,14 @@
   left: 2%;
   filter: blur(60px);
 }
+
+.card {
+  max-width: 800px;
+  width: 100%;
+  display: table-cell;
+  vertical-align: center;
+  height: 100%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+}
