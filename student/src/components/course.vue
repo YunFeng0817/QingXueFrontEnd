@@ -294,6 +294,8 @@
                 this.showImages = response.basic_info.banners;
                 this.head_photo = response.basic_info.head_photo;
                 this.contact = response.basic_info.contacts;
+                this.gender = response.gender;
+                this.edu_background = response.edu_background;
               }
             }.bind(this))
             .catch(function (error) {
@@ -306,6 +308,8 @@
           this.showImages = userMessage.state.institution.basic_info.banners;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
           this.contact = userMessage.state.institution.basic_info.contacts;
+          this.gender = userMessage.state.institution.gender;
+          this.edu_background = userMessage.state.institution.edu_background;
         }
       }
     },
@@ -333,6 +337,8 @@
           this.showImages = userMessage.state.institution.basic_info.banners;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
           this.contact = userMessage.state.institution.basic_info.contacts;
+          this.gender = userMessage.state.institution.gender;
+          this.edu_background = userMessage.state.institution.edu_background;
         }
       }
     },
