@@ -1,0 +1,36 @@
+.block {
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  /*background-color: #f5f5f5;*/
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.block:after {
+  content: "";
+  background: url("http://pics.sc.chinaz.com/files/pic/pic9/201207/xpic5816.jpg") no-repeat center center fixed;
+  background-size: cover;
+  z-index: -1;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  bottom: 2%;
+  left: 2%;
+  filter: blur(60px);
+}
+
+.card {
+  max-width: 800px;
+  width: 100%;
+  display: table-cell;
+  vertical-align: center;
+  height: 100%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+}
