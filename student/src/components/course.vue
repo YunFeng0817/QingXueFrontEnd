@@ -340,7 +340,7 @@
       this.offsetTop = this.$refs.tab.$el.firstChild.offsetTop;
     },
     computed: {
-      contactPhone: () => {
+      contactPhone: function () {
         for (let item of this.contact) {
           if (item.contact_type) {
             return item.contact_detail;
