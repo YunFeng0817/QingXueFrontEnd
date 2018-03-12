@@ -30,22 +30,18 @@
               type="textarea"
               :rows="3"
               placeholder="请输入您的简介"
-              v-model="textarea">
+              v-model="introduction">
             </el-input>
           </el-form-item>
           <el-form-item label="请上传您的认证材料">
             <el-upload
               class="upload-demo"
               ref="upload"
-              action="/api"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
+              action=""
+              :on-change="handleChoose"
               :file-list="fileList"
               :auto-upload="false">
               <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-              <el-button style="margin-left: 10%; position:relative;bottom:15px;" size="small" type="success"
-                         @click="submitUpload">上传到服务器
-              </el-button>
               <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式文件，且不超过500kb</div>
             </el-upload>
           </el-form-item>
@@ -54,16 +50,24 @@
               <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
                          :zoom="15">
                 <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
-                                @locationSuccess="getPosition" @locationError="errorHandle"></bm-geolocation>
+                                @locationSuccess="getPositionDetail" @locationError="errorHandle"></bm-geolocation>
                 <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE"
-                           @dragend="getPosition">
+                           @dragend="getPoint">
                   <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
                             :offset="{width: -35, height: 30}"/>
                 </bm-marker>
               </baidu-map>
             </div>
           </el-form-item>
-          <el-button type="primary" :disabled="checkForm" @click="submit">提交</el-button>
+          <el-form-item label="地址的详细描述">
+            <el-input
+              type="textarea"
+              :rows="1"
+              placeholder="详细的地址描述更方便的帮助学生找到地址"
+              v-model="positionDescription">
+            </el-input>
+          </el-form-item>
+          <el-button type="primary" @click="submit">提交</el-button>
         </el-form>
       </div>
     </div>
@@ -88,20 +92,18 @@
     data () {
       return {
         form: {
+          name: '',
           file: ''
         },
         imageUrl: '',
-        textarea: '',
+        introduction: '',
+        positionDescription: '',
         fileList: [],
         position: {
           lng: 0,
           lat: 0
-        }
-      }
-    },
-    computed: {
-      checkForm: function () {
-        return this.form.name === '' || this.form.birthday === '' || this.form.gender === '' || this.form.stage === '' || this.form.grade === '';
+        },
+        address: []
       }
     },
     methods: {
@@ -149,10 +151,31 @@
         return isJPG;
       },
       submit () {
+        console.log(this.fileList);
+        if (!this.form.name) {
+          this.$message({
+            type: 'error',
+            message: '请填写用户名',
+            time: 2000
+          });
+          return;
+        } else if (!this.introduction) {
+          this.$message({
+            type: 'error',
+            message: '请填写您的简介',
+            time: 2000
+          });
+          return;
+        }
+        this.address[0].detail = this.positionDescription;
+        this.address[0].latitude = this.position.lat;
+        this.address[0].longitude = this.position.lng;
         let dataForm = new FormData();
         dataForm.append('head_photo', this.form.file);
         dataForm.append('name', this.form.name);
-        dataForm.append('introduction', this.textarea);
+        dataForm.append('introduction', this.introduction);
+        dataForm.append('addresses', this.address);
+        dataForm.append('authentications', this.fileList);
         axios({
           method: 'put',
           url: '/api//educator/sign_up/',
@@ -170,20 +193,18 @@
             console.log(error);
           })
       },
-      submitUpload () {
-        this.$refs.upload.submit();
-        console.log(this.fileList);
+      handleChoose (file) {
+        this.fileList.push(file.raw);
       },
-      handleRemove (file, fileList) {
-        console.log(file, fileList);
+      // 一旦地图进行了定位，就调用此函数
+      getPositionDetail (object) {
+        this.address.push(object.addressComponent);
       },
-      handlePreview (file) {
-        console.log(file);
-      },
-      getPosition (object) {
-        console.log(object);
+      // 一旦用户移动了地图上的小光标，就调用此函数
+      getPoint (object) {
         this.position = object.point;
       },
+      // 一旦地图自动获取定位失败，就调用此函数，然后通过浏览器的api手动获得养护的定位
       errorHandle () {
         function displayPosition (pos) {
           this.positioni.lng = pos.coords['longitude'];
