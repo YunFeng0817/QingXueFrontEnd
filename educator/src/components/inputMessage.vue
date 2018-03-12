@@ -174,6 +174,8 @@
         dataForm.append('name', this.form.name);
         dataForm.append('introduction', this.introduction);
         dataForm.append('addresses', this.address);
+        console.log(this.address);
+        console.log(this.fileList);
         dataForm.append('authentications', this.fileList);
         axios({
           method: 'put',

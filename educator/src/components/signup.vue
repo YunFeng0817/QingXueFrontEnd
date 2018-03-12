@@ -55,7 +55,7 @@
             <el-button @click="setProcess" class="button" type="primary">同意该条款
             </el-button>
           </div>
-          <div v-if="process===1||(forget_pass&&process===0)">
+          <div v-if="(!forget_pass&&process===1)||(forget_pass&&process===0)">
             <div class="login-row">
               <label for="phone-number" class="login-label">手机号</label>
               <el-input
@@ -308,7 +308,7 @@
                   if (!this.forget_pass) {
                     this.$router.push('/message');
                   } else {
-                    this.$router.back();
+                    window.location.href = '/api/admin/';
                   }
                 }
               }.bind(this))
