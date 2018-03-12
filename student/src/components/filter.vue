@@ -91,14 +91,13 @@
               // entries() 是对键值对的遍历 id是索引  subject是值
               for (let [id, subject] of userMessage.state.subjects.entries()) {
                 grades.children.push({});
-                console.log(id);
-                grades.children[id].value = subject;
-                grades.children[id].label = subject;
+                grades.children[id].value = subject.name;
+                grades.children[id].label = subject.name;
                 grades.children[id].children = [];
                 for (let [index, degree] of userMessage.state.degrees.entries()) {
                   grades.children[id].children.push({});
-                  grades.children[id].children[index].value = degree;
-                  grades.children[id].children[index].label = degree;
+                  grades.children[id].children[index].value = degree.name;
+                  grades.children[id].children[index].label = degree.name;
                 }
               }
             }
@@ -106,13 +105,13 @@
             stage.children = [];
             for (let [id, subject] of userMessage.state.subjects.entries()) {
               stage.children.push({});
-              stage.children[id].value = subject;
-              stage.children[id].label = subject;
+              stage.children[id].value = subject.name;
+              stage.children[id].label = subject.name;
               stage.children[id].children = [];
               for (let [index, degree] of userMessage.state.degrees.entries()) {
                 stage.children[id].children.push({});
-                stage.children[id].children[index].value = degree;
-                stage.children[id].children[index].label = degree;
+                stage.children[id].children[index].value = degree.name;
+                stage.children[id].children[index].label = degree.name;
               }
             }
           }
