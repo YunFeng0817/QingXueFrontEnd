@@ -160,7 +160,7 @@
         tab_active: false,
         forget_pass: false,
         active_class: '',
-        process: 2,
+        process: 0,
         phone_number: '',
         check_num: '',
         hint: '1、本订单仅供课程预约<br/>2、预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>3、预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>4、该预约不可取消，有效期内未付尾款视为取消该课程<br/>5、机构(教师)不保留相关课程安排',
@@ -305,7 +305,7 @@
               .then(function (response) {
                 if (response) {
                   if (!this.forget_pass) {
-                    this.$router.push('message');
+                    this.$router.push('/message');
                   } else {
                     this.$router.back();
                   }
