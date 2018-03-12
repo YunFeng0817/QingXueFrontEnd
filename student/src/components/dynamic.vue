@@ -221,7 +221,7 @@
             this.length = node.scrollHeight;
             let stages = [];
             if (this.stage) {
-              stages.push(this.stage.stages[0]);
+              stages.push(this.stage.stage[0]);
             }
             axios({
               method: 'post',

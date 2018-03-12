@@ -157,7 +157,7 @@
         username: '',
         password: '',
         checked: false,
-        tab_active: false,
+        tab_active: true,
         forget_pass: false,
         active_class: '',
         process: 0,
@@ -215,10 +215,11 @@
         this.forget_pass = true;
         this.tab_active = false;
       },
+      // 用户登录的提交函数
       loginSubmit () {
         axios({
           method: 'post',
-          url: '/api/student/login/',
+          url: '/api/educator/login/',
           data: {
             username: this.username,
             password: this.password,
@@ -228,9 +229,9 @@
           .then(function (response) {
             // 如果response 的返回值是空，则表明返回的状态码出错，如果非空，则返回码是200
             if (response) {
-              this.$router.back();
+              window.location.href = '/api/admin/';
             }
-          }.bind(this))
+          })
           .catch(function (error) {
             console.log(error);
           });
