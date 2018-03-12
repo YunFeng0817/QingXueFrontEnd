@@ -214,18 +214,18 @@
       scrollHandle () {
         let node = this.$refs.dynamic;
         let left = node.scrollHeight - document.documentElement.offsetHeight - window.scrollY;
-        let stages = [];
-        if (this.stage) {
-          stages.push(this.stage);
-        }
         if (left <= 15) {
           // 这里的判断用来 防止算时间内的重复请求
           if (this.length !== node.scrollHeight) {
             this.page++;
             this.length = node.scrollHeight;
+            let stages = [];
+            if (this.stage) {
+              stages.push(this.stage.stages[0]);
+            }
             axios({
               method: 'post',
-              url: '/api/course/filtered_list/',
+              url: '/api/essay/filtered_essays/',
               data: {
                 stages: stages,
                 page: this.page
@@ -233,15 +233,17 @@
             })
               .then(function (response) {
                 if (response) {
-                  if (this.response.essays.length !== 0) {
-                    this.recommends.append(response);
+                  if (response.essays.length !== 0) {
+                    for (let item of response.essays) {
+                      this.essays.push(item);
+                    }
+                  } else {
+                    this.$message({
+                      type: 'info',
+                      message: '没有更多了',
+                      duration: 1500
+                    })
                   }
-                } else {
-                  this.$message({
-                    type: 'info',
-                    message: '没有更多了',
-                    time: 1500
-                  })
                 }
               }.bind(this))
               .catch(function (error) {

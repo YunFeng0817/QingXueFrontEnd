@@ -264,7 +264,7 @@
                     this.$message({
                       type: 'info',
                       message: '没有更多了',
-                      time: 1500
+                      duration: 1500
                     })
                   } else {
                     for (let item of response.courses) {

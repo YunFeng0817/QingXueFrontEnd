@@ -91,6 +91,7 @@
               // entries() 是对键值对的遍历 id是索引  subject是值
               for (let [id, subject] of userMessage.state.subjects.entries()) {
                 grades.children.push({});
+                console.log(id);
                 grades.children[id].value = subject;
                 grades.children[id].label = subject;
                 grades.children[id].children = [];
