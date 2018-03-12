@@ -72,7 +72,8 @@
                   <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
                   <span class="time" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
                   <span class="time" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else>电话 : <a :href="'tel:'+item.contact_detail">{{item.contact_detail}}</a></span>
+                  <span class="time" v-else>电话 : <a
+                    :href="'tel:'+item.contact_detail">{{item.contact_detail}}</a></span>
                 </p>
               </div>
             </el-tab-pane>
@@ -80,6 +81,7 @@
               <p>
                 {{detail}}
               </p>
+              <p v-if="detail===''">暂时没有课程详情</p>
             </el-tab-pane>
             <el-tab-pane label="教师" v-if="path==='course'">
               <div v-for="item in teachers">
@@ -98,6 +100,7 @@
                   {{item.description}}
                 </div>
               </div>
+              <p v-if="teachers.length===0">没有教师的详情</p>
             </el-tab-pane>
             <el-tab-pane label="地址">
               <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" :center="{lng: 116.404, lat: 39.915}"
@@ -141,6 +144,7 @@
                   </am-comment-content>
                 </am-comment>
               </am-comment-list>
+              <p v-if="comments.length===0">暂时没有评论</p>
             </el-tab-pane>
           </el-tabs>
         </div>
