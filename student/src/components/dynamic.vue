@@ -40,7 +40,7 @@
           {
             label: '我的关注',
             data: {
-              stages: [
+              stage: [
                 '我的关注'
               ]
             }
@@ -48,7 +48,7 @@
           {
             label: '幼儿',
             data: {
-              stages: [
+              stage: [
                 '幼儿'
               ]
             }
@@ -56,7 +56,7 @@
           {
             label: '小学',
             data: {
-              stages: [
+              stage: [
                 '小学'
               ]
             }
@@ -64,7 +64,7 @@
           {
             label: '初中',
             data: {
-              stages: [
+              stage: [
                 '初中'
               ]
             }
@@ -72,7 +72,7 @@
           {
             label: '高中',
             data: {
-              stages: [
+              stage: [
                 '高中'
               ]
             }
@@ -80,7 +80,7 @@
           {
             label: '大学',
             data: {
-              stages: [
+              stage: [
                 '大学'
               ]
             }
@@ -88,7 +88,7 @@
           {
             label: '留学',
             data: {
-              stages: [
+              stage: [
                 '留学'
               ]
             }
@@ -96,7 +96,7 @@
           {
             label: '职业技能',
             data: {
-              stages: [
+              stage: [
                 '职业技能'
               ]
             }
@@ -104,7 +104,7 @@
           {
             label: '讲座活动',
             data: {
-              stages: [
+              stage: [
                 '讲座活动'
               ]
             }
@@ -112,7 +112,7 @@
           {
             label: '文艺',
             data: {
-              states: [
+              state: [
                 '文艺'
               ]
             }
@@ -120,7 +120,7 @@
           {
             label: '体育',
             data: {
-              stages: [
+              stage: [
                 '体育'
               ]
             }
@@ -227,7 +227,7 @@
               method: 'post',
               url: '/api/essay/filtered_essays/',
               data: {
-                stages: stages,
+                stage: stages,
                 page: this.page
               }
             })

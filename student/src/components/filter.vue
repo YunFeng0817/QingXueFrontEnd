@@ -156,10 +156,10 @@
           method: 'post',
           url: '/api/course/filtered_list/',
           data: {
-            stages: [value[0]],
-            grades: [value[1]],
-            subjects: [value[2]],
-            degrees: [value[3]]
+            stage: [value[0]],
+            grade: [value[1]],
+            subject: [value[2]],
+            degree: [value[3]]
           }
         })
           .then(function (response) {
