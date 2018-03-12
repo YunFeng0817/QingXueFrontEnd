@@ -151,7 +151,6 @@
         return isJPG;
       },
       submit () {
-        console.log(this.fileList);
         if (!this.form.name) {
           this.$message({
             type: 'error',
@@ -178,21 +177,23 @@
         dataForm.append('authentications', this.fileList);
         axios({
           method: 'put',
-          url: '/api//educator/sign_up/',
+          url: '/api/educator/sign_up/',
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
           },
           data: dataForm
         })
           .then(function (response) {
             if (response) {
-              this.$router.back();
+              window.location.href = '/admin/';
             }
-          }.bind(this))
+          })
           .catch(function (error) {
             console.log(error);
           })
       },
+      // 一旦用户选择了文件，就会调用这个函数，然后将文件添加进fileList数组
       handleChoose (file) {
         this.fileList.push(file.raw);
       },

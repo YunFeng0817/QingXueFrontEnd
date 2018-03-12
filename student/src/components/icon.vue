@@ -42,7 +42,7 @@
                   course.is_course = true;
                 }
                 userMessage.commit('commitFirst', response);
-                this.$router.push({path: 'get', query: {category: event.message}});
+                this.$router.push({path: '/get/' + event.message + '/0' + '/0' + '/0'});
               }
             }.bind(this))
             .catch(function (error) {

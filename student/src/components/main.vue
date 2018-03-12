@@ -185,11 +185,13 @@
         showImages: [],
         showMessages: [],
         recommends: [],
-        length: 0
+        length: 0,
+        page: 1  // 用来标记页数，默认返回的是第一页
       }
     },
     watch: {
       '$route' (to, from) {
+        this.page = 1;
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
         if (this.is_main) {
           this.showMessages = userMessage.state.main.essays;
@@ -221,20 +223,54 @@
          * element.scrollHeight是元素的本身高度
          */
         let left = node.scrollHeight - window.scrollY - document.documentElement.offsetHeight;
-        let url = this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main' ? '/api/common/page_contents/' : '/api/common/page_contents/';
+        let url = '/api/course/filtered_list/';
+        let stages = [];
+        let grades = [];
+        let subjects = [];
+        let degrees = [];
+        if (this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
+          if (this.$router.currentRoute.params.stages !== '0') {
+            stages.push(this.$router.currentRoute.params.stages);
+          }
+          if (this.$router.currentRoute.params.grades !== '0') {
+            grades.push(this.$router.currentRoute.params.grades);
+          }
+          if (this.$router.currentRoute.params.subjects !== '0') {
+            subjects.push(this.$router.currentRoute.params.subjects);
+          }
+          if (this.$router.currentRoute.params.degrees !== '0') {
+            degrees.push(this.$router.currentRoute.params.degrees);
+          }
+        }
         if (left <= 15) {
           // 这里的判断用来 防止算时间内的重复请求
           if (this.length !== node.scrollHeight) {
+            this.page++; // 页数增加一页
             this.length = node.scrollHeight;
             axios({
-              method: 'get',
-              url: url
+              method: 'post',
+              url: url,
+              data: {
+                page: this.page,
+                stages: stages,
+                grades: grades,
+                subjects: subjects,
+                degrees: degrees
+              }
             })
               .then(function (response) {
                 if (response) {
-                  for (let item of response.courses) {
-                    item.is_course = true;
-                    this.recommends.push(item);
+                  if (response.courses.length === 0) {
+                    this.$message({
+                      type: 'info',
+                      message: '没有更多了',
+                      time: 1500
+                    })
+                  } else {
+                    for (let item of response.courses) {
+                      item.is_course = true;
+                      this.recommends.push(item);
+                    }
                   }
                 }
               }.bind(this))

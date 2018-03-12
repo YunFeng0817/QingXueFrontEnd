@@ -129,6 +129,8 @@
         startX: 0,
         offsetLeft: 0,
         length: 0,
+        page: 1, // 用来标记页数，默认返回的是第一页
+        stage: '',
         target: document.createElement('IMG')
       }
     },
@@ -189,6 +191,7 @@
         this.target.style = 'position:relative;left:' + this.offsetLeft.toString() + 'px;';
       },
       tabClick (data) {
+        this.stage = data;
         axios({
           url: '/api/essay/filtered_essays/',
           method: 'post',
@@ -199,6 +202,7 @@
               for (let essay of response.essays) {
                 essay.is_course = false;
               }
+              this.page = 1;
               this.essays = response.essays;
             }
           }.bind(this))
@@ -210,17 +214,34 @@
       scrollHandle () {
         let node = this.$refs.dynamic;
         let left = node.scrollHeight - document.documentElement.offsetHeight - window.scrollY;
+        let stages = [];
+        if (this.stage) {
+          stages.push(this.stage);
+        }
         if (left <= 15) {
           // 这里的判断用来 防止算时间内的重复请求
           if (this.length !== node.scrollHeight) {
+            this.page++;
             this.length = node.scrollHeight;
             axios({
-              method: 'get',
-              url: 'test'
+              method: 'post',
+              url: '/api/course/filtered_list/',
+              data: {
+                stages: stages,
+                page: this.page
+              }
             })
               .then(function (response) {
                 if (response) {
-                  this.recommends.append(response);
+                  if (this.response.essays.length !== 0) {
+                    this.recommends.append(response);
+                  }
+                } else {
+                  this.$message({
+                    type: 'info',
+                    message: '没有更多了',
+                    time: 1500
+                  })
                 }
               }.bind(this))
               .catch(function (error) {
