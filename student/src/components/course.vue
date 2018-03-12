@@ -59,7 +59,7 @@
               <div v-else>
                 <div class="educator">
                   <am-image class="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
-                            :src="head_photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':head_photo.photo"/>
+                            :src="head_photo===''?'http://s.amazeui.org/media/i/demos/bing-4.jpg':head_photo"/>
                   <div>
                     <p v-if="gender"><span class="teacher">性别：</span> {{gender==='male'?'男':'女'}}</p>
                     <p v-if="gender"><span class="teacher">学历：</span><span>{{edu_background}}</span></p>
@@ -72,10 +72,7 @@
                   <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
                   <span class="time" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
                   <span class="time" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else>电话 : <a :href="'tel:'+item.contact_detail">{{contact_detail}}</a></span>
-                </p>
-                <p>
-
+                  <span class="time" v-else>电话 : <a :href="'tel:'+item.contact_detail">{{item.contact_detail}}</a></span>
                 </p>
               </div>
             </el-tab-pane>
@@ -290,7 +287,7 @@
                 this.favourited = response.followed;
                 this.title = response.basic_info.name;
                 this.introduction = response.basic_info.introduction;
-                this.showImages = response.basic_info.banner;
+                this.showImages = response.basic_info.banners;
                 this.head_photo = response.basic_info.head_photo;
                 this.contact = response.basic_info.contacts;
               }
@@ -302,7 +299,7 @@
           this.favourited = userMessage.state.institution.followed;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
-          this.showImages = userMessage.state.institution.basic_info.banner;
+          this.showImages = userMessage.state.institution.basic_info.banners;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
           this.contact = userMessage.state.institution.basic_info.contacts;
         }
@@ -329,7 +326,7 @@
           this.favourited = userMessage.state.institution.followed;
           this.title = userMessage.state.institution.basic_info.name;
           this.introduction = userMessage.state.institution.basic_info.introduction;
-          this.showImages = userMessage.state.institution.basic_info.banner;
+          this.showImages = userMessage.state.institution.basic_info.banners;
           this.head_photo = userMessage.state.institution.basic_info.head_photo;
           this.contact = userMessage.state.institution.basic_info.contacts;
         }
