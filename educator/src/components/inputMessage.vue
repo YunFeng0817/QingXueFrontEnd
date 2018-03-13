@@ -39,6 +39,7 @@
               ref="upload"
               action=""
               :on-change="handleChoose"
+              :on-remove="handleRemove"
               :file-list="fileList"
               :auto-upload="false">
               <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
@@ -174,9 +175,13 @@
         dataForm.append('name', this.form.name);
         dataForm.append('introduction', this.introduction);
         dataForm.append('addresses', this.address);
-        console.log(this.address);
-        console.log(this.fileList);
-        dataForm.append('authentications', this.fileList);
+        /**
+         * 因为FormData对象的append()的第二个参数只能是字符串或者blob对象，
+         * 不能是数组对象，所以要要循环添加文件，实现数组的上传
+         */
+        for (let file of this.fileList) {
+          dataForm.append('authentications', file);
+        }
         axios({
           method: 'put',
           url: '/api/educator/sign_up/',
@@ -188,7 +193,7 @@
         })
           .then(function (response) {
             if (response) {
-              window.location.href = '/admin/';
+              // window.location.href = '/admin/';
             }
           })
           .catch(function (error) {
@@ -198,6 +203,10 @@
       // 一旦用户选择了文件，就会调用这个函数，然后将文件添加进fileList数组
       handleChoose (file) {
         this.fileList.push(file.raw);
+      },
+      // 处理用户删除文件的操作
+      handleRemove (file, fileList) {
+        this.fileList = fileList;
       },
       // 一旦地图进行了定位，就调用此函数
       getPositionDetail (object) {
