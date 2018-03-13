@@ -4,8 +4,8 @@
     <div class="content">
       <el-col :span="22" class="card">
         <div v-if="!forget_pass" class="login-index">
-          <div @click="tab_active=true" id="sign-in" :class="getClassA"><span>登录</span></div>
-          <div @click="tab_active=false" id="sign-up" :class="getClassB"><span>注册</span></div>
+          <div @click="login" id="sign-in" :class="getClassA"><span>登录</span></div>
+          <div @click="signup" id="sign-up" :class="getClassB"><span>注册</span></div>
         </div>
         <div v-if="tab_active" style="padding: 14px; text-align: center">
           <div class="login-row">
@@ -179,6 +179,18 @@
         }
       }
     },
+    mounted () {
+      if (this.$router.currentRoute.path === '/login') {
+        this.tab_active = true;
+      } else {
+        this.tab_active = false;
+      }
+    },
+    watch: {
+      '$route' (to, from) {
+        this.tab_active = this.$router.currentRoute.path === '/login';
+      }
+    },
     computed: {
       getClassA: function () {
         if (this.tab_active) {
@@ -210,6 +222,12 @@
       }
     },
     methods: {
+      login () {
+        this.$router.push({path: '/login'});
+      },
+      signup () {
+        this.$router.push({path: '/signup'});
+      },
       forgetPass () {
         this.process = 0;
         this.forget_pass = true;
