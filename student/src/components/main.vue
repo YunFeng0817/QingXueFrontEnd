@@ -252,10 +252,10 @@
               url: url,
               data: {
                 page: this.page,
-                stage: stages,
-                grade: grades,
-                subject: subjects,
-                degree: degrees
+                stages: stages,
+                grades: grades,
+                subjects: subjects,
+                degrees: degrees
               }
             })
               .then(function (response) {
@@ -264,7 +264,7 @@
                     this.$message({
                       type: 'info',
                       message: '没有更多了',
-                      duration: 1500
+                      time: 1500
                     })
                   } else {
                     for (let item of response.courses) {

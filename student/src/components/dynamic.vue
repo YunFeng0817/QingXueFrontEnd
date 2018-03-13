@@ -154,6 +154,7 @@
           })
       } else {
         this.essays = userMessage.state.essays;
+        this.page = userMessage.state.dynamicPage;
       }
     },
     mounted () {
@@ -235,8 +236,12 @@
                 if (response) {
                   if (response.essays.length !== 0) {
                     for (let item of response.essays) {
-                      this.essays.push(item);
+                      if (this.essays.indexOf(item) === -1) {
+                        this.essays.push(item);
+                      }
                     }
+                    userMessage.commit('commitEssays', this.essays);
+                    userMessage.commit('commitDynamicPage', this.page);
                   } else {
                     this.$message({
                       type: 'info',
