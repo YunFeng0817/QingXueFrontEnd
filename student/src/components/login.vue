@@ -36,12 +36,14 @@
               <a @click="forgetPass" class="el-icon-question">忘记密码</a>
             </div>
             <el-button class="button" type="primary" :disabled="check_login" @click="loginSubmit">登录</el-button>
-            <p>其他登录方式</p>
-            <div>
-              <a class="am-icon-btn am-success am-icon-weixin"></a>
-              <a class="am-icon-btn am-primary am-icon-qq"></a>
-              <a class="am-icon-btn am-warning am-icon-weibo"></a>
-            </div>
+            <br/>
+            <h3>你有教师或者机构的账号?<a href="/educator/login">猛戳这里登录</a></h3>
+            <!--<p>其他登录方式</p>-->
+            <!--<div>-->
+              <!--<a class="am-icon-btn am-success am-icon-weixin"></a>-->
+              <!--<a class="am-icon-btn am-primary am-icon-qq"></a>-->
+              <!--<a class="am-icon-btn am-warning am-icon-weibo"></a>-->
+            <!--</div>-->
           </div>
           <div v-if="!tab_active" style="padding: 14px; text-align: center">
             <el-steps :active="process" finish-status="success">
