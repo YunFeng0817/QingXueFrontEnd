@@ -173,7 +173,7 @@
           this.address[0].detail = this.positionDescription;
           this.address[0].latitude = this.position.lat;
           this.address[0].longitude = this.position.lng;
-          // dataForm.append('addresses', this.address[0]);
+          dataForm.append('addresses', JSON.stringify(this.address[0]));
         }
         dataForm.append('head_photo', this.form.file);
         dataForm.append('name', this.form.name);
@@ -196,7 +196,7 @@
         })
           .then(function (response) {
             if (response) {
-              // window.location.href = '/admin/';
+              window.location.href = '/admin/';
             }
           })
           .catch(function (error) {
@@ -222,6 +222,7 @@
       // 一旦地图进行了定位，就调用此函数
       getPositionDetail (object) {
         this.address.push(object.addressComponent);
+        this.position = object.point;
       },
       // 一旦用户移动了地图上的小光标，就调用此函数
       getPoint (object) {
