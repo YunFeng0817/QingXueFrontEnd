@@ -38,6 +38,7 @@
               class="upload-demo"
               ref="upload"
               action=""
+              :limit="5"
               :on-change="handleChoose"
               :on-remove="handleRemove"
               :file-list="fileList"
@@ -156,25 +157,27 @@
           this.$message({
             type: 'error',
             message: '请填写用户名',
-            time: 2000
+            duration: 2000
           });
           return;
         } else if (!this.introduction) {
           this.$message({
             type: 'error',
             message: '请填写您的简介',
-            time: 2000
+            duration: 2000
           });
           return;
         }
-        this.address[0].detail = this.positionDescription;
-        this.address[0].latitude = this.position.lat;
-        this.address[0].longitude = this.position.lng;
         let dataForm = new FormData();
+        if (this.address.length !== 0) {
+          this.address[0].detail = this.positionDescription;
+          this.address[0].latitude = this.position.lat;
+          this.address[0].longitude = this.position.lng;
+          // dataForm.append('addresses', this.address[0]);
+        }
         dataForm.append('head_photo', this.form.file);
         dataForm.append('name', this.form.name);
         dataForm.append('introduction', this.introduction);
-        dataForm.append('addresses', this.address);
         /**
          * 因为FormData对象的append()的第二个参数只能是字符串或者blob对象，
          * 不能是数组对象，所以要要循环添加文件，实现数组的上传
@@ -202,7 +205,15 @@
       },
       // 一旦用户选择了文件，就会调用这个函数，然后将文件添加进fileList数组
       handleChoose (file) {
-        this.fileList.push(file.raw);
+        if (file.raw.size > 1024 * 500) {
+          this.$message({
+            type: 'error',
+            message: '文件大小超过了500KB',
+            duration: 1500
+          });
+        } else {
+          this.fileList.push(file.raw);
+        }
       },
       // 处理用户删除文件的操作
       handleRemove (file, fileList) {
