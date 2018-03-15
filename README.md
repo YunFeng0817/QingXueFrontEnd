@@ -1,3 +1,3 @@
 # 青学教育前端部分
-
-<iframe src="./wbs.pdf" frameborder="0"></iframe>
+### 前端页面与组件的结构示意图
+![](./structure.png)

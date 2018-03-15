@@ -32,7 +32,9 @@
       move (event) {
         if (event.target.tagName === 'IMG') {
           let X = event.changedTouches[0].clientX;
-          this.target.style = 'position:absolute;left:' + (X - this.startX).toString() + 'px';
+          if (this.showImages && this.showImages.length >= 2) {
+            this.target.style = 'position:absolute;left:' + (X - this.startX).toString() + 'px';
+          }
         }
       },
       drop (event) {

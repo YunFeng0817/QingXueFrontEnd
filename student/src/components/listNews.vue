@@ -114,7 +114,8 @@
   .image {
     width: 40%;
     height: 30%;
-    max-width: 390px;
+    max-height: 80px;
+    max-width: 120px;
     display: block;
     margin: 2% 1%;
   }

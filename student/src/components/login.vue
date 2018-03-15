@@ -40,9 +40,9 @@
             <h3>你有教师或者机构的账号?<a href="/educator/login">猛戳这里登录</a></h3>
             <!--<p>其他登录方式</p>-->
             <!--<div>-->
-              <!--<a class="am-icon-btn am-success am-icon-weixin"></a>-->
-              <!--<a class="am-icon-btn am-primary am-icon-qq"></a>-->
-              <!--<a class="am-icon-btn am-warning am-icon-weibo"></a>-->
+            <!--<a class="am-icon-btn am-success am-icon-weixin"></a>-->
+            <!--<a class="am-icon-btn am-primary am-icon-qq"></a>-->
+            <!--<a class="am-icon-btn am-warning am-icon-weibo"></a>-->
             <!--</div>-->
           </div>
           <div v-if="!tab_active" style="padding: 14px; text-align: center">
@@ -56,7 +56,7 @@
               <el-step v-if="!forget_pass" title="完善信息">
               </el-step>
             </el-steps>
-            <div v-if="process===0&&!forget_pass">
+            <div v-if="(!forget_pass&&process===1)||(process===0&&!forget_pass)">
               <h2>
                 请您认真查看以下条款
               </h2>
