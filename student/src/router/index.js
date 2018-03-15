@@ -59,10 +59,6 @@ export default new Router({
     {
       path: '/order/result',
       component: resolve => require(['../components/orderResult'], resolve) // 懒加载
-    },
-    {
-      path: '/edit',
-      component: resolve => require(['../components/editor'], resolve) // 懒加载
     }
   ]
 })
