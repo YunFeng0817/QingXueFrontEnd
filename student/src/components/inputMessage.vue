@@ -18,7 +18,7 @@
       </el-form-item>
       <el-form-item label="学习阶段">
         <el-select placeholder="请选择您的学习阶段" v-model="form.stage">
-          <el-option v-for="item in stages" :key="item.id" :label="item" :value="item">
+          <el-option v-for="item in stages" :key="item.id" :label="item.name" :value="item">
           </el-option>
         </el-select>
       </el-form-item>
