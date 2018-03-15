@@ -56,7 +56,7 @@
               <el-step v-if="!forget_pass" title="完善信息">
               </el-step>
             </el-steps>
-            <div v-if="(!forget_pass&&process===1)||(process===0&&!forget_pass)">
+            <div v-if="process===0&&!forget_pass">
               <h2>
                 请您认真查看以下条款
               </h2>
@@ -67,7 +67,7 @@
               <el-button @click="setProcess" class="button" type="primary">同意该条款
               </el-button>
             </div>
-            <div v-if="process===1||(forget_pass&&process===0)">
+            <div v-if="(!forget_pass&&process===1)||(forget_pass&&process===0))">
               <div class="login-row">
                 <label for="phone-number" class="login-label">手机号</label>
                 <el-input
