@@ -39,15 +39,11 @@
 </template>
 
 <script>
-  import news from './news';
   import axios from '../axios/index';
   import userMessage from '../store/index';
 
   export default {
     name: 'list-news',
-    components: {
-      news: news
-    },
     props: {
       typeName: {
         type: String
