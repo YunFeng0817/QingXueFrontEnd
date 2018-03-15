@@ -86,7 +86,7 @@
             iconType: 'am-success am-icon-child',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '幼儿'
               ]
             }
@@ -96,7 +96,7 @@
             iconType: 'am-primary am-icon-female',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '小学'
               ]
             }
@@ -106,7 +106,7 @@
             iconType: 'am-warning am-icon-male',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '初中'
               ]
             }
@@ -116,7 +116,7 @@
             iconType: 'am-success am-icon-fort-awesome',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '高中'
               ]
             }
@@ -126,7 +126,7 @@
             iconType: 'am-danger am-icon-graduation-cap',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '大学'
               ]
             }
@@ -136,7 +136,7 @@
             iconType: 'am-warning am-icon-institution',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '留学'
               ]
             }
@@ -146,7 +146,7 @@
             iconType: 'am-danger am-icon-signal',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '职业技能'
               ]
             }
@@ -156,7 +156,7 @@
             iconType: 'am-primary am-icon-rocket',
             url: ' /api/common/page_contents/',
             data: {
-              stages: [
+              stage: [
                 '讲座活动'
               ]
             }
@@ -166,7 +166,7 @@
             iconType: 'am-warning am-icon-paint-brush',
             url: ' /api/common/page_contents/',
             data: {
-              subjects: [
+              subject: [
                 '文艺'
               ]
             }
@@ -176,7 +176,7 @@
             iconType: 'am-primary am-icon-bicycle',
             url: ' /api/common/page_contents/',
             data: {
-              subjects: [
+              subject: [
                 '体育'
               ]
             }

@@ -54,7 +54,7 @@ axios.interceptors.response.use((response) => {
       console.log(data.status);
       return;
     case 409:
-      console.log(data.status);
+      message.error('这个手机号已经注册过了');
       return;
     case 410:
       Message.error('请先点击 "发送短信" 按钮获取验证码');

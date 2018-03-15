@@ -24,7 +24,7 @@
       </el-form-item>
       <el-form-item label="年级">
         <el-select placeholder="请选择您的年级" v-model="form.grade">
-          <el-option v-for="item in grades" :key="item.id" :label="item" :value="item">
+          <el-option v-for="item in grades" :key="item.id" :label="item.name" :value="item.name">
           </el-option>
         </el-select>
       </el-form-item>
