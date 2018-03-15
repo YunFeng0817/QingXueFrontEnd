@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <label>选出你关注的内容</label>
+    <label>筛选</label>
     <div class="block">
       <el-cascader
         :options="options"

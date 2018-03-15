@@ -47,20 +47,20 @@
               <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式的文件，且不超过500kb</div>
             </el-upload>
           </el-form-item>
-          <el-form-item label="请在地图上标出您的位置">
-            <div class="map">
-              <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
-                         :zoom="15">
-                <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
-                                @locationSuccess="getPositionDetail" @locationError="errorHandle"></bm-geolocation>
-                <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE"
-                           @dragend="getPoint">
-                  <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
-                            :offset="{width: -35, height: 30}"/>
-                </bm-marker>
-              </baidu-map>
-            </div>
+          <el-form-item label="请在地图上标出您的位置" style="height:20%;">
           </el-form-item>
+          <div class="map">
+            <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
+                       :zoom="15">
+              <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"
+                              @locationSuccess="getPositionDetail" @locationError="errorHandle"></bm-geolocation>
+              <bm-marker :position="position" :dragging="true" animation="BMAP_ANIMATION_BOUNCE"
+                         @dragend="getPoint">
+                <bm-label content="我的位置" :labelStyle="{color: 'red', fontSize : '24px'}"
+                          :offset="{width: -35, height: 30}"/>
+              </bm-marker>
+            </baidu-map>
+          </div>
           <el-form-item label="地址的详细描述">
             <el-input
               type="textarea"
@@ -303,6 +303,6 @@
 
   .map {
     width: 100%;
-    height: 450px;
+    height: 400px;
   }
 </style>

@@ -37,7 +37,7 @@
             </div>
             <el-button class="button" type="primary" :disabled="check_login" @click="loginSubmit">登录</el-button>
             <br/>
-            <h3>你有教师或者机构的账号?<a href="/educator/login">猛戳这里登录</a></h3>
+            <h3>教师或教育机构<a href="/educator/login">点击这里登录</a></h3>
             <!--<p>其他登录方式</p>-->
             <!--<div>-->
             <!--<a class="am-icon-btn am-success am-icon-weixin"></a>-->
