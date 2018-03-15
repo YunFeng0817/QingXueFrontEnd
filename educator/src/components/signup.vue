@@ -180,7 +180,7 @@
       }
     },
     mounted () {
-      if (this.$router.currentRoute.path === '/login') {
+      if (this.$router.currentRoute.path === '/educator/login') {
         this.tab_active = true;
       } else {
         this.tab_active = false;
@@ -222,11 +222,13 @@
       }
     },
     methods: {
+      // 点击登录按钮后跳转到登录页面
       login () {
-        this.$router.push({path: '/login'});
+        this.$router.push({path: '/educator/login'});
       },
+      // 点击注册按钮后跳转到注册页面
       signup () {
-        this.$router.push({path: '/signup'});
+        this.$router.push({path: '/educator/signup'});
       },
       forgetPass () {
         this.process = 0;
@@ -324,7 +326,7 @@
               .then(function (response) {
                 if (response) {
                   if (!this.forget_pass) {
-                    this.$router.push('/message');
+                    this.$router.push('/educator/message');
                   } else {
                     window.location.href = '/api/admin/';
                   }

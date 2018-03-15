@@ -8,15 +8,15 @@ export default new Router({
   linkActiveClass: 'router-link-active',
   routes: [
     {
-      path: '/login',
+      path: '/educator/login',
       component: resolve => require(['../components/signup'], resolve)
     },
     {
-      path: '/signup',
+      path: '/educator/signup',
       component: resolve => require(['../components/signup'], resolve)
     },
     {
-      path: '/message',
+      path: '/educator/message',
       component: resolve => require(['../components/inputMessage'], resolve)
     }
   ]
