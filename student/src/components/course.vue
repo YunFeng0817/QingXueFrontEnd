@@ -146,6 +146,11 @@
               </am-comment-list>
               <p v-if="comments.length===0">暂时没有评论</p>
             </el-tab-pane>
+            <el-tab-pane label="课程" v-if="path==='institution'">
+              <list-news v-if="courses.length!==0" :recommends="courses">
+              </list-news>
+              <p v-else>没有合适的课程</p>
+            </el-tab-pane>
           </el-tabs>
         </div>
       </div>
@@ -178,6 +183,7 @@
   import Navigation from 'vue-baidu-map/components/controls/Navigation'
   import image from 'amaze-vue/src/components/image/src/image'
   import slider from './slider'
+  import listNews from './listNews'
   import {
     Comment,
     CommentAuthor,
@@ -200,6 +206,7 @@
       'bm-label': bmLabel,
       'bm-navigation': Navigation,
       'am-image': image,
+      'list-news': listNews,
       AmComment: Comment,
       AmCommentAuthor: CommentAuthor,
       AmCommentBody: CommentBody,
@@ -231,7 +238,8 @@
         contact: [],
         path: this.$router.currentRoute.params.type,
         offsetTop: 0,
-        cloneNode: document.createElement('img')
+        cloneNode: document.createElement('img'),
+        courses: [] // 这个课程是存储在机构或教师页面需要展示的其拥有的课程
       }
     },
     created () {
@@ -449,6 +457,28 @@
                     this.comments = response.comment_to_courses;
                   }
                 }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                })
+            }
+            break;
+          case '课程':
+            if (this.courses.length === 0) {
+              axios({
+                method: 'post',
+                url: '/api/course/filtered_list/',
+                data: {
+                  educator_id: this.$router.currentRoute.params.id
+                }
+              })
+                .then(function (response) {
+                  if (response) {
+                    for (let item of response.courses) {
+                      item.is_course = true;
+                    }
+                    this.courses = response.courses;
+                  }
+                })
                 .catch(function (error) {
                   console.log(error);
                 })

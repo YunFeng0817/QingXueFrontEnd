@@ -1,7 +1,7 @@
 <template>
   <div>
     <a>
-      <i class="el-icon-location-outline"></i>
+      <i></i>
     </a>
     <el-row class="demo-autocomplete">
       <el-col :span="12">

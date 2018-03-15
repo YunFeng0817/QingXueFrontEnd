@@ -252,10 +252,10 @@
               url: url,
               data: {
                 page: this.page,
-                stages: stages,
-                grades: grades,
-                subjects: subjects,
-                degrees: degrees
+                stage: stages,
+                grade: grades,
+                subject: subjects,
+                degree: degrees
               }
             })
               .then(function (response) {

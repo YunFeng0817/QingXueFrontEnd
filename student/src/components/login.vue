@@ -67,7 +67,7 @@
               <el-button @click="setProcess" class="button" type="primary">同意该条款
               </el-button>
             </div>
-            <div v-if="(!forget_pass&&process===1)||(forget_pass&&process===0))">
+            <div v-if="(!forget_pass&&process===1)||(forget_pass&&process===0)">
               <div class="login-row">
                 <label for="phone-number" class="login-label">手机号</label>
                 <el-input
