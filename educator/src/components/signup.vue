@@ -188,7 +188,7 @@
     },
     watch: {
       '$route' (to, from) {
-        this.tab_active = this.$router.currentRoute.path === '/login';
+        this.tab_active = this.$router.currentRoute.path === '/educator/login';
       }
     },
     computed: {
