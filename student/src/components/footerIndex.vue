@@ -60,7 +60,7 @@
     line-height: 100%;
 
     position: fixed;
-    top: 92%;
+    bottom: 0;
 
     background-color: #8DE9E8;
   }
