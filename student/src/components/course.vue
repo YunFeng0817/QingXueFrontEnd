@@ -177,7 +177,7 @@
   import axios from '../axios/index'
   import userMessage from '../store/index'
   import BackButton from './backButton'
-  import BaiduMap from 'vue-baidu-map/components/Map/Map.vue'
+  import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
   import bmMarker from 'vue-baidu-map/components/overlays/Marker'
   import bmLabel from 'vue-baidu-map/components/overlays/Label'
   import Navigation from 'vue-baidu-map/components/controls/Navigation'
