@@ -8,7 +8,11 @@ cache:
     - node_modules
 # S: Build Lifecycle
 install:
+  - cd ./student
   - npm install
+  - cd ../educator
+  - npm install
+  - cd ..
 before_script:
 # 无其他依赖项所以执行npm run build 构建就行了
 script:
