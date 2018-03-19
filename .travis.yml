@@ -1,0 +1,26 @@
+language: node_js
+# nodejs版本
+node_js:
+    - '8'
+# Travis-CI Caching
+cache:
+  directories:
+    - node_modules
+# S: Build Lifecycle
+install:
+  - npm install
+before_script:
+# 无其他依赖项所以执行npm run build 构建就行了
+script:
+  - cd ./student
+  - npm run build
+  - cd ../educator
+  - npm run build
+# E: Build LifeCycle
+branches:
+  only:
+    - dev
+env:
+ global:
+   # 我将其添加到了travis-ci的环境变量中
+   #- GH_REF: github.com/yimogit/metools.git
