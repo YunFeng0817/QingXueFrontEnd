@@ -78,8 +78,8 @@
 
 <script>
   import axios from '../axios/index';
-  import baiduMap from 'vue-baidu-map/components/Map/Map';
   import bmGeolocation from 'vue-baidu-map/components/controls/Geolocation';
+  import baiduMap from 'vue-baidu-map/components/Map/Map.vue';
   import bmMarker from 'vue-baidu-map/components/overlays/Marker'
   import bmLabel from 'vue-baidu-map/components/overlays/Label'
 
