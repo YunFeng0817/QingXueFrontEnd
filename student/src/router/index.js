@@ -59,6 +59,9 @@ export default new Router({
     {
       path: '/order/result',
       component: resolve => require(['../components/orderResult'], resolve) // 懒加载
+    }, {
+      path: '/test',
+      component: resolve => require(['../components/pageLoading'], resolve)
     }
   ]
 })
