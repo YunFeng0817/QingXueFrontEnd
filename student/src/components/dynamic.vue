@@ -26,7 +26,7 @@
   import headerIndex from './headerIndex';
   import axios from '../axios/index';
   import userMessage from '../store/index';
-  import PageLoading from '../components/pageLoading';
+  import PageLoadingFix from './pageLoadingFix';
 
   export default {
     name: 'dynamic',
@@ -34,7 +34,7 @@
       list_news: listNews,
       'el-filter': filter,
       'header-index': headerIndex,
-      PageLoading
+      PageLoadingFix
     },
     data () {
       return {

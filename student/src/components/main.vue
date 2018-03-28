@@ -36,7 +36,7 @@
   import axios from '../axios/index';
   import userMessage from '../store/index';
   import BackButton from './backButton';
-  import PageLoading from '../components/pageLoading';
+  import PageLoadingFix from './pageLoadingFix';
 
   export default {
     name: 'Main',
@@ -47,7 +47,7 @@
       list_news: listNews,
       'header-index': headerIndex,
       slider: slider,
-      PageLoading
+      PageLoadingFix
     },
     mounted () {
       if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
