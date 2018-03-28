@@ -25,6 +25,12 @@
     methods: {
       scrollHandle: function () {
         let node = this.$refs.page;
+        /**
+         * 屏幕滚动的总结
+         * element.scrollTop是滚轮移动的距离
+         * element.offsetHeight是屏幕可视区域的高度
+         * element.scrollHeight是元素的本身高度
+         */
         // 当前情况下，滚动条距离元素底部的距离
         let offsetBottom = node.scrollHeight - node.scrollTop - node.offsetHeight;
         if (offsetBottom <= 5 && this.active === false) {
