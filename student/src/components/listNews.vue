@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a style="font-size: larger">{{typeName}}</a>
+    <a style="font-size: larger; margin:5%;">{{typeName}}</a>
     <el-row>
       <el-col class="card"
               :span="22"

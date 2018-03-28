@@ -3,7 +3,7 @@
     <div class="block">
       <el-cascader
         separator="|"
-        placeholder="城市"
+        placeholder="     城市"
         :options="options"
         v-model="stages"
         @change="handleChange">
@@ -12,7 +12,7 @@
     <div class="block">
       <el-cascader
         separator="|"
-        placeholder="阶段"
+        placeholder="     阶段"
         :options="options"
         v-model="stages"
         @change="handleChange">
@@ -21,7 +21,7 @@
     <div class="block">
       <el-cascader
         separator="|"
-        placeholder="科目"
+        placeholder="     科目"
         :options="options"
         v-model="stages"
         @change="handleChange">
@@ -201,12 +201,11 @@
     align-items: center;
   }
 
-  .filter label {
-    margin: 3%;
-    flex: 1 1 40%;
-  }
-
   .filter div {
     flex: 1 1 70%;
+  }
+
+  .block {
+    margin: 2% 1%;
   }
 </style>
