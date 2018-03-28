@@ -31,11 +31,11 @@
          * element.offsetHeight是屏幕可视区域的高度
          * element.scrollHeight是元素的本身高度
          */
-        // 当前情况下，滚动条距离元素底部的距离
+          // 当前情况下，滚动条距离元素底部的距离
         let offsetBottom = node.scrollHeight - node.scrollTop - node.offsetHeight;
         if (offsetBottom <= 5 && this.active === false) {
           this.active = true;
-          console.log('new page');
+          console.log(this.$slots.default);
         }
         // 这个判断用来防止下拉到底部后 多次触发事件
         if (offsetBottom > 5) {
