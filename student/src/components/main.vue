@@ -17,11 +17,11 @@
     </el-carousel>
     <el-filter v-if="!is_main" @filterOn="getFilter">
     </el-filter>
-    <page-loading :height="height">
+    <page-loading-fix :height="height">
       <list_news v-if="recommends.length!==0" :typeName="typeName" :recommends="recommends">
       </list_news>
       <p v-else style="text-align: center;font-size:large;">没有符合条件的课程</p>
-    </page-loading>
+    </page-loading-fix>
     <!--下面的这个区块是为了占位-->
     <div style="height: 120px;"></div>
   </div>

@@ -1,10 +1,29 @@
 <template>
   <div class="filter">
-    <label>筛选</label>
     <div class="block">
       <el-cascader
+        separator="|"
+        placeholder="城市"
         :options="options"
-        v-model="selectedOptions"
+        v-model="stages"
+        @change="handleChange">
+      </el-cascader>
+    </div>
+    <div class="block">
+      <el-cascader
+        separator="|"
+        placeholder="阶段"
+        :options="options"
+        v-model="stages"
+        @change="handleChange">
+      </el-cascader>
+    </div>
+    <div class="block">
+      <el-cascader
+        separator="|"
+        placeholder="科目"
+        :options="options"
+        v-model="stages"
         @change="handleChange">
       </el-cascader>
     </div>
@@ -77,7 +96,7 @@
           value: '大学',
           label: '大学'
         }],
-        selectedOptions: [],
+        stages: [],
         selectedOptions2: []
       }
     },
