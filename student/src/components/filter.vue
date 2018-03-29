@@ -206,6 +206,6 @@
   }
 
   .block {
-    margin: 2% 1%;
+    margin: 2% 0;
   }
 </style>
