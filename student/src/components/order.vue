@@ -125,20 +125,9 @@
             .then(function (response) {
               if (response) {
                 userMessage.commit('commitOrderResult', response);
-                axios({
-                  method: 'get',
-                  url: response.payment_url
-                })
-                  .then(function (response) {
-                    if (response) {
-                      console.log('正在支付');
-                    }
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  })
+                this.$router.push({path: '/order/result'});
+                window.location.href = response.payment_url;
               }
-              this.$router.push({path: '/order/result'});
             }.bind(this))
             .catch(function (error) {
               console.log(error);

@@ -104,18 +104,45 @@
     },
     data () {
       return {
-        orderID: userMessage.state.orderResult.order_sn,
-        title: userMessage.state.orderResult.course.title,
-        startTime: userMessage.state.orderResult.time_span.start_time,
-        endTime: userMessage.state.orderResult.time_span.end_time,
-        trade_no: userMessage.state.orderResult.trade_no,
-        total_amount: userMessage.state.orderResult.total_amount,
-        pay_time: userMessage.state.orderResult.pay_time,
-        student_notes: userMessage.state.orderResult.student_notes,
-        course_id: userMessage.state.orderResult.course.id,
-        trade_status: userMessage.state.orderResult.trade_status,
-        comment: userMessage.state.orderResult.comment,
+        orderID: '',
+        title: '',
+        startTime: '',
+        endTime: '',
+        trade_no: '',
+        total_amount: '',
+        pay_time: '',
+        student_notes: '',
+        course_id: '',
+        trade_status: '',
+        comment: '',
         edit: false
+      }
+    },
+    mounted () {
+      console.log(this.$router.currentRoute.fullPath.split('/order/result/').pop());
+      if (this.$router.currentRoute.fullPath.split('/order/result/').pop()) {
+        axios({
+          method: 'get',
+          url: '/api/alipay/return/' + this.$router.currentRoute.fullPath.split('/order/result/').pop()
+        })
+          .then(function (response) {
+            if (response) {
+              this.orderID = response.id;
+              this.title = response.course.title;
+              this.startTime = response.time_span.start_time;
+              this.endTime = response.time_span.end_time;
+              this.trade_no = response.trade_no;
+              this.total_amount = response.total_amount;
+              this.pay_time = response.pay_time;
+              this.student_notes = response.student_notes;
+              this.course_id = response.course.id;
+              this.trade_status = response.trade_status;
+              this.comment = response.comment;
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     },
     methods: {
