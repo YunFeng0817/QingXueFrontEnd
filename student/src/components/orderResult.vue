@@ -138,12 +138,23 @@
               this.course_id = response.course.id;
               this.trade_status = response.trade_status;
               this.comment = response.comment;
-              userMessage.commit('commitOrderResult', response);
             }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
           })
+      } else if (userMessage.state.orderResult.id) {
+        this.orderID = userMessage.state.orderResult.id;
+        this.title = userMessage.state.orderResult.course.title;
+        this.startTime = userMessage.state.orderResult.time_span.start_time;
+        this.endTime = userMessage.state.orderResult.time_span.end_time;
+        this.trade_no = userMessage.state.orderResult.trade_no;
+        this.total_amount = userMessage.state.orderResult.total_amount;
+        this.pay_time = userMessage.state.orderResult.pay_time;
+        this.student_notes = userMessage.state.orderResult.student_notes;
+        this.course_id = userMessage.state.orderResult.course.id;
+        this.trade_status = userMessage.state.orderResult.trade_status;
+        this.comment = userMessage.state.orderResult.comment;
       }
     },
     methods: {
