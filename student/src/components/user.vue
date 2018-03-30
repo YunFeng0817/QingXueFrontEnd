@@ -361,7 +361,7 @@
           .then(function (response) {
             if (response) {
               userMessage.commit('commitOrderResult', response);
-              this.$router.push({path: '/order/result'});
+              this.$router.push({path: '/order/result/'});
             }
           }.bind(this))
           .catch(function (error) {

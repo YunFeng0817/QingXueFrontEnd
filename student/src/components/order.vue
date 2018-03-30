@@ -125,7 +125,7 @@
             .then(function (response) {
               if (response) {
                 userMessage.commit('commitOrderResult', response);
-                this.$router.push({path: '/order/result'});
+                this.$router.push({path: '/order/result/'});
                 window.location.href = response.payment_url;
               }
             }.bind(this))

@@ -119,11 +119,11 @@
       }
     },
     mounted () {
-      console.log(this.$router.currentRoute.fullPath.split('/order/result/').pop());
-      if (this.$router.currentRoute.fullPath.split('/order/result/').pop()) {
+      let payUrl = this.$router.currentRoute.fullPath.split('/order/result/').pop();
+      if (payUrl) {
         axios({
           method: 'get',
-          url: '/api/alipay/return/' + this.$router.currentRoute.fullPath.split('/order/result/').pop()
+          url: '/api/alipay/return/' + payUrl
         })
           .then(function (response) {
             if (response) {
@@ -138,6 +138,7 @@
               this.course_id = response.course.id;
               this.trade_status = response.trade_status;
               this.comment = response.comment;
+              userMessage.commit('commitOrderResult', response);
             }
           }.bind(this))
           .catch(function (error) {
