@@ -2,7 +2,7 @@
   <div>
     <div class="edit-line">
       <label style="margin:0 5%;font-size: larger">评分</label>
-      <el-rate v-model="stars" style="margin:5% 0" show-text :allow-half="true">
+      <el-rate v-model="rate" style="margin:5% 0" show-text :allow-half="true">
       </el-rate>
     </div>
     <div class="edit-line">
@@ -21,7 +21,7 @@
     name: 'editor',
     props: {
       order_sn: {
-        type: String,
+        type: Number,
         required: true
       },
       comment_to_course_id: {
@@ -40,6 +40,11 @@
         default: null
       }
     },
+    data () {
+      return {
+        rate: this.stars
+      }
+    },
     mounted () {
       this.$refs.edit.innerHTML = this.content;
     },
@@ -51,7 +56,7 @@
           url: '/api/student_operation/comment_to_courses/',
           data: {
             text: this.$refs.edit.innerHTML,
-            stars: this.stars,
+            stars: this.rate,
             order_sn: this.order_sn,
             comment_to_course_id: this.comment_to_course_id
           }

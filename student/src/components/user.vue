@@ -462,7 +462,7 @@
       trade_status (tradeStatus) {
         switch (tradeStatus) {
           case 'TRADE_SUCCESS':
-            return '交易成功';
+            return '支付成功';
           case 'TRADE_FINISHED' :
             return '交易完成';
           case 'WAIT_BUYER_PAY':
@@ -470,7 +470,7 @@
           case 'TRADE_CLOSED':
             return '交易关闭';
           default:
-            return '交易成功';
+            return '交易情况未知';
         }
       }
     }

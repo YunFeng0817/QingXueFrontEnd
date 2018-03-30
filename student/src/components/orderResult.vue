@@ -55,13 +55,13 @@
             @stopEdit="stopEdit">
       </edit>
     </div>
-    <div class="order-body" v-else-if="(trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED')&&!comment">
+    <div class="order-body" v-else-if="(trade_status==='TRADE_FINISHED')&&!comment">
       <edit :order_sn="orderID"
             :method="'post'"
             @stopEdit="stopEdit">
       </edit>
     </div>
-    <div v-else-if="trade_status==='TRADE_SUCCESS'||trade_status==='TRADE_FINISHED'" class="order-body">
+    <div v-else-if="trade_status==='TRADE_FINISHED'" class="order-body">
       <p>
         您的评价：
         <a class="am-icon-remove" style="float:right;font-size:large;color:#e62739;margin: 0 0 0 4%;"
@@ -218,9 +218,9 @@
     },
     computed: {
       tradeStatus: function () {
-        switch (userMessage.state.orderResult.trade_status) {
+        switch (this.trade_status) {
           case 'TRADE_SUCCESS':
-            return '交易成功';
+            return '支付成功';
           case 'TRADE_FINISHED' :
             return '交易完成';
           case 'WAIT_BUYER_PAY':
@@ -228,7 +228,7 @@
           case 'TRADE_CLOSED':
             return '交易关闭';
           default:
-            return '交易成功';
+            return '交易情况未知';
         }
       }
     }
