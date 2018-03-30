@@ -10,11 +10,9 @@
         </span>
       </el-tab-pane>
     </el-tabs>
-    <page-loading :height="height">
-      <list_news v-if="essays.length!==0" :typeName="typeName" :recommends="essays">
-      </list_news>
-      <p v-else style="text-align: center;font-size:large;">没有新动态</p>
-    </page-loading>
+    <list_news v-if="essays.length!==0" :typeName="typeName" :recommends="essays">
+    </list_news>
+    <p v-else style="text-align: center;font-size:large;">没有新动态</p>
     <!--下面的这个区块是为了占位-->
     <div style="height: 120px;"></div>
   </div>
@@ -26,15 +24,13 @@
   import headerIndex from './headerIndex';
   import axios from '../axios/index';
   import userMessage from '../store/index';
-  import PageLoadingFix from './pageLoadingFix';
 
   export default {
     name: 'dynamic',
     components: {
       list_news: listNews,
       'el-filter': filter,
-      'header-index': headerIndex,
-      PageLoadingFix
+      'header-index': headerIndex
     },
     data () {
       return {
