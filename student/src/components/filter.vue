@@ -4,27 +4,27 @@
       <el-cascader
         separator="|"
         placeholder="     城市"
-        :options="options"
-        v-model="stages"
-        @change="handleChange">
+        :options="addresses"
+        v-model="selectAddress"
+        @change="addressSelect">
       </el-cascader>
     </div>
     <div class="block">
       <el-cascader
         separator="|"
         placeholder="     阶段"
-        :options="options"
-        v-model="stages"
-        @change="handleChange">
+        :options="stages"
+        v-model="selectStage"
+        @change="stagesSelect">
       </el-cascader>
     </div>
     <div class="block">
       <el-cascader
         separator="|"
         placeholder="     科目"
-        :options="options"
-        v-model="stages"
-        @change="handleChange">
+        :options="subjects"
+        v-model="selectSubject"
+        @change="subjectsSelect">
       </el-cascader>
     </div>
   </div>
@@ -38,147 +38,116 @@
     name: 'el-filter',
     data () {
       return {
-        options: [{
-          value: '小学',
-          label: '小学',
-          children: [{
-            value: '一年级',
-            label: '一年级'
-          }, {
-            value: '二年级',
-            label: '二年级'
-          }, {
-            value: '三年级',
-            label: '三年级'
-          }, {
-            value: '四年级',
-            label: '四年级'
-          }, {
-            value: '五年级',
-            label: '五年级'
-          }, {
-            value: '六年级',
-            label: '六年级'
-          }]
-        }, {
-          value: '初中',
-          label: '初中',
-          children: [{
-            value: '一年级',
-            label: '一年级'
-          }, {
-            value: '二年级',
-            label: '二年级'
-          }, {
-            value: '三年级',
-            label: '三年级'
-          }, {
-            value: '四年级',
-            label: '四年级'
-          }]
-        }, {
-          value: '高中',
-          label: '高中',
-          children: [{
-            value: '一年级',
-            label: '一年级'
-          }, {
-            value: '二年级',
-            label: '二年级'
-          }, {
-            value: '三年级',
-            label: '三年级'
-          }, {
-            value: '四年级',
-            label: '四年级'
-          }]
-        }, {
-          value: '大学',
-          label: '大学'
-        }],
-        stages: [],
-        selectedOptions2: []
+        addresses: [],  // 存储地址的筛选项
+        selectAddress: [], // 存储已选的地址筛选项
+        subjects: [],  // 存储科目的筛选项
+        selectSubject: [],  // 存储已选的科目筛选项
+        stages: [], // 存储阶段的筛选项
+        selectStage: [] // 存储已选的阶段筛选项
       }
     },
     created () {
-      function setFilter (options) {
-        // 这里的四重循环是对筛选项的键值的渐变赋值
-        for (let stage of options) {
-          if (stage.value !== '大学') {
-            for (let grades of stage.children) {
-              grades.children = [];
-              // entries() 是对键值对的遍历 id是索引  subject是值
-              for (let [id, subject] of userMessage.state.subjects.entries()) {
-                grades.children.push({});
-                grades.children[id].value = subject.name;
-                grades.children[id].label = subject.name;
-                grades.children[id].children = [];
-                for (let [index, degree] of userMessage.state.degrees.entries()) {
-                  grades.children[id].children.push({});
-                  grades.children[id].children[index].value = degree.name;
-                  grades.children[id].children[index].label = degree.name;
-                }
-              }
+      // 如果没有缓存过筛选信息，就在组件创建时请求筛选信息
+      if (userMessage.state.addresses.length === 0) {
+        axios({
+          url: '/api/common/addresses/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              this.address = response.addresses;
+              userMessage.commit('getAddresses', response.addresses);
             }
-          } else {
-            stage.children = [];
-            for (let [id, subject] of userMessage.state.subjects.entries()) {
-              stage.children.push({});
-              stage.children[id].value = subject.name;
-              stage.children[id].label = subject.name;
-              stage.children[id].children = [];
-              for (let [index, degree] of userMessage.state.degrees.entries()) {
-                stage.children[id].children.push({});
-                stage.children[id].children[index].value = degree.name;
-                stage.children[id].children[index].label = degree.name;
-              }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        axios({
+          url: '/api/common/stages/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              this.stages = response.stages;
+              userMessage.commit('getStages', response.stages);
             }
-          }
-        }
-      }
-
-      if (userMessage.state.subjects.length === 0) {
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         axios({
           method: 'get',
           url: '/api/common/subjects/'
         })
           .then(function (response) {
             if (response) {
+              this.subjects = response.subjects;
               userMessage.commit('getSubjects', response.subjects);
             }
           })
           .catch(function (error) {
             console.log(error);
-          });
+          })
+      } else {
+        this.addresses = userMessage.state.addresses;
+        this.stages = userMessage.state.stages;
+        this.subjects = userMessage.state.subjects;
       }
-      if (userMessage.state.degrees.length === 0) {
+    },
+    methods: {
+      // 处理选择具体的地址筛选项后，发送请求的动作
+      addressSelect (value) {
         axios({
-          method: 'get',
-          url: '/api/common/degrees/'
+          method: 'post',
+          url: '/api/course/filtered_courses/',
+          data: {
+            address: {
+              province: value[0],
+              city: value[1],
+              district: value[2]
+            }
+          }
         })
           .then(function (response) {
             if (response) {
-              userMessage.commit('getDegrees', response.degrees);
-              setFilter(this.options);
+              this.$emit('filterOn', response.courses);
             }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
-          });
-      } else {
-        setFilter(this.options);
-      }
-    },
-    methods: {
-      handleChange (value) {
+          })
+      },
+      // 处理选择具体的阶段筛选项后，发送请求的动作
+      stagesSelect (value) {
         axios({
           method: 'post',
-          url: '/api/course/filtered_list/',
+          url: '/api/course/filtered_courses/',
           data: {
-            stage: [value[0]],
-            grade: [value[1]],
-            subject: [value[2]],
-            degree: [value[3]]
+            grade: {
+              stage: value[0],
+              grade: value[1]
+            }
+          }
+        })
+          .then(function (response) {
+            if (response) {
+              this.$emit('filterOn', response.courses);
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
+      },
+      // 处理选择具体的科目筛选项后，发送请求的动作
+      subjectsSelect (value) {
+        axios({
+          method: 'post',
+          url: '/api/course/filtered_courses/',
+          data: {
+            subject: {
+              level1: value[0],
+              level2: value[1]
+            }
           }
         })
           .then(function (response) {

@@ -23,10 +23,10 @@ export default new Vuex.Store({
     course_orders: [],
     comment_to_educators: [],
     comment_to_courses: [],
-    address: [],
+    addresses: [],
     main: {},
     subjects: [],
-    degrees: [],
+    stages: [],
     searchResult: [],
     firstClass: {},
     courseDetail: {},
@@ -70,13 +70,17 @@ export default new Vuex.Store({
       state.main.banners = list.banners;
       state.main.essays = list.essays;
     },
-    // 保存课程筛选项
+    // 保存科目筛选项
     getSubjects (state, list) {
       state.subjects = list;
     },
-    // 保存难度筛选项
-    getDegrees (state, list) {
-      state.degrees = list;
+    // 保存地址筛选项
+    getAddresses (state, list) {
+      state.addresses = list;
+    },
+    // 保存阶段删选项
+    getStages (state, list) {
+      state.state = list;
     },
     // 保存搜索结果
     commitSearch (state, list) {
