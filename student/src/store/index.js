@@ -80,7 +80,7 @@ export default new Vuex.Store({
     },
     // 保存阶段删选项
     getStages (state, list) {
-      state.state = list;
+      state.stages = list;
     },
     // 保存搜索结果
     commitSearch (state, list) {

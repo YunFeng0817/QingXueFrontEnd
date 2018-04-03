@@ -55,10 +55,11 @@
         })
           .then(function (response) {
             if (response) {
-              this.address = response.addresses;
+              this.setFilter(response.addresses);
+              this.addresses = response.addresses;
               userMessage.commit('getAddresses', response.addresses);
             }
-          })
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
@@ -68,10 +69,11 @@
         })
           .then(function (response) {
             if (response) {
+              this.setFilter(response.stages);
               this.stages = response.stages;
               userMessage.commit('getStages', response.stages);
             }
-          })
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
@@ -81,20 +83,39 @@
         })
           .then(function (response) {
             if (response) {
+              this.setFilter(response.subjects);
               this.subjects = response.subjects;
               userMessage.commit('getSubjects', response.subjects);
             }
-          })
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           })
       } else {
+        console.log(userMessage.state.stages);
         this.addresses = userMessage.state.addresses;
         this.stages = userMessage.state.stages;
         this.subjects = userMessage.state.subjects;
       }
     },
     methods: {
+      // reformat option style for filter
+      setFilter (obj) {
+        obj.splice(0, 0, {name: '不限', value: '', children: []});
+        if (obj) {
+          for (let item of obj) {
+            item.label = item.name;
+            item.value = item.id;
+            delete item.name;
+            delete item.id;
+            if (item.children.length !== 0) {
+              this.setFilter(item.children);
+            } else {
+              delete item.children;
+            }
+          }
+        }
+      },
       // 处理选择具体的地址筛选项后，发送请求的动作
       addressSelect (value) {
         axios({
