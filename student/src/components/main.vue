@@ -86,9 +86,9 @@
             iconType: 'am-success am-icon-child',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '幼儿'
-              ]
+              stage: {
+                name: '幼儿'
+              }
             }
           },
           {
@@ -96,9 +96,9 @@
             iconType: 'am-primary am-icon-female',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '小学'
-              ]
+              stage: {
+                name: '小学'
+              }
             }
           },
           {
@@ -106,9 +106,9 @@
             iconType: 'am-warning am-icon-male',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '初中'
-              ]
+              stage: {
+                name: '初中'
+              }
             }
           },
           {
@@ -116,9 +116,9 @@
             iconType: 'am-success am-icon-fort-awesome',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '高中'
-              ]
+              stage: {
+                name: '高中'
+              }
             }
           },
           {
@@ -126,9 +126,9 @@
             iconType: 'am-danger am-icon-graduation-cap',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '大学'
-              ]
+              stage: {
+                name: '大学'
+              }
             }
           },
           {
@@ -136,9 +136,9 @@
             iconType: 'am-warning am-icon-institution',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '留学'
-              ]
+              subject: {
+                name: '留学'
+              }
             }
           },
           {
@@ -146,9 +146,9 @@
             iconType: 'am-danger am-icon-signal',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '职业技能'
-              ]
+              subject: {
+                name: '职业技能'
+              }
             }
           },
           {
@@ -156,9 +156,9 @@
             iconType: 'am-primary am-icon-rocket',
             url: ' /api/common/page_contents/',
             data: {
-              stage: [
-                '讲座活动'
-              ]
+              subject: {
+                name: '讲座活动'
+              }
             }
           },
           {
@@ -166,9 +166,9 @@
             iconType: 'am-warning am-icon-paint-brush',
             url: ' /api/common/page_contents/',
             data: {
-              subject: [
-                '文艺'
-              ]
+              subject: {
+                name: '文艺'
+              }
             }
           },
           {
@@ -176,9 +176,9 @@
             iconType: 'am-primary am-icon-bicycle',
             url: ' /api/common/page_contents/',
             data: {
-              subject: [
-                '体育'
-              ]
+              subject: {
+                name: '体育'
+              }
             }
           }
         ],

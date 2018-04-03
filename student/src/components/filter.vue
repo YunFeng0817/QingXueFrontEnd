@@ -2,20 +2,24 @@
   <div class="filter">
     <div class="block">
       <el-cascader
+        ref="test"
         separator="|"
         placeholder="     城市"
         :options="addresses"
         v-model="selectAddress"
-        @change="optionSelect(value,'area')">
+        v-on:change="getType('area')"
+        @change="optionSelect">
       </el-cascader>
     </div>
-    <div class="block">
+    <div class=" block
+      ">
       <el-cascader
         separator="|"
         placeholder="     阶段"
         :options="stages"
         v-model="selectStage"
-        @change="optionSelect(value,'stage')">
+        v-on:change="getType('stage')"
+        @change="optionSelect">
       </el-cascader>
     </div>
     <div class="block">
@@ -24,7 +28,8 @@
         placeholder="     科目"
         :options="subjects"
         v-model="selectSubject"
-        @change="optionSelect(value,'subject')">
+        v-on:change="getType('subject')"
+        @change="optionSelect">
       </el-cascader>
     </div>
   </div>
@@ -38,6 +43,7 @@
     name: 'el-filter',
     data () {
       return {
+        type: '',
         addresses: [],  // 存储地址的筛选项
         selectAddress: [], // 存储已选的地址筛选项
         subjects: [],  // 存储科目的筛选项
@@ -50,7 +56,7 @@
       // 如果没有缓存过筛选信息，就在组件创建时请求筛选信息
       if (userMessage.state.addresses.length === 0) {
         axios({
-          url: '/api/common/addresses/',
+          url: '/api/common/areas/',
           method: 'get'
         })
           .then(function (response) {
@@ -92,7 +98,6 @@
             console.log(error);
           })
       } else {
-        console.log(userMessage.state.stages);
         this.addresses = userMessage.state.addresses;
         this.stages = userMessage.state.stages;
         this.subjects = userMessage.state.subjects;
@@ -123,17 +128,36 @@
        * @param value 用户筛选到的值，是一个数组
        * @param type 筛选框的类型，有'area','stage','subject'这三种类型，将直接用来当作请求的数据
        */
-      optionSelect (value, type) {
-        if (value.length !== 0 && value[0] !== '') {
-          let id = value[-1] === '' ? value[-2] : value[-1];
+      optionSelect (value) {
+        if (value.length !== 0 && value[0]) {
+          let result = value[value.length - 1] ? value[value.length - 1] : value[value.length - 2];
+          let content;
+          switch (this.type) {
+            case 'area':
+              content = {
+                'area': {
+                  'id': result
+                }
+              };
+              break;
+            case 'stage':
+              content = {
+                'stage': {
+                  'id': result
+                }
+              };
+              break;
+            case 'subject':
+              content = {
+                'subject': {
+                  'id': result
+                }
+              };
+          }
           axios({
             method: 'post',
             url: '/api/course/filtered_courses/',
-            data: {
-              type: {
-                id: id
-              }
-            }
+            data: content
           })
             .then(function (response) {
               if (response) {
@@ -144,6 +168,9 @@
               console.log(error);
             })
         }
+      },
+      getType (type) {
+        this.type = type;
       }
     }
   };
