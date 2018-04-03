@@ -6,7 +6,7 @@
         placeholder="     城市"
         :options="addresses"
         v-model="selectAddress"
-        @change="addressSelect">
+        @change="optionSelect(value,'area')">
       </el-cascader>
     </div>
     <div class="block">
@@ -15,7 +15,7 @@
         placeholder="     阶段"
         :options="stages"
         v-model="selectStage"
-        @change="stagesSelect">
+        @change="optionSelect(value,'stage')">
       </el-cascader>
     </div>
     <div class="block">
@@ -24,7 +24,7 @@
         placeholder="     科目"
         :options="subjects"
         v-model="selectSubject"
-        @change="subjectsSelect">
+        @change="optionSelect(value,'subject')">
       </el-cascader>
     </div>
   </div>
@@ -55,9 +55,9 @@
         })
           .then(function (response) {
             if (response) {
-              this.setFilter(response.addresses);
-              this.addresses = response.addresses;
-              userMessage.commit('getAddresses', response.addresses);
+              this.setFilter(response.areas);
+              this.addresses = response.areas;
+              userMessage.commit('getAddresses', response.areas);
             }
           }.bind(this))
           .catch(function (error) {
@@ -100,6 +100,7 @@
     },
     methods: {
       // reformat option style for filter
+      // use recursive function to implement this request
       setFilter (obj) {
         obj.splice(0, 0, {name: '不限', value: '', children: []});
         if (obj) {
@@ -116,69 +117,33 @@
           }
         }
       },
-      // 处理选择具体的地址筛选项后，发送请求的动作
-      addressSelect (value) {
-        axios({
-          method: 'post',
-          url: '/api/course/filtered_courses/',
-          data: {
-            address: {
-              province: value[0],
-              city: value[1],
-              district: value[2]
+      /**
+       * 这个函数用来处理 用户点击筛选框中的筛选项后，向后端发出的请求
+       * 地址，阶段，科目的筛选后的动作函数 都复用这个函数
+       * @param value 用户筛选到的值，是一个数组
+       * @param type 筛选框的类型，有'area','stage','subject'这三种类型，将直接用来当作请求的数据
+       */
+      optionSelect (value, type) {
+        if (value.length !== 0 && value[0] !== '') {
+          let id = value[-1] === '' ? value[-2] : value[-1];
+          axios({
+            method: 'post',
+            url: '/api/course/filtered_courses/',
+            data: {
+              type: {
+                id: id
+              }
             }
-          }
-        })
-          .then(function (response) {
-            if (response) {
-              this.$emit('filterOn', response.courses);
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
           })
-      },
-      // 处理选择具体的阶段筛选项后，发送请求的动作
-      stagesSelect (value) {
-        axios({
-          method: 'post',
-          url: '/api/course/filtered_courses/',
-          data: {
-            grade: {
-              stage: value[0],
-              grade: value[1]
-            }
-          }
-        })
-          .then(function (response) {
-            if (response) {
-              this.$emit('filterOn', response.courses);
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          })
-      },
-      // 处理选择具体的科目筛选项后，发送请求的动作
-      subjectsSelect (value) {
-        axios({
-          method: 'post',
-          url: '/api/course/filtered_courses/',
-          data: {
-            subject: {
-              level1: value[0],
-              level2: value[1]
-            }
-          }
-        })
-          .then(function (response) {
-            if (response) {
-              this.$emit('filterOn', response.courses);
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          })
+            .then(function (response) {
+              if (response) {
+                this.$emit('filterOn', response.courses);
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+        }
       }
     }
   };
