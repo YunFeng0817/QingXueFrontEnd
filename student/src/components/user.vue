@@ -241,6 +241,11 @@
         }
       }
     },
+    created () {
+      if (!userMessage.state.has_login) {
+        this.$router.replace({path: '/login'});
+      }
+    },
     methods: {
       logout () {
         axios({
