@@ -65,14 +65,68 @@
           .catch(function (error) {
             console.log(error);
           });
-      } else if (this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
+      } else if (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main') {
+        this.recommends = userMessage.state.main.recommends;
+        this.showMessages = userMessage.state.main.essays;
+        this.showImages = userMessage.state.main.banners;
+      } else if (userMessage.state.firstClass.courses !== undefined && this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
         this.recommends = userMessage.state.firstClass.courses;
         this.showMessages = userMessage.state.firstClass.essays;
         this.showImages = userMessage.state.firstClass.banners;
       } else {
-        this.showMessages = userMessage.state.main.essays;
-        this.showImages = userMessage.state.main.banners;
-        this.recommends = userMessage.state.main.courses;
+        let type = this.$router.currentRoute.params.type;
+        let stage = this.$router.currentRoute.params.stages;
+        let id = [];
+        id.push(parseInt(this.$router.currentRoute.params.area));
+        id.push(parseInt(this.$router.currentRoute.params.stage));
+        id.push(parseInt(this.$router.currentRoute.params.subject));
+        let content = {};
+        if (id[0] !== -1) {
+          content.area = {};
+          content.area.id = id[0];
+        }
+        if (id[1] !== -1) {
+          content.stage = {};
+          content.stage.id = id[1];
+        }
+        if (id[2] !== -1) {
+          content.subject = {};
+          content.subject.id = id[2];
+        }
+        let firstClass = {};
+        firstClass[type] = {name: stage};
+        axios({
+          method: 'post',
+          url: '/api/common/page_contents/',
+          data: firstClass
+        })
+          .then(function (response) {
+            if (response) {
+              for (let course of response.courses) {
+                course.is_course = true;
+              }
+              userMessage.commit('commitFirst', response);
+              this.recommends = response.courses;
+              this.showMessages = response.essays;
+              this.showImages = response.banners;
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+        axios({
+          method: 'post',
+          url: '/api/course/filtered_courses/',
+          data: content
+        })
+          .then(function (response) {
+            if (response) {
+              this.recommends = response.courses;
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
       }
       window.addEventListener('scroll', this.scrollHandle);
     },
@@ -82,6 +136,7 @@
         is_main: this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main',
         items: [
           {
+            type: 'stage',
             message: '幼儿',
             iconType: 'am-success am-icon-child',
             url: ' /api/common/page_contents/',
@@ -92,6 +147,7 @@
             }
           },
           {
+            type: 'stage',
             message: '小学',
             iconType: 'am-primary am-icon-female',
             url: ' /api/common/page_contents/',
@@ -102,6 +158,7 @@
             }
           },
           {
+            type: 'stage',
             message: '初中',
             iconType: 'am-warning am-icon-male',
             url: ' /api/common/page_contents/',
@@ -112,6 +169,7 @@
             }
           },
           {
+            type: 'stage',
             message: '高中',
             iconType: 'am-success am-icon-fort-awesome',
             url: ' /api/common/page_contents/',
@@ -122,6 +180,7 @@
             }
           },
           {
+            type: 'stage',
             message: '大学',
             iconType: 'am-danger am-icon-graduation-cap',
             url: ' /api/common/page_contents/',
@@ -132,6 +191,7 @@
             }
           },
           {
+            type: 'subject',
             message: '留学',
             iconType: 'am-warning am-icon-institution',
             url: ' /api/common/page_contents/',
@@ -142,6 +202,7 @@
             }
           },
           {
+            type: 'subject',
             message: '职业技能',
             iconType: 'am-danger am-icon-signal',
             url: ' /api/common/page_contents/',
@@ -152,6 +213,7 @@
             }
           },
           {
+            type: 'subject',
             message: '讲座活动',
             iconType: 'am-primary am-icon-rocket',
             url: ' /api/common/page_contents/',
@@ -162,6 +224,7 @@
             }
           },
           {
+            type: 'subject',
             message: '文艺',
             iconType: 'am-warning am-icon-paint-brush',
             url: ' /api/common/page_contents/',
@@ -172,6 +235,7 @@
             }
           },
           {
+            type: 'subject',
             message: '体育',
             iconType: 'am-primary am-icon-bicycle',
             url: ' /api/common/page_contents/',
@@ -195,9 +259,30 @@
         this.page = 1;
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
         if (this.is_main) {
-          this.showMessages = userMessage.state.main.essays;
-          this.showImages = userMessage.state.main.banners;
-          this.recommends = userMessage.state.main.courses;
+          if (userMessage.state.main.courses === undefined) {
+            axios({
+              method: 'get',
+              url: '/api/common/page_contents/'
+            })
+              .then(function (response) {
+                if (response) {
+                  for (let item of response.courses) {
+                    item.is_course = true;
+                  }
+                  this.recommends = response.courses;
+                  this.showMessages = response.essays;
+                  this.showImages = response.banners;
+                  userMessage.commit('commitList', response);
+                }
+              }.bind(this))
+              .catch(function (error) {
+                console.log(error);
+              });
+          } else {
+            this.showMessages = userMessage.state.main.essays;
+            this.showImages = userMessage.state.main.banners;
+            this.recommends = userMessage.state.main.courses;
+          }
         } else if (this.$router.currentRoute.params.subject === '-1' && this.$router.currentRoute.params.area === '-1' && this.$router.currentRoute.params.stage === '-1') {
           this.showImages = userMessage.state.firstClass.banners;
           this.showMessages = userMessage.state.firstClass.essays;

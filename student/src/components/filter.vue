@@ -127,6 +127,7 @@
        * @param value 用户筛选到的值，是一个数组
        */
       optionSelect (value) {
+        let type = this.$router.currentRoute.params.type;
         let stage = this.$router.currentRoute.params.stages;
         let id = [];
         id.push(parseInt(this.$router.currentRoute.params.area));
@@ -161,7 +162,7 @@
         })
           .then(function (response) {
             if (response) {
-              let routerPath = '/get/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
+              let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
               this.$router.push({path: routerPath});
               this.$emit('filterOn', response.courses);
             }
