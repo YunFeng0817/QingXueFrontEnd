@@ -198,7 +198,7 @@
           this.showMessages = userMessage.state.main.essays;
           this.showImages = userMessage.state.main.banners;
           this.recommends = userMessage.state.main.courses;
-        } else {
+        } else if (this.$router.currentRoute.params.subject === '-1' && this.$router.currentRoute.params.area === '-1' && this.$router.currentRoute.params.stage === '-1') {
           this.showImages = userMessage.state.firstClass.banners;
           this.showMessages = userMessage.state.firstClass.essays;
           this.recommends = userMessage.state.firstClass.courses;
@@ -211,7 +211,6 @@
           item.is_course = true;
         }
         this.recommends = event;
-        console.log(this.recommends);
       },
       getEssay (id) {
         this.$router.push({path: '/article/' + id});
