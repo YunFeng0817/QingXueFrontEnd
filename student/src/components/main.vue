@@ -115,25 +115,28 @@
               this.recommends = response.courses;
               this.showMessages = response.essays;
               this.showImages = response.banners;
+              // 请求筛选后的课程 ，post的数据是 筛选项的id
+              axios({
+                method: 'post',
+                url: '/api/course/filtered_courses/',
+                data: content
+              })
+                .then(function (response) {
+                  if (response) {
+                    for (let course of response.courses) {
+                      course.is_course = true;
+                    }
+                    this.recommends = response.courses;
+                  }
+                }.bind(this))
+                .catch(function (error) {
+                  console.log(error);
+                })
             }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
-        // 请求筛选后的课程 ，post的数据是 筛选项的id
-        axios({
-          method: 'post',
-          url: '/api/course/filtered_courses/',
-          data: content
-        })
-          .then(function (response) {
-            if (response) {
-              this.recommends = response.courses;
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          })
       }
       window.addEventListener('scroll', this.scrollHandle);
     },
@@ -258,6 +261,7 @@
         recommends: [],
         length: 0,
         page: 1, // 用来标记页数，默认返回的是第一页
+        totalPage: 2,  // 用来标记总页数
         height: '300px'
       }
     },
@@ -302,11 +306,13 @@
         for (let item of event) {
           item.is_course = true;
         }
+        this.page = 1;
         this.recommends = event;
       },
       getEssay (id) {
         this.$router.push({path: '/article/' + id});
       },
+      // 用来处理分页操作的函数，同时也是监听屏幕滚动的回调函数
       scrollHandle () {
         let node = this.$refs.main;
         /**
@@ -316,40 +322,44 @@
          * element.scrollHeight是元素的本身高度
          */
         let left = node.scrollHeight - window.scrollY - document.documentElement.offsetHeight;
-        let url = '/api/course/filtered_list/';
-        let stages = [];
-        let grades = [];
-        let subjects = [];
-        let degrees = [];
-        if (this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
-          if (this.$router.currentRoute.params.stages !== '0') {
-            stages.push(this.$router.currentRoute.params.stages);
-          }
-          if (this.$router.currentRoute.params.grades !== '0') {
-            grades.push(this.$router.currentRoute.params.grades);
-          }
-          if (this.$router.currentRoute.params.subjects !== '0') {
-            subjects.push(this.$router.currentRoute.params.subjects);
-          }
-          if (this.$router.currentRoute.params.degrees !== '0') {
-            degrees.push(this.$router.currentRoute.params.degrees);
-          }
-        }
+        let postData = {};
         if (left <= 15) {
           // 这里的判断用来 防止算时间内的重复请求
           if (this.length !== node.scrollHeight) {
             this.page++; // 页数增加一页
             this.length = node.scrollHeight;
+            if (this.page > this.totalPage) {
+              return;
+            }
+            // 接下在根据 router path 动态确定postData的内容
+            postData.page = this.page;
+            if (!this.is_main) {
+              let type = this.$router.currentRoute.params.type;
+              let stage = this.$router.currentRoute.params.stages;
+              let id = [];
+              id.push(parseInt(this.$router.currentRoute.params.area));
+              id.push(parseInt(this.$router.currentRoute.params.stage));
+              id.push(parseInt(this.$router.currentRoute.params.subject));
+              // 接下来的几个判断是 判断 router path是否包含了筛选项的信息，-1是没有筛选项，非负数的数字是相应筛选项的id
+              if (id[0] !== -1) {
+                postData.area = {};
+                postData.area.id = id[0];
+              }
+              if (id[1] !== -1) {
+                postData.stage = {};
+                postData.stage.id = id[1];
+              }
+              if (id[2] !== -1) {
+                postData.subject = {};
+                postData.subject.id = id[2];
+              }
+              postData[type] = {name: stage};
+            }
+            console.log(postData);
             axios({
               method: 'post',
-              url: url,
-              data: {
-                page: this.page,
-                stage: stages,
-                grade: grades,
-                subject: subjects,
-                degree: degrees
-              }
+              url: '/api/course/filtered_courses/',
+              data: postData
             })
               .then(function (response) {
                 if (response) {
@@ -364,6 +374,7 @@
                       item.is_course = true;
                       this.recommends.push(item);
                     }
+                    this.totalPage = response.total_pages;
                   }
                 }
               }.bind(this))
