@@ -46,6 +46,7 @@
       slider: slider
     },
     mounted () {
+      // 判断 router 是 '/' 或 '/main' , 而且是没有数据存储的情况，就请求主页数据
       if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
         axios({
           method: 'get',
@@ -65,14 +66,17 @@
           .catch(function (error) {
             console.log(error);
           });
+        // 这个判断是 在 '/' 或 '/main' ，且已经有数据的情况，就直接赋值
       } else if (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main') {
         this.recommends = userMessage.state.main.courses;
         this.showMessages = userMessage.state.main.essays;
         this.showImages = userMessage.state.main.banners;
+        // 这个判断是在 router path 是 一级分类页面或者 筛选页面，而且已经有数据存储的情况
       } else if (userMessage.state.firstClass.courses !== undefined && this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
         this.recommends = userMessage.state.firstClass.courses;
         this.showMessages = userMessage.state.firstClass.essays;
         this.showImages = userMessage.state.firstClass.banners;
+        // 这个判断是在 router path 是 一级分类页面或者 筛选页面，而且没有数据存储的情况
       } else {
         let type = this.$router.currentRoute.params.type;
         let stage = this.$router.currentRoute.params.stages;
@@ -81,6 +85,7 @@
         id.push(parseInt(this.$router.currentRoute.params.stage));
         id.push(parseInt(this.$router.currentRoute.params.subject));
         let content = {};
+        // 接下来的几个判断是 判断 router path是否包含了筛选项的信息，-1是没有筛选项，非负数的数字是相应筛选项的id
         if (id[0] !== -1) {
           content.area = {};
           content.area.id = id[0];
@@ -95,6 +100,7 @@
         }
         let firstClass = {};
         firstClass[type] = {name: stage};
+        // 请求一级列表页
         axios({
           method: 'post',
           url: '/api/common/page_contents/',
@@ -114,6 +120,7 @@
           .catch(function (error) {
             console.log(error);
           });
+        // 请求筛选后的课程 ，post的数据是 筛选项的id
         axios({
           method: 'post',
           url: '/api/course/filtered_courses/',
