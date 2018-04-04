@@ -43,7 +43,7 @@
     name: 'el-filter',
     data () {
       return {
-        type: '',
+        type: '',  // 这个变量用来存储筛选框的类型
         addresses: [],  // 存储地址的筛选项
         selectAddress: [], // 存储已选的地址筛选项
         subjects: [],  // 存储科目的筛选项
@@ -126,12 +126,12 @@
        * 这个函数用来处理 用户点击筛选框中的筛选项后，向后端发出的请求
        * 地址，阶段，科目的筛选后的动作函数 都复用这个函数
        * @param value 用户筛选到的值，是一个数组
-       * @param type 筛选框的类型，有'area','stage','subject'这三种类型，将直接用来当作请求的数据
        */
       optionSelect (value) {
         if (value.length !== 0 && value[0]) {
           let result = value[value.length - 1] ? value[value.length - 1] : value[value.length - 2];
           let content;
+          // 这个switch结构是用来确定 筛选框的类型 ，从而达到所有的筛选处理动作都复用这个函数的目的
           switch (this.type) {
             case 'area':
               content = {
