@@ -66,7 +66,7 @@
             console.log(error);
           });
       } else if (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main') {
-        this.recommends = userMessage.state.main.recommends;
+        this.recommends = userMessage.state.main.courses;
         this.showMessages = userMessage.state.main.essays;
         this.showImages = userMessage.state.main.banners;
       } else if (userMessage.state.firstClass.courses !== undefined && this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
