@@ -2,7 +2,6 @@
   <div class="filter">
     <div class="block">
       <el-cascader
-        ref="test"
         separator="|"
         placeholder="     城市"
         :options="addresses"
@@ -43,7 +42,7 @@
     name: 'el-filter',
     data () {
       return {
-        type: 0,  // 这个变量用来存储筛选框的类型
+        type: 0,  // 这个变量用来存储筛选框的类型   0代表地区，1代表阶段，2代表科目
         addresses: [],  // 存储地址的筛选项
         selectAddress: [], // 存储已选的地址筛选项
         subjects: [],  // 存储科目的筛选项
@@ -146,7 +145,7 @@
         }
         if (id[1] !== -1) {
           content.stage = {};
-          content.state.id = id[1];
+          content.stage.id = id[1];
         }
         if (id[2] !== -1) {
           content.subject = {};
