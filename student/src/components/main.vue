@@ -211,6 +211,7 @@
           item.is_course = true;
         }
         this.recommends = event;
+        console.log(this.recommends);
       },
       getEssay (id) {
         this.$router.push({path: '/article/' + id});

@@ -33,7 +33,7 @@ export default new Router({
       component: resolve => require(['../components/searchResult'], resolve) // 懒加载
     },
     {
-      path: '/get/:stages/:grades/:subjects/:degrees',
+      path: '/get/:stages/:area/:stage/:subject',
       component: resolve => require(['../components/main'], resolve)
     },
     {

@@ -7,7 +7,7 @@
         placeholder="     城市"
         :options="addresses"
         v-model="selectAddress"
-        v-on:change="getType('area')"
+        v-on:change="type=0"
         @change="optionSelect">
       </el-cascader>
     </div>
@@ -18,7 +18,7 @@
         placeholder="     阶段"
         :options="stages"
         v-model="selectStage"
-        v-on:change="getType('stage')"
+        v-on:change="type=1"
         @change="optionSelect">
       </el-cascader>
     </div>
@@ -28,7 +28,7 @@
         placeholder="     科目"
         :options="subjects"
         v-model="selectSubject"
-        v-on:change="getType('subject')"
+        v-on:change="type=2"
         @change="optionSelect">
       </el-cascader>
     </div>
@@ -43,7 +43,7 @@
     name: 'el-filter',
     data () {
       return {
-        type: '',  // 这个变量用来存储筛选框的类型
+        type: 0,  // 这个变量用来存储筛选框的类型
         addresses: [],  // 存储地址的筛选项
         selectAddress: [], // 存储已选的地址筛选项
         subjects: [],  // 存储科目的筛选项
@@ -128,49 +128,48 @@
        * @param value 用户筛选到的值，是一个数组
        */
       optionSelect (value) {
+        let stage = this.$router.currentRoute.params.stages;
+        let id = [];
+        id.push(parseInt(this.$router.currentRoute.params.area));
+        id.push(parseInt(this.$router.currentRoute.params.stage));
+        id.push(parseInt(this.$router.currentRoute.params.subject));
         if (value.length !== 0 && value[0]) {
           let result = value[value.length - 1] ? value[value.length - 1] : value[value.length - 2];
-          let content;
-          // 这个switch结构是用来确定 筛选框的类型 ，从而达到所有的筛选处理动作都复用这个函数的目的
-          switch (this.type) {
-            case 'area':
-              content = {
-                'area': {
-                  'id': result
-                }
-              };
-              break;
-            case 'stage':
-              content = {
-                'stage': {
-                  'id': result
-                }
-              };
-              break;
-            case 'subject':
-              content = {
-                'subject': {
-                  'id': result
-                }
-              };
-          }
-          axios({
-            method: 'post',
-            url: '/api/course/filtered_courses/',
-            data: content
-          })
-            .then(function (response) {
-              if (response) {
-                this.$emit('filterOn', response.courses);
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
-            })
+          id[this.type] = result;
+        } else {
+          id[this.type] = -1;
         }
-      },
-      getType (type) {
-        this.type = type;
+        let content = {};
+        if (id[0] !== -1) {
+          content.area = {};
+          content.area.id = id[0];
+        }
+        if (id[1] !== -1) {
+          content.stage = {};
+          content.state.id = id[1];
+        }
+        if (id[2] !== -1) {
+          content.subject = {};
+          content.subject.id = id[2];
+        }
+        if (!content) {
+          content = null;
+        }
+        axios({
+          method: 'post',
+          url: '/api/course/filtered_courses/',
+          data: content
+        })
+          .then(function (response) {
+            if (response) {
+              let routerPath = '/get/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
+              this.$router.push({path: routerPath});
+              this.$emit('filterOn', response.courses);
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     }
   };
