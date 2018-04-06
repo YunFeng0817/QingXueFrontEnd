@@ -62,6 +62,9 @@ axios.interceptors.response.use((response) => {
     case 411:
       Message.error('您输入的手机号码不存在');
       return;
+    case 429:
+      Message.error('您发送的短信过于频繁，请过一个小时后再试这个手机号码');
+      return;
     case 500:
       console.log(data.status);
       return;

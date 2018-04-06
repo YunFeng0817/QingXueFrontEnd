@@ -5,8 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dynamicPage: 1,
-    mainPage: 1,
     has_login: false,
     is_course: true,
     id: 1,
@@ -116,14 +114,6 @@ export default new Vuex.Store({
     // 局部更新用户评价
     commitComment (state, list) {
       state.orderResult.comment = list
-    },
-    // 提交动态页面的页数
-    commitDynamicPage (state, list) {
-      state.dynamicPage = list;
-    },
-    // 提交主页页面的页数
-    commitMainPage (state, list) {
-      state.mainPage = list;
     }
   }
 })

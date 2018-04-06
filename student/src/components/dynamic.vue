@@ -38,15 +38,6 @@
         essays: [],
         tabHeaders: [
           {
-            type: 'favorite',
-            label: '我的关注',
-            data: {
-              favorite: {
-                name: '我的关注'
-              }
-            }
-          },
-          {
             type: 'stage',
             label: '幼儿',
             data: {
@@ -148,9 +139,21 @@
     },
     created () {
       if (userMessage.state.essays.length === 0) {
+        let type = this.$router.currentRoute.params.type;
+        let value = this.$router.currentRoute.params.value;
+        let content = {}; // 储存表单提交的内容
+        switch (type) {
+          case 'normal': // 没有指定的筛选项
+            break;
+          case 'stage' || 'subject':  // 对阶段的筛选或对科目的筛选类型
+            content[type] = {};
+            content[type].name = value;
+            break;
+        }
         axios({
           url: '/api/essay/filtered_essays/',
-          method: 'get'
+          method: 'post',
+          data: content
         })
           .then(function (response) {
             if (response) {
@@ -173,6 +176,7 @@
       window.addEventListener('scroll', this.scrollHandle)
     },
     methods: {
+      // 用于自己实现菜单栏的拖动， 开始拖动的函数
       dragStart (event) {
         let node = event.target;
         while (node && node.className !== 'el-tabs__nav') {
@@ -183,6 +187,7 @@
           this.target = node;
         }
       },
+      // 用于自己实现菜单栏的拖动， 拖动过程的函数
       dragMove (event) {
         const ScreenWidth = window.innerWidth - 50;   // 这个是当前屏幕的宽度
         const AnimationOffset = 50;   // 这个偏移是为了产生拖到尽头，依然可以继续拖动，但是放开后会恢复原位的效果
@@ -191,6 +196,7 @@
           this.target.style = 'position:relative;left:' + X.toString() + 'px;';
         }
       },
+      // 用于自己实现菜单栏的拖动， 停止拖动的函数
       dragStop (event) {
         const ScreenWidth = window.innerWidth - 50;
         let X = event.changedTouches[0].clientX + this.offsetLeft - this.startX;
@@ -219,6 +225,7 @@
               }
               this.page = 1;
               this.essays = response.essays;
+              this.totalPage = response.total_pages;
               let path = '/dynamic/' + data.type + '/' + data.data[data.type].name;
               this.$router.push({path: path});
             }
@@ -236,28 +243,35 @@
           if (this.length !== node.scrollHeight) {
             this.page++;
             this.length = node.scrollHeight;
-            let stages = [];
-            if (this.stage) {
-              stages.push(this.stage.stage[0]);
+            let type = this.$router.currentRoute.params.type;
+            let value = this.$router.currentRoute.params.value;
+            let content = {}; // 储存表单提交的内容
+            content.page = this.page;
+            switch (type) {
+              case 'normal': // 没有指定的筛选项
+                break;
+              case 'stage' || 'subject':  // 对阶段的筛选或对科目的筛选类型
+                content[type] = {};
+                content[type].name = value;
+                break;
+            }
+            if (this.page > this.totalPage) {
+              return;
             }
             axios({
               method: 'post',
               url: '/api/essay/filtered_essays/',
-              data: {
-                stage: stages,
-                page: this.page
-              }
+              data: content
             })
               .then(function (response) {
                 if (response) {
+                  this.totalPage = response.total_pages;
                   if (response.essays.length !== 0) {
                     for (let item of response.essays) {
                       if (this.essays.indexOf(item) === -1) {
                         this.essays.push(item);
                       }
                     }
-                    userMessage.commit('commitEssays', this.essays);
-                    userMessage.commit('commitDynamicPage', this.page);
                   } else {
                     this.$message({
                       type: 'info',
