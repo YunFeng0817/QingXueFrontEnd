@@ -3,7 +3,9 @@
     <header-index :is_course="false">
     </header-index>
     <el-tabs @touchstart.native.stopdefault="dragStart"
-             @touchmove.native.stopdefault="dragMove" @touchend.native.default="dragStop">
+             @touchmove.native.stopdefault="dragMove"
+             @touchend.native.default="dragStop"
+             :value="tabValue">
       <el-tab-pane v-for="item in tabHeaders" :key="item.id">
         <span @click="tabClick(item)" slot="label">
           <a>{{item.label}}</a>
@@ -36,14 +38,17 @@
       return {
         typeName: '最新动态',
         essays: [],
+        tabValue: '小学',
         tabHeaders: [
           {
             type: 'normal',
+            name: 'total',
             label: '最新',
             data: {}
           },
           {
             type: 'stage',
+            name: '幼儿',
             label: '幼儿',
             data: {
               stage: {
@@ -53,6 +58,7 @@
           },
           {
             type: 'stage',
+            name: '小学',
             label: '小学',
             data: {
               stage: {
@@ -62,6 +68,7 @@
           },
           {
             type: 'stage',
+            name: '初中',
             label: '初中',
             data: {
               stage: {
@@ -71,6 +78,7 @@
           },
           {
             type: 'stage',
+            name: '初中',
             label: '高中',
             data: {
               stage: {
@@ -80,6 +88,7 @@
           },
           {
             type: 'stage',
+            name: '大学',
             label: '大学',
             data: {
               stage: {
@@ -89,6 +98,7 @@
           },
           {
             type: 'subject',
+            name: '留学',
             label: '留学',
             data: {
               subject: {
@@ -98,6 +108,7 @@
           },
           {
             type: 'subject',
+            name: '职业技能',
             label: '职业技能',
             data: {
               subject: {
@@ -107,6 +118,7 @@
           },
           {
             type: 'subject',
+            name: '讲座活动',
             label: '讲座活动',
             data: {
               subject: {
@@ -116,6 +128,7 @@
           },
           {
             type: 'subject',
+            name: '文艺',
             label: '文艺',
             data: {
               subject: {
@@ -125,6 +138,7 @@
           },
           {
             type: 'subject',
+            name: '体育',
             label: '体育',
             data: {
               subject: {
@@ -143,6 +157,7 @@
       }
     },
     created () {
+      this.tabValue = this.$router.currentRoute.params.value;
       if (!userMessage.state.dynamic.essays) {
         let type = this.$router.currentRoute.params.type;
         let value = this.$router.currentRoute.params.value;
@@ -252,7 +267,6 @@
             let value = this.$router.currentRoute.params.value;
             let content = {}; // 储存表单提交的内容
             content.page = this.page;
-            console.log(content.page);
             switch (type) {
               case 'normal': // 没有指定的筛选项
                 break;
@@ -264,7 +278,6 @@
             if (this.page > this.totalPage) {
               return;
             }
-            console.log(content);
             axios({
               method: 'post',
               url: '/api/essay/filtered_essays/',
