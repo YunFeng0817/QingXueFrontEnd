@@ -20,7 +20,7 @@ export default new Router({
       component: resolve => require(['../components/login'], resolve) // 懒加载
     },
     {
-      path: '/dynamic',
+      path: '/dynamic/:type/:value',
       component: resolve => require(['../components/dynamic'], resolve) // 懒加载
     },
     {

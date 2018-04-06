@@ -1,6 +1,6 @@
 <template>
   <div class="footer-index">
-    <router-link to='/dynamic'>
+    <router-link to='/dynamic/normal/total'>
       <span class="am-icon-star icon"></span>
       <br/>
       <span class="am-navbar-label">动态</span>

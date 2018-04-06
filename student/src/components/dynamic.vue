@@ -5,7 +5,7 @@
     <el-tabs @touchstart.native.stopdefault="dragStart"
              @touchmove.native.stopdefault="dragMove" @touchend.native.default="dragStop">
       <el-tab-pane v-for="item in tabHeaders" :key="item.id">
-        <span @click="tabClick(item.data)" slot="label">
+        <span @click="tabClick(item)" slot="label">
           <a>{{item.label}}</a>
         </span>
       </el-tab-pane>
@@ -38,91 +38,102 @@
         essays: [],
         tabHeaders: [
           {
+            type: 'favorite',
             label: '我的关注',
             data: {
-              stage: [
-                '我的关注'
-              ]
+              favorite: {
+                name: '我的关注'
+              }
             }
           },
           {
+            type: 'stage',
             label: '幼儿',
             data: {
-              stage: [
-                '幼儿'
-              ]
+              stage: {
+                name: '幼儿'
+              }
             }
           },
           {
+            type: 'stage',
             label: '小学',
             data: {
-              stage: [
-                '小学'
-              ]
+              stage: {
+                name: '小学'
+              }
             }
           },
           {
+            type: 'stage',
             label: '初中',
             data: {
-              stage: [
-                '初中'
-              ]
+              stage: {
+                name: '初中'
+              }
             }
           },
           {
+            type: 'stage',
             label: '高中',
             data: {
-              stage: [
-                '高中'
-              ]
+              stage: {
+                name: '高中'
+              }
             }
           },
           {
+            type: 'stage',
             label: '大学',
             data: {
-              stage: [
-                '大学'
-              ]
+              stage: {
+                name: '大学'
+              }
             }
           },
           {
+            type: 'subject',
             label: '留学',
             data: {
-              stage: [
-                '留学'
-              ]
+              subject: {
+                name: '留学'
+              }
             }
           },
           {
+            type: 'subject',
             label: '职业技能',
             data: {
-              stage: [
-                '职业技能'
-              ]
+              subject: {
+                name: '职业技能'
+              }
             }
           },
           {
+            type: 'subject',
             label: '讲座活动',
             data: {
-              stage: [
-                '讲座活动'
-              ]
+              subject: {
+                name: '讲座活动'
+              }
             }
           },
           {
+            type: 'subject',
             label: '文艺',
             data: {
-              state: [
-                '文艺'
-              ]
+              subject: {
+                name: '文艺'
+              }
             }
           },
           {
+            type: 'subject',
             label: '体育',
             data: {
-              stage: [
-                '体育'
-              ]
+              subject: {
+                name: '体育'
+              }
             }
           }
         ],
@@ -130,7 +141,7 @@
         offsetLeft: 0,
         length: 0,
         page: 1, // 用来标记页数，默认返回的是第一页
-        stage: '',
+        totalPage: 1, // 分页的总页数，由请求后端返回数据
         target: document.createElement('IMG'),
         height: '600px'
       }
@@ -193,11 +204,13 @@
         this.target.style = 'position:relative;left:' + this.offsetLeft.toString() + 'px;';
       },
       tabClick (data) {
-        this.stage = data;
+        // data 包括 type, data两个成员, 其中的data是筛选的值
+        // 将选项的筛选值 赋值给 this.stage
+        this.stage = data.data;
         axios({
           url: '/api/essay/filtered_essays/',
           method: 'post',
-          data: data
+          data: data.data
         })
           .then(function (response) {
             if (response) {
@@ -206,6 +219,8 @@
               }
               this.page = 1;
               this.essays = response.essays;
+              let path = '/dynamic/' + data.type + '/' + data.data[data.type].name;
+              this.$router.push({path: path});
             }
           }.bind(this))
           .catch(function (error) {
