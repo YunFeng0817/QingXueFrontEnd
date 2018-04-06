@@ -29,7 +29,7 @@ export default new Vuex.Store({
     firstClass: {},
     courseDetail: {},
     essay: {},
-    essays: [],
+    dynamic: {},
     institution: {},
     orderResult: {}
   },
@@ -97,7 +97,7 @@ export default new Vuex.Store({
     },
     // 保存动态页的动态列表
     commitEssays (state, list) {
-      state.essays = list;
+      state.dynamic = list;
     },
     // 保存具体的文章
     commitEssay (state, list) {

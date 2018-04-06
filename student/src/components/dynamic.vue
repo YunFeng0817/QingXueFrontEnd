@@ -138,7 +138,7 @@
       }
     },
     created () {
-      if (userMessage.state.essays.length === 0) {
+      if (!userMessage.state.dynamic.essays) {
         let type = this.$router.currentRoute.params.type;
         let value = this.$router.currentRoute.params.value;
         let content = {}; // 储存表单提交的内容
@@ -160,16 +160,18 @@
               for (let item of response.essays) {
                 item.is_course = false;
               }
-              userMessage.commit('commitEssays', response.essays);
+              userMessage.commit('commitEssays', response);
               this.essays = response.essays;
+              this.totalPage = response.total_pages;
             }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
           })
       } else {
-        this.essays = userMessage.state.essays;
-        this.page = userMessage.state.dynamicPage;
+        this.essays = userMessage.state.dynamic.essays;
+        this.totalPage = userMessage.state.dynamic.total_pages;
+        this.page = userMessage.state.dynamic.page;
       }
     },
     mounted () {
@@ -211,8 +213,6 @@
       },
       tabClick (data) {
         // data 包括 type, data两个成员, 其中的data是筛选的值
-        // 将选项的筛选值 赋值给 this.stage
-        this.stage = data.data;
         axios({
           url: '/api/essay/filtered_essays/',
           method: 'post',
@@ -247,6 +247,7 @@
             let value = this.$router.currentRoute.params.value;
             let content = {}; // 储存表单提交的内容
             content.page = this.page;
+            console.log(content.page);
             switch (type) {
               case 'normal': // 没有指定的筛选项
                 break;
@@ -258,6 +259,7 @@
             if (this.page > this.totalPage) {
               return;
             }
+            console.log(content);
             axios({
               method: 'post',
               url: '/api/essay/filtered_essays/',
@@ -272,6 +274,8 @@
                         this.essays.push(item);
                       }
                     }
+                    response.essays = this.essays;
+                    userMessage.commit('commitEssays', response);
                   } else {
                     this.$message({
                       type: 'info',

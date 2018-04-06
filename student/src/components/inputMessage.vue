@@ -5,7 +5,6 @@
         <el-input placeholder="请填写您的昵称" v-model="form.name">
         </el-input>
       </el-form-item>
-
       <el-form-item label="性别">
         <el-col :span="16">
           <el-select placeholder="请选择您的性别" v-model="form.gender">
@@ -16,17 +15,13 @@
           </el-select>
         </el-col>
       </el-form-item>
-      <el-form-item label="学习阶段">
-        <el-select placeholder="请选择您的学习阶段" v-model="form.stage">
-          <el-option v-for="item in stages" :key="item.id" :label="item.name" :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="年级">
-        <el-select placeholder="请选择您的年级" v-model="form.grade">
-          <el-option v-for="item in grades" :key="item.id" :label="item.name" :value="item.name">
-          </el-option>
-        </el-select>
+        <el-cascader
+          separator="|"
+          placeholder="年级"
+          :options="stages"
+          v-model="form.stage">
+        </el-cascader>
       </el-form-item>
       <el-form-item label="您的生日">
         <el-date-picker type="date" default-value="2000-1-1" placeholder="选择日期" v-model="form.birthday"
@@ -59,43 +54,36 @@
     data () {
       return {
         stages: [],
-        grades: [],
         form: {
           name: '',
           birthday: '',
           gender: '',
-          stage: '',
-          grade: '',
+          stage: [],
           file: ''
         },
         imageUrl: ''
       }
     },
     created () {
-      axios({
-        method: 'get',
-        url: '/api/common/stages/'
-      })
-        .then(function (response) {
-          if (response) {
-            this.stages = response.stages;
-          }
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
-      axios({
-        method: 'get',
-        url: '/api/common/grades/'
-      })
-        .then(function (response) {
-          if (response) {
-            this.grades = response.grades;
-          }
-        }.bind(this))
-        .catch(function (error) {
-          console.log(error);
-        });
+      // 如果没有缓存过筛选信息，就在组件创建时请求筛选信息
+      if (userMessage.state.stages.length === 0) {
+        axios({
+          url: '/api/common/stages/',
+          method: 'get'
+        })
+          .then(function (response) {
+            if (response) {
+              this.setFilter(response.stages);
+              this.stages = response.stages;
+              userMessage.commit('getStages', response.stages);
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        this.stages = userMessage.state.stages;
+      }
       axios({
         method: 'get',
         url: '/api/student/detail/'
@@ -103,8 +91,6 @@
         .then(function (response) {
           if (response) {
             this.form.name = response.name;
-            this.form.stage = response.stage;
-            this.form.grade = response.grade;
             this.form.gender = response.gender;
             this.form.birthday = response.birthday;
             this.imageUrl = response.head_photo;
@@ -120,6 +106,23 @@
       }
     },
     methods: {
+      // reformat option style for filter
+      // use recursive function to implement this request
+      setFilter (obj) {
+        if (obj) {
+          for (let item of obj) {
+            item.label = item.name;
+            item.value = item.id;
+            delete item.name;
+            delete item.id;
+            if (item.children.length !== 0) {
+              this.setFilter(item.children);
+            } else {
+              delete item.children;
+            }
+          }
+        }
+      },
       onChoose (file) {
         file = file.raw;
         const isJPG = file.type === 'image/jpeg';
@@ -142,7 +145,7 @@
                 canvas.width = w < h ? w : h;
                 canvas.height = w < h ? w : h;
                 context.drawImage(Img, 0, 0, w, h);
-                let temp = maxlength / file.size + 0.2;
+                let temp = maxlength / file.size;
                 let data = canvas.toDataURL('image/jpeg', temp); // data url的形式
                 data = data.split(',')[1];
                 data = window.atob(data);
@@ -164,10 +167,19 @@
         return isJPG;
       },
       submit () {
+        let stage = {};
+        if (this.form.stage.length) {
+          stage.id = this.form.stage[this.form.stage.length - 1];
+        } else {
+          this.$message({
+            message: '请填写您的学习阶段',
+            type: 'error',
+            duration: 1500
+          });
+        }
         let dataForm = new FormData();
         dataForm.append('head_photo', this.form.file);
-        dataForm.append('stage', this.form.stage);
-        dataForm.append('grade', this.form.grade);
+        dataForm.append('stage', stage);
         dataForm.append('gender', this.form.gender);
         dataForm.append('birthday', this.form.birthday);
         dataForm.append('name', this.form.name);
