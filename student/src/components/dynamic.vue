@@ -39,6 +39,7 @@
         typeName: '最新动态',
         essays: [],
         tabValue: '小学',
+        filterType: '',
         tabHeaders: [
           {
             type: 'normal',
@@ -158,6 +159,7 @@
     },
     created () {
       this.tabValue = this.$router.currentRoute.params.value;
+      this.filterType = this.$router.currentRoute.params.value;
       if (!userMessage.state.dynamic.essays) {
         let type = this.$router.currentRoute.params.type;
         let value = this.$router.currentRoute.params.value;
@@ -196,6 +198,16 @@
     },
     mounted () {
       window.addEventListener('scroll', this.scrollHandle)
+    },
+    watch: {
+      '$route' (to, from) {
+        if (this.$router.currentRoute.params.type === 'normal' && this.filterType !== 'total') {
+          let data = {};
+          data.type = 'total';
+          data.data = {};
+          this.tabClick(data);
+        }
+      }
     },
     methods: {
       // 用于自己实现菜单栏的拖动， 开始拖动的函数
@@ -246,6 +258,7 @@
               this.page = 1;
               this.essays = response.essays;
               this.totalPage = response.total_pages;
+              this.filterType = data.data[data.type] === undefined ? 'total' : data.data[data.type].name;
               var newPath = '/dynamic/' + data.type + '/' + (data.data[data.type] === undefined ? 'total' : data.data[data.type].name);
               this.$router.push({path: newPath});
             }
