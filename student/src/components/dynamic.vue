@@ -38,6 +38,11 @@
         essays: [],
         tabHeaders: [
           {
+            type: 'normal',
+            label: '最新',
+            data: {}
+          },
+          {
             type: 'stage',
             label: '幼儿',
             data: {
@@ -226,8 +231,8 @@
               this.page = 1;
               this.essays = response.essays;
               this.totalPage = response.total_pages;
-              let path = '/dynamic/' + data.type + '/' + data.data[data.type].name;
-              this.$router.push({path: path});
+              var newPath = '/dynamic/' + data.type + '/' + (data.data[data.type] === undefined ? 'total' : data.data[data.type].name);
+              this.$router.push({path: newPath});
             }
           }.bind(this))
           .catch(function (error) {
