@@ -8,7 +8,7 @@
       </p>
       <p><span style="padding: 0 5px;font-size: larger;">性别：</span><span :class="getGender"
                                                                          style="font-size: large;padding:0 30px 0 0;"></span>
-        <span class="user-message">年级：</span><span class="user-message">{{stage.name}}</span>
+        <span class="user-message">年级：</span><span class="user-message">{{stage}}</span>
       </p>
     </div>
     <el-collapse accordion class="user-collapse-body" @change="handleChange">
@@ -196,11 +196,10 @@
     },
     data () {
       return {
-        avatar: userMessage.state.head_photo,
-        userName: userMessage.state.name,
-        gender: userMessage.state.gender,
-        stage: userMessage.state.stage,
-        grade: userMessage.state.grade,
+        avatar: null,
+        userName: '',
+        gender: '',
+        stage: '',
         panelList: [
           {
             label: ' 我的预约',
@@ -244,8 +243,31 @@
       }
     },
     created () {
-      if (!userMessage.state.has_login) {
-        this.$router.replace({path: '/login'});
+      if (userMessage.state.name === '' || !userMessage.state.has_login) {
+        axios({
+          method: 'get',
+          url: '/api/student/login/'
+        })
+          .then(function (response) {
+            if (response) {
+              userMessage.commit('user_message', response);
+              this.avatar = userMessage.state.head_photo;
+              this.userName = userMessage.state.name;
+              this.gender = userMessage.state.gender;
+              this.stage = userMessage.state.stage;
+            } else {
+              userMessage.commit('delete_message');
+              this.$router.replace({path: '/login'});
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        this.avatar = userMessage.state.head_photo;
+        this.userName = userMessage.state.name;
+        this.gender = userMessage.state.gender;
+        this.stage = userMessage.state.stage;
       }
     },
     methods: {

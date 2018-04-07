@@ -10,7 +10,7 @@
       <br/>
       <span class="am-navbar-label">主页</span>
     </router-link>
-    <router-link :to="setURL">
+    <router-link to="/user">
       <span class="am-icon-user icon"></span>
       <br/>
       <span class="am-navbar-label">用户</span>
@@ -19,33 +19,8 @@
 </template>
 
 <script>
-  import userMessage from '../store/index';
-  import axios from '../axios/index'
-
   export default {
-    name: 'footerIndex',
-    computed: {
-      setURL: function () {
-        if (userMessage.state.has_login) {
-          return '/user';
-        }
-        axios({
-          method: 'get',
-          url: '/api/student/login/'
-        })
-          .then(function (response) {
-            if (response) {
-              userMessage.commit('user_message', response);
-              return '/user';
-            }
-            return '/login';
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        return '/login';
-      }
-    }
+    name: 'footerIndex'
   }
 </script>
 
