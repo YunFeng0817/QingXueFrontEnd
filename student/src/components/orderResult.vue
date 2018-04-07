@@ -82,8 +82,9 @@
       <p class="comment" v-html="comment.text">
       </p>
     </div>
-    <div class="footer" v-if="trade_status==='WAIT_BUYER_PAY'">
-      <a @click="pay">继续支付</a>
+    <div class="footer">
+      <a @click="pay" v-if="trade_status==='WAIT_BUYER_PAY'">继续支付</a>
+      <a v-else>退款</a>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 110px;"></div>
@@ -179,18 +180,8 @@
         this.comment = userMessage.state.orderResult.comment;
       },
       pay () {
-        axios({
-          method: 'get',
-          url: userMessage.state.orderResult.payment_url
-        })
-          .then(function (response) {
-            if (response) {
-              console.log('正在支付');
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
+        this.$router.push({path: '/order/result/'});
+        window.location.href = userMessage.state.orderResult.payment_url;
       },
       // 删除对课程的评论
       deleteComments (commentId) {

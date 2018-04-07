@@ -462,13 +462,15 @@
                 })
             }
             break;
+          // 处理在机构页面请求该机构的全部课程
           case '课程':
             if (this.courses.length === 0) {
               axios({
                 method: 'post',
-                url: '/api/course/filtered_list/',
+                url: '/api/course/filtered_courses/',
                 data: {
-                  educator_id: this.$router.currentRoute.params.id
+                  educator_id: this.$router.currentRoute.params.id,
+                  page: -1
                 }
               })
                 .then(function (response) {

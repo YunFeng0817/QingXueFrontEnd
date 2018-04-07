@@ -39,14 +39,15 @@
       <el-form status-icon label-position="left"
                label-width="22%"
                class="demo-ruleForm">
-        <el-form-item label="支付方式">
-          <el-select v-model="method" placeholder="请选择支付方式">
-            <el-option label="支付宝" value="weixin">
-            </el-option>
-            <el-option label="微信" value="zhifubao">
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <!--<el-form-item label="支付方式">-->
+          <!--<el-select v-model="method" placeholder="请选择支付方式">-->
+            <!--<el-option label="支付宝" value="weixin">-->
+            <!--</el-option>-->
+            <!--<el-option label="微信" value="zhifubao">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
+        <p>本系统暂时只支持支付宝的支付方式</p>
         <el-form-item label="选择学期">
           <el-select v-model="time_span_id" placeholder="请选择学期">
             <el-option v-for="item in time_spans" :key="item.id" :label="item.start_time+'--'+item.end_time"
