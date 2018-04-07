@@ -9,7 +9,7 @@
           class="inline-input"
           v-model="searchContent"
           :fetch-suggestions="querySearch"
-          placeholder="输入想要搜索的课程或资讯"
+          :placeholder="is_course?'输入课程单关键词':'输入资讯关键字'"
           @select="handleSelect"
           clearable="true"
         >
@@ -90,7 +90,7 @@
                 }
                 response.is_course = this.is_course;
                 userMessage.commit('commitSearch', response);
-                this.$router.push({path: 'search', query: {key: this.searchContent}});
+                this.$router.push({path: '/search', query: {key: this.searchContent}});
               }
             }.bind(this))
             .catch(function (error) {
