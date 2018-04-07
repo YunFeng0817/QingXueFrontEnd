@@ -8,8 +8,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/commen.css'
 import {
   Checkbox,
+  Cascader,
   Input,
-  radio,
+  Radio,
   Button,
   Form,
   FormItem,
@@ -23,7 +24,7 @@ import {
 Vue.config.productionTip = false;
 Vue.use(Checkbox);
 Vue.use(Input);
-Vue.use(radio);
+Vue.use(Radio);
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
@@ -31,6 +32,7 @@ Vue.use(Col);
 Vue.use(Upload);
 Vue.use(Steps);
 Vue.use(Step);
+Vue.use(Cascader);
 Vue.prototype.$message = Message;
 
 /* eslint-disable no-new */

@@ -47,6 +47,13 @@
               <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式的文件，且不超过500kb</div>
             </el-upload>
           </el-form-item>
+          <el-form-item label="地区">
+            <el-cascader
+              separator="|"
+              placeholder="地区"
+              :options="areas">
+            </el-cascader>
+          </el-form-item>
           <el-form-item label="请在地图上标出您的位置" style="height:20%;">
           </el-form-item>
           <div class="map">
@@ -105,10 +112,45 @@
           lng: 0,
           lat: 0
         },
-        address: []
+        address: [],
+        areas: [], // 这个字段保存由后端返回的地域筛选项
+        area: []// 这个字段用于保存用户选择的自己的位置
       }
     },
+    created () {
+      axios({
+        url: '/api/common/areas/',
+        method: 'get'
+      })
+        .then(function (response) {
+          if (response) {
+            this.setFilter(response.areas);
+            this.areas = response.areas;
+            console.log(this.areas);
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        })
+    },
     methods: {
+      // reformat option style for filter
+      // use recursive function to implement this request
+      setFilter (obj) {
+        if (obj) {
+          for (let item of obj) {
+            item.label = item.name;
+            item.value = item.id;
+            delete item.name;
+            delete item.id;
+            if (item.children.length !== 0) {
+              this.setFilter(item.children);
+            } else {
+              delete item.children;
+            }
+          }
+        }
+      },
       onChoose (file) {
         file = file.raw;
         const isJPG = file.type === 'image/jpeg';
@@ -168,40 +210,50 @@
           });
           return;
         }
-        let dataForm = new FormData();
-        if (this.address.length !== 0) {
-          this.address[0].detail = this.positionDescription;
-          this.address[0].latitude = this.position.lat;
-          this.address[0].longitude = this.position.lng;
-          dataForm.append('addresses', JSON.stringify(this.address[0]));
-        }
-        dataForm.append('head_photo', this.form.file);
-        dataForm.append('name', this.form.name);
-        dataForm.append('introduction', this.introduction);
-        /**
-         * 因为FormData对象的append()的第二个参数只能是字符串或者blob对象，
-         * 不能是数组对象，所以要要循环添加文件，实现数组的上传
-         */
-        for (let file of this.fileList) {
-          dataForm.append('authentications', file);
-        }
-        axios({
-          method: 'put',
-          url: '/api/educator/sign_up/',
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
-          },
-          data: dataForm
-        })
-          .then(function (response) {
-            if (response) {
-              window.location.href = '/admin/';
-            }
+        if (this.area.length) {
+          let area = this.area[this.area.length - 1];
+          let dataForm = new FormData();
+          if (this.address.length !== 0) {
+            this.address[0].area_id = area;
+            this.address[0].detail = this.positionDescription;
+            this.address[0].latitude = this.position.lat;
+            this.address[0].longitude = this.position.lng;
+            dataForm.append('addresses', JSON.stringify(this.address[0]));
+          }
+          dataForm.append('head_photo', this.form.file);
+          dataForm.append('name', this.form.name);
+          dataForm.append('introduction', this.introduction);
+          /**
+           * 因为FormData对象的append()的第二个参数只能是字符串或者blob对象，
+           * 不能是数组对象，所以要要循环添加文件，实现数组的上传
+           */
+          for (let file of this.fileList) {
+            dataForm.append('authentications', file);
+          }
+          axios({
+            method: 'put',
+            url: '/api/educator/sign_up/',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+            },
+            data: dataForm
           })
-          .catch(function (error) {
-            console.log(error);
-          })
+            .then(function (response) {
+              if (response) {
+                window.location.href = '/admin/';
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        } else {
+          this.$message({
+            message: '请填写您所在的区域',
+            type: 'error',
+            duration: 1500
+          });
+        }
       },
       // 一旦用户选择了文件，就会调用这个函数，然后将文件添加进fileList数组
       handleChoose (file) {
