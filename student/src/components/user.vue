@@ -110,7 +110,7 @@
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
                  @click.native="coursesClick(item.course.id)">
-          <el-tag size="mini">{{item.course.stage+item.course.grade}}</el-tag>
+          <el-tag size="mini">{{item.course.stage}}</el-tag>
           <el-tag size="mini">{{item.course.subject}}</el-tag>
           <el-tag size="mini">{{item.course.degree}}</el-tag>
           <div class="courses">
@@ -134,7 +134,7 @@
               </div>
             </div>
             <el-button type="danger" size="mini"
-                       style="padding: 1% 1%; position: absolute;right:2%;"
+                       style="padding: 1% 1%; position: relative;"
                        @click.stop="deleteFavourites(item.id,id)">
               <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
               取消收藏
@@ -165,7 +165,7 @@
               </div>
             </div>
             <el-button type="danger" size="mini"
-                       style="padding: 1% 1%; position: absolute;right:2%;"
+                       style="padding: 1% 1%; position: relative;left:15%;"
                        @click.stop="deleteFollowings(item.id,id)">
               <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
               取消收藏
