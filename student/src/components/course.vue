@@ -338,8 +338,8 @@
                 if (response) {
                   userMessage.commit('commitInstitution', response);
                   // 机构的地址可能为空
-                  if (response.addresses.length !== 0) {
-                    this.address = response.addresses;
+                  if (response.basic_info.addresses.length !== 0) {
+                    this.address = response.basic_info.addresses;
                   }
                   this.favourited = response.followed;
                   this.title = response.basic_info.name;
@@ -356,8 +356,8 @@
               });
           } else {
             // 机构的地址可能为空
-            if (userMessage.state.institution.addresses.length !== 0) {
-              this.address = userMessage.state.institution.addresses[0];
+            if (userMessage.state.institution.basic_info.addresses.length !== 0) {
+              this.address = userMessage.state.institution.basic_info.addresses[0];
             }
             this.favourited = userMessage.state.institution.followed;
             this.title = userMessage.state.institution.basic_info.name;
