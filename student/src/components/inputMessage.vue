@@ -194,7 +194,9 @@
           });
         }
         let dataForm = new FormData();
-        dataForm.append('head_photo', this.form.file);
+        if (this.form.file) {
+          dataForm.append('head_photo', this.form.file);
+        }
         dataForm.append('stage_id', stage);
         dataForm.append('gender', this.form.gender);
         dataForm.append('birthday', this.form.birthday);
