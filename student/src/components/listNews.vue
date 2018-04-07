@@ -112,10 +112,10 @@
   }
 
   .image {
-    width: 40%;
+    width: 50%;
     height: 30%;
-    max-height: 80px;
-    max-width: 120px;
+    max-height: 60px;
+    max-width: 100px;
     display: block;
     margin: 2% 1%;
   }

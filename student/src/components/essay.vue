@@ -2,16 +2,17 @@
   <div>
     <back-button>
     </back-button>
-    <am-article>
-      <am-article-header :title="title" :meta="author" style="text-align: center">
+    <div class="article">
+      <div style="height: 40px;"></div>
+      <am-article-header :title="title" :meta="author" style="padding:0 2%;text-align: center">
       </am-article-header>
       <am-article-body>
         <am-article-lead v-html="introduction">
         </am-article-lead>
-        <div v-html="content">
+        <div v-html="content" class="article">
         </div>
       </am-article-body>
-    </am-article>
+    </div>
     <br/>
     <div class="like">
       <p>
@@ -27,7 +28,7 @@
       <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
     </div>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 90px;"></div>
+    <div style="height: 100px;"></div>
   </div>
 </template>
 
@@ -36,7 +37,6 @@
   import BackButton from './backButton';
   import userMessage from '../store/index';
   import {
-    Article,
     ArticleHeader,
     ArticleBody,
     ArticleLead
@@ -45,7 +45,6 @@
   export default {
     components: {
       BackButton,
-      AmArticle: Article,
       AmArticleHeader: ArticleHeader,
       AmArticleBody: ArticleBody,
       AmArticleLead: ArticleLead
@@ -117,5 +116,12 @@
 
   i {
     font-size: x-large;
+  }
+
+  .article {
+    font-size: medium;
+    line-height: 2em;
+    padding: 0 4%;
+    background-color: #f9f9f9;
   }
 </style>
