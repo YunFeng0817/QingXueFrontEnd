@@ -62,6 +62,12 @@ axios.interceptors.response.use((response) => {
     case 411:
       Message.error('您输入的手机号码不存在');
       return;
+    case 423:
+      Message.error('退款失败，请联系管理员');
+      return;
+    case 428:
+      Message.error('预约已由机构确认，无法退款');
+      return;
     case 429:
       Message.error('您发送的短信过于频繁，请过一个小时后再试这个手机号码');
       return;

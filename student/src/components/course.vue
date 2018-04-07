@@ -7,7 +7,8 @@
       <span class="order-header" v-else>机构详情</span>
       <i :class="favourited?'am-icon-heart':'am-icon-heart-o'"
          style="position: relative;left:25%; color: red;" @click="favourite">
-        <span style="color : white;">收藏</span>
+        <span style="color : white;" v-if="path==='course'">收藏</span>
+        <span style="color : white;" v-else>关注</span>
       </i>
     </div>
 
@@ -411,6 +412,11 @@
       // 处理收藏课程的动作
       favourite () {
         if (userMessage.state.has_login) {
+          let postData = {};
+          postData.course_id = this.$router.currentRoute.params.id;
+          if (userMessage.state.institution.basic_info) {
+            postData.educator_id = userMessage.state.institution.basic_info.id;
+          }
           if (!this.favourited) {
             axios({
               method: 'post',
@@ -418,10 +424,7 @@
                 'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
               },
               url: '/api/student_operation/' + (this.path === 'course' ? 'favourites/' : 'followings/'),
-              data: {
-                course_id: this.$router.currentRoute.params.id,
-                educator_id: userMessage.state.institution.basic_info.id
-              }
+              data: postData
             })
               .then(function (response) {
                 if (response) {
