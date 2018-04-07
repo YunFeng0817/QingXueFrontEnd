@@ -18,6 +18,10 @@ export default new Router({
     {
       path: '/educator/message',
       component: resolve => require(['../components/inputMessage'], resolve)
+    },
+    {
+      path: '/educator/pay',
+      component: resolve => require(['../components/pay'], resolve)
     }
   ]
 })
