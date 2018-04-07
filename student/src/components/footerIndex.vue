@@ -38,7 +38,6 @@
             this.stage = userMessage.state.stage;
           } else {
             userMessage.commit('delete_message');
-            this.$router.replace({path: '/login'});
           }
         }.bind(this))
         .catch(function (error) {
