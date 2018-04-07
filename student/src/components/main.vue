@@ -355,6 +355,7 @@
               }
               postData[type] = {name: stage};
             }
+            console.log(postData);
             axios({
               method: 'post',
               url: '/api/course/filtered_courses/',

@@ -179,6 +179,8 @@
     </el-collapse>
     <!--下面的这个区块是为了占位-->
     <div style="height: 150px;"></div>
+    <input style="position:fixed; bottom:-10px;" ref="input" type="text" id="copy"
+           :value="'https://qingxue.xyz/'"/>
   </div>
 </template>
 
@@ -242,9 +244,9 @@
       }
     },
     created () {
-      if (!userMessage.state.has_login) {
-        this.$router.replace({path: '/login'});
-      }
+      // if (!userMessage.state.has_login) {
+      //   this.$router.replace({path: '/login'});
+      // }
     },
     methods: {
       logout () {
@@ -268,8 +270,20 @@
           this.$router.push({path: '/modify/pass'});
         }
       },
-      openShare () {
-        this.$share();
+      openShare (e) {
+        // this.$share();
+        try {
+          // 执行复制
+          this.$refs.input.select();
+          document.execCommand('copy');
+          this.$message({
+            message: '已将网址复制到剪切板，您可以打开app复制连接',
+            type: 'success',
+            duration: 2000
+          });
+        } catch (err) {
+          alert('您的浏览器不支持自动复制，请您手动复制网址');
+        }
       },
       // 处理点击折叠菜单事件
       handleChange (val) {
