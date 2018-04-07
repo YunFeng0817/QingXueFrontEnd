@@ -19,8 +19,32 @@
 </template>
 
 <script>
+  import userMessage from '../store/index';
+  import axios from '../axios/index';
+
   export default {
-    name: 'footerIndex'
+    name: 'footerIndex',
+    created () {
+      axios({
+        method: 'get',
+        url: '/api/student/login/'
+      })
+        .then(function (response) {
+          if (response) {
+            userMessage.commit('user_message', response);
+            this.avatar = userMessage.state.head_photo;
+            this.userName = userMessage.state.name;
+            this.gender = userMessage.state.gender;
+            this.stage = userMessage.state.stage;
+          } else {
+            userMessage.commit('delete_message');
+            this.$router.replace({path: '/login'});
+          }
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 </script>
 
