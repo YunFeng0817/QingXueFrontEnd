@@ -244,9 +244,9 @@
       }
     },
     created () {
-      // if (!userMessage.state.has_login) {
-      //   this.$router.replace({path: '/login'});
-      // }
+      if (!userMessage.state.has_login) {
+        this.$router.replace({path: '/login'});
+      }
     },
     methods: {
       logout () {
@@ -271,6 +271,7 @@
         }
       },
       openShare (e) {
+        // 注释中的 this.$share();是原来的分享组件，可以使用
         // this.$share();
         try {
           // 执行复制

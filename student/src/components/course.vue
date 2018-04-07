@@ -170,6 +170,8 @@
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 150px;"></div>
+    <input style="position:fixed; bottom:-10px;" ref="input" type="text" id="copy"
+           :value="'https://qingxue.xyz'+$router.currentRoute.fullPath"/>
   </div>
 </template>
 
@@ -402,7 +404,20 @@
       },
       // 负责处理分享课程
       share () {
-        this.$share();
+        // 注释中的 this.$share();是原来的分享组件，可以使用
+        // this.$share();
+        try {
+          // 执行复制
+          this.$refs.input.select();
+          document.execCommand('copy');
+          this.$message({
+            message: '已将网址复制到剪切板，您可以打开app复制连接',
+            type: 'success',
+            duration: 2000
+          });
+        } catch (err) {
+          alert('您的浏览器不支持自动复制，请您手动复制网址');
+        }
       },
       // 处理收藏课程的动作
       favourite () {
