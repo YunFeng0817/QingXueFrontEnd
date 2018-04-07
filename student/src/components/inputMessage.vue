@@ -100,10 +100,12 @@
     },
     computed: {
       checkForm: function () {
-        return this.form.name === '' || this.form.birthday === '' || this.form.gender === '' || this.form.stage === '' || this.form.grade === '';
+        return this.form.name === '' || this.form.birthday === '' || this.form.gender === '' || this.form.stage === '' || this.form.grade === '' || this.form.stage.length === 0;
       }
     },
     methods: {
+      // 这个函数用于处理 ，后端返回的 学生阶段是id值， 寻找对应的阶段筛选路径
+      // 使用的递归的方式
       getpath (obj, value) {
         for (let entry of obj.entries()) {
           if (entry[1].value === value) {
