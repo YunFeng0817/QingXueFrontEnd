@@ -84,7 +84,7 @@
     </div>
     <div class="footer">
       <a @click="pay" v-if="trade_status==='WAIT_BUYER_PAY'">继续支付</a>
-      <a v-else>退款</a>
+      <a @click="refund" v-if="trade_status==='TRADE_SUCCESS'">退款</a>
     </div>
     <!--下面的这个区块是为了占位-->
     <div style="height: 110px;"></div>
@@ -179,9 +179,37 @@
         this.edit = false;
         this.comment = userMessage.state.orderResult.comment;
       },
+      // 处理付款的动作
       pay () {
         this.$router.push({path: '/order/result/'});
         window.location.href = userMessage.state.orderResult.payment_url;
+      },
+      // 处理付款的动作
+      refund () {
+        if (this.orderID !== '') {
+          axios({
+            method: 'put',
+            url: '/api/order/?order_sn=' + this.orderID
+          })
+            .then(function (response) {
+              if (response) {
+                this.orderID = response.id;
+                this.title = response.course.title;
+                this.startTime = response.time_span.start_time;
+                this.endTime = response.time_span.end_time;
+                this.trade_no = response.trade_no;
+                this.total_amount = response.total_amount;
+                this.pay_time = response.pay_time;
+                this.student_notes = response.student_notes;
+                this.course_id = response.course.id;
+                this.trade_status = response.trade_status;
+                this.comment = response.comment;
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+        }
       },
       // 删除对课程的评论
       deleteComments (commentId) {
@@ -218,6 +246,8 @@
             return '交易待支付';
           case 'TRADE_CLOSED':
             return '交易关闭';
+          case 'TRADE_REFUNDED':
+            return '已退款';
           default:
             return '交易情况未知';
         }

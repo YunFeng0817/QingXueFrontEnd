@@ -54,10 +54,14 @@
                   <span class="time">{{price}}</span>
                 </p>
                 <p>
+                  <span class="time">介绍: </span>
+                  <br/>
                   {{introduction}}
                 </p>
                 <p>
                   <span class="time" v-if="address">机构地址 : {{address.area}} </span>
+                </p>
+                <p>
                   <span class="time" v-if="address">地址详情 : {{address.detail}} </span>
                 </p>
               </div>
@@ -290,7 +294,7 @@
                   userMessage.commit('commitCourse', response);
                   this.address = response.address;
                   this.favourited = response.favourited;
-                  this.title = response.name;
+                  this.title = response.title;
                   this.time_spans = response.time_spans;
                   this.perSession = response.session_hours;
                   this.stars = response.stars;
@@ -310,7 +314,7 @@
           } else {
             this.address = userMessage.state.courseDetail.address;
             this.favourited = userMessage.state.courseDetail.favourited;
-            this.title = userMessage.state.courseDetail.name;
+            this.title = userMessage.state.courseDetail.title;
             this.time_spans = userMessage.state.courseDetail.time_spans;
             this.perSession = userMessage.state.courseDetail.session_hours;
             this.stars = userMessage.state.courseDetail.stars;

@@ -511,6 +511,8 @@
             return '交易待支付';
           case 'TRADE_CLOSED':
             return '交易关闭';
+          case 'TRADE_REFUNDED':
+            return '已退款';
           default:
             return '交易情况未知';
         }
