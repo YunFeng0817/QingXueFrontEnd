@@ -105,6 +105,7 @@
     },
     data () {
       return {
+        order_sn: '',
         orderID: '',
         title: '',
         startTime: '',
@@ -128,6 +129,7 @@
         })
           .then(function (response) {
             if (response) {
+              this.order_sn = response.order_sn;
               this.orderID = response.id;
               this.title = response.course.title;
               this.startTime = response.time_span.start_time;
@@ -145,6 +147,7 @@
             console.log(error);
           })
       } else if (userMessage.state.orderResult.id) {
+        this.order_sn = userMessage.state.orderResult.order_sn;
         this.orderID = userMessage.state.orderResult.id;
         this.title = userMessage.state.orderResult.course.title;
         this.startTime = userMessage.state.orderResult.time_span.start_time;
@@ -184,15 +187,16 @@
         this.$router.push({path: '/order/result/'});
         window.location.href = userMessage.state.orderResult.payment_url;
       },
-      // 处理付款的动作
+      // 处理付退款动作
       refund () {
-        if (this.orderID !== '') {
+        if (this.order_sn !== '') {
           axios({
             method: 'put',
-            url: '/api/order/?order_sn=' + this.orderID
+            url: '/api/order/?order_sn=' + this.order_sn
           })
             .then(function (response) {
               if (response) {
+                this.order_sn = response.order_sn;
                 this.orderID = response.id;
                 this.title = response.course.title;
                 this.startTime = response.time_span.start_time;
