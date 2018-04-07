@@ -250,89 +250,31 @@
       }
     },
     created () {
-      if (this.path === 'course') {
-        // 下面的if分支处理非跳转，直接访问的情况
-        if (JSON.stringify(userMessage.state.courseDetail) === '{}') {
-          axios({
-            url: '/api/course/' + this.$router.currentRoute.params.id + '/',
-            method: 'get'
-          })
-            .then(function (response) {
-              if (response) {
-                userMessage.commit('commitCourse', response);
-                this.address = response.address;
-                this.favourited = response.favourited;
-                this.title = response.name;
-                this.time_spans = response.time_spans;
-                this.perSession = response.session_hours;
-                this.stars = response.stars;
-                this.price = response.total_price;
-                this.discount = response.discount;
-                this.introduction = response.brief_description;
-                this.detail = response.detail;
-                this.teachers = response.teachers;
-                this.showImages = response.banners;
-                this.institutionID = response.master;
-                this.contact = response.contacts;
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
-            });
-        } else {
-          this.address = userMessage.state.courseDetail.address;
-          this.favourited = userMessage.state.courseDetail.favourited;
-          this.title = userMessage.state.courseDetail.name;
-          this.time_spans = userMessage.state.courseDetail.time_spans;
-          this.perSession = userMessage.state.courseDetail.session_hours;
-          this.stars = userMessage.state.courseDetail.stars;
-          this.price = userMessage.state.courseDetail.total_price;
-          this.discount = userMessage.state.courseDetail.discount;
-          this.introduction = userMessage.state.courseDetail.brief_description;
-          this.detail = userMessage.state.courseDetail.detail;
-          this.teachers = userMessage.state.courseDetail.teachers;
-          this.showImages = userMessage.state.courseDetail.banners;
-          this.institutionID = userMessage.state.courseDetail.master;
-          this.contact = userMessage.state.courseDetail.contacts;
-        }
-      } else if (this.path === 'institution') {
-        // 下面的if分支处理非跳转，直接访问的情况
-        if (JSON.stringify(userMessage.state.institution) === '{}') {
-          axios({
-            url: '/api/educator/' + this.$router.currentRoute.params.id + '/',
-            method: 'get'
-          })
-            .then(function (response) {
-              if (response) {
-                userMessage.commit('commitInstitution', response);
-                this.favourited = response.followed;
-                this.title = response.basic_info.name;
-                this.introduction = response.basic_info.introduction;
-                this.showImages = response.basic_info.banners;
-                this.head_photo = response.basic_info.head_photo;
-                this.contact = response.basic_info.contacts;
-                this.gender = response.gender;
-                this.edu_background = response.edu_background;
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
-            });
-        } else {
-          this.favourited = userMessage.state.institution.followed;
-          this.title = userMessage.state.institution.basic_info.name;
-          this.introduction = userMessage.state.institution.basic_info.introduction;
-          this.showImages = userMessage.state.institution.basic_info.banners;
-          this.head_photo = userMessage.state.institution.basic_info.head_photo;
-          this.contact = userMessage.state.institution.basic_info.contacts;
-          this.gender = userMessage.state.institution.gender;
-          this.edu_background = userMessage.state.institution.edu_background;
-        }
-      }
+      this.init();
     },
     watch: {
       '$route' (to, from) {
         this.path = this.$router.currentRoute.params.type;
+        this.init();
+      }
+    },
+    mounted () {
+      window.addEventListener('scroll', this.handler);
+      this.offsetTop = this.$refs.tab.$el.firstChild.offsetTop;
+    },
+    computed: {
+      contactPhone: function () {
+        for (let item of this.contact) {
+          if (item.contact_type) {
+            return item.contact_detail;
+          }
+        }
+      }
+    },
+    methods: {
+      // 这个函数用于处理直接url访问的请求数据，由别的url跳转进来不请求数据的情况
+      // 由于这个组件是 课程和机构共用， 所以要对类别进行判断
+      init () {
         if (this.path === 'course') {
           // 下面的if分支处理非跳转，直接访问的情况
           if (JSON.stringify(userMessage.state.courseDetail) === '{}') {
@@ -412,22 +354,7 @@
             this.edu_background = userMessage.state.institution.edu_background;
           }
         }
-      }
-    },
-    mounted () {
-      window.addEventListener('scroll', this.handler);
-      this.offsetTop = this.$refs.tab.$el.firstChild.offsetTop;
-    },
-    computed: {
-      contactPhone: function () {
-        for (let item of this.contact) {
-          if (item.contact_type) {
-            return item.contact_detail;
-          }
-        }
-      }
-    },
-    methods: {
+      },
       // 处理进入预定页面
       order () {
         this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
