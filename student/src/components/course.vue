@@ -55,6 +55,9 @@
                 <p>
                   {{introduction}}
                 </p>
+                <p>
+                  <span class="time">机构地址 : {{address}} </span>
+                </p>
               </div>
               <div v-else>
                 <div class="educator">
@@ -102,17 +105,18 @@
               </div>
               <p v-if="teachers.length===0">没有教师的详情</p>
             </el-tab-pane>
-            <el-tab-pane label="地址">
-              <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" :center="{lng: 116.404, lat: 39.915}"
-                         :zoom="15">
-                <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT">
-                </bm-navigation>
-                <bm-marker :position="{lng: 116.404, lat: 39.915}" :dragging="false">
-                  <bm-label content="这里是上课地点"
-                            :offset="{width: -35, height: 30}"/>
-                </bm-marker>
-              </baidu-map>
-            </el-tab-pane>
+            <!--下面的百度地图去掉注释就可以正常使用了-->
+            <!--<el-tab-pane label="地址">-->
+            <!--<baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" :center="{lng: 116.404, lat: 39.915}"-->
+            <!--:zoom="15">-->
+            <!--<bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT">-->
+            <!--</bm-navigation>-->
+            <!--<bm-marker :position="{lng: 116.404, lat: 39.915}" :dragging="false">-->
+            <!--<bm-label content="这里是上课地点"-->
+            <!--:offset="{width: -35, height: 30}"/>-->
+            <!--</bm-marker>-->
+            <!--</baidu-map>-->
+            <!--</el-tab-pane>-->
             <el-tab-pane label="评价" v-if="path==='course'">
               <am-comment-list>
                 <am-comment v-for="item in comments" :key="item.id">
@@ -179,10 +183,10 @@
   import axios from '../axios/index'
   import userMessage from '../store/index'
   import BackButton from './backButton'
-  import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
-  import bmMarker from 'vue-baidu-map/components/overlays/Marker'
-  import bmLabel from 'vue-baidu-map/components/overlays/Label'
-  import Navigation from 'vue-baidu-map/components/controls/Navigation'
+  // import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
+  // import bmMarker from 'vue-baidu-map/components/overlays/Marker'
+  // import bmLabel from 'vue-baidu-map/components/overlays/Label'
+  // import Navigation from 'vue-baidu-map/components/controls/Navigation'
   import image from 'amaze-vue/src/components/image/src/image'
   import slider from './slider'
   import listNews from './listNews'
@@ -203,10 +207,10 @@
     components: {
       'slider': slider,
       'back-button': BackButton,
-      'baidu-map': BaiduMap,
-      'bm-marker': bmMarker,
-      'bm-label': bmLabel,
-      'bm-navigation': Navigation,
+      // 'baidu-map': BaiduMap,
+      // 'bm-marker': bmMarker,
+      // 'bm-label': bmLabel,
+      // 'bm-navigation': Navigation,
       'am-image': image,
       'list-news': listNews,
       AmComment: Comment,
@@ -221,6 +225,7 @@
     },
     data () {
       return {
+        address: '',
         favourited: false,
         title: '',
         time_spans: [],
@@ -255,6 +260,7 @@
             .then(function (response) {
               if (response) {
                 userMessage.commit('commitCourse', response);
+                this.address = response.address;
                 this.favourited = response.favourited;
                 this.title = response.name;
                 this.time_spans = response.time_spans;
@@ -274,6 +280,7 @@
               console.log(error);
             });
         } else {
+          this.address = userMessage.state.courseDetail.address;
           this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
           this.time_spans = userMessage.state.courseDetail.time_spans;
@@ -327,6 +334,7 @@
       '$route' (to, from) {
         this.path = this.$router.currentRoute.params.type;
         if (this.path === 'course') {
+          this.address = userMessage.state.courseDetail.address;
           this.favourited = userMessage.state.courseDetail.favourited;
           this.title = userMessage.state.courseDetail.name;
           this.time_spans = userMessage.state.courseDetail.time_spans;
@@ -495,7 +503,7 @@
                     }
                     this.courses = response.courses;
                   }
-                })
+                }.bind(this))
                 .catch(function (error) {
                   console.log(error);
                 })
