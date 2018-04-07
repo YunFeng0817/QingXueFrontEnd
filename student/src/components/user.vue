@@ -8,7 +8,7 @@
       </p>
       <p><span style="padding: 0 5px;font-size: larger;">性别：</span><span :class="getGender"
                                                                          style="font-size: large;padding:0 30px 0 0;"></span>
-        <span class="user-message">年级：</span><span class="user-message">{{stage}}</span>
+        <span class="user-message" v-if="stage">年级：</span><span class="user-message" v-if="stage">{{stage.name}}</span>
       </p>
     </div>
     <el-collapse accordion class="user-collapse-body" @change="handleChange">

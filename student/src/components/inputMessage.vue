@@ -65,35 +65,33 @@
       }
     },
     created () {
-      // 如果没有缓存过筛选信息，就在组件创建时请求筛选信息
-      if (userMessage.state.stages.length === 0) {
-        axios({
-          url: '/api/common/stages/',
-          method: 'get'
-        })
-          .then(function (response) {
-            if (response) {
-              this.setFilter(response.stages);
-              this.stages = response.stages;
-              userMessage.commit('getStages', response.stages);
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          });
-      } else {
-        this.stages = userMessage.state.stages;
-      }
       axios({
-        method: 'get',
-        url: '/api/student/detail/'
+        url: '/api/common/stages/',
+        method: 'get'
       })
         .then(function (response) {
           if (response) {
-            this.form.name = response.name;
-            this.form.gender = response.gender;
-            this.form.birthday = response.birthday;
-            this.imageUrl = response.head_photo;
+            this.setFilter(response.stages);
+            this.stages = response.stages;
+            userMessage.commit('getStages', response.stages);
+            axios({
+              method: 'get',
+              url: '/api/student/detail/'
+            })
+              .then(function (response) {
+                if (response) {
+                  this.form.name = response.name;
+                  this.form.gender = response.gender;
+                  this.form.birthday = response.birthday;
+                  this.imageUrl = response.head_photo;
+                  if (response.stage) {
+                    this.form.stage = this.getpath(this.stages, response.stage.id);
+                  }
+                }
+              }.bind(this))
+              .catch(function (error) {
+                console.log(error);
+              });
           }
         }.bind(this))
         .catch(function (error) {
@@ -106,6 +104,22 @@
       }
     },
     methods: {
+      getpath (obj, value) {
+        for (let entry of obj.entries()) {
+          if (entry[1].value === value) {
+            let result = [];
+            result.push(value);
+            return result;
+          }
+          if (entry[1].children !== undefined) {
+            let result = this.getpath(entry[1].children, value);
+            if (result) {
+              result.splice(0, 0, entry[1].value);
+              return result;
+            }
+          }
+        }
+      },
       // reformat option style for filter
       // use recursive function to implement this request
       setFilter (obj) {
@@ -167,9 +181,9 @@
         return isJPG;
       },
       submit () {
-        let stage = {};
+        let stage = 0;
         if (this.form.stage.length) {
-          stage.id = this.form.stage[this.form.stage.length - 1];
+          stage = this.form.stage[this.form.stage.length - 1];
         } else {
           this.$message({
             message: '请填写您的学习阶段',
