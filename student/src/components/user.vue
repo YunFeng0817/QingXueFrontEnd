@@ -165,7 +165,7 @@
               </div>
             </div>
             <el-button type="danger" size="mini"
-                       style="padding: 1% 1%; position: relative;left:15%;"
+                       style="padding: 1% 1%; position: relative;left:10%;"
                        @click.stop="deleteFollowings(item.id,id)">
               <!--此处的stop是阻止事件冒泡，即组织付标签的点击事件被触发-->
               取消收藏
