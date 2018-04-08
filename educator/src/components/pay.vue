@@ -29,10 +29,13 @@
       getOrder () {
         axios({
           url: '/api/order/registration_orders/',
-          method: 'post'
+          method: 'post',
+          headers: {
+            'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+          }
         })
           .then(function (response) {
-            if (response) {
+            if (response.total_amount) {
               // 判断订单的金额如果大于0，正常支付
               if (response.total_amount > 0) {
                 this.$confirm('<p style="max-width: 300px;width:80%;text-align: left;">您如果想要正常的发布课程，需要支付<span style="color:red">' + response.total_amount + ' </span>元 每年,</br/>如果选择取消，您可以正常登录管理后台，但是无法进行任何操作</p>', {
@@ -46,7 +49,7 @@
                   type: 'success'
                 }).then(() => {
                   // 用户选择了支付的按钮
-                  window.location.href(response.payment_url);
+                  window.location.href = response.payment_url;
                 }).catch(() => {
                   // 用户选择了取消支付的按钮
                   axios({
@@ -63,12 +66,12 @@
                 this.$alert('您已获得免单机会，不需要支付入驻费用', {
                   confirmButtonText: '确定',
                   callback: action => {
-                    this.$router.replace({path: '/admin'});
+                    this.$router.replace({path: '/admin/'});
                   }
                 });
               }
             } else { // 用户未登录的情况
-              this.$router.push({path: '/educator/login'});
+              this.$router.push({path: '/educator/login/pay'});
             }
           }.bind(this))
           .catch(function (error) {

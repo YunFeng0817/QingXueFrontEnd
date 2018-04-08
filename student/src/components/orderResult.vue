@@ -189,6 +189,9 @@
       },
       // 处理付退款动作
       refund () {
+        if (!confirm('您确定要退款吗?')) {
+          return;
+        }
         if (this.order_sn !== '') {
           axios({
             method: 'put',

@@ -247,9 +247,9 @@
           })
             .then(function (response) {
               if (response) {
-                window.location.href = '/admin/';
+                this.$router.push({path: '/educator/pay'});
               }
-            })
+            }.bind(this))
             .catch(function (error) {
               console.log(error);
             })

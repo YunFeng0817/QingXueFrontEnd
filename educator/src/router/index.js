@@ -8,7 +8,7 @@ export default new Router({
   linkActiveClass: 'router-link-active',
   routes: [
     {
-      path: '/educator/login',
+      path: '/educator/login/:nextUrl?',
       component: resolve => require(['../components/signup'], resolve)
     },
     {

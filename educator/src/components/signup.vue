@@ -180,10 +180,10 @@
       }
     },
     mounted () {
-      if (this.$router.currentRoute.path === '/educator/login') {
-        this.tab_active = true;
-      } else {
+      if (this.$router.currentRoute.path === '/educator/signup') {
         this.tab_active = false;
+      } else {
+        this.tab_active = true;
       }
     },
     watch: {
@@ -224,7 +224,11 @@
     methods: {
       // 点击登录按钮后跳转到登录页面
       login () {
-        this.$router.push({path: '/educator/login'});
+        if (this.$router.currentRoute.params.nextUrl) {
+          this.$router.push({path: '/educator/' + this.$router.currentRoute.params.nextUrl});
+        } else {
+          this.$router.push({path: '/admin/'});
+        }
       },
       // 点击注册按钮后跳转到注册页面
       signup () {
