@@ -65,15 +65,15 @@
                   <span class="time"><i class="am-icon-circle-o"></i>全额</span>
                   <span class="time">{{price}}</span>
                 </p>
-                <p v-if="note">
-                  <span class="time">课程备注: </span>
-                  <br/>
-                  {{note}}
-                </p>
                 <p v-if="introduction">
                   <span class="time">简要介绍: </span>
                   <br/>
                   {{introduction}}
+                </p>
+                <p v-if="note">
+                  <span class="time">课程备注: </span>
+                  <br/>
+                  {{note}}
                 </p>
                 <p v-if="address">
                   <span class="time" v-if="address.area">机构地址 : {{address.area}} </span>
