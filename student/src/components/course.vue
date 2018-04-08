@@ -28,8 +28,7 @@
                   <time class="time">{{item.end_time}}</time>
                 </p>
                 <p v-if="available_time">
-                  <span class="time">上课时间</span>
-                  <time class="time">{{available_time}}</time>
+                  <span class="time">上课时间： {{available_time}}</span>
                 </p>
                 <p v-if="perSession">
                   <span class="time">每课时 : {{perSession}} 小时</span>
@@ -41,7 +40,7 @@
                   <span class="time">总课时的时间 : {{total_hours_person}} 小时</span>
                 </p>
                 <p v-if="course_status">
-                  <span class="time">课程状态 : {{course_status}} 小时</span>
+                  <span class="time">课程状态 : {{course_status}}</span>
                 </p>
                 <p v-for="item in contact" :key="item.id">
                   <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
@@ -65,6 +64,11 @@
                 <p>
                   <span class="time"><i class="am-icon-circle-o"></i>全额</span>
                   <span class="time">{{price}}</span>
+                </p>
+                <p v-if="note">
+                  <span class="time">课程备注: </span>
+                  <br/>
+                  {{note}}
                 </p>
                 <p v-if="introduction">
                   <span class="time">简要介绍: </span>
