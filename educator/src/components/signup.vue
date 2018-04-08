@@ -255,7 +255,7 @@
                 this.$router.push({path: '/admin/'});
               }
             }
-          })
+          }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
