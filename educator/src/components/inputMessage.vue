@@ -55,7 +55,8 @@
             <el-cascader
               separator="|"
               placeholder="地区"
-              :options="areas">
+              :options="areas"
+              v-model="area">
             </el-cascader>
           </el-form-item>
           <hr>
@@ -215,7 +216,7 @@
           });
           return;
         }
-        if (this.area.length) {
+        if (this.area.length !== 0) {
           let area = this.area[this.area.length - 1];
           let dataForm = new FormData();
           if (this.address.length !== 0) {
