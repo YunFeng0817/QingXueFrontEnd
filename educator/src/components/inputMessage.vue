@@ -6,13 +6,14 @@
       </h2>
       <div>
         <el-form label-position="left" label-width="30%" v-model="form">
-          <el-form-item label="名称">
+          <el-form-item label="您的名称">
             <div class="tip-row">
               <el-input placeholder="请填写您的名称" v-model="form.name" style="display: inline-block">
               </el-input>
               <span class="tips">* 此名称将向学生展示，请如实填写</span>
             </div>
           </el-form-item>
+          <hr>
           <el-form-item label="选择头像">
             <el-upload
               class="avatar-uploader"
@@ -25,6 +26,7 @@
               <i v-show="!imageUrl" class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
+          <hr>
           <el-form-item label="您的简介">
             <el-input
               type="textarea"
@@ -33,7 +35,8 @@
               v-model="introduction">
             </el-input>
           </el-form-item>
-          <el-form-item label="请上传您的认证材料">
+          <hr>
+          <el-form-item label="请上传您的认证材料(可不上传)">
             <el-upload
               class="upload-demo"
               ref="upload"
@@ -47,13 +50,15 @@
               <div slot="tip" class="el-upload__tip">可以上传jpg/png等格式的文件，且不超过500kb</div>
             </el-upload>
           </el-form-item>
-          <el-form-item label="地区">
+          <hr>
+          <el-form-item label="您的地址" style="text-align: left;">
             <el-cascader
               separator="|"
               placeholder="地区"
               :options="areas">
             </el-cascader>
           </el-form-item>
+          <hr>
           <el-form-item label="请在地图上标出您的位置" style="height:20%;">
           </el-form-item>
           <div class="map">
@@ -68,6 +73,7 @@
               </bm-marker>
             </baidu-map>
           </div>
+          <hr>
           <el-form-item label="地址的详细描述">
             <el-input
               type="textarea"
@@ -355,5 +361,15 @@
   .map {
     width: 100%;
     height: 400px;
+  }
+
+  hr {
+    margin: 7% 0;
+    color: #dddddd;
+    background-color: #dddddd;
+    height: 1px;
+    line-height: 1px;
+    font-size: 0;
+    border: none;
   }
 </style>
