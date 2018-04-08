@@ -126,7 +126,6 @@
           if (response) {
             this.setFilter(response.areas);
             this.areas = response.areas;
-            console.log(this.areas);
           }
         }.bind(this))
         .catch(function (error) {
