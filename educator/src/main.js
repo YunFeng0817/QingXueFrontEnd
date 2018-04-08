@@ -18,6 +18,7 @@ import {
   Upload,
   Steps,
   Step,
+  MessageBox,
   Message
 } from 'element-ui'
 
@@ -33,6 +34,10 @@ Vue.use(Upload);
 Vue.use(Steps);
 Vue.use(Step);
 Vue.use(Cascader);
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$message = Message;
 
 /* eslint-disable no-new */
