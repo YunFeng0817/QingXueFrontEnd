@@ -18,7 +18,7 @@
       <div>
         <span class="title">{{title}}</span>
         <div class="bottom clearfix">
-          <el-tabs type="card" ref="tab" @tab-click="handleClick">
+          <el-tabs type="border-card" ref="tab" @tab-click="handleClick">
             <el-tab-pane label="简介">
               <div v-if="path==='course'">
                 <p v-for="item in time_spans" :key="item.id">
