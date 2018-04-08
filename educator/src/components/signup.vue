@@ -249,7 +249,11 @@
           .then(function (response) {
             // 如果response 的返回值是空，则表明返回的状态码出错，如果非空，则返回码是200
             if (response) {
-              window.location.href = '/api/admin/';
+              if (this.$router.currentRoute.params.nextUrl) {
+                this.$router.push({path: '/educator/' + this.$router.currentRoute.params.nextUrl});
+              } else {
+                this.$router.push({path: '/admin/'});
+              }
             }
           })
           .catch(function (error) {
@@ -328,11 +332,6 @@
                   if (!this.forget_pass) {
                     this.$router.push('/educator/message');
                   } else {
-                    if (this.$router.currentRoute.params.nextUrl) {
-                      this.$router.push({path: '/educator/' + this.$router.currentRoute.params.nextUrl});
-                    } else {
-                      this.$router.push({path: '/admin/'});
-                    }
                     window.location.href = '/api/admin/';
                   }
                 }
