@@ -13,7 +13,9 @@
 
 .block:after {
   content: "";
-  background: url("http://pics.sc.chinaz.com/files/pic/pic9/201207/xpic5816.jpg") no-repeat center center fixed;
+  /*下面的这个背景图是彩色的，由于是http的，会影响本网站的https的安全标识*/
+  /*background: url("http://pics.sc.chinaz.com/files/pic/pic9/201207/xpic5816.jpg") no-repeat center center fixed;*/
+  background-color: #8DE9E8;
   background-size: cover;
   z-index: -1;
   position: absolute;
