@@ -28,13 +28,14 @@
     methods: {
       getOrder () {
         axios({
-          url: '/api/registration_orders/',
+          url: '/api/order/registration_orders/',
           method: 'post'
         })
           .then(function (response) {
             if (response) {
+              // 判断订单的金额如果大于0，正常支付
               if (response.total_amount > 0) {
-                this.$confirm('<p style="max-width: 300px;width:80%;text-align: left;">您如果想要正常的发布课程，需要支付<span style="color:red">' + response.total_amount + ' </span>元 每年,</br/>如果选择取消，您可以正常登录管理后台，但是无法进行任何操作</p>', '', {
+                this.$confirm('<p style="max-width: 300px;width:80%;text-align: left;">您如果想要正常的发布课程，需要支付<span style="color:red">' + response.total_amount + ' </span>元 每年,</br/>如果选择取消，您可以正常登录管理后台，但是无法进行任何操作</p>', {
                   confirmButtonText: '支付',
                   cancelButtonText: '取消',
                   center: true, // 文字是否居中
@@ -44,14 +45,30 @@
                   dangerouslyUseHTMLString: true, // 是否将 message 属性作为 HTML 片段处理
                   type: 'success'
                 }).then(() => {
+                  // 用户选择了支付的按钮
                   window.location.href(response.payment_url);
                 }).catch(() => {
-                  this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                  });
+                  // 用户选择了取消支付的按钮
+                  axios({
+                    url: '/api/order/registration_orders/?order_sn=' + response.order_sn,
+                    method: 'delete'
+                  })
+                    .then(function (response) {
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    })
+                });
+              } else { // 订单的金额 <=0 ，提示不需要支付
+                this.$alert('您已获得免单机会，不需要支付入驻费用', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    this.$router.replace({path: '/admin'});
+                  }
                 });
               }
+            } else { // 用户未登录的情况
+              this.$router.push({path: '/educator/login'});
             }
           }.bind(this))
           .catch(function (error) {
