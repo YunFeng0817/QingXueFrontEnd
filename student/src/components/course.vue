@@ -27,8 +27,21 @@
                   <span class="time">结课时间</span>
                   <time class="time">{{item.end_time}}</time>
                 </p>
-                <p>
-                  <span class="time">每课时 : {{perSession}} 分钟</span>
+                <p v-if="available_time">
+                  <span class="time">上课时间</span>
+                  <time class="time">{{available_time}}</time>
+                </p>
+                <p v-if="perSession">
+                  <span class="time">每课时 : {{perSession}} 小时</span>
+                </p>
+                <p v-if="sessions">
+                  <span class="time">总课时数 : {{sessions}} 节</span>
+                </p>
+                <p v-if="total_hours_person">
+                  <span class="time">总课时的时间 : {{total_hours_person}} 小时</span>
+                </p>
+                <p v-if="course_status">
+                  <span class="time">课程状态 : {{course_status}} 小时</span>
                 </p>
                 <p v-for="item in contact" :key="item.id">
                   <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
@@ -53,16 +66,16 @@
                   <span class="time"><i class="am-icon-circle-o"></i>全额</span>
                   <span class="time">{{price}}</span>
                 </p>
-                <p>
-                  <span class="time">介绍: </span>
+                <p v-if="introduction">
+                  <span class="time">简要介绍: </span>
                   <br/>
                   {{introduction}}
                 </p>
-                <p>
-                  <span class="time" v-if="address">机构地址 : {{address.area}} </span>
+                <p v-if="address">
+                  <span class="time" v-if="address.area">机构地址 : {{address.area}} </span>
                 </p>
-                <p>
-                  <span class="time" v-if="address">地址详情 : {{address.detail}} </span>
+                <p v-if="address">
+                  <span class="time" v-if="address.detail">地址详情 : {{address.detail}} </span>
                 </p>
               </div>
               <div v-else>
@@ -87,7 +100,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane label="详情" v-if="path==='course'">
-              <p>
+              <p class="article">
                 {{detail}}
               </p>
               <p v-if="detail===''">暂时没有课程详情</p>
@@ -232,24 +245,29 @@
     },
     data () {
       return {
+        total_hours_person: '',  // 总课时长
+        course_status: '', // 课程紧张程度
+        note: '', // 课程备注
+        sessions: 0, // 课时数量
+        available_time: '', // 每次上课时间
         address: '',
         favourited: false,
         title: '',
-        time_spans: [],
-        perSession: '',
-        stars: 5,
-        price: 0,
-        discount: 1,
-        introduction: '',
-        detail: '',
-        comments: [],
-        teachers: [],
-        showImages: [],
-        institutionID: '',
-        gender: '',
-        edu_background: '',
-        head_photo: '',
-        contact: [],
+        time_spans: [], // 学期开始和结束的时间
+        perSession: '', // 每课时的长度
+        stars: 5, // 评分
+        price: 0, // 总价
+        discount: 1, // 折扣
+        introduction: '', // 简介
+        detail: '', // 课程详情
+        comments: [], // 课程评论
+        teachers: [], // 课程的教师
+        showImages: [], // 课程的轮播图
+        institutionID: '', // 机构的id
+        gender: '', // 家教的性别
+        edu_background: '', // 家教的学历
+        head_photo: '', // 家教的头像
+        contact: [], // 家教的联系方式
         path: this.$router.currentRoute.params.type,
         offsetTop: 0,
         cloneNode: document.createElement('img'),
@@ -292,6 +310,11 @@
               .then(function (response) {
                 if (response) {
                   userMessage.commit('commitCourse', response);
+                  this.total_hours_person = response.total_hours_person;
+                  this.course_status = response.course_status;
+                  this.note = response.note;
+                  this.sessions = response.sessions;
+                  this.available_time = response.available_time;
                   this.address = response.address;
                   this.favourited = response.favourited;
                   this.title = response.title;
@@ -312,6 +335,11 @@
                 console.log(error);
               });
           } else {
+            this.total_hours_person = userMessage.state.courseDetail.total_hours_person;
+            this.course_status = userMessage.state.courseDetail.course_status;
+            this.note = userMessage.state.courseDetail.note;
+            this.sessions = userMessage.state.courseDetail.sessions;
+            this.available_time = userMessage.state.courseDetail.available_time;
             this.address = userMessage.state.courseDetail.address;
             this.favourited = userMessage.state.courseDetail.favourited;
             this.title = userMessage.state.courseDetail.title;
@@ -654,5 +682,11 @@
 
   .educator div {
     flex: 1 2 85%;
+  }
+
+  .article {
+    font-size: medium;
+    line-height: 2em;
+    padding: 0 4%;
   }
 </style>
