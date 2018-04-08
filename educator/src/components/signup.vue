@@ -224,11 +224,7 @@
     methods: {
       // 点击登录按钮后跳转到登录页面
       login () {
-        if (this.$router.currentRoute.params.nextUrl) {
-          this.$router.push({path: '/educator/' + this.$router.currentRoute.params.nextUrl});
-        } else {
-          this.$router.push({path: '/admin/'});
-        }
+        this.$router.push({path: '/educator/login'});
       },
       // 点击注册按钮后跳转到注册页面
       signup () {
@@ -332,6 +328,11 @@
                   if (!this.forget_pass) {
                     this.$router.push('/educator/message');
                   } else {
+                    if (this.$router.currentRoute.params.nextUrl) {
+                      this.$router.push({path: '/educator/' + this.$router.currentRoute.params.nextUrl});
+                    } else {
+                      this.$router.push({path: '/admin/'});
+                    }
                     window.location.href = '/api/admin/';
                   }
                 }
