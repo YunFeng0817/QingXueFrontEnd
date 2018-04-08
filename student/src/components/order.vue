@@ -40,12 +40,12 @@
                label-width="22%"
                class="demo-ruleForm">
         <!--<el-form-item label="支付方式">-->
-          <!--<el-select v-model="method" placeholder="请选择支付方式">-->
-            <!--<el-option label="支付宝" value="weixin">-->
-            <!--</el-option>-->
-            <!--<el-option label="微信" value="zhifubao">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
+        <!--<el-select v-model="method" placeholder="请选择支付方式">-->
+        <!--<el-option label="支付宝" value="weixin">-->
+        <!--</el-option>-->
+        <!--<el-option label="微信" value="zhifubao">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
         <!--</el-form-item>-->
         <p>本系统暂时只支持支付宝的支付方式</p>
         <el-form-item label="选择学期">
@@ -113,7 +113,7 @@
         } else {
           axios({
             method: 'post',
-            url: '/api/order/',
+            url: '/api/order/course_orders/',
             headers: {
               'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
             },

@@ -397,7 +397,7 @@
       // 处理点击进入订单详情的操作
       orderClick (id) {
         axios({
-          url: '/api/order/?order_sn=' + id,
+          url: '/api/order/course_orders/?order_sn=' + id,
           method: 'get'
         })
           .then(function (response) {
@@ -477,7 +477,7 @@
       deleteOrder (orderId, index, tradeStatus) {
         if (tradeStatus !== 'TRADE_SUCCESS') {
           axios({
-            url: '/api/order/?order_sn=' + orderId,
+            url: '/api/order/course_orders/?order_sn=' + orderId,
             method: 'delete'
           })
             .then(function (response) {

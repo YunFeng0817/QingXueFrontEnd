@@ -192,7 +192,7 @@
         if (this.order_sn !== '') {
           axios({
             method: 'put',
-            url: '/api/order/?order_sn=' + this.order_sn
+            url: '/api/order/course_orders/?order_sn=' + this.order_sn
           })
             .then(function (response) {
               if (response) {
