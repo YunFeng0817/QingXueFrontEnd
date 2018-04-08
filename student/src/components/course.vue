@@ -104,8 +104,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane label="详情" v-if="path==='course'">
-              <p class="article">
-                {{detail}}
+              <p class="article" v-html="detail">
               </p>
               <p v-if="detail===''">暂时没有课程详情</p>
             </el-tab-pane>
