@@ -16,39 +16,40 @@
       <slider :show-images="showImages" v-if="showImages.length!==0">
       </slider>
       <div>
-        <span class="title">{{title}}</span>
+        <div class="title">{{title}}</div>
         <div class="bottom clearfix">
           <el-tabs type="border-card" ref="tab" @tab-click="handleClick">
             <el-tab-pane label="简介">
               <div v-if="path==='course'">
                 <p v-for="item in time_spans" :key="item.id">
-                  <span class="time">开课时间</span>
-                  <time class="time">{{item.start_time}}</time>
-                  <span class="time">结课时间</span>
-                  <time class="time">{{item.end_time}}</time>
+                  <span class="key">开课时间</span>
+                  <span class="value">{{item.start_time}}</span>
+                  <span class="key">结课时间</span>
+                  <span class="value">{{item.end_time}}</span>
                 </p>
                 <p v-if="available_time">
-                  <span class="time">上课时间： {{available_time}}</span>
+                  <span class="key">上课时间： </span>
+                  <span class="value">{{available_time}}</span>
                 </p>
                 <p v-if="perSession">
-                  <span class="time">每课时 : {{perSession}} 小时</span>
-                </p>
-                <p v-if="sessions">
-                  <span class="time">总课时数 : {{sessions}} 节</span>
+                  <span class="key">每课时 : </span>
+                  <span class="value">{{perSession}} 小时</span>
                 </p>
                 <p v-if="total_hours_person">
-                  <span class="time">总课时的时间 : {{total_hours_person}} 小时</span>
+                  <span class="key">总课时的时间 : </span>
+                  <span class="value">{{total_hours_person}} 小时</span>
                 </p>
                 <p v-if="course_status">
-                  <span class="time">课程状态 : {{course_status}}</span>
+                  <span class="key">剩余名额 : </span>
+                  <span class="value">{{course_status}}</span>
                 </p>
                 <p v-for="item in contact" :key="item.id">
-                  <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
+                  <span class="key" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
+                  <span class="key" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
+                  <span class="key" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
                 </p>
                 <p>
-                  <span class="time">学生评分</span>
+                  <span class="key">学生评分</span>
                   <el-rate
                     v-model="stars"
                     disabled
@@ -58,28 +59,29 @@
                   </el-rate>
                 </p>
                 <p>
-                  <span class="time"><i class="am-icon-rmb"></i>订金</span>
-                  <span class="time">{{price*discount}}</span>
-                </p>
-                <p>
-                  <span class="time"><i class="am-icon-circle-o"></i>全额</span>
-                  <span class="time">{{price}}</span>
+                  <span class="key"><i class="am-icon-circle-o"></i>价格</span>
+                  <span class="value">{{price}} 元</span>
+                  <span>&nbsp;&nbsp;&nbsp;</span>
+                  <span class="key"><i class="am-icon-rmb"></i>定金</span>
+                  <span class="value">{{price*discount}}元</span>
                 </p>
                 <p v-if="introduction">
-                  <span class="time">简要介绍: </span>
+                  <span class="key">简要介绍: </span>
                   <br/>
-                  {{introduction}}
+                  <span class="value">{{introduction}}</span>
                 </p>
                 <p v-if="note">
-                  <span class="time">课程备注: </span>
+                  <span class="key">课程备注: </span>
                   <br/>
-                  {{note}}
+                  <span class="value">{{note}}</span>
                 </p>
                 <p v-if="address">
-                  <span class="time" v-if="address.area">机构地址 : {{address.area}} </span>
+                  <span class="key" v-if="address.area">机构地址 :  </span>
+                  <span class="value">{{address.area}}</span>
                 </p>
                 <p v-if="address">
-                  <span class="time" v-if="address.detail">地址详情 : {{address.detail}} </span>
+                  <span class="key" v-if="address.detail">地址详情 :  </span>
+                  <span class="value">{{address.detail}}</span>
                 </p>
               </div>
               <div v-else>
@@ -95,10 +97,10 @@
                   {{introduction}}
                 </div>
                 <p v-for="item in contact" :key="item.id">
-                  <span class="time" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
-                  <span class="time" v-else>电话 : <a
+                  <span class="key" v-if="item.contact_type==='qq'">qq : <a>{{item.contact_detail}}</a></span>
+                  <span class="key" v-else-if="item.contact_type==='wechat'">微信 : <a>{{item.contact_detail}}</a></span>
+                  <span class="key" v-else-if="item.contact_type==='email'">邮箱 : <a>{{item.contact_detail}}</a></span>
+                  <span class="key" v-else>电话 : <a
                     :href="'tel:'+item.contact_detail">{{item.contact_detail}}</a></span>
                 </p>
               </div>
@@ -550,8 +552,14 @@
 </script>
 
 <style scoped type="text/css" rel="stylesheet">
-  time.time {
+  .key {
     font-size: medium;
+    font-weight: bolder;
+  }
+
+  .value {
+    font-size: medium;
+    font-weight: normal;
     color: #999;
   }
 
@@ -570,12 +578,9 @@
     clear: both;
   }
 
-  span.title {
+  .title {
+    text-align: center;
     font-size: 25px;
-  }
-
-  span.time {
-    font-size: medium;
   }
 
   p {
