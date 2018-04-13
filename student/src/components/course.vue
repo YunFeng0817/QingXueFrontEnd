@@ -62,7 +62,7 @@
                   <span class="key"><i class="am-icon-circle-o"></i>价格</span>
                   <span class="value">{{price}} 元</span>
                   <span>&nbsp;&nbsp;&nbsp;</span>
-                  <span class="key"><i class="am-icon-rmb"></i>定金</span>
+                  <span class="key"><i class="am-icon-rmb"></i>订金</span>
                   <span class="value">{{price*discount}}元</span>
                 </p>
                 <p v-if="introduction">
@@ -560,7 +560,7 @@
   .value {
     font-size: medium;
     font-weight: normal;
-    color: #999;
+    color: #777;
   }
 
   .bottom {

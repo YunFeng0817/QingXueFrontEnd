@@ -69,7 +69,7 @@
       </p>
     </div>
     <div class="footer">
-      <span>需支付定金</span>
+      <span>需支付订金</span>
       <span class="money">{{money.toString()+'元'}}</span>
       <a @click="submitForm()">确认提交</a>
     </div>

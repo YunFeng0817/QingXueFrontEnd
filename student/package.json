@@ -18,7 +18,8 @@
     "element-ui": "^2.0.11",
     "axios": "^0.17.1",
     "vuex": "^3.0.1",
-    "vue-baidu-map": "^0.20.7"
+    "vue-baidu-map": "^0.20.7",
+    "vue-svg-icon": "^1.2.9"
   },
   "devDependencies": {
     "amaze-vue": "^1.1.10",
