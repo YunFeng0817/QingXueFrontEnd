@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import main from '../components/main'
+import course from '../components/course'
 
 Vue.use(Router);
 
@@ -9,11 +11,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: resolve => require(['../components/main'], resolve)
+      component: main
     },
     {
       path: '/main',
-      component: resolve => require(['../components/main'], resolve)
+      component: main
     },
     {
       path: '/login',
@@ -38,7 +40,7 @@ export default new Router({
     },
     {
       path: '/detail/:type/:id',
-      component: resolve => require(['../components/course'], resolve) // 懒加载
+      component: course
     },
     {
       path: '/article/:id',
