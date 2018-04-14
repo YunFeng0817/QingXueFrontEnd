@@ -564,7 +564,7 @@
   }
 
   .bottom {
-    margin-top: 13px;
+    margin: 8px 0;
     line-height: 12px;
   }
 

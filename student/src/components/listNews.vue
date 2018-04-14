@@ -16,7 +16,8 @@
               <div class="bottom clearfix">
                 <span v-if="!item.is_course" style="float:right;">发布：{{item.author}}</span>
                 <p v-if="!item.is_course">
-                  {{item.brief_description.length>45?item.brief_description.substr(0,45)+'…':item.brief_description}}</p>
+                  {{item.brief_description.length>45?item.brief_description.substr(0,45)+'…':item.brief_description}}
+                </p>
                 <span v-if="item.is_course">
                   好评率：
                   <el-rate
@@ -27,10 +28,10 @@
                     score-template="{value}">
                   </el-rate>
                 </span>
-                <span v-if="item.is_course">
-                  全额费用：{{item.total_price}} 元
-                </span>
               </div>
+              <span v-if="item.is_course">
+                  价格：{{item.total_price}} 元
+                </span>
             </div>
           </div>
         </el-card>
@@ -108,7 +109,7 @@
 
   .bottom {
     width: 100%;
-    margin-top: 13px;
+    margin: 8px 0;
     line-height: 12px;
   }
 

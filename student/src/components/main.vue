@@ -29,7 +29,7 @@
       <a href="http://www.miitbeian.gov.cn/" target="备案号查询">黑ICP备18002231号</a>
     </footer>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 120px;"></div>
+    <div style="height: 90px;"></div>
   </div>
 </template>
 
