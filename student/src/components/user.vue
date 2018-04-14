@@ -3,7 +3,7 @@
     <div id="user-header">
       <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                 :src="avatar===null?'http://s.amazeui.org/media/i/demos/bing-4.jpg':avatar"/>
-      <div style="flex:10 2 75%;">
+      <div style="flex:10 2 75%;padding: 4% 0 0 0;">
         <p>你好,&nbsp;&nbsp;<span class="user-message" style="font-weight: bolder;font-size: large;">{{userName}}</span>
         </p>
         <p class="flex">
