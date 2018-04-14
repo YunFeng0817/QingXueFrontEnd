@@ -1,17 +1,20 @@
 <template>
   <div class="footer-index">
     <router-link to='/dynamic/normal/total'>
-      <span class="am-icon-star icon"></span>
+      <!--<span class="am-icon-star icon"></span>-->
+      <icon name="dynamic" :scale="3"></icon>
       <br/>
       <span class="am-navbar-label">动态</span>
     </router-link>
     <router-link to='/main'>
-      <span class="am-icon-home icon"></span>
+      <!--<span class="am-icon-home icon"></span>-->
+      <icon name="main" :scale="3"></icon>
       <br/>
       <span class="am-navbar-label">主页</span>
     </router-link>
     <router-link to="/user">
-      <span class="am-icon-user icon"></span>
+      <!--<span class="am-icon-user icon"></span>-->
+      <icon name="user" :scale="3"></icon>
       <br/>
       <span class="am-navbar-label">用户</span>
     </router-link>
@@ -60,7 +63,7 @@
     position: fixed;
     bottom: 0;
 
-    background-color: #8DE9E8;
+    background-color: #ffffff;
   }
 
   .footer-index a {
@@ -75,13 +78,13 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    color: #dcebef;
+    color: #707070;
 
     line-height: 20%;
   }
 
   .footer-index a.router-link-active {
-    color: white;
+    color: #67E6D1;
   }
 
   .footer-index a span.icon {
