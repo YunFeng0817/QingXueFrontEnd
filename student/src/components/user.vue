@@ -3,13 +3,19 @@
     <div id="user-header">
       <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                 :src="avatar===null?'http://s.amazeui.org/media/i/demos/bing-4.jpg':avatar"/>
-      <p><span class="user-message">{{userName}}</span>欢迎光临</p>
-      <p><a @click="modifyMessage">修改信息</a><a style="padding: 0" @click="modifyPass">修改密码</a><a @click="logout">退出登录</a>
-      </p>
-      <p><span style="padding: 0 5px;font-size: larger;">性别：</span><span :class="getGender"
-                                                                         style="font-size: large;padding:0 30px 0 0;"></span>
-        <span class="user-message" v-if="stage">年级：</span><span class="user-message" v-if="stage">{{stage.name}}</span>
-      </p>
+      <div style="flex:10 0 80%;">
+        <p>你好,&nbsp;&nbsp;<span class="user-message" style="font-weight: bolder;font-size: large;">{{userName}}</span>
+        </p>
+        <p><a @click="modifyMessage">修改信息</a><a @click="modifyPass">修改密码</a><a
+          @click="logout">退出登录</a>
+        </p>
+        <p><span style="font-size: larger;font-weight: bolder;">性别：</span><span
+          :class="getGender"
+          style="font-size: large;padding:0 5% 0 0;"></span>
+          <span class="user-message" v-if="stage" style="font-weight: bolder;">年级：</span><span class="user-message"
+                                                                                               v-if="stage">{{stage.name}}</span>
+        </p>
+      </div>
     </div>
     <el-collapse accordion class="user-collapse-body" @change="handleChange">
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="1">
@@ -106,7 +112,7 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="3">
         <template slot="title">
-          <i class="am-icon-heart-o operation-item">&nbsp&nbsp我的收藏</i>
+          <i class="am-icon-heart-o operation-item">&nbsp&nbsp课程收藏</i>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
                  @click.native="coursesClick(item.course.id)">
@@ -526,7 +532,7 @@
     height: 100%;
     width: 100%;
     color: white;
-    background: #8d8c9e; /* Old browsers */
+    /*background: #8d8c9e; !* Old browsers *!*/
     /*background: -moz-linear-gradient(top,  #8d8c9e 0%, #f2c9c7 100%); !* FF3.6+ *!*/
     /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #96dbff), color-stop(100%, #d4effd)); !* Chrome,Safari4+ *!*/
     /*background: -webkit-linear-gradient(top,  #4927bc 0%,#b25fd3 100%); !* Chrome10+,Safari5.1+ *!*/
@@ -534,30 +540,30 @@
     /*background: -ms-linear-gradient(top,  #8d8c9e 0%,#f2c9c7 100%); !* IE10+ *!*/
     /*background: linear-gradient(to bottom,  #8d8c9e 0%,#f2c9c7 100%); !* W3C *!*/
     /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8d8c9e', endColorstr='#f2c9c7',GradientType=0 ); !* IE6-9 *!*/
-    background: linear-gradient(to right, #68eace, #4ca2ef); /* 标准的语法（必须放在最后） */
-    overflow: hidden
+    /*background: linear-gradient(to right, #68eace, #4ca2ef); !* 标准的语法（必须放在最后） *!*/
+    background-color: #67e6d1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
   }
 
   #avatar {
-    float: left;
-
     width: 100px;
     height: 100px;
 
     position: relative;
-    top: 15px;
+    margin: 15px 0 0 2%;
+    flex: 1 10 10%;
   }
 
   span.user-message {
-    font-size: medium;
-    padding: 1%;
-    font-weight: bold;
+    font-size: larger;
     color: white;
   }
 
   a {
     font-size: larger;
-    padding: 18px;
+    padding: 0 3% 0 0;
     color: #0e90d2;
   }
 

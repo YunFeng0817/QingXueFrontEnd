@@ -16,7 +16,7 @@
         </el-autocomplete>
       </el-col>
     </el-row>
-    <el-button @click="searchLink" style="background-color: #8DE9E8;border: none;" icon="el-icon-search">
+    <el-button @click="searchLink" style="background-color: #67E6D1;border: none;" icon="el-icon-search">
     </el-button>
   </div>
 </template>
@@ -117,7 +117,7 @@
     align-content: center;
     align-items: center;
 
-    background-color: #8DE9E8;
+    background-color: #67E6D1;
   }
 
   div a {
