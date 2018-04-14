@@ -27,7 +27,7 @@
         </p>
       </div>
     </div>
-    <el-collapse accordion class="user-collapse-body" @change="handleChange" style="position: relative;top: 25px;">
+    <el-collapse accordion class="user-collapse-body" @change="handleChange" style="position: relative;top: 15px;">
       <el-collapse-item class="user-panel-header" style="font-size: larger;" :name="1">
         <template slot="title">
           <!--<i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>-->
@@ -40,24 +40,24 @@
                  @click.native="orderClick(item.order_sn)">
           <div style="padding: 2%;">
             <div class="bottom clearfix">
-              <p>
+              <p v-if="item.course">
                 <label>
-                  课程名称：
+                  课程名称:
                 </label>
                 <a style="font-size: larger;padding:0;"
                    @click.stop="coursesClick(item.course.id)">{{item.course.title}}</a>
               </p>
               <p>
                 <label>
-                  订单金额
+                  订单金额:
                 </label>
                 <span style="font-size: larger">
                 {{item.total_amount}}元
               </span>
               </p>
-              <p>
+              <p v-if="item.trade_status">
                 <label>
-                  订单状态
+                  订单状态:
                 </label>
                 <span style="font-size: larger">
                   {{trade_status(item.trade_status)}}
@@ -107,11 +107,11 @@
                 </el-rate>
                 </span>
               </p>
-              <label>评论内容</label>
+              <label>评论内容:</label>
               <p v-html="item.text">
               </p>
               <label>
-                评论时间
+                评论时间:
               </label>
               <time>
                 {{item.add_time}}

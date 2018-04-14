@@ -26,7 +26,7 @@
     <div style="height: 120px;" v-if="recommends.length<=3"></div>
     <footer class="footer">
       <p>© 2018 哈尔滨青学信息技术有限公司</p>
-      <a href="Index">粤ICP备15111480号-1</a>
+      <a href="http://www.miitbeian.gov.cn/" target="备案号查询">黑ICP备18002231号</a>
     </footer>
     <!--下面的这个区块是为了占位-->
     <div style="height: 120px;"></div>
@@ -414,16 +414,14 @@
   }
 
   a {
-    display: block;
-    font-size: medium;
-    color: black;
+    /*display: block;*/
+    /*font-size: medium;*/
+    /*color: black;*/
   }
 
   footer {
     text-align: center;
     margin-top: -30px;
-    height: 30px;
-    background-color: #eee;
   }
 
   .wrap {
