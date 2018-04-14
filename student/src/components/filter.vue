@@ -163,7 +163,7 @@
           .then(function (response) {
             if (response) {
               let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
-              this.$router.re({path: routerPath});
+              this.$router.replace({path: routerPath});
               this.$emit('filterOn', response.courses);
             }
           }.bind(this))

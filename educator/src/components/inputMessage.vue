@@ -60,8 +60,12 @@
             </el-cascader>
           </el-form-item>
           <hr>
-          <el-form-item label="请在地图上标出您的位置" style="height:20%;">
-          </el-form-item>
+          <label style="font-size: medium;color: gray;float: left;">
+            请在地图上标出您的位置 <span style="color:red;">提示：</span>点击地图右下角的小圆点进行定位,可以移动红点更改位置
+          </label>
+          <br/>
+          <br/>
+          <br/>
           <div class="map">
             <baidu-map class="map" ak="Zj95TGD3KnECbSKTc1qLgW8nTzHqtM7m" center="harbin"
                        :zoom="15">
