@@ -19,7 +19,7 @@
               style="font-size: large;"></span>
           </span>
           <span style="flex:3 1 65%;">
-            <span class="user-message" v-if="stage" style="font-weight: bolder;">年级：</span>
+            <span class="user-message" v-if="stage" style="font-weight: bolder;">年级:</span>
             <span
               class="user-message"
               v-if="stage">{{stage.name}}</span>
@@ -562,7 +562,7 @@
     height: 100px;
 
     position: relative;
-    margin: 15px 0 0 2%;
+    margin: 15px 2% 0 2%;
     flex: 1 10 10%;
   }
 
