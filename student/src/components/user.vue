@@ -27,10 +27,14 @@
         </p>
       </div>
     </div>
-    <el-collapse accordion class="user-collapse-body" @change="handleChange">
-      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="1">
+    <el-collapse accordion class="user-collapse-body" @change="handleChange" style="position: relative;top: 25px;">
+      <el-collapse-item class="user-panel-header" style="font-size: larger;" :name="1">
         <template slot="title">
-          <i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>
+          <!--<i class="am-icon-clock-o operation-item">&nbsp&nbsp我的预约</i>-->
+          <span class="operation-item">
+            <icon name="order" :scale="3"></icon>
+            &nbsp;&nbsp;&nbsp;&nbsp;我的预约
+          </span>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" class="box-card" v-for="(item,id) in orders" :key="item.id"
                  @click.native="orderClick(item.order_sn)">
@@ -72,7 +76,11 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="2">
         <template slot="title">
-          <i class="am-icon-comments-o operation-item">&nbsp&nbsp我的评论</i>
+          <!--<i class="am-icon-comments-o operation-item">&nbsp&nbsp我的评论</i>-->
+          <span class="operation-item">
+            <icon name="comment" scale="3"></icon>
+            &nbsp;&nbsp;&nbsp;&nbsp;我的评论
+          </span>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" class="box-card"
                  @click.native="coursesClick(item.course.id)" v-for="(item,id) in comments" :key="item.id">
@@ -122,7 +130,11 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="3">
         <template slot="title">
-          <i class="am-icon-heart-o operation-item">&nbsp&nbsp课程收藏</i>
+          <!--<i class="am-icon-heart-o operation-item">&nbsp&nbsp课程收藏</i>-->
+          <span class="operation-item">
+            <icon name="course" :scale="3"></icon>
+            &nbsp;&nbsp;&nbsp;&nbsp;课程收藏
+          </span>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in favourites" :key="item.id" class="box-card"
                  @click.native="coursesClick(item.course.id)">
@@ -160,7 +172,11 @@
       </el-collapse-item>
       <el-collapse-item class="user-panel-header" style="font-size: larger" :name="4">
         <template slot="title">
-          <i class="am-icon-check-square-o operation-item">&nbsp&nbsp我的关注</i>
+          <!--<i class="am-icon-check-square-o operation-item">&nbsp&nbsp我的关注</i>-->
+          <span class="operation-item">
+            <icon name="follow" :scale="3"></icon>
+            &nbsp;&nbsp;&nbsp;&nbsp;我的关注
+          </span>
         </template>
         <el-card :body-style="{ padding: '0 10px' }" v-for="(item,id) in followings" :key="item.id" class="box-card"
                  @click.native="institutionClick(item.educator.id)">
@@ -189,12 +205,12 @@
           </div>
         </el-card>
       </el-collapse-item>
-      <div class="user-list" @click="openShare">
-        <span class="am-icon-share-square-o operation-item">&nbsp&nbsp分享</span>
+      <div class="user-list el-collapse-item__header" @click="openShare">
+        <span class="operation-item"><icon name="share" :scale="3"></icon>&nbsp;&nbsp;&nbsp;&nbsp;分享</span>
       </div>
     </el-collapse>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 150px;"></div>
+    <div style="height: 350px;background-color: white;"></div>
     <input style="position:fixed; bottom:-10px;" ref="input" type="text" id="copy"
            :value="'https://qingxue.xyz/'"/>
   </div>
@@ -318,7 +334,7 @@
           this.$message({
             message: '已将网址复制到剪切板，您可以打开app复制连接',
             type: 'success',
-            duration: 2000
+            duration: 3500
           });
         } catch (err) {
           alert('您的浏览器不支持自动复制，请您手动复制网址');
@@ -625,13 +641,20 @@
   }
 
   .operation-item {
-    font-size: 18px;
+    line-height: 3em;
+    font-size: large;
     padding: 0 4%;
+    display: flex;
+    align-items: center;
   }
 
   p.flex {
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+
+  div.el-collapse-item__header {
+    height: 50px;
   }
 </style>

@@ -16,3 +16,8 @@ html {
     box-shadow: 2px 2px 15px 5px #d0d0d0;
   }
 }
+
+div.el-collapse-item__header {
+  height: 60px;
+  padding: auto 0;
+}
