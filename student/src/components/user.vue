@@ -3,17 +3,27 @@
     <div id="user-header">
       <am-image id="avatar" width="120" height="120" :circle="true" :responsive="true" :thumbnail="true"
                 :src="avatar===null?'http://s.amazeui.org/media/i/demos/bing-4.jpg':avatar"/>
-      <div style="flex:10 0 80%;">
+      <div style="flex:10 2 75%;">
         <p>你好,&nbsp;&nbsp;<span class="user-message" style="font-weight: bolder;font-size: large;">{{userName}}</span>
         </p>
-        <p><a @click="modifyMessage">修改信息</a><a @click="modifyPass">修改密码</a><a
-          @click="logout">退出登录</a>
+        <p class="flex">
+          <a style="flex: 1 1 33%;" @click="modifyMessage">修改信息</a>
+          <a style="flex: 1 1 33%;" @click="modifyPass">修改密码</a>
+          <a style="flex: 1 1 33%;" @click="logout">退出登录</a>
         </p>
-        <p><span style="font-size: larger;font-weight: bolder;">性别：</span><span
-          :class="getGender"
-          style="font-size: large;padding:0 5% 0 0;"></span>
-          <span class="user-message" v-if="stage" style="font-weight: bolder;">年级：</span><span class="user-message"
-                                                                                               v-if="stage">{{stage.name}}</span>
+        <p class="flex">
+          <span style="flex:3 5 35%;">
+            <span style="font-size: larger;font-weight: bolder;">性别：</span>
+            <span
+              :class="getGender"
+              style="font-size: large;"></span>
+          </span>
+          <span style="flex:3 1 65%;">
+            <span class="user-message" v-if="stage" style="font-weight: bolder;">年级：</span>
+            <span
+              class="user-message"
+              v-if="stage">{{stage.name}}</span>
+          </span>
         </p>
       </div>
     </div>
@@ -563,7 +573,6 @@
 
   a {
     font-size: larger;
-    padding: 0 3% 0 0;
     color: #0e90d2;
   }
 
@@ -618,5 +627,11 @@
   .operation-item {
     font-size: 18px;
     padding: 0 4%;
+  }
+
+  p.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 </style>
