@@ -23,7 +23,7 @@
       <p v-else style="text-align: center;font-size:large;">没有符合条件的课程</p>
     </div>
     <!--下面的这个区块是为了占位-->
-    <div style="height: 120px;" v-if="recommends.length<=3"></div>
+    <div style="height: 250px;" v-if="recommends.length<=3"></div>
     <footer class="footer">
       <p>© 2018 哈尔滨青学信息技术有限公司</p>
       <a href="http://www.miitbeian.gov.cn/" target="备案号查询">黑ICP备18002231号</a>
@@ -153,10 +153,120 @@
         typeName: '课程推荐',
         is_main: this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main',
         items: [
+          // {
+          //   type: 'stage',
+          //   message: '幼儿',
+          //   iconType: 'am-success am-icon-child',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     stage: {
+          //       name: '幼儿'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'stage',
+          //   message: '小学',
+          //   iconType: 'am-primary am-icon-female',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     stage: {
+          //       name: '小学'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'stage',
+          //   message: '初中',
+          //   iconType: 'am-warning am-icon-male',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     stage: {
+          //       name: '初中'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'stage',
+          //   message: '高中',
+          //   iconType: 'am-success am-icon-fort-awesome',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     stage: {
+          //       name: '高中'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'stage',
+          //   message: '大学',
+          //   iconType: 'am-danger am-icon-graduation-cap',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     stage: {
+          //       name: '大学'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'subject',
+          //   message: '留学',
+          //   iconType: 'am-warning am-icon-institution',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     subject: {
+          //       name: '留学'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'subject',
+          //   message: '职业技能',
+          //   iconType: 'am-danger am-icon-signal',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     subject: {
+          //       name: '职业技能'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'subject',
+          //   message: '讲座活动',
+          //   iconType: 'am-primary am-icon-rocket',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     subject: {
+          //       name: '讲座活动'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'subject',
+          //   message: '文艺',
+          //   iconType: 'am-warning am-icon-paint-brush',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     subject: {
+          //       name: '文艺'
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'subject',
+          //   message: '体育',
+          //   iconType: 'am-primary am-icon-bicycle',
+          //   url: ' /api/common/page_contents/',
+          //   data: {
+          //     subject: {
+          //       name: '体育'
+          //     }
+          //   }
+          // }
           {
             type: 'stage',
             message: '幼儿',
-            iconType: 'am-success am-icon-child',
+            iconType: 'children',
             url: ' /api/common/page_contents/',
             data: {
               stage: {
@@ -167,7 +277,7 @@
           {
             type: 'stage',
             message: '小学',
-            iconType: 'am-primary am-icon-female',
+            iconType: 'primary',
             url: ' /api/common/page_contents/',
             data: {
               stage: {
@@ -178,7 +288,7 @@
           {
             type: 'stage',
             message: '初中',
-            iconType: 'am-warning am-icon-male',
+            iconType: 'junior',
             url: ' /api/common/page_contents/',
             data: {
               stage: {
@@ -189,7 +299,7 @@
           {
             type: 'stage',
             message: '高中',
-            iconType: 'am-success am-icon-fort-awesome',
+            iconType: 'senior',
             url: ' /api/common/page_contents/',
             data: {
               stage: {
@@ -200,7 +310,7 @@
           {
             type: 'stage',
             message: '大学',
-            iconType: 'am-danger am-icon-graduation-cap',
+            iconType: 'college',
             url: ' /api/common/page_contents/',
             data: {
               stage: {
@@ -211,7 +321,7 @@
           {
             type: 'subject',
             message: '留学',
-            iconType: 'am-warning am-icon-institution',
+            iconType: 'abroad',
             url: ' /api/common/page_contents/',
             data: {
               subject: {
@@ -222,7 +332,7 @@
           {
             type: 'subject',
             message: '职业技能',
-            iconType: 'am-danger am-icon-signal',
+            iconType: 'professional',
             url: ' /api/common/page_contents/',
             data: {
               subject: {
@@ -232,19 +342,8 @@
           },
           {
             type: 'subject',
-            message: '讲座活动',
-            iconType: 'am-primary am-icon-rocket',
-            url: ' /api/common/page_contents/',
-            data: {
-              subject: {
-                name: '讲座活动'
-              }
-            }
-          },
-          {
-            type: 'subject',
             message: '文艺',
-            iconType: 'am-warning am-icon-paint-brush',
+            iconType: 'art',
             url: ' /api/common/page_contents/',
             data: {
               subject: {
@@ -255,11 +354,22 @@
           {
             type: 'subject',
             message: '体育',
-            iconType: 'am-primary am-icon-bicycle',
+            iconType: 'PE',
             url: ' /api/common/page_contents/',
             data: {
               subject: {
                 name: '体育'
+              }
+            }
+          },
+          {
+            type: 'subject',
+            message: '讲座活动',
+            iconType: 'activity',
+            url: ' /api/common/page_contents/',
+            data: {
+              subject: {
+                name: '讲座活动'
               }
             }
           }
