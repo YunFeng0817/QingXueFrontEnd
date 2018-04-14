@@ -1,6 +1,7 @@
 <template>
   <ul>
     <li style="text-align:center;" :style="width" v-for="item in category_tag" :key="item.id">
+      <!--<a @click="categoryLink(item)" class="am-icon-btn" :class="item.iconType"></a>-->
       <icon @click="categoryLink(item)" :name="item.iconType" :scale="5" style="color:#67E6D1;">
       </icon>
       <span style="display: block;">

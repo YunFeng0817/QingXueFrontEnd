@@ -4,7 +4,7 @@
       <!--<span class="am-icon-star icon"></span>-->
       <icon name="dynamic" :scale="3"></icon>
       <br/>
-      <span class="am-navbar-label">动态</span>
+      <span class="am-navbar-label">资讯</span>
     </router-link>
     <router-link to='/main'>
       <!--<span class="am-icon-home icon"></span>-->

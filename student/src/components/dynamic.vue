@@ -36,7 +36,7 @@
     },
     data () {
       return {
-        typeName: '最新动态',
+        typeName: '资讯',
         essays: [],
         tabValue: '小学',
         filterType: '',

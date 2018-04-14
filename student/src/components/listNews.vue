@@ -12,10 +12,11 @@
           <div class="courses">
             <img :src="item.cover" class="image">
             <div style="padding: 2%;width:100%;">
-              <span>{{item.title}}</span>
+              <span style="font-size:larger;">{{item.title.length>12?item.title.substr(0,12)+'…':item.title}}</span>
               <div class="bottom clearfix">
-                <span v-if="!item.is_course" style="float:right;">作者：{{item.author}}</span>
-                <p v-if="!item.is_course">{{item.brief_description}}</p>
+                <span v-if="!item.is_course" style="float:right;">发布：{{item.author}}</span>
+                <p v-if="!item.is_course">
+                  {{item.brief_description.length>45?item.brief_description.substr(0,45)+'…':item.brief_description}}</p>
                 <span v-if="item.is_course">
                   好评率：
                   <el-rate
