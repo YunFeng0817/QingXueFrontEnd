@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import main from '../components/main'
 import course from '../components/course'
+import notFound from '../components/404'
 
 Vue.use(Router);
 
@@ -9,6 +10,10 @@ export default new Router({
   mode: 'history',
   linkActiveClass: 'router-link-active',
   routes: [
+    {
+      path: '*',
+      component: notFound
+    },
     {
       path: '/',
       component: main
