@@ -205,8 +205,26 @@
           </div>
         </el-card>
       </el-collapse-item>
-      <div class="user-list el-collapse-item__header" @click="openShare">
-        <span class="operation-item"><icon name="share" :scale="3"></icon>&nbsp;&nbsp;&nbsp;&nbsp;分享</span>
+      <el-collapse-item class="user-panel-header" style="font-size: larger" :name="5">
+        <template slot="title">
+          <!--<i class="am-icon-check-square-o operation-item">&nbsp&nbsp我的关注</i>-->
+          <span class="operation-item">
+            <icon name="mail" :scale="3"></icon>
+            &nbsp;&nbsp;&nbsp;&nbsp;用户反馈
+          </span>
+        </template>
+        <label style="font-size: larger;">如果您有建议想对我们提供，请点击链接发送:</label>
+        <br/>
+        <a
+          :href="'mailto:advice@qingxue.xyz?Subject=提供建议&body=我的建议%20%3A%0D%0A联系方式：'+mobile_num+''">advice@qingxue.xyz</a>
+        <br/>
+        <label style="font-size: larger;">如果您有意见向我们反馈，请点击链接发送:</label>
+        <br/>
+        <a
+          :href="'mailto:service@qingxue.xyz?Subject=问题反馈&body=问题反馈%20%3A%0D%0A联系方式：'+mobile_num+''">service@qingxue.xyz</a>
+      </el-collapse-item>
+      <div class="user-list el-collapse-item__header" style="height: 60px;" @click="openShare">
+        <span class="operation-item" style="height: 60px;"><icon name="share" :scale="3"></icon>&nbsp;&nbsp;&nbsp;&nbsp;分享</span>
       </div>
     </el-collapse>
     <!--下面的这个区块是为了占位-->
@@ -228,6 +246,7 @@
     },
     data () {
       return {
+        mobile_num: '',
         avatar: null,
         userName: '',
         gender: '',
@@ -283,6 +302,7 @@
           .then(function (response) {
             if (response) {
               userMessage.commit('user_message', response);
+              this.mobile_num = userMessage.state.mobile_num;
               this.avatar = userMessage.state.head_photo;
               this.userName = userMessage.state.name;
               this.gender = userMessage.state.gender;
@@ -296,6 +316,7 @@
             console.log(error);
           });
       } else {
+        this.mobile_num = userMessage.state.mobile_num;
         this.avatar = userMessage.state.head_photo;
         this.userName = userMessage.state.name;
         this.gender = userMessage.state.gender;
@@ -605,7 +626,7 @@
   }
 
   .user-list {
-    line-height: 48px;
+    line-height: 3em;
     background: white;
   }
 
