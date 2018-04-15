@@ -35,7 +35,7 @@ export default new Router({
       component: resolve => require(['../components/user'], resolve) // 懒加载
     },
     {
-      path: '/search',
+      path: '/search/:type/:area/:stage/:subject/',
       query: {key: ' '},
       component: resolve => require(['../components/searchResult'], resolve) // 懒加载
     },

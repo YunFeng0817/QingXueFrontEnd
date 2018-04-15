@@ -54,98 +54,7 @@
       slider: slider
     },
     mounted () {
-      // 判断 router 是 '/' 或 '/main' , 而且是没有数据存储的情况，就请求主页数据
-      if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
-        axios({
-          method: 'get',
-          url: '/api/common/page_contents/'
-        })
-          .then(function (response) {
-            if (response) {
-              for (let item of response.courses) {
-                item.is_course = true;
-              }
-              this.recommends = response.courses;
-              this.showMessages = response.essays;
-              this.showImages = response.banners;
-              userMessage.commit('commitList', response);
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          });
-        // 这个判断是 在 '/' 或 '/main' ，且已经有数据的情况，就直接赋值
-      } else if (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main') {
-        this.recommends = userMessage.state.main.courses;
-        this.showMessages = userMessage.state.main.essays;
-        this.showImages = userMessage.state.main.banners;
-        // 这个判断是在 router path 是 一级分类页面或者 筛选页面，而且已经有数据存储的情况
-      } else if (userMessage.state.firstClass.courses !== undefined && this.$router.currentRoute.path !== '/' && this.$router.currentRoute.path !== '/main') {
-        this.recommends = userMessage.state.firstClass.courses;
-        this.showMessages = userMessage.state.firstClass.essays;
-        this.showImages = userMessage.state.firstClass.banners;
-        // 这个判断是在 router path 是 一级分类页面或者 筛选页面，而且没有数据存储的情况
-      } else {
-        let type = this.$router.currentRoute.params.type;
-        let stage = this.$router.currentRoute.params.stages;
-        let id = [];
-        id.push(parseInt(this.$router.currentRoute.params.area));
-        id.push(parseInt(this.$router.currentRoute.params.stage));
-        id.push(parseInt(this.$router.currentRoute.params.subject));
-        let content = {};
-        // 接下来的几个判断是 判断 router path是否包含了筛选项的信息，-1是没有筛选项，非负数的数字是相应筛选项的id
-        if (id[0] !== -1) {
-          content.area = {};
-          content.area.id = id[0];
-        }
-        if (id[1] !== -1) {
-          content.stage = {};
-          content.stage.id = id[1];
-        }
-        if (id[2] !== -1) {
-          content.subject = {};
-          content.subject.id = id[2];
-        }
-        let firstClass = {};
-        firstClass[type] = {name: stage};
-        // 请求一级列表页
-        axios({
-          method: 'post',
-          url: '/api/common/page_contents/',
-          data: firstClass
-        })
-          .then(function (response) {
-            if (response) {
-              for (let course of response.courses) {
-                course.is_course = true;
-              }
-              userMessage.commit('commitFirst', response);
-              this.recommends = response.courses;
-              this.showMessages = response.essays;
-              this.showImages = response.banners;
-              // 请求筛选后的课程 ，post的数据是 筛选项的id
-              axios({
-                method: 'post',
-                url: '/api/course/filtered_courses/',
-                data: content
-              })
-                .then(function (response) {
-                  if (response) {
-                    for (let course of response.courses) {
-                      course.is_course = true;
-                    }
-                    this.recommends = response.courses;
-                  }
-                }.bind(this))
-                .catch(function (error) {
-                  console.log(error);
-                })
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
+      this.init();
       window.addEventListener('scroll', this.scrollHandle);
     },
     data () {
@@ -387,39 +296,128 @@
       '$route' (to, from) {
         this.page = 1;
         this.is_main = this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main';
-        if (this.is_main) {
-          if (userMessage.state.main.courses === undefined) {
-            axios({
-              method: 'get',
-              url: '/api/common/page_contents/'
-            })
-              .then(function (response) {
-                if (response) {
-                  for (let item of response.courses) {
-                    item.is_course = true;
-                  }
-                  this.recommends = response.courses;
-                  this.showMessages = response.essays;
-                  this.showImages = response.banners;
-                  userMessage.commit('commitList', response);
-                }
-              }.bind(this))
-              .catch(function (error) {
-                console.log(error);
-              });
-          } else {
-            this.showMessages = userMessage.state.main.essays;
-            this.showImages = userMessage.state.main.banners;
-            this.recommends = userMessage.state.main.courses;
-          }
-        } else if (this.$router.currentRoute.params.subject === '-1' && this.$router.currentRoute.params.area === '-1' && this.$router.currentRoute.params.stage === '-1') {
-          this.showImages = userMessage.state.firstClass.banners;
-          this.showMessages = userMessage.state.firstClass.essays;
-          this.recommends = userMessage.state.firstClass.courses;
-        }
+        this.init();
       }
     },
     methods: {
+      init () {
+        // 判断 router 是 '/' 或 '/main' , 而且是没有数据存储的情况，就请求主页数据
+        if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
+          axios({
+            method: 'get',
+            url: '/api/common/page_contents/'
+          })
+            .then(function (response) {
+              if (response) {
+                for (let item of response.courses) {
+                  item.is_course = true;
+                }
+                this.recommends = response.courses;
+                this.showMessages = response.essays;
+                this.showImages = response.banners;
+                userMessage.commit('commitList', response);
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+          // 这个判断是 在 '/' 或 '/main' ，且已经有数据的情况，就直接赋值
+        } else if (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main') {
+          this.recommends = userMessage.state.main.courses;
+          this.showMessages = userMessage.state.main.essays;
+          this.showImages = userMessage.state.main.banners;
+          // 这个判断是在 router path 是 一级分类页面，而且已经有数据存储的情况
+        } else if (userMessage.state.firstClass.courses !== undefined && this.$router.currentRoute.params.area === '-1' && this.$router.currentRoute.params.stage === '-1' && this.$router.currentRoute.params.subject === '-1') {
+          this.recommends = userMessage.state.firstClass.courses;
+          this.showMessages = userMessage.state.firstClass.essays;
+          this.showImages = userMessage.state.firstClass.banners;
+          // 这个判断是在 router path 是 一级分类页面，而且没有数据存储的情况
+        } else if (this.$router.currentRoute.params.area === '-1' && this.$router.currentRoute.params.stage === '-1' && this.$router.currentRoute.params.subject === '-1') {
+          let type = this.$router.currentRoute.params.type;
+          let stage = this.$router.currentRoute.params.stages;
+          let firstClass = {};
+          firstClass[type] = {name: stage};
+          // 请求一级列表页
+          axios({
+            method: 'post',
+            url: '/api/common/page_contents/',
+            data: firstClass
+          })
+            .then(function (response) {
+              if (response) {
+                for (let course of response.courses) {
+                  course.is_course = true;
+                }
+                userMessage.commit('commitFirst', response);
+                this.recommends = response.courses;
+                this.showMessages = response.essays;
+                this.showImages = response.banners;
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          let type = this.$router.currentRoute.params.type;
+          let stage = this.$router.currentRoute.params.stages;
+          let id = [];
+          id.push(parseInt(this.$router.currentRoute.params.area));
+          id.push(parseInt(this.$router.currentRoute.params.stage));
+          id.push(parseInt(this.$router.currentRoute.params.subject));
+          let content = {};
+          // 接下来的几个判断是 判断 router path是否包含了筛选项的信息，-1是没有筛选项，非负数的数字是相应筛选项的id
+          if (id[0] !== -1) {
+            content.area = {};
+            content.area.id = id[0];
+          }
+          if (id[1] !== -1) {
+            content.stage = {};
+            content.stage.id = id[1];
+          }
+          if (id[2] !== -1) {
+            content.subject = {};
+            content.subject.id = id[2];
+          }
+          let firstClass = {};
+          firstClass[type] = {name: stage};
+          // 请求一级列表页
+          axios({
+            method: 'post',
+            url: '/api/common/page_contents/',
+            data: firstClass
+          })
+            .then(function (response) {
+              if (response) {
+                for (let course of response.courses) {
+                  course.is_course = true;
+                }
+                userMessage.commit('commitFirst', response);
+                this.showMessages = response.essays;
+                this.showImages = response.banners;
+                // 请求筛选后的课程 ，post的数据是 筛选项的id
+                axios({
+                  method: 'post',
+                  url: '/api/course/filtered_courses/',
+                  data: content
+                })
+                  .then(function (response) {
+                    if (response) {
+                      for (let course of response.courses) {
+                        course.is_course = true;
+                      }
+                      this.recommends = response.courses;
+                    }
+                  }.bind(this))
+                  .catch(function (error) {
+                    console.log(error);
+                  })
+              }
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
+      },
       getFilter (event) {
         for (let item of event) {
           item.is_course = true;

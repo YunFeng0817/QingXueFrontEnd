@@ -139,37 +139,39 @@
         } else {
           id[this.type] = -1;
         }
-        let content = {};
-        if (id[0] !== -1) {
-          content.area = {};
-          content.area.id = id[0];
-        }
-        if (id[1] !== -1) {
-          content.stage = {};
-          content.stage.id = id[1];
-        }
-        if (id[2] !== -1) {
-          content.subject = {};
-          content.subject.id = id[2];
-        }
-        if (!content) {
-          content = null;
-        }
-        axios({
-          method: 'post',
-          url: '/api/course/filtered_courses/',
-          data: content
-        })
-          .then(function (response) {
-            if (response) {
-              let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
-              this.$router.replace({path: routerPath});
-              this.$emit('filterOn', response.courses);
-            }
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          })
+        let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
+        this.$router.replace({path: routerPath});
+        //   let content = {};
+        //   if (id[0] !== -1) {
+        //     content.area = {};
+        //     content.area.id = id[0];
+        //   }
+        //   if (id[1] !== -1) {
+        //     content.stage = {};
+        //     content.stage.id = id[1];
+        //   }
+        //   if (id[2] !== -1) {
+        //     content.subject = {};
+        //     content.subject.id = id[2];
+        //   }
+        //   if (!content) {
+        //     content = null;
+        //   }
+        //   axios({
+        //     method: 'post',
+        //     url: '/api/course/filtered_courses/',
+        //     data: content
+        //   })
+        //     .then(function (response) {
+        //       if (response) {
+        //         let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
+        //         this.$router.replace({path: routerPath});
+        //         this.$emit('filterOn', response.courses);
+        //       }
+        //     }.bind(this))
+        //     .catch(function (error) {
+        //       console.log(error);
+        //     })
       }
     }
   };
