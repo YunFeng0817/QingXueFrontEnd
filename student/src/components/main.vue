@@ -240,7 +240,7 @@
           },
           {
             type: 'subject',
-            message: '职业技能',
+            message: '专业技能',
             iconType: 'professional',
             url: ' /api/common/page_contents/',
             data: {

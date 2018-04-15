@@ -61,7 +61,7 @@
           </el-form-item>
           <hr>
           <label style="font-size: medium;color: gray;float: left;">
-            请在地图上标出您的位置 <span style="color:red;">提示：</span>点击地图右下角的小圆点进行定位,可以移动红点更改位置
+            请在地图上标出您的位置 <span style="color:red;">提示：</span>点击地图右下角的小圆点进行自动定位,或移动红色标记手动定位
           </label>
           <br/>
           <br/>

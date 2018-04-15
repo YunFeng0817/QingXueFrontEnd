@@ -216,12 +216,12 @@
         <label style="font-size: medium">&nbsp;&nbsp;&nbsp;&nbsp;意见建议&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <a
           style="text-decoration: underline;"
-          :href="'mailto:advice@qingxue.xyz?Subject=意见建议&body=我的建议%20%3A%0D%0A用户绑定手机号：'+mobile_num+'%0D%0A预约课程订单号%20%3A%0D%0A其他联系方式%20%3A%0D%0A'">advice@qingxue.xyz</a>
+          :href="'mailto:advice@qingxue.xyz?Subject=意见建议&body=我的建议%20%3A%0D%0A用户绑定手机号：'+mobile_num+'%0D%0A支付宝交易号%20%3A%0D%0A其他联系方式%20%3A%0D%0A'">advice@qingxue.xyz</a>
         <br/>
         <label style="font-size: medium">&nbsp;&nbsp;&nbsp;&nbsp;问题反馈&nbsp;&nbsp;&nbsp;&nbsp;</label>
         <a
           style="text-decoration: underline;"
-          :href="'mailto:service@qingxue.xyz?Subject=问题反馈&body=问题反馈%20%3A%0D%0A用户绑定手机号：'+mobile_num+'%0D%0A预约课程订单号%20%3A%0D%0A其他联系方式%20%3A%0D%0A'">service@qingxue.xyz</a>
+          :href="'mailto:service@qingxue.xyz?Subject=问题反馈&body=问题反馈%20%3A%0D%0A用户绑定手机号：'+mobile_num+'%0D%0A支付宝交易号%20%3A%0D%0A其他联系方式%20%3A%0D%0A'">service@qingxue.xyz</a>
       </el-collapse-item>
       <div class="user-list el-collapse-item__header" style="height: 60px;" @click="openShare">
         <span class="operation-item" style="height: 60px;"><icon name="share" :scale="3"></icon>&nbsp;&nbsp;&nbsp;&nbsp;分享</span>

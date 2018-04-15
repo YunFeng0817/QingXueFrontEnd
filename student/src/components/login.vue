@@ -58,7 +58,7 @@
             </el-steps>
             <div v-if="process===0&&!forget_pass">
               <h2>
-                请您认真查看以下条款
+                请您认真阅读以下协议
               </h2>
               <clause>
               </clause>

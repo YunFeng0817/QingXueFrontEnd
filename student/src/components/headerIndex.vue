@@ -9,7 +9,7 @@
           class="inline-input"
           v-model="searchContent"
           :fetch-suggestions="querySearch"
-          :placeholder="is_course?'输入课程单关键词':'输入资讯关键字'"
+          :placeholder="is_course?'输入课程关键字':'输入资讯关键字'"
           @select="handleSelect"
           clearable="true"
         >
