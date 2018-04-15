@@ -14,8 +14,8 @@
             <div style="padding: 2%;width:100%;">
               <span style="font-size:larger;">{{item.title.length>10?item.title.substr(0,10)+'……':item.title}}</span>
               <div class="bottom clearfix">
-                <span v-if="!item.is_course" style="float:right;">发布：{{item.author}}</span>
-                <p v-if="!item.is_course" style="line-height: 2em;letter-spacing:2px">
+                <span v-if="!item.is_course&&item.author" style="float:right;">发布：{{item.author}}</span>
+                <p v-if="!item.is_course&&item.brief_description" style="line-height: 1.5em;letter-spacing:2px">
                   {{item.brief_description.length>30?item.brief_description.substr(0,30)+'……':item.brief_description}}
                 </p>
                 <span v-if="item.is_course">
