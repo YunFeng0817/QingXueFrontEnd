@@ -15,7 +15,7 @@
         </div>
       </el-carousel-item>
     </el-carousel>
-    <el-filter v-if="!is_main" @filterOn="getFilter">
+    <el-filter v-if="!is_main">
     </el-filter>
     <div class="wrap">
       <list_news v-if="recommends.length!==0" :typeName="typeName" :recommends="recommends">
@@ -300,6 +300,9 @@
       }
     },
     methods: {
+      /**
+       * 这个函数负责在页面初始化和路由信息发生变化时，根据各种情况，获取数据的来源
+       */
       init () {
         // 判断 router 是 '/' 或 '/main' , 而且是没有数据存储的情况，就请求主页数据
         if (userMessage.state.main.courses === undefined && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === '/main')) {
@@ -417,13 +420,6 @@
               console.log(error);
             });
         }
-      },
-      getFilter (event) {
-        for (let item of event) {
-          item.is_course = true;
-        }
-        this.page = 1;
-        this.recommends = event;
       },
       getEssay (id) {
         this.$router.push({path: '/article/' + id});

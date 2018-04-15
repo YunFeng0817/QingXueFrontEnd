@@ -22,9 +22,6 @@
 </template>
 
 <script>
-  import axios from '../axios/index';
-  import userMessage from '../store/index';
-
   export default {
     name: 'header-index',
     props: {
@@ -72,30 +69,10 @@
         }
 
         if (result) {
-          let url = this.is_course ? '/api/course/search_list/keyword=' : '/api/essay/search/?keyword=';
-          axios({
-            method: 'get',
-            url: url + this.searchContent
-          })
-            .then(function (response) {
-              if (response) {
-                if (this.is_course) {
-                  for (let item of response.courses) {
-                    item.is_course = this.is_course;
-                  }
-                } else {
-                  for (let item of response.essays) {
-                    item.is_course = this.is_course;
-                  }
-                }
-                response.is_course = this.is_course;
-                userMessage.commit('commitSearch', response);
-                this.$router.push({path: '/search', query: {key: this.searchContent}});
-              }
-            }.bind(this))
-            .catch(function (error) {
-              console.log(error);
-            });
+          this.$router.push({
+            path: '/search/' + (this.is_course ? 'main/' : 'dynamic/') + '-1/-1/-1/',
+            query: {key: this.searchContent}
+          });
         }
       }
     },

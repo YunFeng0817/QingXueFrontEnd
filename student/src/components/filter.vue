@@ -139,8 +139,15 @@
         } else {
           id[this.type] = -1;
         }
-        let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
-        this.$router.replace({path: routerPath});
+        let queryContent = this.$router.currentRoute.query.key;
+        console.log(queryContent);
+        if (queryContent) {
+          let routerPath = '/search/' + type + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
+          this.$router.push({path: routerPath, query: {key: queryContent}});
+        } else {
+          let routerPath = '/get/' + type + '/' + stage + '/' + id[0] + '/' + id[1] + '/' + id[2] + '/';
+          this.$router.push({path: routerPath});
+        }
         //   let content = {};
         //   if (id[0] !== -1) {
         //     content.area = {};

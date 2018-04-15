@@ -1,53 +1,86 @@
 <template>
   <div>
+    <back-button>
+    </back-button>
     <header-index :is_course="is_course">
     </header-index>
-    <el-filter v-if="(is_course?recommends.courses:recommends.essays).length!==0" @filterOn="getFilter">
+    <br/>
+    <label v-if="recommends.length!==0">筛选搜索结果</label>
+    <el-filter v-if="recommends.length!==0">
     </el-filter>
-    <list-news v-if="(is_course?recommends.courses:recommends.essays).length!==0" :type-name="typeName"
-               :recommends="is_course?recommends.courses:recommends.essays">
+    <br/>
+    <list-news v-if="recommends.length!==0" :type-name="typeName"
+               :recommends="recommends">
     </list-news>
-    <p v-else style="text-align: center;font-size:large;">没有搜索到相关内容，换个关键词试试呗？</p>
+    <p v-else style="text-align: center;font-size:large;">没有筛选到相关内容<br/>可以点击左上角回退按钮查看之前的内容</p>
   </div>
 </template>
 
 <script>
   import listNews from './listNews';
   import headerIndex from './headerIndex';
-  import userMessage from '../store/index';
   import ElFilter from './filter';
   import axios from '../axios/index';
+  import BackButton from './backButton';
 
   export default {
     name: 'search-result',
     components: {
       'header-index': headerIndex,
       'list-news': listNews,
-      ElFilter
+      ElFilter,
+      BackButton
     },
     data () {
       return {
         typeName: '搜索结果',
-        recommends: userMessage.state.searchResult,
-        is_course: userMessage.state.is_course
+        recommends: [],
+        is_course: this.$router.currentRoute.params.type === 'main'
       }
     },
     watch: {
       '$route' (from, to) {
-        this.recommends = userMessage.state.searchResult;
-        this.is_course = userMessage.state.is_course;
+        this.is_course = this.$router.currentRoute.params.type === 'main';
+        this.searchAction();
       }
     },
     created () {
-      console.log(this.$router.currentRoute.query.key);
+      this.searchAction();
     },
     methods: {
+      /**
+       * 执行搜索和筛选的动作 ,放在组件的初始和路由发生变化的地方
+       */
       searchAction () {
-        let url = this.is_course ? '/api/course/search_list/keyword=' : '/api/essay/search/?keyword=';
-        // let type =
+        let type = this.$router.currentRoute.params.type;
+        let postMethod = 'post';
+        let url = type === 'main' ? '/api/course/search_list/keyword=' : '/api/essay/search/?keyword=';
+        let id = [];
+        id.push(parseInt(this.$router.currentRoute.params.area));
+        id.push(parseInt(this.$router.currentRoute.params.stage));
+        id.push(parseInt(this.$router.currentRoute.params.subject));
+        let content = {};
+        // 接下来的几个判断是 判断 router path是否包含了筛选项的信息，-1是没有筛选项，非负数的数字是相应筛选项的id
+        if (id[0] !== -1) {
+          content.area = {};
+          content.area.id = id[0];
+        }
+        if (id[1] !== -1) {
+          content.stage = {};
+          content.stage.id = id[1];
+        }
+        if (id[2] !== -1) {
+          content.subject = {};
+          content.subject.id = id[2];
+        }
+        if (id[0] === -1 && id[1] === -1 && id[2] === -1) {
+          postMethod = 'get';
+          content = null;
+        }
         axios({
-          method: 'get',
-          url: url + this.$router.currentRoute.query.key
+          method: postMethod,
+          url: url + this.$router.currentRoute.query.key,
+          data: content
         })
           .then(function (response) {
             if (response) {
@@ -55,25 +88,18 @@
                 for (let item of response.courses) {
                   item.is_course = this.is_course;
                 }
+                this.recommends = response.courses;
               } else {
                 for (let item of response.essays) {
                   item.is_course = this.is_course;
                 }
+                this.recommends = response.essays;
               }
-              response.is_course = this.is_course;
-              userMessage.commit('commitSearch', response);
-              this.$router.push({path: '/search', query: {key: this.searchContent}});
             }
           }.bind(this))
           .catch(function (error) {
             console.log(error);
           });
-      },
-      getFilter (event) {
-        for (let item of event) {
-          item.is_course = true;
-        }
-        this.recommends = event;
       }
     }
   }
