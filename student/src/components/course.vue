@@ -35,9 +35,9 @@
                   <span class="key">每课时 : </span>
                   <span class="value">{{perSession}} 小时</span>
                 </p>
-                <p v-if="total_hours_person">
-                  <span class="key">总课时的时间 : </span>
-                  <span class="value">{{total_hours_person}} 小时</span>
+                <p v-if="sessions">
+                  <span class="key">总课时数 :</span>
+                  <span class="value">{{sessions}} 节</span>
                 </p>
                 <p v-if="course_status">
                   <span class="key">剩余名额 : </span>
