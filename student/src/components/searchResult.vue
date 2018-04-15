@@ -13,6 +13,8 @@
                :recommends="recommends">
     </list-news>
     <p v-else style="text-align: center;font-size:large;">没有筛选到相关内容<br/>可以点击左上角回退按钮查看之前的内容</p>
+    <!--下面的这个区块是为了占位-->
+    <div style="height: 120px;"></div>
   </div>
 </template>
 
