@@ -22,9 +22,9 @@
             <el-tab-pane label="简介">
               <div v-if="path==='course'">
                 <p v-for="item in time_spans" :key="item.id">
-                  <span class="key">开课时间</span>
+                  <span class="key">开课时间：</span>
                   <span class="value">{{item.start_time}}</span>
-                  <span class="key">结课时间</span>
+                  <span class="key">结课时间：</span>
                   <span class="value">{{item.end_time}}</span>
                 </p>
                 <p v-if="available_time">
@@ -36,7 +36,7 @@
                   <span class="value">{{perSession}} 小时</span>
                 </p>
                 <p v-if="sessions">
-                  <span class="key">总课时数 :</span>
+                  <span class="key">课时数 :</span>
                   <span class="value">{{sessions}} 节</span>
                 </p>
                 <p v-if="course_status">
@@ -59,10 +59,10 @@
                   </el-rate>
                 </p>
                 <p>
-                  <span class="key"><i class="am-icon-circle-o"></i>价格</span>
+                  <span class="key"><i class="am-icon-circle-o"></i>价格：</span>
                   <span class="value">{{price}} 元</span>
                   <span>&nbsp;&nbsp;&nbsp;</span>
-                  <span class="key"><i class="am-icon-rmb"></i>订金</span>
+                  <span class="key"><i class="am-icon-rmb"></i>订金：</span>
                   <span class="value">{{price*discount}}元</span>
                 </p>
                 <p v-if="introduction">
