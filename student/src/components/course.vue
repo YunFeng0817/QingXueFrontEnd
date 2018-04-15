@@ -65,8 +65,9 @@
                 <p>
                   <span class="key">价格：</span>
                   <span class="value"><i class="am-icon-rmb"></i>{{price*discount}}</span>
-                  <span class="value" style="text-decoration: line-through"><i class="am-icon-rmb"></i>{{price}}</span>
-                  <span class="value" style="color:#67e6d1;">{{'-'+((1-discount)*100).toFixed(2)+'%'}}</span>
+                  <span class="value" style="text-decoration: line-through" v-if="discount!==1"><i
+                    class="am-icon-rmb"></i>{{price}}</span>
+                  <span class="value" style="color:#67e6d1;" v-if="discount!==1">{{'-'+((1-discount)*100).toFixed(2)+'%'}}</span>
                 </p>
                 <p v-if="introduction">
                   <span class="key">简要介绍: </span>
