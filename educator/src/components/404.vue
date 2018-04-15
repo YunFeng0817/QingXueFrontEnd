@@ -8,10 +8,10 @@
         <a href="/educator/login">机构或教师账号登录</a>
       </li>
       <li>
-        <a href="/dynamic/signup">机构或教师账号注册</a>
+        <a href="/educator/signup">机构或教师账号注册</a>
       </li>
       <li>
-        <a href="/dynamic/pay">购买会员</a>
+        <a href="/educator/pay">购买会员</a>
       </li>
     </ol>
   </div>

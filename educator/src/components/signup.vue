@@ -252,7 +252,7 @@
               if (this.$router.currentRoute.params.nextUrl) {
                 this.$router.push({path: '/educator/' + this.$router.currentRoute.params.nextUrl});
               } else {
-                this.$router.push({path: '/admin/'});
+                window.location.href = '/admin';
               }
             }
           }.bind(this))
