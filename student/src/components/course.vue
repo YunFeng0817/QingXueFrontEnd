@@ -59,11 +59,14 @@
                   </el-rate>
                 </p>
                 <p>
-                  <span class="key"><i class="am-icon-circle-o"></i>价格：</span>
-                  <span class="value">{{price}} 元</span>
-                  <span>&nbsp;&nbsp;&nbsp;</span>
-                  <span class="key"><i class="am-icon-rmb"></i>订金：</span>
-                  <span class="value">{{price*discount}}元</span>
+                  <span class="key">订金：</span>
+                  <span class="value"><i class="am-icon-rmb"></i>{{deposit}}</span>
+                </p>
+                <p>
+                  <span class="key">价格：</span>
+                  <span class="value"><i class="am-icon-rmb"></i>{{price*discount}}</span>
+                  <span class="value" style="text-decoration: line-through"><i class="am-icon-rmb"></i>{{price}}</span>
+                  <span class="value" style="color:#67e6d1;">{{'-'+((1-discount)*100)+'%'}}</span>
                 </p>
                 <p v-if="introduction">
                   <span class="key">简要介绍: </span>
@@ -250,6 +253,7 @@
     },
     data () {
       return {
+        deposit: 0, // 用户实际需要支付的金额
         total_hours_person: '',  // 总课时长
         course_status: '', // 课程紧张程度
         note: '', // 课程备注
@@ -315,6 +319,7 @@
               .then(function (response) {
                 if (response) {
                   userMessage.commit('commitCourse', response);
+                  this.deposit = response.deposit;
                   this.total_hours_person = response.total_hours_person;
                   this.course_status = response.course_status;
                   this.note = response.note;
@@ -340,6 +345,7 @@
                 console.log(error);
               });
           } else {
+            this.deposit = userMessage.state.courseDetail.deposit;
             this.total_hours_person = userMessage.state.courseDetail.total_hours_person;
             this.course_status = userMessage.state.courseDetail.course_status;
             this.note = userMessage.state.courseDetail.note;
