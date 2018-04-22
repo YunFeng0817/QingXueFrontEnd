@@ -475,7 +475,7 @@
             axios({
               method: 'post',
               headers: {
-                'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
               },
               url: '/api/student_operation/' + (this.path === 'course' ? 'favourites/' : 'followings/'),
               data: postData

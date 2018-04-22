@@ -5,7 +5,8 @@ let loadingObject;
 // 拦截request,设置全局请求为ajax请求
 axios.interceptors.request.use((config) => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
-  axios.defaults.headers.common['X-CSRFToken'] = document.cookie.split(';')[0].split('=')[1];
+  let regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
+  axios.defaults.headers.common['X-CSRFToken'] = document.cookie.match(regex)[1];
   loadingObject = Loading.service({fullscreen: true});
   return config
 });
@@ -101,6 +102,7 @@ axios.interceptors.response.use((response) => {
 
       case 403:
         err.message = '拒绝访问';
+        Message.error('服务器拒绝了您的请求，请联系管理员');
         break;
 
       case 404:

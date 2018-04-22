@@ -303,7 +303,6 @@
           })
       },
       submitForm (formName) {
-        let test = document.cookie.split(';')[0].split('=')[1];
         let method = this.forget_pass ? 'patch' : 'post';
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -311,7 +310,7 @@
               method: method,
               url: '/api/student/detail/',
               headers: {
-                'X-CSRFToken': test
+                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
               },
               data: {
                 check_method: 'msg_code_check',
