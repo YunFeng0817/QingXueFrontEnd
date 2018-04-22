@@ -87,7 +87,7 @@
           axios({
             method: 'get',
             headers: {
-              'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+              'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
             },
             url: '/api/essay/like/?essay_id=' + this.$router.currentRoute.params.id
           })

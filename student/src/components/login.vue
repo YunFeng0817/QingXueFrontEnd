@@ -310,7 +310,7 @@
               method: method,
               url: '/api/student/detail/',
               headers: {
-                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
               },
               data: {
                 check_method: 'msg_code_check',

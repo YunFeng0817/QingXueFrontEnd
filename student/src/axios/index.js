@@ -6,7 +6,7 @@ let loadingObject;
 axios.interceptors.request.use((config) => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
   let regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
-  axios.defaults.headers.common['X-CSRFToken'] = document.cookie.match(regex)[1];
+  axios.defaults.headers.common['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1];
   loadingObject = Loading.service({fullscreen: true});
   return config
 });
@@ -20,10 +20,10 @@ axios.interceptors.response.use((response) => {
   switch (data.status) {
     case 400:
       Message.error('表单提交异常');
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 401:
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 402:
       switch (data.detail) {
@@ -40,19 +40,19 @@ axios.interceptors.response.use((response) => {
       }
       return;
     case 403:
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 404:
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 405:
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 406:
       Message.error('密码强度不够');
       return;
     case 408:
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 409:
       Message.error('这个手机号已经注册过了');
@@ -73,13 +73,13 @@ axios.interceptors.response.use((response) => {
       Message.error('您发送的短信过于频繁，请过一个小时后再试这个手机号码');
       return;
     case 500:
-      console.log(data.status);
+      // console.log(data.status);
       return;
     case 204:
     case 200:
       return data;
     default:
-      alert(data.status);
+    // alert(data.status);
   }
   // 若不是正确的返回code，且已经登录，就抛出错误
   const err = new Error(data.detail);

@@ -93,7 +93,7 @@
           if (valid) {
             axios({
               headers: {
-                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
               },
               method: 'patch',
               url: '/api/student/detail/',

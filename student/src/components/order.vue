@@ -115,7 +115,7 @@
             method: 'post',
             url: '/api/order/course_orders/',
             headers: {
-              'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+              'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
             },
             data: {
               course_id: userMessage.state.courseDetail.id,
