@@ -92,7 +92,7 @@
       return {
         method: '',
         title: userMessage.state.courseDetail.title,
-        money: userMessage.state.courseDetail.total_price * userMessage.state.courseDetail.discount,
+        money: userMessage.state.courseDetail.deposit,
         note: userMessage.state.courseDetail.note,
         time_spans: userMessage.state.courseDetail.time_spans,
         session_hours: userMessage.state.courseDetail.session_hours,
