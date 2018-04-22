@@ -204,9 +204,9 @@
         axios({
           method: 'put',
           url: '/api/student/detail/',
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
+          // headers: {
+          //   'Content-Type': 'multipart/form-data'
+          // },
           data: dataForm
         })
           .then(function (response) {

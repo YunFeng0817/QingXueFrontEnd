@@ -309,9 +309,9 @@
             axios({
               method: method,
               url: '/api/student/detail/',
-              headers: {
-                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
-              },
+              // headers: {
+              //   'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+              // },
               data: {
                 check_method: 'msg_code_check',
                 password: this.ruleForm2.checkPass

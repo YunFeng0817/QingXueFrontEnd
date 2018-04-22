@@ -86,9 +86,9 @@
         if (userMessage.state.has_login) {
           axios({
             method: 'get',
-            headers: {
-              'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
-            },
+            // headers: {
+            //   'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+            // },
             url: '/api/essay/like/?essay_id=' + this.$router.currentRoute.params.id
           })
             .then(function (response) {

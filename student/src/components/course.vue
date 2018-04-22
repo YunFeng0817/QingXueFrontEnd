@@ -474,9 +474,9 @@
           if (!this.favourited) {
             axios({
               method: 'post',
-              headers: {
-                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
-              },
+              // headers: {
+              //   'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+              // },
               url: '/api/student_operation/' + (this.path === 'course' ? 'favourites/' : 'followings/'),
               data: postData
             })

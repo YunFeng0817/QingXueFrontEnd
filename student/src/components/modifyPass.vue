@@ -92,9 +92,9 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             axios({
-              headers: {
-                'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
-              },
+              // headers: {
+              //   'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
+              // },
               method: 'patch',
               url: '/api/student/detail/',
               data: {
