@@ -107,6 +107,7 @@ axios.interceptors.response.use((response) => {
 
       case 404:
         err.message = `请求地址出错: ${err.response.config.url}`;
+        Message.error('您未联网或网络出现了问题');
         break;
 
       case 408:
@@ -115,6 +116,7 @@ axios.interceptors.response.use((response) => {
 
       case 500:
         err.message = '服务器内部错误';
+        Message.error('服务器发生了错误，请联系管理员');
         break;
 
       case 501:
