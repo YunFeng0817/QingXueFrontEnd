@@ -4,6 +4,7 @@ import {Loading, Message} from 'element-ui';
 let loadingObject;
 // 拦截request,设置全局请求为ajax请求
 axios.interceptors.request.use((config) => {
+  let regex = /.*csrftoken=([^;.]*).*$/; // 用于从cookie中匹配 csrftoken值
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
   config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1];
   loadingObject = Loading.service({fullscreen: true});

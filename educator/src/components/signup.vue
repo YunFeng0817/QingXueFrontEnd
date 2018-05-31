@@ -314,7 +314,6 @@
           })
       },
       submitForm (formName) {
-        let test = document.cookie.split(';')[0].split('=')[1];
         let method = this.forget_pass ? 'patch' : 'post';
         this.$refs[formName].validate((valid) => {
           if (valid && (this.type !== '' || this.forget_pass)) {
