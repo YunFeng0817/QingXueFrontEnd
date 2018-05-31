@@ -3,13 +3,13 @@
     <h2>青学教育后台管理系统</h2>
     <div class="card">
       <h4>
-        请您认真查看以下条款
+        请您认真查看以下说明
       </h4>
       <div class="clause" v-html="hint">
         test
       </div>
       <br/>
-      <el-button class="button" type="primary" @click="getOrder">同意该条款
+      <el-button class="button" type="primary" @click="getOrder">已阅读该说明
       </el-button>
     </div>
   </div>
@@ -22,7 +22,8 @@
     name: 'pay',
     data () {
       return {
-        hint: '1、本订单仅供课程预约<br/>2、预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>3、预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>4、该预约不可取消，有效期内未付尾款视为取消该课程<br/>5、机构(教师)不保留相关课程安排'
+        hint: '资质认证：<br/>' +
+        '教师或机构用户需提供教育资质证明文件的电子照片或扫描件，及符合相关教育部门要求的证明文件的电子照片或扫描件，可联系资质认证客服（<a href="mailto:auth@qingxue.xyz?Subject=认证问题&body=认证问题%20%3A%0D%0A账号%20%3A%0D%0A其他联系方式%20%3A%0D%0A">auth@qingxue.xyz</a>）提供补充相关证明文件，或资质认证客服进行线下认证。<br/>认证费用:<span style="color:red">￥198 </span>/年'
       }
     },
     methods: {
