@@ -321,9 +321,6 @@
             axios({
               method: method,
               url: '/api/educator/sign_up/',
-              headers: {
-                'X-CSRFToken': test
-              },
               data: {
                 check_method: 'msg_code_check',
                 sign_up_type: this.type,

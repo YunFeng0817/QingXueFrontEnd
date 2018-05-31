@@ -5,7 +5,7 @@ let loadingObject;
 // 拦截request,设置全局请求为ajax请求
 axios.interceptors.request.use((config) => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
-  axios.defaults.headers.common['X-CSRFToken'] = document.cookie.split(';')[0].split('=')[1];
+  config.headers['X-CSRFToken'] = document.cookie.match(regex) === null ? null : document.cookie.match(regex)[1];
   loadingObject = Loading.service({fullscreen: true});
   return config
 });

@@ -244,8 +244,7 @@
             method: 'put',
             url: '/api/educator/sign_up/',
             headers: {
-              'Content-Type': 'multipart/form-data',
-              'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
+              'Content-Type': 'multipart/form-data'
             },
             data: dataForm
           })

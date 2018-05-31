@@ -30,10 +30,7 @@
       getOrder () {
         axios({
           url: '/api/order/registration_orders/',
-          method: 'post',
-          headers: {
-            'X-CSRFToken': document.cookie.split(';')[0].split('=')[1]
-          }
+          method: 'post'
         })
           .then(function (response) {
             if (response.total_amount) {
