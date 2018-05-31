@@ -46,13 +46,12 @@
           </el-steps>
           <div v-if="process===0&&!forget_pass">
             <h2>
-              请您认真查看以下条款
+              请您认真阅读以下协议
             </h2>
-            <div class="clause" v-html="hint">
-              test
-            </div>
+            <clause>
+            </clause>
             <br/>
-            <el-button @click="setProcess" class="button" type="primary">同意该条款
+            <el-button @click="setProcess" class="button" type="primary">同意该协议
             </el-button>
           </div>
           <div v-if="(!forget_pass&&process===1)||(forget_pass&&process===0)">
@@ -117,9 +116,13 @@
 
 <script>
   import axios from '../axios/index';
+  import Clause from './signUpClause';
 
   export default {
     name: 'login',
+    components: {
+      Clause
+    },
     data () {
       let validatePass = (rule, value, callback) => {
         if (value === '') {
