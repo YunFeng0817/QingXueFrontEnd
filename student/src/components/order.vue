@@ -63,7 +63,7 @@
     </div>
     <div class="order-word">
       <p>
-        预约须知：
+        用户须知：
       </p>
       <p v-html="hint">
       </p>
@@ -97,7 +97,7 @@
         time_spans: userMessage.state.courseDetail.time_spans,
         session_hours: userMessage.state.courseDetail.session_hours,
         sessions: userMessage.state.courseDetail.sessions,
-        hint: '1、本订单仅供课程预约<br/>2、预约成功后机构(教师)即做相应学生课程安排(包括安排座次，课前准备)<br/>3、预约有效期7天或截止至开课前第三天(以先到为准)，应在预约有效期内向机构(教师)支付尾款，并遵守机构(教师)关于课程的具体合约<br/>4、该预约不可取消，有效期内未付尾款视为取消该课程<br/>5、机构(教师)不保留相关课程安排',
+        hint: '1.课程预约订单自成功预约时起计算7日有效，或至课程开课前第7日，两者日期先到为准；其余特殊情况以教师/机构认定为准<br/>2.用户可随时取消课程预约<br/>3.如果用户不是具备完全民事权利能力和完全民事行为能力的自然人，请用户征得其监护人许可或由其监护人直接使用“青学教育信息”服务。后续线上线下上课、付款等所有相关事宜也必须由监护人陪同或征得监护人许可完成<br/>',
         student_notes: '',
         time_span_id: ''
       }
