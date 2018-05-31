@@ -3,7 +3,7 @@
     <li style="text-align:center;" :style="width" v-for="item in category_tag" :key="item.id">
       <!--<a @click="categoryLink(item)" class="am-icon-btn" :class="item.iconType"></a>-->
       <span @click="categoryLink(item)">
-        <icon :name="item.iconType" :scale="5">
+        <icon :name="item.iconType" :scale="80">
         </icon>
       </span>
       <span style="display: block;">
