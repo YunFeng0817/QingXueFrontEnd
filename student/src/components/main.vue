@@ -27,6 +27,13 @@
     <footer class="footer">
       <p>© 2018 哈尔滨青学信息技术有限公司</p>
       <a href="http://www.miitbeian.gov.cn/" target="备案号查询">黑ICP备18002231号</a>
+      <div style="width:300px;margin:0 auto; padding:20px 0;">
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=23011002000125"
+           style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+          <img src="../../static/policeIcon.png" style="float:left;"/>
+          <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">黑公网安备
+            23011002000125号</p></a>
+      </div>
     </footer>
     <!--下面的这个区块是为了占位-->
     <div style="height: 90px;"></div>
