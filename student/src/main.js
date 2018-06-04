@@ -16,6 +16,7 @@ import {
   Input,
   Select,
   Option,
+  Popover,
   Button,
   DatePicker,
   Form,
@@ -41,6 +42,7 @@ import {
 Vue.use(Autocomplete);
 Vue.use(Checkbox);
 Vue.use(Option);
+Vue.use(Popover);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Button);

@@ -193,9 +193,21 @@
       <a class="message" @click="intoInstitution(institutionID)">
         <i class="am-icon-university"></i>
         进入机构</a>
-      <a class="message" :href="'tel:'+contactPhone">
+      <el-popover
+        ref="popoverDisplay"
+        placement="bottom"
+        title="标题"
+        width="200"
+        trigger="click"
+        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+        <!--<a slot="reference" class="message" :href="'tel:'+contactPhone">-->
+        <!--<i class="am-icon-commenting-o"></i>-->
+        <!--咨询</a>-->
+      </el-popover>
+      <a v-popover:popoverDisplay class="message">
         <i class="am-icon-commenting-o"></i>
-        咨询</a>
+        咨询
+      </a>
       <a class="message" @click="share">
         <i class="am-icon-share-square-o"></i>
         分享课程</a>
@@ -410,6 +422,13 @@
           }
         }
       },
+      /**
+       *
+       */
+      displayPopover () {
+        this.$refs.popoverDisplay.click();
+        this.$refs.popoverDisplay.click();
+      },
       // 处理进入预定页面
       order () {
         this.$router.push({path: userMessage.state.has_login ? '/order' : '/login'});
@@ -474,9 +493,6 @@
           if (!this.favourited) {
             axios({
               method: 'post',
-              // headers: {
-              //   'X-CSRFToken': document.cookie.match(/.*csrftoken=([^;.]*).*$/) === null ? null : document.cookie.match(/.*csrftoken=([^;.]*).*$/)[1]
-              // },
               url: '/api/student_operation/' + (this.path === 'course' ? 'favourites/' : 'followings/'),
               data: postData
             })
