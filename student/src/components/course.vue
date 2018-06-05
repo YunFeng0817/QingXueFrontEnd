@@ -198,7 +198,15 @@
         placement="top"
         width="200"
         trigger="click">
-        <span v-if="contact!==undefined&&contact.length!==0">
+        <span v-if="contact!==undefined&&contact.length==1">
+          <span v-for="(item,id) in contact" :key="id">
+            <p style="margin:10% 0;" class="key" v-if="item.contact_type==='phone'">
+              电话:
+              <a :href="'tel:'+item.contact_detail">{{item.contact_detail}}</a>
+            </p>
+          </span>
+        </span>
+        <span v-else-if="contact!==undefined&&contact.length>1">
           <span v-for="(item,id) in contact" :key="id">
             <p style="margin:10% 0;" class="key" v-if="item.contact_type==='phone'">
               电话 {{id+1}}:
