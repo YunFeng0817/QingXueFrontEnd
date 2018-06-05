@@ -195,12 +195,18 @@
         进入机构</a>
       <el-popover
         ref="popoverDisplay"
-        placement="bottom"
-        title="标题"
+        placement="top"
         width="200"
-        trigger="click"
-        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-        <!--<a slot="reference" class="message" :href="'tel:'+contactPhone">-->
+        trigger="click">
+        <span v-if="contact!==undefined&&contact.length!==0">
+          <span v-for="(item,id) in contact" :key="id">
+            <p style="margin:10% 0;" class="key" v-if="item.contact_type==='phone'">
+              电话 {{id+1}}:
+              <a :href="'tel:'+item.contact_detail">{{item.contact_detail}}</a>
+            </p>
+          </span>
+        </span>
+        <span v-else>机构(教师)没有留联系电话</span>
         <!--<i class="am-icon-commenting-o"></i>-->
         <!--咨询</a>-->
       </el-popover>
@@ -323,6 +329,16 @@
       // 由于这个组件是 课程和机构共用， 所以要对类别进行判断
       init () {
         if (this.path === 'course') {
+          this.contact = [
+            {
+              contact_detail: '11111111111',
+              contact_type: 'phone'
+            },
+            {
+              contact_detail: '222222222',
+              contact_type: 'phone'
+            }
+          ];
           // 下面的if分支处理非跳转，直接访问的情况
           if (JSON.stringify(userMessage.state.courseDetail) === '{}') {
             axios({
