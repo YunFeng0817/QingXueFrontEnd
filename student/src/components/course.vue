@@ -329,16 +329,6 @@
       // 由于这个组件是 课程和机构共用， 所以要对类别进行判断
       init () {
         if (this.path === 'course') {
-          this.contact = [
-            {
-              contact_detail: '11111111111',
-              contact_type: 'phone'
-            },
-            {
-              contact_detail: '222222222',
-              contact_type: 'phone'
-            }
-          ];
           // 下面的if分支处理非跳转，直接访问的情况
           if (JSON.stringify(userMessage.state.courseDetail) === '{}') {
             axios({

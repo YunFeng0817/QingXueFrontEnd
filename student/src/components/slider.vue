@@ -3,7 +3,7 @@
                @touchmove.native.stopdefault="move" @touchend.native.stopdefault="drop" ref="carousel"
                @change="onchange">
     <el-carousel-item v-for="item in showImages" v-bind:key="item.id">
-      <a v-if="item.destination_url" :href="item.destination_url">
+      <a v-if="item.destination_url" :href="item.destination_url" target="_blank">
         <img :src="item.image"/>
       </a>
       <img v-else :src="item.image"/>
