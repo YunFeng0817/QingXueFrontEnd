@@ -198,15 +198,12 @@
           dataForm.append('head_photo', this.form.file);
         }
         dataForm.append('stage_id', stage);
-        dataForm.append('gender', this.form.gender);
-        dataForm.append('birthday', this.form.birthday);
+        dataForm.append('gender', this.form.gender ? this.form.gender : 'male');
+        dataForm.append('birthday', this.form.birthday ? this.form.birthday : '2000-01-01');
         dataForm.append('name', this.form.name);
         axios({
           method: 'put',
           url: '/api/student/detail/',
-          // headers: {
-          //   'Content-Type': 'multipart/form-data'
-          // },
           data: dataForm
         })
           .then(function (response) {
